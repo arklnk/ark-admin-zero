@@ -1,0 +1,11 @@
+syntax = "v1"
+
+info(
+	title: "ark-zero-admin"
+	desc: "arklnk go-zero admin system"
+	author: "Trevor Lan"
+	email: "1143458312@qq.com"
+	version: "v1.0.0"
+)
+
+import "doc/user/user.api"

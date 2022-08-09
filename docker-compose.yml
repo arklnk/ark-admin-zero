@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: admin1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data/mysql/data:/var/lib/mysql
+    privileged: true
+    restart: always
+    networks:
+      - ark_admin_net
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - ark_admin_net
+
+  redis:
+    image: redis:6.2.5
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./data/redis/data:/data:rw
+    command: "redis-server --requirepass admin1234  --appendonly yes"
+    privileged: true
+    restart: always
+    networks:
+      - ark_admin_net
+
+networks:
+  ark_admin_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

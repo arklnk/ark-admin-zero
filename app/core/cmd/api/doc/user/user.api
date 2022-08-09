@@ -1,0 +1,66 @@
+syntax = "v1"
+
+type (
+    DefaultResp {
+    }
+
+    LoginReq {
+    }
+    LoginResp {
+    }
+
+    InfoResp {
+    }
+
+    LogoutResp {
+    }
+
+    ProfileResp {
+    }
+
+    PasswordReq {
+    }
+    PasswordResp {
+    }
+
+    CaptchaResp {
+    }
+)
+
+
+
+
+
+@server(
+    group : user
+    prefix : /user
+)
+service core-api {
+    @handler userLogin
+    post /login (LoginReq) returns (LoginResp)
+
+    @handler loginCaptcha
+    post /login/captcha returns (CaptchaResp)
+}
+
+@server(
+    jwt: Auth
+    group : user
+    prefix : /user
+)
+service core-api {
+    @handler userInfo
+    get /info returns (InfoResp)
+
+    @handler userProfileInfo
+    get /profile/info returns (ProfileResp)
+
+    @handler userProfileUpdate
+    post /profile/update returns (DefaultResp)
+
+    @handler userPasswordUpdate
+    post /password/update (PasswordReq) returns (PasswordResp)
+
+    @handler userLogout
+    post /logout
+}
