@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-09 10:12:08
+-- 生成日期： 2022-08-10 03:26:13
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -87,8 +87,8 @@ CREATE TABLE `sys_log_action` (
   `os` varchar(50) NOT NULL COMMENT '系统',
   `browser` varchar(50) NOT NULL COMMENT '浏览器',
   `uri` varchar(200) NOT NULL COMMENT '请求路径',
-  `request` text NOT NULL COMMENT '请求数据',
-  `response` text NOT NULL COMMENT '响应数据',
+  `request` json NOT NULL COMMENT '请求数据',
+  `response` json NOT NULL COMMENT '响应数据',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='操作日志';
@@ -131,10 +131,10 @@ CREATE TABLE `sys_param` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sys_perms`
+-- 表的结构 `sys_permmenu`
 --
 
-CREATE TABLE `sys_perms` (
+CREATE TABLE `sys_permmenu` (
   `id` int(11) NOT NULL COMMENT '编号',
   `parent_id` int(11) DEFAULT NULL COMMENT '父级id',
   `name` varchar(255) NOT NULL COMMENT '名称',
@@ -148,7 +148,7 @@ CREATE TABLE `sys_perms` (
   `active_router` varchar(255) DEFAULT NULL COMMENT '当前激活的菜单',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='菜单&权限';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限&菜单';
 
 -- --------------------------------------------------------
 
@@ -177,7 +177,7 @@ CREATE TABLE `sys_role` (
   `name` varchar(25) NOT NULL COMMENT '名称',
   `unique_key` varchar(25) NOT NULL COMMENT '唯一标识',
   `remark` varchar(100) NOT NULL COMMENT '备注',
-  `perms_id` int(11) NOT NULL COMMENT '权限集',
+  `perms_id` json NOT NULL COMMENT '权限集',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -192,11 +192,11 @@ CREATE TABLE `sys_role` (
 
 CREATE TABLE `sys_user` (
   `id` int(10) NOT NULL COMMENT '编号',
-  `username` varchar(25) NOT NULL COMMENT '姓名',
-  `nickname` varchar(25) NOT NULL COMMENT '昵称',
   `account` varchar(25) NOT NULL COMMENT '账号',
   `password` char(32) NOT NULL COMMENT '密码',
-  `avatar` varchar(200) NOT NULL COMMENT '头像',
+  `username` varchar(25) NOT NULL COMMENT '姓名',
+  `nickname` varchar(25) DEFAULT NULL COMMENT '昵称',
+  `avatar` varchar(200) DEFAULT NULL COMMENT '头像',
   `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=保密 1=女 2=男',
   `birthday` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '生日',
   `email` varchar(50) DEFAULT NULL COMMENT '邮件',
@@ -204,10 +204,10 @@ CREATE TABLE `sys_user` (
   `profession_id` int(11) NOT NULL COMMENT '职称',
   `job_id` int(11) NOT NULL COMMENT '岗位',
   `dept_id` int(11) NOT NULL COMMENT '部门',
-  `role_id` int(11) NOT NULL COMMENT '角色集',
+  `role_id` json NOT NULL COMMENT '角色集',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
-  `remark` varchar(100) NOT NULL COMMENT '备注',
+  `remark` varchar(100) DEFAULT NULL COMMENT '备注',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户';
@@ -220,19 +220,22 @@ CREATE TABLE `sys_user` (
 -- 表的索引 `sys_dept`
 --
 ALTER TABLE `sys_dept`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_key` (`unique_key`);
 
 --
 -- 表的索引 `sys_dictionary`
 --
 ALTER TABLE `sys_dictionary`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_key` (`unique_key`);
 
 --
 -- 表的索引 `sys_job`
 --
 ALTER TABLE `sys_job`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- 表的索引 `sys_log_action`
@@ -250,31 +253,35 @@ ALTER TABLE `sys_log_login`
 -- 表的索引 `sys_param`
 --
 ALTER TABLE `sys_param`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_key` (`unique_key`);
 
 --
--- 表的索引 `sys_perms`
+-- 表的索引 `sys_permmenu`
 --
-ALTER TABLE `sys_perms`
+ALTER TABLE `sys_permmenu`
   ADD PRIMARY KEY (`id`);
 
 --
 -- 表的索引 `sys_profession`
 --
 ALTER TABLE `sys_profession`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- 表的索引 `sys_role`
 --
 ALTER TABLE `sys_role`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_key` (`unique_key`);
 
 --
 -- 表的索引 `sys_user`
 --
 ALTER TABLE `sys_user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `account` (`account`);
 
 --
 -- 在导出的表使用AUTO_INCREMENT
@@ -317,9 +324,9 @@ ALTER TABLE `sys_param`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号';
 
 --
--- 使用表AUTO_INCREMENT `sys_perms`
+-- 使用表AUTO_INCREMENT `sys_permmenu`
 --
-ALTER TABLE `sys_perms`
+ALTER TABLE `sys_permmenu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号';
 
 --
