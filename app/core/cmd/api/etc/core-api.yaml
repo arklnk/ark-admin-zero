@@ -7,7 +7,7 @@ JwtAuth:
   AccessExpire: 86400
 
 Mysql:
-  DataSource: root:root@tcp(127.0.0.1:3306)/arl_admin_zero?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:root@tcp(127.0.0.1:3306)/ark_admin_zero?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 
 Cache:
   - Host: 127.0.0.1:6379
