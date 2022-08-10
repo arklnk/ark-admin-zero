@@ -86,7 +86,7 @@ service core-api {
 		summary: "登录验证码"
 	)
 	@handler getLoginCaptcha
-	post /login/captcha returns (CaptchaResp)
+	get /login/captcha returns (CaptchaResp)
 }
 
 @server(
