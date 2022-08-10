@@ -1,21 +1,21 @@
 package errorx
 
-var ErrorMsg map[int]string
+var errorMsg map[int]string
 
 const (
+	ParamErrorCode   = 1001
 	CaptchaErrorCode = 1002
-	ParamErrorCode   = 1003
 )
 
 func init() {
-	ErrorMsg = make(map[int]string)
-	ErrorMsg[CaptchaErrorCode] = "验证码错误"
+	errorMsg = make(map[int]string)
+	errorMsg[CaptchaErrorCode] = "验证码错误"
 }
 
 func MapErrMsg(errCode int) string {
-	if msg, ok := ErrorMsg[errCode]; ok {
+	if msg, ok := errorMsg[errCode]; ok {
 		return msg
 	} else {
-		return "错误码未定义"
+		return "服务繁忙，请稍后重试"
 	}
 }

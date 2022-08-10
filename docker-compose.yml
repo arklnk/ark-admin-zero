@@ -6,7 +6,7 @@ services:
     container_name: mysql
     environment:
       TZ: Asia/Shanghai
-      MYSQL_ROOT_PASSWORD: admin1234
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
@@ -36,7 +36,7 @@ services:
       TZ: Asia/Shanghai
     volumes:
       - ./data/redis/data:/data:rw
-    command: "redis-server --requirepass admin1234  --appendonly yes"
+    command: "redis-server --requirepass 123456  --appendonly yes"
     privileged: true
     restart: always
     networks:
@@ -45,6 +45,3 @@ services:
 networks:
   ark_admin_net:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
