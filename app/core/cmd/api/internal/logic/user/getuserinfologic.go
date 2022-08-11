@@ -1,10 +1,11 @@
 package user
 
 import (
-	"context"
-
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
+	"ark-zero-admin/pkg/errorx"
+	"ark-zero-admin/pkg/utils"
+	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +25,13 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserInfoLogic) GetUserInfo() (resp *types.InfoResp, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	userId := utils.UserId(l.ctx)
+	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
+	if err != nil {
+		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+	return &types.InfoResp{
+		Username: user.Username,
+		Avatar:   user.Avatar,
+	}, nil
 }

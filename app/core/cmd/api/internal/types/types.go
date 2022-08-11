@@ -20,7 +20,7 @@ type InfoResp struct {
 type ProfileResp struct {
 	Username string `json:"username"`
 	Nickname string `json:"nickname"`
-	Gender   string `json:"gender"`
+	Gender   int64  `json:"gender"`
 	Email    string `json:"email"`
 	Mobile   string `json:"mobile"`
 	Remark   string `json:"remark"`

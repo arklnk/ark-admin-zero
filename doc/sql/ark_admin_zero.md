@@ -167,7 +167,7 @@
 |name|varchar(25)|名称|
 |unique_key|varchar(25)|唯一标识|
 |remark|varchar(100)|备注|
-|perms_id|json|权限集|
+|permmenu_id|json|权限集|
 |status|tinyint(1)|0=禁用 1=开启|
 |order_num|int(11)|排序值|
 |create_time|timestamp|创建时间|
