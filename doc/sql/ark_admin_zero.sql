@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-11 09:56:58
+-- 生成日期： 2022-08-11 22:07:17
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -189,7 +189,11 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 09:55:49');
+(1, 0, '超级管理员', 'superadmin', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 09:55:49'),
+(2, 1, '子角色1', 'subrole1', '', '[1]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 21:28:43'),
+(3, 1, '子角色2', 'subrole2', '', '[2]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 21:28:55'),
+(4, 2, '子角色1-1', 'subrole1-1', '', '[3]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 22:03:58'),
+(6, 3, '子角色2-1', 'subrole2-1', '', '[4]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 22:04:25');
 
 -- --------------------------------------------------------
 
@@ -224,7 +228,7 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', '', 0, '1970-01-01 00:00:00', '', '', 1, 1, 1, '[1]', 1, 0, '', '2022-08-11 06:19:45', '2022-08-11 09:56:36');
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', '', 0, '1970-01-01 00:00:00', '', '', 1, 1, 1, '[1, 2]', 1, 0, '', '2022-08-11 06:19:45', '2022-08-11 21:42:13');
 
 --
 -- 转储表的索引
@@ -353,7 +357,7 @@ ALTER TABLE `sys_profession`
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=7;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`

@@ -1,6 +1,8 @@
 package model
 
 import (
+	"context"
+	"fmt"
 	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 )
@@ -12,6 +14,7 @@ type (
 	// and implement the added methods in customSysRoleModel.
 	SysRoleModel interface {
 		sysRoleModel
+		FindSubRole(ctx context.Context, id int64) ([]*SysRole, error)
 	}
 
 	customSysRoleModel struct {
@@ -23,5 +26,17 @@ type (
 func NewSysRoleModel(conn sqlx.SqlConn, c cache.CacheConf) SysRoleModel {
 	return &customSysRoleModel{
 		defaultSysRoleModel: newSysRoleModel(conn, c),
+	}
+}
+
+func (m *customSysRoleModel) FindSubRole(ctx context.Context, id int64) ([]*SysRole, error) {
+	query := fmt.Sprintf("select %s from %s where `parent_id` = ?", sysRoleRows, m.table)
+	var resp []*SysRole
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return nil, err
 	}
 }

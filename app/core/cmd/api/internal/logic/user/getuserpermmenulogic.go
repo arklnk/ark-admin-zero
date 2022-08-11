@@ -3,6 +3,7 @@ package user
 import (
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
+	"ark-zero-admin/app/core/model"
 	"ark-zero-admin/pkg/utils"
 	"context"
 	"encoding/json"
@@ -31,11 +32,37 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.PermMenuResp, err 
 	if err != nil {
 		return nil, err
 	}
-	role := make([]int64, 1, 10)
-	err = json.Unmarshal([]byte(user.RoleIds), &role)
+	var roles []int64
+	err = json.Unmarshal([]byte(user.RoleIds), &roles)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("%v", role)
+	var permMenu []int64
+	for _, roleId := range roles {
+		role, err := l.svcCtx.SysRoleModel.FindOne(l.ctx, roleId)
+		if err != nil && err != model.ErrNotFound {
+			return nil, err
+		}
+		var perms []int64
+		err = json.Unmarshal([]byte(role.PermMenuIds), &perms)
+		if err != nil {
+			return nil, err
+		}
+		fmt.Printf("%v", role.PermMenuIds)
+		permMenu = append(permMenu, perms...)
+		//l.SubRoleCallback(roleId)
+	}
+	fmt.Printf("%v", permMenu)
 	return
+}
+
+func (l *GetUserPermMenuLogic) SubRoleCallback(roleId int64) {
+	roles, err := l.svcCtx.SysRoleModel.FindSubRole(l.ctx, roleId)
+	if err != nil && err != model.ErrNotFound {
+		return
+	}
+	for _, role := range roles {
+		fmt.Printf("%v", role)
+		l.SubRoleCallback(role.Id)
+	}
 }
