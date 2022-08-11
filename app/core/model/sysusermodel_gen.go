@@ -54,7 +54,7 @@ type (
 		ProfessionId int64     `db:"profession_id"` // 职称
 		JobId        int64     `db:"job_id"`        // 岗位
 		DeptId       int64     `db:"dept_id"`       // 部门
-		RoleId       string    `db:"role_id"`       // 角色集
+		RoleIds      string    `db:"role_ids"`      // 角色集
 		Status       int64     `db:"status"`        // 0=禁用 1=开启
 		OrderNum     int64     `db:"order_num"`     // 排序值
 		Remark       string    `db:"remark"`        // 备注
@@ -127,7 +127,7 @@ func (m *defaultSysUserModel) Insert(ctx context.Context, data *SysUser) (sql.Re
 	arkAdminZeroSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserIdPrefix, data.Id)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, sysUserRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.Account, data.Password, data.Username, data.Nickname, data.Avatar, data.Gender, data.Birthday, data.Email, data.Mobile, data.ProfessionId, data.JobId, data.DeptId, data.RoleId, data.Status, data.OrderNum, data.Remark)
+		return conn.ExecCtx(ctx, query, data.Account, data.Password, data.Username, data.Nickname, data.Avatar, data.Gender, data.Birthday, data.Email, data.Mobile, data.ProfessionId, data.JobId, data.DeptId, data.RoleIds, data.Status, data.OrderNum, data.Remark)
 	}, arkAdminZeroSysUserAccountKey, arkAdminZeroSysUserIdKey)
 	return ret, err
 }
@@ -142,7 +142,7 @@ func (m *defaultSysUserModel) Update(ctx context.Context, newData *SysUser) erro
 	arkAdminZeroSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserIdPrefix, data.Id)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, sysUserRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, newData.Account, newData.Password, newData.Username, newData.Nickname, newData.Avatar, newData.Gender, newData.Birthday, newData.Email, newData.Mobile, newData.ProfessionId, newData.JobId, newData.DeptId, newData.RoleId, newData.Status, newData.OrderNum, newData.Remark, newData.Id)
+		return conn.ExecCtx(ctx, query, newData.Account, newData.Password, newData.Username, newData.Nickname, newData.Avatar, newData.Gender, newData.Birthday, newData.Email, newData.Mobile, newData.ProfessionId, newData.JobId, newData.DeptId, newData.RoleIds, newData.Status, newData.OrderNum, newData.Remark, newData.Id)
 	}, arkAdminZeroSysUserAccountKey, arkAdminZeroSysUserIdKey)
 	return err
 }

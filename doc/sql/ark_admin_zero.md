@@ -16,7 +16,7 @@
 
 * [sys_param(系统参数)](#sys_param_pointer)
 
-* [sys_permmenu(权限&菜单)](#sys_permmenu_pointer)
+* [sys_perm_menu(权限&菜单)](#sys_perm_menu_pointer)
 
 * [sys_profession(职称)](#sys_profession_pointer)
 
@@ -123,9 +123,9 @@
 |create_time|timestamp|创建时间|
 |update_time|timestamp|更新时间|
 
-<a name="sys_permmenu_pointer"></a>
+<a name="sys_perm_menu_pointer"></a>
 
-* sys_permmenu表(权限&菜单)[↑](#返回顶部)
+* sys_perm_menu表(权限&菜单)[↑](#返回顶部)
 
 |字段名称|字段类型|字段含义|
 |:---:|:---:|:---:|
@@ -167,7 +167,7 @@
 |name|varchar(25)|名称|
 |unique_key|varchar(25)|唯一标识|
 |remark|varchar(100)|备注|
-|permmenu_id|json|权限集|
+|perm_menu_ids|json|权限集|
 |status|tinyint(1)|0=禁用 1=开启|
 |order_num|int(11)|排序值|
 |create_time|timestamp|创建时间|
@@ -192,7 +192,7 @@
 |profession_id|int(11)|职称|
 |job_id|int(11)|岗位|
 |dept_id|int(11)|部门|
-|role_id|json|角色集|
+|role_ids|json|角色集|
 |status|tinyint(1)|0=禁用 1=开启|
 |order_num|int(11)|排序值|
 |remark|varchar(100)|备注|

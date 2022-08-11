@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-11 08:40:21
+-- 生成日期： 2022-08-11 09:56:58
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -131,10 +131,10 @@ CREATE TABLE `sys_param` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sys_permmenu`
+-- 表的结构 `sys_perm_menu`
 --
 
-CREATE TABLE `sys_permmenu` (
+CREATE TABLE `sys_perm_menu` (
   `id` int(11) NOT NULL COMMENT '编号',
   `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级id',
   `name` varchar(255) NOT NULL COMMENT '名称',
@@ -177,12 +177,19 @@ CREATE TABLE `sys_role` (
   `name` varchar(25) NOT NULL COMMENT '名称',
   `unique_key` varchar(25) NOT NULL COMMENT '唯一标识',
   `remark` varchar(100) NOT NULL DEFAULT '""' COMMENT '备注',
-  `permmenu_id` json NOT NULL COMMENT '权限集',
+  `perm_menu_ids` json NOT NULL COMMENT '权限集',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色';
+
+--
+-- 转存表中的数据 `sys_role`
+--
+
+INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
+(1, 0, '超级管理员', 'superadmin', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 09:55:49');
 
 -- --------------------------------------------------------
 
@@ -204,7 +211,7 @@ CREATE TABLE `sys_user` (
   `profession_id` int(11) NOT NULL COMMENT '职称',
   `job_id` int(11) NOT NULL COMMENT '岗位',
   `dept_id` int(11) NOT NULL COMMENT '部门',
-  `role_id` json NOT NULL COMMENT '角色集',
+  `role_ids` json NOT NULL COMMENT '角色集',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
   `remark` varchar(100) NOT NULL DEFAULT '""' COMMENT '备注',
@@ -216,8 +223,8 @@ CREATE TABLE `sys_user` (
 -- 转存表中的数据 `sys_user`
 --
 
-INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_id`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', '', 0, '1970-01-01 00:00:00', '', '', 1, 1, 1, '[1]', 1, 0, '', '2022-08-11 06:19:45', '2022-08-11 08:33:09');
+INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', '', 0, '1970-01-01 00:00:00', '', '', 1, 1, 1, '[1]', 1, 0, '', '2022-08-11 06:19:45', '2022-08-11 09:56:36');
 
 --
 -- 转储表的索引
@@ -264,9 +271,9 @@ ALTER TABLE `sys_param`
   ADD UNIQUE KEY `unique_key` (`unique_key`);
 
 --
--- 表的索引 `sys_permmenu`
+-- 表的索引 `sys_perm_menu`
 --
-ALTER TABLE `sys_permmenu`
+ALTER TABLE `sys_perm_menu`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -331,9 +338,9 @@ ALTER TABLE `sys_param`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号';
 
 --
--- 使用表AUTO_INCREMENT `sys_permmenu`
+-- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
-ALTER TABLE `sys_permmenu`
+ALTER TABLE `sys_perm_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号';
 
 --
@@ -346,7 +353,7 @@ ALTER TABLE `sys_profession`
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号';
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`

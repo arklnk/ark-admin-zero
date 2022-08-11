@@ -1,10 +1,12 @@
 package user
 
 import (
-	"context"
-
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
+	"ark-zero-admin/pkg/utils"
+	"context"
+	"encoding/json"
+	"fmt"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +26,16 @@ func NewGetUserPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 }
 
 func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.PermMenuResp, err error) {
-	// todo: add your logic here and delete this line
-
+	userId := utils.UserId(l.ctx)
+	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
+	if err != nil {
+		return nil, err
+	}
+	role := make([]int64, 1, 10)
+	err = json.Unmarshal([]byte(user.RoleIds), &role)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("%v", role)
 	return
 }

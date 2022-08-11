@@ -8,9 +8,11 @@ import (
 )
 
 type ServiceContext struct {
-	Config       config.Config
-	Redis        *redis.Redis
-	SysUserModel model.SysUserModel
+	Config           config.Config
+	Redis            *redis.Redis
+	SysUserModel     model.SysUserModel
+	SysPermMenuModel model.SysPermMenuModel
+	SysRoleModel     model.SysRoleModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -20,8 +22,10 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		r.Pass = c.Redis.Pass
 	})
 	return &ServiceContext{
-		Config:       c,
-		Redis:        redisClient,
-		SysUserModel: model.NewSysUserModel(mysqlConn, c.Cache),
+		Config:           c,
+		Redis:            redisClient,
+		SysUserModel:     model.NewSysUserModel(mysqlConn, c.Cache),
+		SysPermMenuModel: model.NewSysPermMenuModel(mysqlConn, c.Cache),
+		SysRoleModel:     model.NewSysRoleModel(mysqlConn, c.Cache),
 	}
 }
