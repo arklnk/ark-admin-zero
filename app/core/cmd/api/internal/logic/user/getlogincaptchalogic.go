@@ -5,7 +5,10 @@ import (
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
+	"ark-zero-admin/pkg/utils"
 
+	"github.com/mojocn/base64Captcha"
+	"github.com/satori/go.uuid"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,7 +27,25 @@ func NewGetLoginCaptchaLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 }
 
 func (l *GetLoginCaptchaLogic) GetLoginCaptcha() (resp *types.CaptchaResp, err error) {
-	// todo: add your logic here and delete this line
+	var store = base64Captcha.DefaultMemStore
+	captcha := utils.Captcha{
+		Height: 30,
+		Width:  80,
+		Length: 4,
+		ColorR: 40,
+		ColorG: 30,
+		ColorB: 89,
+		ColorA: 0,
+	}
+	driver := captcha.DriverString()
+	c := base64Captcha.NewCaptcha(driver, store)
+	id, b64s, err := c.Generate()
+	val := store.Get(id, true)
+	captchaId := uuid.NewV4().String()
+	err = l.svcCtx.Redis.Setex("captcha:"+captchaId, val, 300)
 
-	return
+	return &types.CaptchaResp{
+		CaptchaId:  captchaId,
+		VerifyCode: b64s,
+	}, nil
 }

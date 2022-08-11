@@ -20,6 +20,7 @@ func Response(w http.ResponseWriter, resp interface{}, err error) {
 	} else {
 		body.Code = 200
 		body.Msg = "success"
+		body.Data = resp
 	}
 	httpx.OkJson(w, body)
 }

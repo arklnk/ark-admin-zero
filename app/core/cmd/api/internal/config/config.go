@@ -7,6 +7,7 @@ import (
 
 type Config struct {
 	rest.RestConf
+	Salt string
 	JwtAuth struct {
 		AccessSecret string
 		AccessExpire int64
@@ -15,4 +16,9 @@ type Config struct {
 		DataSource string
 	}
 	Cache cache.CacheConf
+	Redis struct {
+		Host string
+		Pass string
+		Type string
+	}
 }

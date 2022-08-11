@@ -2,6 +2,8 @@ Name: core-api
 Host: 0.0.0.0
 Port: 7001
 
+Salt: K8i8mTfc5sTXO7OG
+
 JwtAuth:
   AccessSecret: kRZ3kA7LuB4LqOWi
   AccessExpire: 86400
@@ -13,3 +15,8 @@ Cache:
   - Host: 127.0.0.1:6379
     Pass: "123456"
     Type: node
+
+Redis:
+  Host: 127.0.0.1:6379
+  Pass: "123456"
+  Type: node
