@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-10 03:26:13
+-- 生成日期： 2022-08-11 07:14:15
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -136,16 +136,16 @@ CREATE TABLE `sys_param` (
 
 CREATE TABLE `sys_permmenu` (
   `id` int(11) NOT NULL COMMENT '编号',
-  `parent_id` int(11) DEFAULT NULL COMMENT '父级id',
+  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级id',
   `name` varchar(255) NOT NULL COMMENT '名称',
-  `router` varchar(255) DEFAULT NULL COMMENT '路由',
-  `perms` varchar(255) DEFAULT NULL COMMENT '权限',
+  `router` varchar(255) NOT NULL COMMENT '路由',
+  `perms` varchar(255) NOT NULL COMMENT '权限',
   `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=目录 1=菜单 2=权限',
-  `icon` varchar(255) DEFAULT NULL COMMENT '图标',
+  `icon` varchar(255) NOT NULL COMMENT '图标',
   `order_num` int(11) DEFAULT '0' COMMENT '排序值',
-  `view_path` varchar(255) DEFAULT NULL COMMENT '页面路径',
+  `view_path` varchar(255) NOT NULL COMMENT '页面路径',
   `is_show` tinyint(1) DEFAULT '1' COMMENT '0=隐藏 1=显示',
-  `active_router` varchar(255) DEFAULT NULL COMMENT '当前激活的菜单',
+  `active_router` varchar(255) NOT NULL COMMENT '当前激活的菜单',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限&菜单';
@@ -195,22 +195,29 @@ CREATE TABLE `sys_user` (
   `account` varchar(25) NOT NULL COMMENT '账号',
   `password` char(32) NOT NULL COMMENT '密码',
   `username` varchar(25) NOT NULL COMMENT '姓名',
-  `nickname` varchar(25) DEFAULT NULL COMMENT '昵称',
-  `avatar` varchar(200) DEFAULT NULL COMMENT '头像',
+  `nickname` varchar(25) NOT NULL COMMENT '昵称',
+  `avatar` varchar(200) NOT NULL COMMENT '头像',
   `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=保密 1=女 2=男',
   `birthday` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '生日',
-  `email` varchar(50) DEFAULT NULL COMMENT '邮件',
-  `mobile` char(11) DEFAULT NULL COMMENT '手机号',
+  `email` varchar(50) NOT NULL COMMENT '邮件',
+  `mobile` char(11) NOT NULL COMMENT '手机号',
   `profession_id` int(11) NOT NULL COMMENT '职称',
   `job_id` int(11) NOT NULL COMMENT '岗位',
   `dept_id` int(11) NOT NULL COMMENT '部门',
   `role_id` json NOT NULL COMMENT '角色集',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
-  `remark` varchar(100) DEFAULT NULL COMMENT '备注',
+  `remark` varchar(100) NOT NULL COMMENT '备注',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户';
+
+--
+-- 转存表中的数据 `sys_user`
+--
+
+INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_id`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', ' ', 0, '1970-01-01 00:00:00', '', '', 1, 1, 1, '[1]', 1, 0, '', '2022-08-11 06:19:45', '2022-08-11 07:10:15');
 
 --
 -- 转储表的索引
@@ -345,7 +352,7 @@ ALTER TABLE `sys_role`
 -- 使用表AUTO_INCREMENT `sys_user`
 --
 ALTER TABLE `sys_user`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号';
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
