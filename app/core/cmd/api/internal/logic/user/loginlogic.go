@@ -1,13 +1,13 @@
 package user
 
 import (
-	"ark-zero-admin/pkg/sysconstant"
 	"context"
 	"time"
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
 	"ark-zero-admin/pkg/errorx"
+	"ark-zero-admin/pkg/sysconstant"
 	"ark-zero-admin/pkg/utils"
 
 	"github.com/golang-jwt/jwt/v4"

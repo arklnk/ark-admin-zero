@@ -1,13 +1,16 @@
 package user
 
 import (
+	"context"
+	"encoding/json"
+	"strconv"
+	"strings"
+
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
 	"ark-zero-admin/app/core/model"
+	"ark-zero-admin/pkg/errorx"
 	"ark-zero-admin/pkg/utils"
-	"context"
-	"encoding/json"
-	"fmt"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -27,42 +30,88 @@ func NewGetUserPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 }
 
 func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.PermMenuResp, err error) {
-	userId := utils.UserId(l.ctx)
+	userId := utils.GetUserId(l.ctx)
+
+	// 查询用户信息
 	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
 	if err != nil {
-		return nil, err
+		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 	var roles []int64
+
+	// 用户所属角色
 	err = json.Unmarshal([]byte(user.RoleIds), &roles)
 	if err != nil {
-		return nil, err
+		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 	var permMenu []int64
 	for _, roleId := range roles {
+
+		// 查询角色信息
 		role, err := l.svcCtx.SysRoleModel.FindOne(l.ctx, roleId)
 		if err != nil && err != model.ErrNotFound {
-			return nil, err
+			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
 		var perms []int64
+
+		// 角色所拥有的权限id
 		err = json.Unmarshal([]byte(role.PermMenuIds), &perms)
 		if err != nil {
-			return nil, err
+			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
-		fmt.Printf("%v", role.PermMenuIds)
+
+		// 汇总用户所属角色权限id
 		permMenu = append(permMenu, perms...)
-		//l.SubRoleCallback(roleId)
+		permMenu = l.GetSubRolePermMenu(permMenu, roleId)
 	}
-	fmt.Printf("%v", permMenu)
-	return
+
+	// 过滤重复的权限id
+	permMenu = utils.ArrayUniqueValue[int64](permMenu)
+
+	roleIds := "0"
+	for _, id := range permMenu {
+		roleIds = roleIds + "," + strconv.FormatInt(id, 10)
+	}
+
+	// 根据权限id获取具体权限
+	userPermMenu, err := l.svcCtx.SysPermMenuModel.FindUserPermMenu(l.ctx, roleIds)
+	var menus []types.Menu
+	var perms []string
+	if err != nil {
+		return &types.PermMenuResp{Menus: menus, Perms: perms}, nil
+	}
+	for _, perm := range userPermMenu {
+		menus = append(menus, types.Menu{
+			Id:           perm.Id,
+			ParentId:     perm.ParentId,
+			Name:         perm.Name,
+			Router:       perm.Router,
+			Type:         perm.Type,
+			Icon:         perm.Icon,
+			OrderNum:     perm.OrderNum,
+			ViewPath:     perm.ViewPath,
+			IsShow:       perm.IsShow,
+			ActiveRouter: perm.ActiveRouter,
+		})
+		arr := strings.Split(perm.Perms, ";")
+		for _, s := range arr {
+			perms = append(perms, s)
+		}
+	}
+
+	return &types.PermMenuResp{Menus: menus, Perms: utils.ArrayUniqueValue[string](perms)}, nil
 }
 
-func (l *GetUserPermMenuLogic) SubRoleCallback(roleId int64) {
+func (l *GetUserPermMenuLogic) GetSubRolePermMenu(perms []int64, roleId int64) []int64 {
 	roles, err := l.svcCtx.SysRoleModel.FindSubRole(l.ctx, roleId)
 	if err != nil && err != model.ErrNotFound {
-		return
+		return perms
 	}
 	for _, role := range roles {
-		fmt.Printf("%v", role)
-		l.SubRoleCallback(role.Id)
+		var subPerms []int64
+		err = json.Unmarshal([]byte(role.PermMenuIds), &subPerms)
+		perms = append(perms, subPerms...)
+		perms = l.GetSubRolePermMenu(perms, role.Id)
 	}
+	return perms
 }

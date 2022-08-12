@@ -25,7 +25,7 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserInfoLogic) GetUserInfo() (resp *types.InfoResp, err error) {
-	userId := utils.UserId(l.ctx)
+	userId := utils.GetUserId(l.ctx)
 	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)

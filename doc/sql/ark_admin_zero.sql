@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-11 22:07:17
+-- 生成日期： 2022-08-12 10:00:36
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -149,6 +149,16 @@ CREATE TABLE `sys_perm_menu` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限&菜单';
+
+--
+-- 转存表中的数据 `sys_perm_menu`
+--
+
+INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type`, `icon`, `order_num`, `view_path`, `is_show`, `active_router`, `create_time`, `update_time`) VALUES
+(1, 0, '1', '0', 'sys/contact/add', 0, '', 0, '0', 1, '0', '2022-08-12 02:14:20', '2022-08-12 09:57:55'),
+(2, 0, '1', '0', 'sys:contact:delete', 0, '', 0, '0', 1, '0', '2022-08-12 02:14:20', '2022-08-12 09:58:07'),
+(3, 0, '1', '0', 'sys:contact:get', 0, '', 0, '0', 1, '0', '2022-08-12 02:14:20', '2022-08-12 09:58:18'),
+(4, 0, '1', '0', 'sys:contact:update', 0, '', 0, '0', 1, '0', '2022-08-12 02:14:20', '2022-08-12 09:58:23');
 
 -- --------------------------------------------------------
 
@@ -345,7 +355,7 @@ ALTER TABLE `sys_param`
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`
