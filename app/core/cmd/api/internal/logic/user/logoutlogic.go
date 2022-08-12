@@ -2,8 +2,13 @@ package user
 
 import (
 	"context"
+	"strconv"
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
+	"ark-zero-admin/pkg/errorx"
+	"ark-zero-admin/pkg/sysconstant"
+	"ark-zero-admin/pkg/utils"
+
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -22,7 +27,10 @@ func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LogoutLogi
 }
 
 func (l *LogoutLogic) Logout() error {
-	// todo: add your logic here and delete this line
-
+	userId := utils.GetUserId(l.ctx)
+	_, err := l.svcCtx.Redis.Del(sysconstant.CachePermMenuKey + strconv.FormatInt(userId, 10))
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
 	return nil
 }

@@ -1,5 +1,6 @@
 package sysconstant
 
 const (
-	JwtUserId = "userId"
+	JwtUserId        = "userId"
+	CachePermMenuKey = "cache:arkAdminZero:permMenu:"
 )
