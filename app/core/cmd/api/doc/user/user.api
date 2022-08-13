@@ -39,6 +39,18 @@ type (
 )
 
 type (
+	UpdateProfileResp {
+		Username string `json:"username" validate:"required,min=2,max=12"`
+		Nickname string `json:"nickname"`
+		Gender   int64  `json:"gender" validate:"required,gte=0,lte=2"`
+		Email    string `json:"email"`
+		Mobile   string `json:"mobile"`
+		Remark   string `json:"remark"`
+		Avatar   string `json:"avatar"`
+	}
+)
+
+type (
 	Menu {
 		Id           int64  `json:"id"`
 		ParentId     int64  `json:"parentId"`
@@ -117,7 +129,7 @@ service core-api {
 		summary: "更新用户资料"
 	)
 	@handler updateUserProfile
-	post /profile/update
+	post /profile/update (UpdateProfileResp)
 	
 	@doc(
 		summary: "更新密码"

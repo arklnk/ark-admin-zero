@@ -27,6 +27,16 @@ type ProfileResp struct {
 	Avatar   string `json:"avatar"`
 }
 
+type UpdateProfileResp struct {
+	Username string `json:"username" validate:"required,min=2,max=12"`
+	Nickname string `json:"nickname"`
+	Gender   int64  `json:"gender" validate:"required,gte=0,lte=2"`
+	Email    string `json:"email"`
+	Mobile   string `json:"mobile"`
+	Remark   string `json:"remark"`
+	Avatar   string `json:"avatar"`
+}
+
 type Menu struct {
 	Id           int64  `json:"id"`
 	ParentId     int64  `json:"parentId"`
