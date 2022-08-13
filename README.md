@@ -27,7 +27,7 @@
 ### 搭建开发环境
 
 ```
-docker-compose up -d
+docker-compose -f docker-compose-env.yaml up -d
 ```
 
 > 开发环境包含

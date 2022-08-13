@@ -1,15 +1,6 @@
 version: '3'
 
 services:
-  ark-admin:
-    image: arklnk/ark-admin-zero:latest
-    container_name: ark-admin
-    ports:
-      - "7001:7001"
-    restart: always
-    networks:
-      - ark_admin_net
-
   mysql:
     image: mysql:5.7
     container_name: mysql
