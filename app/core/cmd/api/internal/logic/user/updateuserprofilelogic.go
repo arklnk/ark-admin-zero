@@ -8,6 +8,7 @@ import (
 	"ark-zero-admin/pkg/errorx"
 	"ark-zero-admin/pkg/utils"
 
+	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -31,14 +32,10 @@ func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.UpdateProfileResp)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
-
-	user.Username = req.Username
-	user.Nickname = req.Nickname
-	user.Gender = req.Gender
-	user.Email = req.Email
-	user.Mobile = req.Mobile
-	user.Remark = req.Remark
-	user.Avatar = req.Avatar
+	err = copier.Copy(user,req)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
 	err = l.svcCtx.SysUserModel.Update(l.ctx, user)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)

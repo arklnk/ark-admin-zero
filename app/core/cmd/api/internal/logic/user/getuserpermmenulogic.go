@@ -13,6 +13,7 @@ import (
 	"ark-zero-admin/pkg/sysconstant"
 	"ark-zero-admin/pkg/utils"
 
+	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -82,21 +83,15 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.PermMenuResp, err 
 		return &types.PermMenuResp{Menus: menus, Perms: perms}, nil
 	}
 	for _, perm := range userPermMenu {
-		menus = append(menus, types.Menu{
-			Id:           perm.Id,
-			ParentId:     perm.ParentId,
-			Name:         perm.Name,
-			Router:       perm.Router,
-			Type:         perm.Type,
-			Icon:         perm.Icon,
-			OrderNum:     perm.OrderNum,
-			ViewPath:     perm.ViewPath,
-			IsShow:       perm.IsShow,
-			ActiveRouter: perm.ActiveRouter,
-		})
+		var menu types.Menu
+		err := copier.Copy(&menu, perm)
+		if err != nil {
+			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		}
+		menus = append(menus, menu)
 		arr := strings.Split(perm.Perms, ";")
 		for _, s := range arr {
-			_, err := l.svcCtx.Redis.Sadd(sysconstant.CachePermMenuKey +strconv.FormatInt(userId, 10), s)
+			_, err := l.svcCtx.Redis.Sadd(sysconstant.CachePermMenuKey+strconv.FormatInt(userId, 10), s)
 			if err != nil {
 				return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 			}
