@@ -46,8 +46,8 @@ type PermMenuResp struct {
 }
 
 type PasswordReq struct {
-	OldPassword string `json:"oldPassword"`
-	NewPassword string `json:"newPassword"`
+	OldPassword string `json:"oldPassword" validate:"min=6,max=12"`
+	NewPassword string `json:"newPassword" validate:"min=6,max=12"`
 }
 
 type CaptchaResp struct {

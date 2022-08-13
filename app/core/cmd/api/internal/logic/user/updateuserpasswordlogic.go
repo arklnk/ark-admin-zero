@@ -5,6 +5,8 @@ import (
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
+	"ark-zero-admin/pkg/errorx"
+	"ark-zero-admin/pkg/utils"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +26,18 @@ func NewUpdateUserPasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *UpdateUserPasswordLogic) UpdateUserPassword(req *types.PasswordReq) error {
-	// todo: add your logic here and delete this line
-
+	userId := utils.GetUserId(l.ctx)
+	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+	if user.Password != utils.MD5(req.OldPassword+l.svcCtx.Config.Salt) {
+		return errorx.NewDefaultError(errorx.PasswordErrorCode)
+	}
+	user.Password = utils.MD5(req.NewPassword + l.svcCtx.Config.Salt)
+	err = l.svcCtx.SysUserModel.Update(l.ctx, user)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
 	return nil
 }
