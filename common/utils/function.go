@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"ark-zero-admin/pkg/sysconstant"
+	"ark-zero-admin/common/sysconstant"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

@@ -5,7 +5,7 @@ import (
 
 	"ark-zero-admin/app/core/cmd/api/internal/logic/user"
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
-	"ark-zero-admin/pkg/response"
+	"ark-zero-admin/common/response"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 )

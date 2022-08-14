@@ -8,7 +8,7 @@ import (
 	"ark-zero-admin/app/core/cmd/api/internal/config"
 	"ark-zero-admin/app/core/cmd/api/internal/handler"
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
-	"ark-zero-admin/pkg/errorx"
+	"ark-zero-admin/common/errorx"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

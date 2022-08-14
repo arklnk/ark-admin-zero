@@ -5,7 +5,7 @@ import (
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
-	"ark-zero-admin/pkg/utils"
+	"ark-zero-admin/common/utils"
 
 	"github.com/mojocn/base64Captcha"
 	"github.com/satori/go.uuid"
