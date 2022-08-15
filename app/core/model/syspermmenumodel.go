@@ -14,7 +14,7 @@ type (
 	// and implement the added methods in customSysPermMenuModel.
 	SysPermMenuModel interface {
 		sysPermMenuModel
-		FindUserPermMenu(ctx context.Context, ids string) ([]*SysPermMenu, error)
+		FindByIds(ctx context.Context, ids string) ([]*SysPermMenu, error)
 		FindAll(ctx context.Context) ([]*SysPermMenu, error)
 	}
 
@@ -30,7 +30,7 @@ func NewSysPermMenuModel(conn sqlx.SqlConn, c cache.CacheConf) SysPermMenuModel 
 	}
 }
 
-func (m *customSysPermMenuModel) FindUserPermMenu(ctx context.Context, ids string) ([]*SysPermMenu, error) {
+func (m *customSysPermMenuModel) FindByIds(ctx context.Context, ids string) ([]*SysPermMenu, error) {
 	query := fmt.Sprintf("select %s from %s where `id` in(%s)", sysPermMenuRows, m.table, ids)
 	var resp []*SysPermMenu
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)

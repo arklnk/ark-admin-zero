@@ -7,7 +7,6 @@ import (
 	"fmt"
 
 	"ark-zero-admin/common/globalkey"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -40,4 +39,13 @@ func ArrayUniqueValue[T any](arr []T) []T {
 		}
 	}
 	return result
+}
+
+func ArrayContainValue(arr []int64, search int64) bool {
+	for _, v := range arr {
+		if v == search {
+			return true
+		}
+	}
+	return false
 }

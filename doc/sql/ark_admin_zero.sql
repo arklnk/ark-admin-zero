@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-15 10:07:16
+-- 生成日期： 2022-08-15 15:24:24
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -155,9 +155,9 @@ CREATE TABLE `sys_perm_menu` (
 --
 
 INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type`, `icon`, `order_num`, `view_path`, `is_show`, `active_router`, `create_time`, `update_time`) VALUES
-(1, 0, 'routes.systemManagement', '/sys', '', 0, 'system', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 09:46:19'),
-(2, 1, 'routes.permManagement', '/sys/perms', '', 0, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 09:40:12'),
-(3, 2, 'routes.menuList', '/sys/perms/menu/list', '', 1, '', 0, 'views/system/permission/menu', 1, '', '2022-08-12 02:14:20', '2022-08-15 09:11:33');
+(1, 0, 'routes.systemManagement', '/sys', '[]', 0, 'system', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 13:29:53'),
+(2, 1, 'routes.permManagement', '/sys/perms', '[]', 0, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 14:38:40'),
+(3, 2, 'routes.menuList', '/sys/perms/menu/list', '[\"perms1\",\"perms2\"]', 1, '', 0, 'views/system/permission/menu', 1, '', '2022-08-12 02:14:20', '2022-08-15 13:29:46');
 
 -- --------------------------------------------------------
 
@@ -198,7 +198,7 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '', '[1, 2, 3]', 1, 0, '2022-08-11 09:18:21', '2022-08-15 08:51:36');
+(1, 0, '超级管理员', 'superadmin', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-15 14:31:00');
 
 -- --------------------------------------------------------
 
@@ -233,7 +233,7 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', '蒋勇', '顾芳', 'http://dummyimage.com/100x100', 1, '1970-01-01 00:00:00', 'm.cqcprwum@qq.com', '18637334616', 1, 1, 1, '[1]', 1, 0, 'nisi', '2022-08-11 06:19:45', '2022-08-15 08:43:34');
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', '蒋勇', '顾芳', 'http://dummyimage.com/100x100', 1, '1970-01-01 00:00:00', 'm.cqcprwum@qq.com', '18637334616', 1, 1, 1, '[1]', 1, 0, 'nisi', '2022-08-11 06:19:45', '2022-08-15 15:22:46');
 
 --
 -- 转储表的索引
