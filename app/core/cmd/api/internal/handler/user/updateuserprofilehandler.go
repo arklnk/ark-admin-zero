@@ -15,7 +15,7 @@ import (
 
 func UpdateUserProfileHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.UpdateProfileResp
+		var req types.UpdateProfileReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, errorx.NewHandlerError(errorx.ParamErrorCode, err.Error()))
 			return

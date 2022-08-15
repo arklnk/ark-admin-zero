@@ -27,7 +27,7 @@ type ProfileResp struct {
 	Avatar   string `json:"avatar"`
 }
 
-type UpdateProfileResp struct {
+type UpdateProfileReq struct {
 	Username string `json:"username" validate:"required,min=2,max=12"`
 	Nickname string `json:"nickname"`
 	Gender   int64  `json:"gender" validate:"gte=0,lte=2"`

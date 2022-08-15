@@ -26,7 +26,7 @@ func NewUpdateUserProfileLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
-func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.UpdateProfileResp) error {
+func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.UpdateProfileReq) error {
 	userId := utils.GetUserId(l.ctx)
 	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
 	if err != nil {
