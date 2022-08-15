@@ -64,7 +64,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.PermMenuResp, err 
 
 		// 汇总用户所属角色权限id
 		permMenu = append(permMenu, perms...)
-		permMenu = l.GetSubRolePermMenu(permMenu, roleId)
+		permMenu = l.getSubRolePermMenu(permMenu, roleId)
 	}
 
 	// 过滤重复的权限id
@@ -102,7 +102,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.PermMenuResp, err 
 	return &types.PermMenuResp{Menus: menus, Perms: utils.ArrayUniqueValue[string](perms)}, nil
 }
 
-func (l *GetUserPermMenuLogic) GetSubRolePermMenu(perms []int64, roleId int64) []int64 {
+func (l *GetUserPermMenuLogic) getSubRolePermMenu(perms []int64, roleId int64) []int64 {
 	roles, err := l.svcCtx.SysRoleModel.FindSubRole(l.ctx, roleId)
 	if err != nil && err != model.ErrNotFound {
 		return perms
@@ -111,7 +111,7 @@ func (l *GetUserPermMenuLogic) GetSubRolePermMenu(perms []int64, roleId int64) [
 		var subPerms []int64
 		err = json.Unmarshal([]byte(role.PermMenuIds), &subPerms)
 		perms = append(perms, subPerms...)
-		perms = l.GetSubRolePermMenu(perms, role.Id)
+		perms = l.getSubRolePermMenu(perms, role.Id)
 	}
 	return perms
 }
