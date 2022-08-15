@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"ark-zero-admin/common/sysconstant"
+	"ark-zero-admin/common/globalkey"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -19,7 +19,7 @@ func MD5(str string) string {
 
 func GetUserId(ctx context.Context) int64 {
 	var uid int64
-	if jsonUid, ok := ctx.Value(sysconstant.JwtUserId).(json.Number); ok {
+	if jsonUid, ok := ctx.Value(globalkey.JwtUserId).(json.Number); ok {
 		if int64Uid, err := jsonUid.Int64(); err == nil {
 			uid = int64Uid
 		} else {

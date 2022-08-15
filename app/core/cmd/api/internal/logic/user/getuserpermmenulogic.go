@@ -10,7 +10,7 @@ import (
 	"ark-zero-admin/app/core/cmd/api/internal/types"
 	"ark-zero-admin/app/core/model"
 	"ark-zero-admin/common/errorx"
-	"ark-zero-admin/common/sysconstant"
+	"ark-zero-admin/common/globalkey"
 	"ark-zero-admin/common/utils"
 
 	"github.com/jinzhu/copier"
@@ -91,7 +91,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.PermMenuResp, err 
 		menus = append(menus, menu)
 		arr := strings.Split(perm.Perms, ";")
 		for _, s := range arr {
-			_, err := l.svcCtx.Redis.Sadd(sysconstant.CachePermMenuKey+strconv.FormatInt(userId, 10), s)
+			_, err := l.svcCtx.Redis.Sadd(globalkey.CachePermMenuKey+strconv.FormatInt(userId, 10), s)
 			if err != nil {
 				return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 			}

@@ -1,4 +1,4 @@
-package sysconstant
+package globalkey
 
 const (
 	JwtUserId        = "userId"

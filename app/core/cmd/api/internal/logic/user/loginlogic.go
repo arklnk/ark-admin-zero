@@ -7,7 +7,7 @@ import (
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
 	"ark-zero-admin/common/errorx"
-	"ark-zero-admin/common/sysconstant"
+	"ark-zero-admin/common/globalkey"
 	"ark-zero-admin/common/utils"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -29,7 +29,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
-	verifyCode, _ := l.svcCtx.Redis.Get(sysconstant.CacheLoginCaptchaKey + req.CaptchaId)
+	verifyCode, _ := l.svcCtx.Redis.Get(globalkey.CacheLoginCaptchaKey + req.CaptchaId)
 	if verifyCode != req.VerifyCode {
 		return nil, errorx.NewDefaultError(errorx.CaptchaErrorCode)
 	}
@@ -56,7 +56,7 @@ func (l *LoginLogic) getJwtToken(secretKey string, iat, seconds, userId int64) (
 	claims := make(jwt.MapClaims)
 	claims["exp"] = iat + seconds
 	claims["iat"] = iat
-	claims[sysconstant.JwtUserId] = userId
+	claims[globalkey.JwtUserId] = userId
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
 	return token.SignedString([]byte(secretKey))

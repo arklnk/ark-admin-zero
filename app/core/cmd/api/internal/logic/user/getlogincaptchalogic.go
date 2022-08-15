@@ -1,11 +1,11 @@
 package user
 
 import (
-	"ark-zero-admin/common/sysconstant"
 	"context"
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
+	"ark-zero-admin/common/globalkey"
 	"ark-zero-admin/common/utils"
 
 	"github.com/mojocn/base64Captcha"
@@ -43,7 +43,7 @@ func (l *GetLoginCaptchaLogic) GetLoginCaptcha() (resp *types.CaptchaResp, err e
 	id, b64s, err := c.Generate()
 	val := store.Get(id, true)
 	captchaId := uuid.NewV4().String()
-	err = l.svcCtx.Redis.Setex(sysconstant.CacheLoginCaptchaKey +captchaId, val, 300)
+	err = l.svcCtx.Redis.Setex(globalkey.CacheLoginCaptchaKey +captchaId, val, 300)
 
 	return &types.CaptchaResp{
 		CaptchaId:  captchaId,
