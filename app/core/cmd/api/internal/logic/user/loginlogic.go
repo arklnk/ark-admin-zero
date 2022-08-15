@@ -29,7 +29,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
-	verifyCode, _ := l.svcCtx.Redis.Get("captcha:" + req.CaptchaId)
+	verifyCode, _ := l.svcCtx.Redis.Get(sysconstant.CacheLoginCaptchaKey + req.CaptchaId)
 	if verifyCode != req.VerifyCode {
 		return nil, errorx.NewDefaultError(errorx.CaptchaErrorCode)
 	}
