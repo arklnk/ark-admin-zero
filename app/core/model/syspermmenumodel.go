@@ -15,6 +15,7 @@ type (
 	SysPermMenuModel interface {
 		sysPermMenuModel
 		FindUserPermMenu(ctx context.Context, ids string) ([]*SysPermMenu, error)
+		FindAll(ctx context.Context) ([]*SysPermMenu, error)
 	}
 
 	customSysPermMenuModel struct {
@@ -31,6 +32,18 @@ func NewSysPermMenuModel(conn sqlx.SqlConn, c cache.CacheConf) SysPermMenuModel 
 
 func (m *customSysPermMenuModel) FindUserPermMenu(ctx context.Context, ids string) ([]*SysPermMenu, error) {
 	query := fmt.Sprintf("select %s from %s where `id` in(%s)", sysPermMenuRows, m.table, ids)
+	var resp []*SysPermMenu
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return nil, err
+	}
+}
+
+func (m *customSysPermMenuModel) FindAll(ctx context.Context) ([]*SysPermMenu, error) {
+	query := fmt.Sprintf("select %s from %s", sysPermMenuRows, m.table)
 	var resp []*SysPermMenu
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

@@ -64,3 +64,21 @@ type CaptchaResp struct {
 	CaptchaId  string `json:"captchaId"`
 	VerifyCode string `json:"verifyCode"`
 }
+
+type PermMenu struct {
+	Id           int64  `json:"id"`
+	ParentId     int64  `json:"parentId"`
+	Name         string `json:"name"`
+	Router       string `json:"router"`
+	Perms        string `json:"perms"`
+	Type         int64  `json:"type"`
+	Icon         string `djsonb:"icon"`
+	OrderNum     int64  `json:"order_num"`
+	ViewPath     string `json:"view_path"`
+	IsShow       int64  `json:"is_show"`
+	ActiveRouter string `json:"active_router"`
+}
+
+type PermMenuListResp struct {
+	PermMenuList []PermMenu `json:"permMenuList"`
+}

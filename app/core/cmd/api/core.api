@@ -9,3 +9,4 @@ info(
 )
 
 import "doc/user/user.api"
+import "doc/system/perms/menu.api"

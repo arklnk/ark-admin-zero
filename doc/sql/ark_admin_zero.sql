@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-12 10:00:36
+-- 生成日期： 2022-08-15 10:07:16
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -155,10 +155,9 @@ CREATE TABLE `sys_perm_menu` (
 --
 
 INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type`, `icon`, `order_num`, `view_path`, `is_show`, `active_router`, `create_time`, `update_time`) VALUES
-(1, 0, '1', '0', 'sys/contact/add', 0, '', 0, '0', 1, '0', '2022-08-12 02:14:20', '2022-08-12 09:57:55'),
-(2, 0, '1', '0', 'sys:contact:delete', 0, '', 0, '0', 1, '0', '2022-08-12 02:14:20', '2022-08-12 09:58:07'),
-(3, 0, '1', '0', 'sys:contact:get', 0, '', 0, '0', 1, '0', '2022-08-12 02:14:20', '2022-08-12 09:58:18'),
-(4, 0, '1', '0', 'sys:contact:update', 0, '', 0, '0', 1, '0', '2022-08-12 02:14:20', '2022-08-12 09:58:23');
+(1, 0, 'routes.systemManagement', '/sys', '', 0, 'system', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 09:46:19'),
+(2, 1, 'routes.permManagement', '/sys/perms', '', 0, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 09:40:12'),
+(3, 2, 'routes.menuList', '/sys/perms/menu/list', '', 1, '', 0, 'views/system/permission/menu', 1, '', '2022-08-12 02:14:20', '2022-08-15 09:11:33');
 
 -- --------------------------------------------------------
 
@@ -199,11 +198,7 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 09:55:49'),
-(2, 1, '子角色1', 'subrole1', '', '[1]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 21:28:43'),
-(3, 1, '子角色2', 'subrole2', '', '[2]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 21:28:55'),
-(4, 2, '子角色1-1', 'subrole1-1', '', '[3]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 22:03:58'),
-(6, 3, '子角色2-1', 'subrole2-1', '', '[4]', 1, 0, '2022-08-11 09:18:21', '2022-08-11 22:04:25');
+(1, 0, '超级管理员', 'superadmin', '', '[1, 2, 3]', 1, 0, '2022-08-11 09:18:21', '2022-08-15 08:51:36');
 
 -- --------------------------------------------------------
 
@@ -238,7 +233,7 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', '', 0, '1970-01-01 00:00:00', '', '', 1, 1, 1, '[1, 2]', 1, 0, '', '2022-08-11 06:19:45', '2022-08-11 21:42:13');
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', '蒋勇', '顾芳', 'http://dummyimage.com/100x100', 1, '1970-01-01 00:00:00', 'm.cqcprwum@qq.com', '18637334616', 1, 1, 1, '[1]', 1, 0, 'nisi', '2022-08-11 06:19:45', '2022-08-15 08:43:34');
 
 --
 -- 转储表的索引
@@ -355,7 +350,7 @@ ALTER TABLE `sys_param`
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`
@@ -367,7 +362,7 @@ ALTER TABLE `sys_profession`
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`

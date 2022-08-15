@@ -1,1 +1,33 @@
 syntax = "v1"
+
+type (
+    PermMenu {
+        Id int64 `json:"id"`
+        ParentId int64 `json:"parentId"`
+        Name string `json:"name"`
+        Router string `json:"router"`
+        Perms string `json:"perms"`
+        Type int64 `json:"type"`
+        Icon string `djsonb:"icon"`
+        OrderNum int64 `json:"order_num"`
+        ViewPath string `json:"view_path"`
+        IsShow int64 `json:"is_show"`
+        ActiveRouter string `json:"active_router"`
+    }
+    PermMenuListResp {
+        PermMenuList []PermMenu `json:"permMenuList"`
+    }
+)
+
+@server(
+    jwt: JwtAuth
+    group : system/perms/menu
+    prefix : /system/perms/menu
+)
+service core-api {
+    @doc(
+        summary: "权限菜单列表"
+    )
+    @handler permMenuList
+    get /list returns (PermMenuListResp)
+}

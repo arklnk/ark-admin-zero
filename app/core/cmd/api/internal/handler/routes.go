@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	systempermsmenu "ark-zero-admin/app/core/cmd/api/internal/handler/system/perms/menu"
 	user "ark-zero-admin/app/core/cmd/api/internal/handler/user"
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 
@@ -62,5 +63,17 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/user"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/list",
+				Handler: systempermsmenu.PermMenuListHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+		rest.WithPrefix("/system/perms/menu"),
 	)
 }
