@@ -2,6 +2,7 @@ package menu
 
 import (
 	"context"
+	"encoding/json"
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
@@ -32,11 +33,14 @@ func (l *PermMenuListLogic) PermMenuList() (resp *types.PermMenuListResp, err er
 	}
 	var menu types.PermMenu
 	var PermMenuList []types.PermMenu
+	var perms []string
 	for _, v := range permMenus {
 		err := copier.Copy(&menu, &v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.PasswordErrorCode)
 		}
+		err = json.Unmarshal([]byte(v.Perms), &perms)
+		menu.Perms = perms
 		PermMenuList = append(PermMenuList, menu)
 	}
 	return &types.PermMenuListResp{PermMenuList: PermMenuList}, nil
