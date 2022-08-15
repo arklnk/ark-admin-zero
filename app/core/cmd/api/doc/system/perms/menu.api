@@ -28,6 +28,6 @@ service core-api {
     @doc(
         summary: "权限菜单列表"
     )
-    @handler permMenuList
+    @handler getPermMenuList
     get /list returns (PermMenuListResp)
 }

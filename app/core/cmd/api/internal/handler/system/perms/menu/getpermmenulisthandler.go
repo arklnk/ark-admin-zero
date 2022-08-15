@@ -10,10 +10,10 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func PermMenuListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func GetPermMenuListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := menu.NewPermMenuListLogic(r.Context(), svcCtx)
-		resp, err := l.PermMenuList()
+		l := menu.NewGetPermMenuListLogic(r.Context(), svcCtx)
+		resp, err := l.GetPermMenuList()
 		if err != nil {
 			httpx.Error(w, err)
 			return

@@ -12,21 +12,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type PermMenuListLogic struct {
+type GetPermMenuListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewPermMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PermMenuListLogic {
-	return &PermMenuListLogic{
+func NewGetPermMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetPermMenuListLogic {
+	return &GetPermMenuListLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *PermMenuListLogic) PermMenuList() (resp *types.PermMenuListResp, err error) {
+func (l *GetPermMenuListLogic) GetPermMenuList() (resp *types.PermMenuListResp, err error) {
 	permMenus, err := l.svcCtx.SysPermMenuModel.FindAll(l.ctx)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)

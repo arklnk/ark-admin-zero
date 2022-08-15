@@ -70,7 +70,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodGet,
 				Path:    "/list",
-				Handler: systempermsmenu.PermMenuListHandler(serverCtx),
+				Handler: systempermsmenu.GetPermMenuListHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
