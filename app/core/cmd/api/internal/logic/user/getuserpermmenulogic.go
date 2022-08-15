@@ -30,7 +30,7 @@ func NewGetUserPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 	}
 }
 
-func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.PermMenuResp, err error) {
+func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, err error) {
 	userId := utils.GetUserId(l.ctx)
 
 	// 查询用户信息
@@ -56,7 +56,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.PermMenuResp, err 
 	var menus []types.Menu
 	var perms []string
 	if err != nil {
-		return &types.PermMenuResp{Menus: menus, Perms: perms}, nil
+		return &types.UserPermMenuResp{Menus: menus, Perms: perms}, nil
 	}
 	for _, perm := range userPermMenu {
 		var menu types.Menu
@@ -79,7 +79,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.PermMenuResp, err 
 		}
 	}
 
-	return &types.PermMenuResp{Menus: menus, Perms: utils.ArrayUniqueValue[string](perms)}, nil
+	return &types.UserPermMenuResp{Menus: menus, Perms: utils.ArrayUniqueValue[string](perms)}, nil
 }
 
 func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64) ([]*model.SysPermMenu, []int64, error) {

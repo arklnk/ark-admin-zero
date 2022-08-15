@@ -27,7 +27,7 @@ func NewGetLoginCaptchaLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 	}
 }
 
-func (l *GetLoginCaptchaLogic) GetLoginCaptcha() (resp *types.CaptchaResp, err error) {
+func (l *GetLoginCaptchaLogic) GetLoginCaptcha() (resp *types.LoginCaptchaResp, err error) {
 	var store = base64Captcha.DefaultMemStore
 	captcha := utils.Captcha{
 		Height: 30,
@@ -45,7 +45,7 @@ func (l *GetLoginCaptchaLogic) GetLoginCaptcha() (resp *types.CaptchaResp, err e
 	captchaId := uuid.NewV4().String()
 	err = l.svcCtx.Redis.Setex(globalkey.CacheLoginCaptchaKey +captchaId, val, 300)
 
-	return &types.CaptchaResp{
+	return &types.LoginCaptchaResp{
 		CaptchaId:  captchaId,
 		VerifyCode: b64s,
 	}, nil

@@ -12,12 +12,12 @@ type LoginResp struct {
 	Token string `json:"token"`
 }
 
-type InfoResp struct {
+type UserInfoResp struct {
 	Username string `json:"username"`
 	Avatar   string `json:"avatar"`
 }
 
-type ProfileResp struct {
+type UserProfileInfoResp struct {
 	Username string `json:"username"`
 	Nickname string `json:"nickname"`
 	Gender   int64  `json:"gender"`
@@ -50,17 +50,17 @@ type Menu struct {
 	ActiveRouter string `json:"activeRouter"`
 }
 
-type PermMenuResp struct {
+type UserPermMenuResp struct {
 	Menus []Menu   `json:"menus"`
 	Perms []string `json:"perms"`
 }
 
-type PasswordReq struct {
+type UpdatePasswordReq struct {
 	OldPassword string `json:"oldPassword" validate:"min=6,max=12"`
 	NewPassword string `json:"newPassword" validate:"min=6,max=12"`
 }
 
-type CaptchaResp struct {
+type LoginCaptchaResp struct {
 	CaptchaId  string `json:"captchaId"`
 	VerifyCode string `json:"verifyCode"`
 }

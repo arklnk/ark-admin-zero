@@ -25,13 +25,13 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 	}
 }
 
-func (l *GetUserInfoLogic) GetUserInfo() (resp *types.InfoResp, err error) {
+func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserInfoResp, err error) {
 	userId := utils.GetUserId(l.ctx)
 	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
-	return &types.InfoResp{
+	return &types.UserInfoResp{
 		Username: user.Username,
 		Avatar:   user.Avatar,
 	}, nil

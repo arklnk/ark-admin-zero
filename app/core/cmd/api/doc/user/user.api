@@ -20,14 +20,14 @@ type (
 )
 
 type (
-	InfoResp {
+	UserInfoResp {
 		Username string `json:"username"`
 		Avatar   string `json:"avatar"`
 	}
 )
 
 type (
-	ProfileResp {
+	UserProfileInfoResp {
 		Username string `json:"username"`
 		Nickname string `json:"nickname"`
 		Gender   int64  `json:"gender"`
@@ -63,21 +63,21 @@ type (
 		IsShow       int64  `json:"isShow"`
 		ActiveRouter string `json:"activeRouter"`
 	}
-	PermMenuResp {
+	UserPermMenuResp {
 		Menus []Menu   `json:"menus"`
 		Perms []string `json:"perms"`
 	}
 )
 
 type (
-	PasswordReq {
+	UpdatePasswordReq {
 		OldPassword string `json:"oldPassword" validate:"min=6,max=12"`
 		NewPassword string `json:"newPassword" validate:"min=6,max=12"`
 	}
 )
 
 type (
-	CaptchaResp {
+	LoginCaptchaResp {
 		CaptchaId  string `json:"captchaId"`
 		VerifyCode string `json:"verifyCode"`
 	}
@@ -98,7 +98,7 @@ service core-api {
 		summary: "登录验证码"
 	)
 	@handler getLoginCaptcha
-	get /login/captcha returns (CaptchaResp)
+	get /login/captcha returns (LoginCaptchaResp)
 }
 
 @server(
@@ -111,19 +111,19 @@ service core-api {
 		summary: "登录信息"
 	)
 	@handler getUserInfo
-	get /info returns (InfoResp)
+	get /info returns (UserInfoResp)
 	
 	@doc(
 		summary: "权限菜单"
 	)
 	@handler getUserPermMenu
-	get /permmenu returns (PermMenuResp)
+	get /permmenu returns (UserPermMenuResp)
 	
 	@doc(
 		summary: "用户资料"
 	)
 	@handler getUserProfileInfo
-	get /profile/info returns (ProfileResp)
+	get /profile/info returns (UserProfileInfoResp)
 	
 	@doc(
 		summary: "更新用户资料"
@@ -135,7 +135,7 @@ service core-api {
 		summary: "更新密码"
 	)
 	@handler updateUserPassword
-	post /password/update (PasswordReq)
+	post /password/update (UpdatePasswordReq)
 	
 	@doc(
 		summary: "退出"
