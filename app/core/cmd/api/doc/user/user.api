@@ -91,13 +91,13 @@ service core-api {
 	@doc(
 		summary: "登录"
 	)
-	@handler login
+	@handler Login
 	post /login (LoginReq) returns (LoginResp)
 	
 	@doc(
 		summary: "登录验证码"
 	)
-	@handler getLoginCaptcha
+	@handler GetLoginCaptcha
 	get /login/captcha returns (LoginCaptchaResp)
 }
 
@@ -110,36 +110,36 @@ service core-api {
 	@doc(
 		summary: "登录信息"
 	)
-	@handler getUserInfo
+	@handler GetUserInfo
 	get /info returns (UserInfoResp)
 	
 	@doc(
 		summary: "权限菜单"
 	)
-	@handler getUserPermMenu
+	@handler GetUserPermMenu
 	get /permmenu returns (UserPermMenuResp)
 	
 	@doc(
 		summary: "用户资料"
 	)
-	@handler getUserProfileInfo
+	@handler GetUserProfileInfo
 	get /profile/info returns (UserProfileInfoResp)
 	
 	@doc(
 		summary: "更新用户资料"
 	)
-	@handler updateUserProfile
+	@handler UpdateUserProfile
 	post /profile/update (UpdateProfileReq)
 	
 	@doc(
 		summary: "更新密码"
 	)
-	@handler updateUserPassword
+	@handler UpdateUserPassword
 	post /password/update (UpdatePasswordReq)
 	
 	@doc(
 		summary: "退出"
 	)
-	@handler logout
+	@handler Logout
 	post /logout
 }
