@@ -95,3 +95,7 @@ type AddSysPermMenuReq struct {
 	IsShow       int64    `json:"isShow"`
 	ActiveRouter string   `json:"activeRouter"`
 }
+
+type DeleteSysPermMenuReq struct {
+	Id int64 `json:"id"`
+}

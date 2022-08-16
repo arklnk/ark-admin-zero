@@ -79,6 +79,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/add",
 					Handler: syspermmenu.AddSysPermMenuHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/delete",
+					Handler: syspermmenu.DeleteSysPermMenuHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
