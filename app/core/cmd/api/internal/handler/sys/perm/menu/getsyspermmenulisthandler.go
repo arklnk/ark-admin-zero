@@ -3,7 +3,7 @@ package menu
 import (
 	"net/http"
 
-	"ark-zero-admin/app/core/cmd/api/internal/logic/sys/perms/menu"
+	"ark-zero-admin/app/core/cmd/api/internal/logic/sys/perm/menu"
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/common/response"
 

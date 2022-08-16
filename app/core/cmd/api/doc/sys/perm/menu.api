@@ -21,8 +21,8 @@ type (
 
 @server(
     jwt: JwtAuth
-    group : sys/perms/menu
-    prefix : /sys/perms/menu
+    group : sys/perm/menu
+    prefix : /sys/perm/menu
 )
 service core-api {
     @doc(
