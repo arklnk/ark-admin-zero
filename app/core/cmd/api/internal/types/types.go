@@ -99,3 +99,17 @@ type AddSysPermMenuReq struct {
 type DeleteSysPermMenuReq struct {
 	Id int64 `json:"id"`
 }
+
+type UpdateSysPermMenuReq struct {
+	Id           int64    `json:"id"`
+	ParentId     int64    `json:"parentId"`
+	Name         string   `json:"name"`
+	Router       string   `json:"router"`
+	Perms        []string `json:"perms"`
+	Type         int64    `json:"type"`
+	Icon         string   `json:"icon"`
+	OrderNum     int64    `json:"orderNum"`
+	ViewPath     string   `json:"viewPath"`
+	IsShow       int64    `json:"isShow"`
+	ActiveRouter string   `json:"activeRouter"`
+}

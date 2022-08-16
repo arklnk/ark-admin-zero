@@ -40,6 +40,23 @@ type (
     }
 )
 
+type (
+    UpdateSysPermMenuReq {
+        Id int64 `json:"id"`
+        ParentId int64 `json:"parentId"`
+        Name string `json:"name"`
+        Router string `json:"router"`
+        Perms []string `json:"perms"`
+        Type int64 `json:"type"`
+        Icon string `json:"icon"`
+        OrderNum int64 `json:"orderNum"`
+        ViewPath string `json:"viewPath"`
+        IsShow int64 `json:"isShow"`
+        ActiveRouter string `json:"activeRouter"`
+    }
+)
+
+
 @server(
     jwt: JwtAuth
     group : sys/perm/menu
@@ -64,4 +81,10 @@ service core-api {
     )
     @handler DeleteSysPermMenu
     post /delete (DeleteSysPermMenuReq)
+
+    @doc(
+        summary: "更新权限菜单"
+    )
+    @handler UpdateSysPermMenu
+    post /update (UpdateSysPermMenuReq)
 }
