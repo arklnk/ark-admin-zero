@@ -30,6 +30,7 @@ func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	var role types.Role
 	var roleList []types.Role
 	for _, sysRole := range sysRoles {
@@ -39,6 +40,7 @@ func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err
 		}
 		roleList = append(roleList, role)
 	}
+
 	return &types.SysRoleListResp{
 		RoleList: roleList,
 	}, nil

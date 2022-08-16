@@ -33,14 +33,17 @@ func (l *AddSysPermMenuLogic) AddSysPermMenu(req *types.AddSysPermMenuReq) error
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	bytes, err := json.Marshal(req.Perms)
 	if err != nil {
 		return err
 	}
+
 	permMenu.Perms = string(bytes)
 	_, err = l.svcCtx.SysPermMenuModel.Insert(l.ctx, permMenu)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	return nil
 }

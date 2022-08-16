@@ -32,10 +32,12 @@ func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.UpdateProfileReq) 
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	err = copier.Copy(user,req)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	err = l.svcCtx.SysUserModel.Update(l.ctx, user)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)

@@ -32,6 +32,7 @@ func (c *Captcha) DriverString() *base64Captcha.DriverString {
 		},
 		Fonts: nil,
 	}
+
 	return stringType
 }
 
@@ -49,5 +50,6 @@ func (c *Captcha) DriverMath() *base64Captcha.DriverMath {
 		},
 		Fonts: nil,
 	}
+
 	return mathType
 }

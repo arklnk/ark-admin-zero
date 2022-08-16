@@ -32,6 +32,7 @@ func UpdateUserProfileHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
+
 		response.Response(w, nil, err)
 	}
 }

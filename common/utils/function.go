@@ -25,6 +25,7 @@ func GetUserId(ctx context.Context) int64 {
 			logx.WithContext(ctx).Errorf("GetUidFromCtx err : %+v", err)
 		}
 	}
+
 	return uid
 }
 
@@ -38,6 +39,7 @@ func ArrayUniqueValue[T any](arr []T) []T {
 			result = append(result, arr[i])
 		}
 	}
+
 	return result
 }
 
@@ -47,5 +49,6 @@ func ArrayContainValue(arr []int64, search int64) bool {
 			return true
 		}
 	}
+
 	return false
 }

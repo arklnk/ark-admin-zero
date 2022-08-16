@@ -30,13 +30,16 @@ func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	err = copier.Copy(sysRole, req)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	err = l.svcCtx.SysRoleModel.Update(l.ctx, sysRole)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	return nil
 }

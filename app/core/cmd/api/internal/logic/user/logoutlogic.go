@@ -32,5 +32,6 @@ func (l *LogoutLogic) Logout() error {
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	return nil
 }

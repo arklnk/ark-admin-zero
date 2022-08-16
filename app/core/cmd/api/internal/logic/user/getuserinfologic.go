@@ -31,6 +31,7 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserInfoResp, err error) {
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	return &types.UserInfoResp{
 		Username: user.Username,
 		Avatar:   user.Avatar,

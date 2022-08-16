@@ -29,6 +29,7 @@ func {{.HandlerName}}(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
+
         {{if .HasResp}}response.Response(w, resp, err){{else}}response.Response(w, nil, err){{end}}
 	}
 }

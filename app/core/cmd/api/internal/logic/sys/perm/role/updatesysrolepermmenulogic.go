@@ -30,14 +30,17 @@ func (l *UpdateSysRolePermMenuLogic) UpdateSysRolePermMenu(req *types.UpdateSysR
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	bytes, err := json.Marshal(req.PermMenuIds)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	sysRole.PermMenuIds = string(bytes)
 	err = l.svcCtx.SysRoleModel.Update(l.ctx, sysRole)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	return nil
 }

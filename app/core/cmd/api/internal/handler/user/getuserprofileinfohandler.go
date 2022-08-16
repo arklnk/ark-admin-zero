@@ -18,6 +18,7 @@ func GetUserProfileInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
+
 		response.Response(w, resp, err)
 	}
 }

@@ -38,6 +38,7 @@ func (l *GetLoginCaptchaLogic) GetLoginCaptcha() (resp *types.LoginCaptchaResp, 
 		ColorB: 89,
 		ColorA: 0,
 	}
+
 	driver := captcha.DriverString()
 	c := base64Captcha.NewCaptcha(driver, store)
 	id, b64s, err := c.Generate()

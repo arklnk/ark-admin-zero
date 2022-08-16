@@ -31,6 +31,7 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	var menu types.PermMenu
 	var PermMenuList []types.PermMenu
 	var perms []string
@@ -43,5 +44,6 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 		menu.Perms = perms
 		PermMenuList = append(PermMenuList, menu)
 	}
+
 	return &types.SysPermMenuListResp{PermMenuList: PermMenuList}, nil
 }

@@ -31,6 +31,7 @@ func (l *GetUserProfileInfoLogic) GetUserProfileInfo() (resp *types.UserProfileI
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	return &types.UserProfileInfoResp{
 		Username: user.Username,
 		Nickname: user.Nickname,

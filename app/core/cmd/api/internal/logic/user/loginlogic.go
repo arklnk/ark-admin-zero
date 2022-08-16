@@ -33,13 +33,16 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	if verifyCode != req.VerifyCode {
 		return nil, errorx.NewDefaultError(errorx.CaptchaErrorCode)
 	}
+
 	account, err := l.svcCtx.SysUserModel.FindOneByAccount(l.ctx, req.Account)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.AccountErrorCode)
 	}
+
 	if account.Password != utils.MD5(req.Password+l.svcCtx.Config.Salt) {
 		return nil, errorx.NewDefaultError(errorx.PasswordErrorCode)
 	}
+
 	token, _ := l.getJwtToken(
 		l.svcCtx.Config.JwtAuth.AccessSecret,
 		time.Now().Unix(),

@@ -31,13 +31,16 @@ func (l *UpdateUserPasswordLogic) UpdateUserPassword(req *types.UpdatePasswordRe
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	if user.Password != utils.MD5(req.OldPassword+l.svcCtx.Config.Salt) {
 		return errorx.NewDefaultError(errorx.PasswordErrorCode)
 	}
+
 	user.Password = utils.MD5(req.NewPassword + l.svcCtx.Config.Salt)
 	err = l.svcCtx.SysUserModel.Update(l.ctx, user)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
+
 	return nil
 }
