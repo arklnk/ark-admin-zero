@@ -8,14 +8,14 @@ type (
         Router string `json:"router"`
         Perms []string `json:"perms"`
         Type int64 `json:"type"`
-        Icon string `djsonb:"icon"`
-        OrderNum int64 `json:"order_num"`
-        ViewPath string `json:"view_path"`
-        IsShow int64 `json:"is_show"`
-        ActiveRouter string `json:"active_router"`
+        Icon string `json:"icon"`
+        OrderNum int64 `json:"orderNum"`
+        ViewPath string `json:"viewPath"`
+        IsShow int64 `json:"isShow"`
+        ActiveRouter string `json:"activeRouter"`
     }
     SysPermMenuListResp {
-        PermMenuList []PermMenu `json:"permMenuList"`
+        PermMenuList []PermMenu `json:"list"`
     }
 )
 
@@ -23,6 +23,7 @@ type (
     jwt: JwtAuth
     group : sys/perm/menu
     prefix : /sys/perm/menu
+    middleware: PermMenuAuth
 )
 service core-api {
     @doc(

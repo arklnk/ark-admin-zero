@@ -2,14 +2,17 @@ package svc
 
 import (
 	"ark-zero-admin/app/core/cmd/api/internal/config"
+	"ark-zero-admin/app/core/cmd/api/internal/middleware"
 	"ark-zero-admin/app/core/model"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"github.com/zeromicro/go-zero/rest"
 )
 
 type ServiceContext struct {
 	Config           config.Config
 	Redis            *redis.Redis
+	PermMenuAuth     rest.Middleware
 	SysUserModel     model.SysUserModel
 	SysPermMenuModel model.SysPermMenuModel
 	SysRoleModel     model.SysRoleModel
@@ -24,6 +27,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:           c,
 		Redis:            redisClient,
+		PermMenuAuth:     middleware.NewPermMenuAuthMiddleware(c.JwtAuth.AccessSecret,redisClient).Handle,
 		SysUserModel:     model.NewSysUserModel(mysqlConn, c.Cache),
 		SysPermMenuModel: model.NewSysPermMenuModel(mysqlConn, c.Cache),
 		SysRoleModel:     model.NewSysRoleModel(mysqlConn, c.Cache),

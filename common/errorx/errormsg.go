@@ -3,11 +3,12 @@ package errorx
 var errorMsg map[int]string
 
 const (
-	ServerErrorCode   = 1000
-	ParamErrorCode    = 1001
-	CaptchaErrorCode  = 1002
-	AccountErrorCode  = 1003
-	PasswordErrorCode = 1004
+	ServerErrorCode      = 1000
+	ParamErrorCode       = 1001
+	CaptchaErrorCode     = 1002
+	AccountErrorCode     = 1003
+	PasswordErrorCode    = 1004
+	NotPermMenuErrorCode = 1005
 )
 
 func init() {
@@ -16,6 +17,7 @@ func init() {
 	errorMsg[CaptchaErrorCode] = "验证码错误"
 	errorMsg[AccountErrorCode] = "账号错误"
 	errorMsg[PasswordErrorCode] = "密码错误"
+	errorMsg[NotPermMenuErrorCode] = "权限不足"
 }
 
 func MapErrMsg(errCode int) string {

@@ -72,13 +72,13 @@ type PermMenu struct {
 	Router       string   `json:"router"`
 	Perms        []string `json:"perms"`
 	Type         int64    `json:"type"`
-	Icon         string   `djsonb:"icon"`
-	OrderNum     int64    `json:"order_num"`
-	ViewPath     string   `json:"view_path"`
-	IsShow       int64    `json:"is_show"`
-	ActiveRouter string   `json:"active_router"`
+	Icon         string   `json:"icon"`
+	OrderNum     int64    `json:"orderNum"`
+	ViewPath     string   `json:"viewPath"`
+	IsShow       int64    `json:"isShow"`
+	ActiveRouter string   `json:"activeRouter"`
 }
 
 type SysPermMenuListResp struct {
-	PermMenuList []PermMenu `json:"permMenuList"`
+	PermMenuList []PermMenu `json:"list"`
 }

@@ -71,6 +71,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 			return nil, err
 		}
 		for _, s := range permArr {
+			s = globalkey.PermMenuPrefix + s
 			_, err := l.svcCtx.Redis.Sadd(globalkey.CachePermMenuKey+strconv.FormatInt(userId, 10), s)
 			if err != nil {
 				return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
