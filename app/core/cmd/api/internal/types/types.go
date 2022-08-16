@@ -79,6 +79,6 @@ type PermMenu struct {
 	ActiveRouter string   `json:"active_router"`
 }
 
-type PermMenuListResp struct {
+type SysPermMenuListResp struct {
 	PermMenuList []PermMenu `json:"permMenuList"`
 }

@@ -155,9 +155,9 @@ CREATE TABLE `sys_perm_menu` (
 --
 
 INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type`, `icon`, `order_num`, `view_path`, `is_show`, `active_router`, `create_time`, `update_time`) VALUES
-(1, 0, 'routes.systemManagement', '/sys', '[]', 0, 'system', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 13:29:53'),
+(1, 0, 'routes.systemManagement', '/sys', '[]', 0, 'sys', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 13:29:53'),
 (2, 1, 'routes.permManagement', '/sys/perms', '[]', 0, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 14:38:40'),
-(3, 2, 'routes.menuList', '/sys/perms/menu/list', '[\"perms1\",\"perms2\"]', 1, '', 0, 'views/system/permission/menu', 1, '', '2022-08-12 02:14:20', '2022-08-15 13:29:46');
+(3, 2, 'routes.menuList', '/sys/perms/menu/list', '[\"perms1\",\"perms2\"]', 1, '', 0, 'views/sys/permission/menu', 1, '', '2022-08-12 02:14:20', '2022-08-15 13:29:46');
 
 -- --------------------------------------------------------
 

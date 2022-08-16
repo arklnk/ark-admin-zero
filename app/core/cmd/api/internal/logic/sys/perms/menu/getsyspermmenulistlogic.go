@@ -12,21 +12,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GetPermMenuListLogic struct {
+type GetSysPermMenuListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewGetPermMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetPermMenuListLogic {
-	return &GetPermMenuListLogic{
+func NewGetSysPermMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetSysPermMenuListLogic {
+	return &GetSysPermMenuListLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *GetPermMenuListLogic) GetPermMenuList() (resp *types.PermMenuListResp, err error) {
+func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuListResp, err error) {
 	permMenus, err := l.svcCtx.SysPermMenuModel.FindAll(l.ctx)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
@@ -43,5 +43,5 @@ func (l *GetPermMenuListLogic) GetPermMenuList() (resp *types.PermMenuListResp, 
 		menu.Perms = perms
 		PermMenuList = append(PermMenuList, menu)
 	}
-	return &types.PermMenuListResp{PermMenuList: PermMenuList}, nil
+	return &types.SysPermMenuListResp{PermMenuList: PermMenuList}, nil
 }

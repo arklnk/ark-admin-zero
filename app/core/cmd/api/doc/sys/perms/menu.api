@@ -14,20 +14,20 @@ type (
         IsShow int64 `json:"is_show"`
         ActiveRouter string `json:"active_router"`
     }
-    PermMenuListResp {
+    SysPermMenuListResp {
         PermMenuList []PermMenu `json:"permMenuList"`
     }
 )
 
 @server(
     jwt: JwtAuth
-    group : system/perms/menu
-    prefix : /system/perms/menu
+    group : sys/perms/menu
+    prefix : /sys/perms/menu
 )
 service core-api {
     @doc(
         summary: "权限菜单列表"
     )
-    @handler getPermMenuList
-    get /list returns (PermMenuListResp)
+    @handler getSysPermMenuList
+    get /list returns (SysPermMenuListResp)
 }
