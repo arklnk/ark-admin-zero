@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	syspermmenu "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/menu"
+	syspermrole "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/role"
 	user "ark-zero-admin/app/core/cmd/api/internal/handler/user"
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 
@@ -93,5 +94,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/sys/perm/menu"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.PermMenuAuth},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/list",
+					Handler: syspermrole.GetSysRoleListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/add",
+					Handler: syspermrole.AddSysRoleHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/delete",
+					Handler: syspermrole.DeleteSysRoleHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/update",
+					Handler: syspermrole.UpdateSysRoleHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/perm/update",
+					Handler: syspermrole.UpdateSysRolePermMenuHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+		rest.WithPrefix("/sys/role"),
 	)
 }

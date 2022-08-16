@@ -1,5 +1,12 @@
 syntax = "v1"
 
+info(
+    title: "权限菜单"
+    desc: "权限菜单"
+    author: "Trevor"
+    email: "trevorlan@163.com"
+)
+
 type (
     PermMenu {
         Id int64 `json:"id"`

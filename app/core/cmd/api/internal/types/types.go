@@ -113,3 +113,45 @@ type UpdateSysPermMenuReq struct {
 	IsShow       int64    `json:"isShow"`
 	ActiveRouter string   `json:"activeRouter"`
 }
+
+type Role struct {
+	Id        int64  `json:"id"`
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	UniqueKey string `json:"uniqueKey"`
+	Remark    string `json:"remark"`
+	Status    int64  `json:"status"`
+	OrderNum  int64  `json:"orderNum"`
+}
+
+type SysRoleListResp struct {
+	RoleList []Role `json:"list"`
+}
+
+type AddSysRoleReq struct {
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	UniqueKey string `json:"uniqueKey"`
+	Remark    string `json:"remark"`
+	Status    int64  `json:"status"`
+	OrderNum  int64  `json:"orderNum"`
+}
+
+type DeleteSysRoleReq struct {
+	Id int64 `json:"id"`
+}
+
+type UpdateSysRoleReq struct {
+	Id        int64  `json:"id"`
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	UniqueKey string `json:"uniqueKey"`
+	Remark    string `json:"remark"`
+	Status    int64  `json:"status"`
+	OrderNum  int64  `json:"orderNum"`
+}
+
+type UpdateSysRolePermMenuReq struct {
+	Id          int64   `json:"id"`
+	PermMenuIds []int64 `json:"permMenuIds"`
+}

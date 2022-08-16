@@ -9,6 +9,8 @@ const (
 	AccountErrorCode     = 1003
 	PasswordErrorCode    = 1004
 	NotPermMenuErrorCode = 1005
+	AddRoleErrorCode     = 1006
+	DeleteRoleErrorCode  = 1007
 )
 
 func init() {
@@ -18,6 +20,8 @@ func init() {
 	errorMsg[AccountErrorCode] = "账号错误"
 	errorMsg[PasswordErrorCode] = "密码错误"
 	errorMsg[NotPermMenuErrorCode] = "权限不足"
+	errorMsg[AddRoleErrorCode] = "角色已存在"
+	errorMsg[DeleteRoleErrorCode] = "该角色存在子角色"
 }
 
 func MapErrMsg(errCode int) string {
