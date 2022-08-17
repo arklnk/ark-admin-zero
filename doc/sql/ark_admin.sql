@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-17 10:27:21
+-- 生成日期： 2022-08-17 14:19:52
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库： `ark_admin_zero`
+-- 数据库： `ark_admin`
 --
 
 -- --------------------------------------------------------
@@ -254,8 +254,7 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-15 14:31:00'),
-(2, 0, '超级管理员2', 'superadmin2', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-15 14:31:00');
+(1, 0, '超级管理员', 'superadmin', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-15 14:31:00');
 
 -- --------------------------------------------------------
 
@@ -290,7 +289,7 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', '蒋勇', '顾芳', 'http://dummyimage.com/100x100', 1, '1970-01-01 00:00:00', 'm.cqcprwum@qq.com', '18637334616', 1, 1, 1, '[1, 2]', 1, 0, 'nisi', '2022-08-11 06:19:45', '2022-08-17 09:16:13');
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'http://dummyimage.com/100x100', 1, '1970-01-01 00:00:00', 'arklnk@163.com', '12000000000', 1, 1, 1, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-17 14:15:02');
 
 --
 -- 转储表的索引
@@ -419,7 +418,7 @@ ALTER TABLE `sys_profession`
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`

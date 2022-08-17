@@ -69,7 +69,7 @@
 |字段名称|字段类型|字段含义|
 |:---:|:---:|:---:|
 |id|int(11)|编号|
-|name|int(11)|岗位名称|
+|name|varchar(50)|岗位名称|
 |status|tinyint(1)|0=禁用 1=开启 |
 |order_num|int(11)|排序值|
 |create_time|timestamp|创建时间|
