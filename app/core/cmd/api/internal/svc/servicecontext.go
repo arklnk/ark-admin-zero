@@ -16,6 +16,7 @@ type ServiceContext struct {
 	SysUserModel     model.SysUserModel
 	SysPermMenuModel model.SysPermMenuModel
 	SysRoleModel     model.SysRoleModel
+	SysDeptModel     model.SysDeptModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -27,9 +28,10 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:           c,
 		Redis:            redisClient,
-		PermMenuAuth:     middleware.NewPermMenuAuthMiddleware(c.JwtAuth.AccessSecret,redisClient).Handle,
+		PermMenuAuth:     middleware.NewPermMenuAuthMiddleware(c.JwtAuth.AccessSecret, redisClient).Handle,
 		SysUserModel:     model.NewSysUserModel(mysqlConn, c.Cache),
 		SysPermMenuModel: model.NewSysPermMenuModel(mysqlConn, c.Cache),
 		SysRoleModel:     model.NewSysRoleModel(mysqlConn, c.Cache),
+		SysDeptModel:     model.NewSysDeptModel(mysqlConn, c.Cache),
 	}
 }

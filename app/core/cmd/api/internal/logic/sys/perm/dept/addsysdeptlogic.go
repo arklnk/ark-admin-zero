@@ -1,4 +1,4 @@
-package role
+package dept
 
 import (
 	"context"
@@ -7,44 +7,39 @@ import (
 	"ark-zero-admin/app/core/cmd/api/internal/types"
 	"ark-zero-admin/app/core/model"
 	"ark-zero-admin/common/errorx"
-	"ark-zero-admin/common/globalkey"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type AddSysRoleLogic struct {
+type AddSysDeptLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewAddSysRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddSysRoleLogic {
-	return &AddSysRoleLogic{
+func NewAddSysDeptLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddSysDeptLogic {
+	return &AddSysDeptLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *AddSysRoleLogic) AddSysRole(req *types.AddSysRoleReq) error {
-	_, err := l.svcCtx.SysRoleModel.FindOneByUniqueKey(l.ctx, req.UniqueKey)
+func (l *AddSysDeptLogic) AddSysDept(req *types.AddSysDeptReq) error {
+	_, err := l.svcCtx.SysDeptModel.FindOneByUniqueKey(l.ctx, req.UniqueKey)
 	if err == model.ErrNotFound {
-		var sysRole = new(model.SysRole)
-		err = copier.Copy(sysRole, req)
+		var sysDept = new(model.SysDept)
+		err = copier.Copy(sysDept, req)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
-
-		sysRole.PermMenuIds = globalkey.NewRoleDefaultPermMenu
-		_, err = l.svcCtx.SysRoleModel.Insert(l.ctx, sysRole)
+		_, err = l.svcCtx.SysDeptModel.Insert(l.ctx, sysDept)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
-
 		return nil
 	} else {
-
-		return errorx.NewDefaultError(errorx.AddRoleErrorCode)
+		return errorx.NewDefaultError(errorx.AddDeptErrorCode)
 	}
 }

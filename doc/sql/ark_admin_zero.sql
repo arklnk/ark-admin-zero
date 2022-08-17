@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-16 14:46:39
+-- 生成日期： 2022-08-17 02:40:10
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -29,16 +29,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `sys_dept` (
   `id` int(11) NOT NULL COMMENT '编号',
+  `parent_id` int(11) NOT NULL COMMENT '父级id',
   `name` varchar(25) NOT NULL COMMENT '部门简称',
   `full_name` varchar(50) NOT NULL COMMENT '部门全称',
   `unique_key` varchar(25) NOT NULL COMMENT '唯一值',
-  `parent_id` int(11) NOT NULL COMMENT '父级id',
   `status` tinyint(1) NOT NULL COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL COMMENT '排序值',
   `remark` varchar(100) NOT NULL DEFAULT '""' COMMENT '备注',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='部门';
+
+--
+-- 转存表中的数据 `sys_dept`
+--
+
+INSERT INTO `sys_dept` (`id`, `parent_id`, `name`, `full_name`, `unique_key`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
+(1, 0, '方舟', '方舟互联', '1', 1, 1, '', '2022-08-17 02:09:17', '2022-08-17 02:09:37');
 
 -- --------------------------------------------------------
 
@@ -167,7 +174,13 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (10, 8, '新增', '', '[\"sys/role/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:13:29'),
 (11, 8, '删除', '', '[\"sys/role/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:13:51'),
 (12, 8, '更新', '', '[\"sys/role/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:14:10'),
-(13, 8, '设置权限', '', '[\"sys/role/perm/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 14:40:56');
+(13, 8, '权限', '', '[\"sys/role/perm/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:53:24'),
+(14, 2, '部门列表', '/sys/perms/dept/list', '[]', 1, '', 0, 'views/system/permission/dept', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:51:04'),
+(15, 14, '列表', '', '[\"sys/dept/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:51:48'),
+(16, 14, '新增', '', '[\"sys/dept/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:52:17'),
+(17, 14, '删除', '', '[\"sys/dept/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:52:44'),
+(18, 14, '更新', '', '[\"sys/dept/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:53:04'),
+(19, 14, '转移', '', '[\"sys/dept/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:53:53');
 
 -- --------------------------------------------------------
 
@@ -324,7 +337,7 @@ ALTER TABLE `sys_user`
 -- 使用表AUTO_INCREMENT `sys_dept`
 --
 ALTER TABLE `sys_dept`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_dictionary`
@@ -360,7 +373,7 @@ ALTER TABLE `sys_param`
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=20;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`

@@ -11,6 +11,8 @@ const (
 	NotPermMenuErrorCode = 1005
 	AddRoleErrorCode     = 1006
 	DeleteRoleErrorCode  = 1007
+	AddDeptErrorCode     = 1008
+	DeleteDeptErrorCode  = 1009
 )
 
 func init() {
@@ -22,6 +24,8 @@ func init() {
 	errorMsg[NotPermMenuErrorCode] = "权限不足"
 	errorMsg[AddRoleErrorCode] = "角色已存在"
 	errorMsg[DeleteRoleErrorCode] = "该角色存在子角色"
+	errorMsg[AddDeptErrorCode] = "部门已存在"
+	errorMsg[DeleteDeptErrorCode] = "该部门存在子部门"
 }
 
 func MapErrMsg(errCode int) string {

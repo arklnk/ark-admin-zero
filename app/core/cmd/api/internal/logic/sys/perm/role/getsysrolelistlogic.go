@@ -26,14 +26,14 @@ func NewGetSysRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 }
 
 func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err error) {
-	sysRoles, err := l.svcCtx.SysRoleModel.FindAll(l.ctx)
+	sysRoleList, err := l.svcCtx.SysRoleModel.FindAll(l.ctx)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
 	var role types.Role
 	var roleList []types.Role
-	for _, sysRole := range sysRoles {
+	for _, sysRole := range sysRoleList {
 		err := copier.Copy(&role, &sysRole)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)

@@ -155,3 +155,48 @@ type UpdateSysRolePermMenuReq struct {
 	Id          int64   `json:"id"`
 	PermMenuIds []int64 `json:"permMenuIds"`
 }
+
+type Dept struct {
+	Id        int64  `json:"id"`
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	FullName  string `json:"fullName"`
+	UniqueKey string `json:"uniqueKey"`
+	Status    int64  `json:"status"`
+	OrderNum  int64  `json:"orderNum"`
+	Remark    string `json:"remark"`
+}
+
+type SysDeptListResp struct {
+	DeptList []Dept `json:"list"`
+}
+
+type AddSysDeptReq struct {
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	FullName  string `json:"fullName"`
+	UniqueKey string `json:"uniqueKey"`
+	Status    int64  `json:"status"`
+	OrderNum  int64  `json:"orderNum"`
+	Remark    string `json:"remark"`
+}
+
+type DeleteSysDeptReq struct {
+	Id int64 `json:"id"`
+}
+
+type UpdateSysDeptReq struct {
+	Id        int64  `json:"id"`
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	FullName  string `json:"fullName"`
+	UniqueKey string `json:"uniqueKey"`
+	Status    int64  `json:"status"`
+	OrderNum  int64  `json:"orderNum"`
+	Remark    string `json:"remark"`
+}
+
+type TransferSysDeptReq struct {
+	Id       int64 `json:"id"`
+	ParentId int64 `json:"parentId"`
+}
