@@ -28,9 +28,6 @@ func NewGetSysDeptListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 func (l *GetSysDeptListLogic) GetSysDeptList() (resp *types.SysDeptListResp, err error) {
 	sysDeptList, err := l.svcCtx.SysDeptModel.FindAll(l.ctx)
 	if err != nil {
-		return nil, err
-	}
-	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
