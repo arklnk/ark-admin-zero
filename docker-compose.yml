@@ -16,7 +16,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DARABASE: ark_admin
+      MYSQL_DATABASE: ark_admin
     ports:
       - "3306:3306"
     volumes:
