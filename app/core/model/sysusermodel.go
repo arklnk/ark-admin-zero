@@ -20,7 +20,7 @@ type SysUserDetail struct {
 	Profession string    `db:"profession"`  // 职称
 	Job        string    `db:"job"`         // 岗位
 	Dept       string    `db:"dept"`        // 部门
-	RoleIds    string    `db:"role_ids"`    // 角色集
+	Roles      string    `db:"roles"`       // 角色集
 	Birthday   time.Time `db:"birthday"`    // 生日
 	Email      string    `db:"email"`       // 邮件
 	Mobile     string    `db:"mobile"`      // 手机号
@@ -37,7 +37,7 @@ type (
 	SysUserModel interface {
 		sysUserModel
 		FindByCondition(ctx context.Context, condition string, value int64) ([]*SysUser, error)
-		FindPage(ctx context.Context) ([]*SysUserDetail, error)
+		FindByPage(ctx context.Context) ([]*SysUserDetail, error)
 	}
 
 	customSysUserModel struct {
@@ -64,8 +64,8 @@ func (m *customSysUserModel) FindByCondition(ctx context.Context, condition stri
 	}
 }
 
-func (m *customSysUserModel) FindPage(ctx context.Context) ([]*SysUserDetail, error) {
-	query := fmt.Sprintf("SELECT u.id,u.account,u.username,u.nickname,u.avatar,u.gender,p.name as profession,j.name as job,d.name as dept,u.role_ids,u.birthday,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM `sys_user` u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id")
+func (m *customSysUserModel) FindByPage(ctx context.Context) ([]*SysUserDetail, error) {
+	query := fmt.Sprintf("SELECT u.id,u.account,u.username,u.nickname,u.avatar,u.gender,p.name as profession,j.name as job,d.name as dept,GROUP_CONCAT(r.name) as roles,u.birthday,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM `sys_user` u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id")
 	var resp []*SysUserDetail
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

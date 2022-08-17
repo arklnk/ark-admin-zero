@@ -3,8 +3,8 @@ package user
 import (
 	"ark-zero-admin/common/errorx"
 	"context"
-	"encoding/json"
 	"github.com/jinzhu/copier"
+	"strings"
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
@@ -27,7 +27,7 @@ func NewGetSysUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 }
 
 func (l *GetSysUserListLogic) GetSysUserList() (resp *types.SysUserListResp, err error) {
-	users, err := l.svcCtx.SysUserModel.FindPage(l.ctx)
+	users, err := l.svcCtx.SysUserModel.FindByPage(l.ctx)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
@@ -35,14 +35,12 @@ func (l *GetSysUserListLogic) GetSysUserList() (resp *types.SysUserListResp, err
 	var user types.User
 	var userList []types.User
 	for _, v := range users {
-		var roleIds []string
 		err := copier.Copy(&user, &v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
 
-		err = json.Unmarshal([]byte(v.RoleIds), &roleIds)
-		user.Roles = roleIds
+		user.Roles = strings.Split(v.Roles, ",")
 		userList = append(userList, user)
 	}
 

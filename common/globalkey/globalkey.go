@@ -7,5 +7,4 @@ const (
 	SuperAdminRole         = 1
 	DefaultRoleId          = "0"
 	PermMenuPrefix         = "/"
-	NewRoleDefaultPermMenu = "[]"
 )
