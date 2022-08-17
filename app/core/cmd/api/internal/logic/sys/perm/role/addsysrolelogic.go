@@ -2,13 +2,12 @@ package role
 
 import (
 	"context"
+	"encoding/json"
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
 	"ark-zero-admin/app/core/model"
 	"ark-zero-admin/common/errorx"
-	"ark-zero-admin/common/globalkey"
-
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -36,7 +35,12 @@ func (l *AddSysRoleLogic) AddSysRole(req *types.AddSysRoleReq) error {
 			return errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
 
-		sysRole.PermMenuIds = globalkey.NewRoleDefaultPermMenu
+		bytes, err := json.Marshal(req.PermMenuIds)
+		if err != nil {
+			return err
+		}
+
+		sysRole.PermMenuIds = string(bytes)
 		_, err = l.svcCtx.SysRoleModel.Insert(l.ctx, sysRole)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ServerErrorCode)

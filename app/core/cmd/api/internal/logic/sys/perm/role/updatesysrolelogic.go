@@ -2,6 +2,7 @@ package role
 
 import (
 	"context"
+	"encoding/json"
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
@@ -30,12 +31,17 @@ func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
-
 	err = copier.Copy(sysRole, req)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
+	bytes, err := json.Marshal(req.PermMenuIds)
+	if err != nil {
+		return err
+	}
+
+	sysRole.PermMenuIds = string(bytes)
 	err = l.svcCtx.SysRoleModel.Update(l.ctx, sysRole)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)

@@ -27,6 +27,7 @@ type (
         ParentId int64 `json:"parentId"`
         Name string `json:"name"`
         UniqueKey string `json:"uniqueKey"`
+        PermMenuIds []int64 `json:"permMenuIds"`
         Remark string `json:"remark"`
         Status int64 `json:"status"`
         OrderNum int64 `json:"orderNum"`
@@ -45,6 +46,7 @@ type (
         ParentId int64 `json:"parentId"`
         Name string `json:"name"`
         UniqueKey string `json:"uniqueKey"`
+        PermMenuIds []int64 `json:"permMenuIds"`
         Remark string `json:"remark"`
         Status int64 `json:"status"`
         OrderNum int64 `json:"orderNum"`

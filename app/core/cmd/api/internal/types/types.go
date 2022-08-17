@@ -129,12 +129,13 @@ type SysRoleListResp struct {
 }
 
 type AddSysRoleReq struct {
-	ParentId  int64  `json:"parentId"`
-	Name      string `json:"name"`
-	UniqueKey string `json:"uniqueKey"`
-	Remark    string `json:"remark"`
-	Status    int64  `json:"status"`
-	OrderNum  int64  `json:"orderNum"`
+	ParentId    int64   `json:"parentId"`
+	Name        string  `json:"name"`
+	UniqueKey   string  `json:"uniqueKey"`
+	PermMenuIds []int64 `json:"permMenuIds"`
+	Remark      string  `json:"remark"`
+	Status      int64   `json:"status"`
+	OrderNum    int64   `json:"orderNum"`
 }
 
 type DeleteSysRoleReq struct {
@@ -142,13 +143,14 @@ type DeleteSysRoleReq struct {
 }
 
 type UpdateSysRoleReq struct {
-	Id        int64  `json:"id"`
-	ParentId  int64  `json:"parentId"`
-	Name      string `json:"name"`
-	UniqueKey string `json:"uniqueKey"`
-	Remark    string `json:"remark"`
-	Status    int64  `json:"status"`
-	OrderNum  int64  `json:"orderNum"`
+	Id          int64   `json:"id"`
+	ParentId    int64   `json:"parentId"`
+	Name        string  `json:"name"`
+	UniqueKey   string  `json:"uniqueKey"`
+	PermMenuIds []int64 `json:"permMenuIds"`
+	Remark      string  `json:"remark"`
+	Status      int64   `json:"status"`
+	OrderNum    int64   `json:"orderNum"`
 }
 
 type UpdateSysRolePermMenuReq struct {
