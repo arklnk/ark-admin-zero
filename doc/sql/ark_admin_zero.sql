@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-17 05:33:35
+-- 生成日期： 2022-08-17 10:27:21
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -174,10 +174,10 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (1, 0, 'routes.systemManagement', '/sys', '[]', 0, 'system', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 13:29:53'),
 (2, 1, 'routes.permManagement', '/sys/perms', '[]', 0, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 06:26:42'),
 (3, 2, 'routes.menuList', '/sys/perms/menu/list', '[]', 1, '', 0, 'views/system/permission/menu', 1, '', '2022-08-12 02:14:20', '2022-08-16 06:57:24'),
-(4, 3, '列表', '', '[\"sys/perm/menu/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 07:06:01'),
-(5, 3, '新增', '', '[\"sys/perm/menu/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 07:06:01'),
-(6, 3, '删除', '', '[\"sys/perm/menu/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 07:06:01'),
-(7, 3, '更新', '', '[\"sys/perm/menu/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 08:50:05'),
+(4, 3, 'common.basic.query', '', '[\"sys/perm/menu/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 07:31:41'),
+(5, 3, 'common.basic.add', '', '[\"sys/perm/menu/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 06:21:43'),
+(6, 3, 'common.basic.delete', '', '[\"sys/perm/menu/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 07:32:09'),
+(7, 3, 'common.basic.update', '', '[\"sys/perm/menu/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 07:32:18'),
 (8, 2, '角色列表', '/sys/perms/role/list', '[]', 1, '', 0, 'views/system/permission/role', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:12:14'),
 (9, 8, '列表', '', '[\"sys/role/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:12:54'),
 (10, 8, '新增', '', '[\"sys/role/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:13:29'),
@@ -199,7 +199,13 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (26, 25, '列表', '', '[\"sys/profession/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
 (27, 25, '新增', '', '[\"sys/profession/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
 (28, 25, '删除', '', '[\"sys/profession/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(29, 25, '更新', '', '[\"sys/profession/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22');
+(29, 25, '更新', '', '[\"sys/profession/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
+(30, 2, '用户列表', '/sys/perms/user/list', '[]', 1, '', 0, 'views/system/user/job', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:01:11'),
+(31, 30, '列表', '', '[\"sys/user/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
+(32, 30, '新增', '', '[\"sys/user/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
+(33, 30, '删除', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
+(34, 30, '更新', '', '[\"sys/user/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
+(35, 30, '改密', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22');
 
 -- --------------------------------------------------------
 
@@ -248,7 +254,8 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-15 14:31:00');
+(1, 0, '超级管理员', 'superadmin', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-15 14:31:00'),
+(2, 0, '超级管理员2', 'superadmin2', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-15 14:31:00');
 
 -- --------------------------------------------------------
 
@@ -283,7 +290,7 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', '蒋勇', '顾芳', 'http://dummyimage.com/100x100', 1, '1970-01-01 00:00:00', 'm.cqcprwum@qq.com', '18637334616', 1, 1, 1, '[1]', 1, 0, 'nisi', '2022-08-11 06:19:45', '2022-08-15 15:22:46');
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', '蒋勇', '顾芳', 'http://dummyimage.com/100x100', 1, '1970-01-01 00:00:00', 'm.cqcprwum@qq.com', '18637334616', 1, 1, 1, '[1, 2]', 1, 0, 'nisi', '2022-08-11 06:19:45', '2022-08-17 09:16:13');
 
 --
 -- 转储表的索引
@@ -400,7 +407,7 @@ ALTER TABLE `sys_param`
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=36;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`
@@ -412,7 +419,7 @@ ALTER TABLE `sys_profession`
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`

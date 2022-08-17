@@ -256,3 +256,77 @@ type UpdateSysProfessionReq struct {
 	Status   int64  `json:"status"`
 	OrderNum int64  `json:"orderNum"`
 }
+
+type User struct {
+	Id         int64    `json:"id"`
+	Account    string   `json:"account"`
+	Username   string   `json:"username"`
+	Nickname   string   `json:"nickname"`
+	Avatar     string   `json:"avatar"`
+	Gender     int64    `json:"gender"`
+	Birthday   string   `json:"birthday"`
+	Email      string   `json:"email"`
+	Mobile     string   `json:"mobile"`
+	Profession string   `json:"profession"`
+	Job        string   `json:"job"`
+	Dept       string   `json:"dept"`
+	Roles      []string `json:"roles"`
+	Status     int64    `json:"status"`
+	OrderNum   int64    `json:"orderNum"`
+	Remark     string   `json:"remark"`
+}
+
+type SysUserListResp struct {
+	UserList []User `json:"list"`
+}
+
+type AddSysUserReq struct {
+	Account      string  `json:"account"`
+	Username     string  `json:"username"`
+	Nickname     string  `json:"nickname"`
+	Avatar       string  `json:"avatar"`
+	Gender       int64   `json:"gender"`
+	Birthday     string  `json:"birthday"`
+	Email        string  `json:"email"`
+	Mobile       string  `json:"mobile"`
+	ProfessionId int64   `json:"profession"`
+	JobId        int64   `json:"jobId"`
+	DeptId       int64   `json:"deptId"`
+	RoleIds      []int64 `json:"roleIds"`
+	Status       int64   `json:"status"`
+	OrderNum     int64   `json:"orderNum"`
+	Remark       string  `json:"remark"`
+}
+
+type DeleteSysUserReq struct {
+	Id int64 `json:"id"`
+}
+
+type UpdateSysUserReq struct {
+	Id           int64   `json:"id"`
+	Account      string  `json:"account"`
+	Username     string  `json:"username"`
+	Nickname     string  `json:"nickname"`
+	Avatar       string  `json:"avatar"`
+	Gender       int64   `json:"gender"`
+	Birthday     string  `json:"birthday"`
+	Email        string  `json:"email"`
+	Mobile       string  `json:"mobile"`
+	ProfessionId int64   `json:"profession"`
+	JobId        int64   `json:"jobId"`
+	DeptId       int64   `json:"deptId"`
+	RoleIds      []int64 `json:"roleIds"`
+	Status       int64   `json:"status"`
+	OrderNum     int64   `json:"orderNum"`
+	Remark       string  `json:"remark"`
+}
+
+type UpdateSysUserPasswordReq struct {
+	Id       int64  `json:"id"`
+	Password string `json:"password"`
+}
+
+type TransferSysUserReq struct {
+	Id     int64 `json:"id"`
+	DeptId int64 `json:"deptId"`
+}

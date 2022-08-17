@@ -9,6 +9,7 @@ import (
 	syspermmenu "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/menu"
 	syspermprofession "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/profession"
 	syspermrole "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/role"
+	syspermuser "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/user"
 	user "ark-zero-admin/app/core/cmd/api/internal/handler/user"
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 
@@ -227,5 +228,45 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/sys/profession"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.PermMenuAuth},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/list",
+					Handler: syspermuser.GetSysUserListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/add",
+					Handler: syspermuser.AddSysUserHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/delete",
+					Handler: syspermuser.DeleteSysUserHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/update",
+					Handler: syspermuser.UpdateSysUserHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/password/update",
+					Handler: syspermuser.UpdateSysUserPasswordHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/transfer",
+					Handler: syspermuser.TransferSysUserHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+		rest.WithPrefix("/sys/user"),
 	)
 }
