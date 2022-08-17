@@ -30,7 +30,7 @@ func NewGetLoginCaptchaLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 func (l *GetLoginCaptchaLogic) GetLoginCaptcha() (resp *types.LoginCaptchaResp, err error) {
 	var store = base64Captcha.DefaultMemStore
 	captcha := utils.Captcha{
-		Height: 30,
+		Height: 40,
 		Width:  80,
 		Length: 4,
 		ColorR: 40,
