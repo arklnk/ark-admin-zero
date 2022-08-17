@@ -17,6 +17,7 @@ type ServiceContext struct {
 	SysPermMenuModel model.SysPermMenuModel
 	SysRoleModel     model.SysRoleModel
 	SysDeptModel     model.SysDeptModel
+	SysJobModel      model.SysJobModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -33,5 +34,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		SysPermMenuModel: model.NewSysPermMenuModel(mysqlConn, c.Cache),
 		SysRoleModel:     model.NewSysRoleModel(mysqlConn, c.Cache),
 		SysDeptModel:     model.NewSysDeptModel(mysqlConn, c.Cache),
+		SysJobModel:      model.NewSysJobModel(mysqlConn, c.Cache),
 	}
 }

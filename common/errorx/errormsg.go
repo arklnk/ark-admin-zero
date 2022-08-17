@@ -13,6 +13,8 @@ const (
 	DeleteRoleErrorCode  = 1007
 	AddDeptErrorCode     = 1008
 	DeleteDeptErrorCode  = 1009
+	AddJobErrorCode      = 1010
+	DeleteJobErrorCode   = 1011
 )
 
 func init() {
@@ -26,6 +28,8 @@ func init() {
 	errorMsg[DeleteRoleErrorCode] = "该角色存在子角色"
 	errorMsg[AddDeptErrorCode] = "部门已存在"
 	errorMsg[DeleteDeptErrorCode] = "该部门存在子部门"
+	errorMsg[AddJobErrorCode] = "岗位已存在"
+	errorMsg[DeleteJobErrorCode] = "该岗位正在使用中"
 }
 
 func MapErrMsg(errCode int) string {

@@ -200,3 +200,31 @@ type TransferSysDeptReq struct {
 	Id       int64 `json:"id"`
 	ParentId int64 `json:"parentId"`
 }
+
+type Job struct {
+	Id       int64  `json:"id"`
+	Name     string `json:"name"`
+	Status   int64  `json:"status"`
+	OrderNum int64  `json:"orderNum"`
+}
+
+type SysJobListResp struct {
+	JobList []Job `json:"list"`
+}
+
+type AddSysJobReq struct {
+	Name     string `json:"name"`
+	Status   int64  `json:"status"`
+	OrderNum int64  `json:"orderNum"`
+}
+
+type DeleteSysJobReq struct {
+	Id int64 `json:"id"`
+}
+
+type UpdateSysJobReq struct {
+	Id       int64  `json:"id"`
+	Name     string `json:"name"`
+	Status   int64  `json:"status"`
+	OrderNum int64  `json:"orderNum"`
+}
