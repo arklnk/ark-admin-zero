@@ -6,7 +6,6 @@ import (
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
-	"ark-zero-admin/app/core/model"
 	"ark-zero-admin/common/errorx"
 
 	"github.com/jinzhu/copier"
@@ -28,8 +27,12 @@ func NewUpdateSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuReq) error {
-	var permMenu = new(model.SysPermMenu)
-	err := copier.Copy(permMenu, req)
+	permMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.Id)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	err = copier.Copy(permMenu, req)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
