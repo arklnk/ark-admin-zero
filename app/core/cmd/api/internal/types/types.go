@@ -228,3 +228,31 @@ type UpdateSysJobReq struct {
 	Status   int64  `json:"status"`
 	OrderNum int64  `json:"orderNum"`
 }
+
+type Profession struct {
+	Id       int64  `json:"id"`
+	Name     string `json:"name"`
+	Status   int64  `json:"status"`
+	OrderNum int64  `json:"orderNum"`
+}
+
+type SysProfessionListResp struct {
+	ProfessionList []Profession `json:"list"`
+}
+
+type AddSysProfessionReq struct {
+	Name     string `json:"name"`
+	Status   int64  `json:"status"`
+	OrderNum int64  `json:"orderNum"`
+}
+
+type DeleteSysProfessionReq struct {
+	Id int64 `json:"id"`
+}
+
+type UpdateSysProfessionReq struct {
+	Id       int64  `json:"id"`
+	Name     string `json:"name"`
+	Status   int64  `json:"status"`
+	OrderNum int64  `json:"orderNum"`
+}

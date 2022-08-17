@@ -14,7 +14,7 @@ type (
 	// and implement the added methods in customSysUserModel.
 	SysUserModel interface {
 		sysUserModel
-		FindByJobId(ctx context.Context, id int64) ([]*SysUser, error)
+		FindByCondition(ctx context.Context, condition string, value int64) ([]*SysUser, error)
 	}
 
 	customSysUserModel struct {
@@ -29,10 +29,10 @@ func NewSysUserModel(conn sqlx.SqlConn, c cache.CacheConf) SysUserModel {
 	}
 }
 
-func (m *customSysUserModel) FindByJobId(ctx context.Context, id int64) ([]*SysUser, error) {
-	query := fmt.Sprintf("select %s from %s where job_id=?", sysUserRows, m.table)
+func (m *customSysUserModel) FindByCondition(ctx context.Context, condition string, value int64) ([]*SysUser, error) {
+	query := fmt.Sprintf("select %s from %s where %s=?", sysUserRows, m.table,condition)
 	var resp []*SysUser
-	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, value)
 	switch err {
 	case nil:
 		return resp, nil

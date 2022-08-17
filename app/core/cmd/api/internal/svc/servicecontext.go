@@ -10,14 +10,15 @@ import (
 )
 
 type ServiceContext struct {
-	Config           config.Config
-	Redis            *redis.Redis
-	PermMenuAuth     rest.Middleware
-	SysUserModel     model.SysUserModel
-	SysPermMenuModel model.SysPermMenuModel
-	SysRoleModel     model.SysRoleModel
-	SysDeptModel     model.SysDeptModel
-	SysJobModel      model.SysJobModel
+	Config             config.Config
+	Redis              *redis.Redis
+	PermMenuAuth       rest.Middleware
+	SysUserModel       model.SysUserModel
+	SysPermMenuModel   model.SysPermMenuModel
+	SysRoleModel       model.SysRoleModel
+	SysDeptModel       model.SysDeptModel
+	SysJobModel        model.SysJobModel
+	SysProfessionModel model.SysProfessionModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -27,13 +28,14 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		r.Pass = c.Redis.Pass
 	})
 	return &ServiceContext{
-		Config:           c,
-		Redis:            redisClient,
-		PermMenuAuth:     middleware.NewPermMenuAuthMiddleware(c.JwtAuth.AccessSecret, redisClient).Handle,
-		SysUserModel:     model.NewSysUserModel(mysqlConn, c.Cache),
-		SysPermMenuModel: model.NewSysPermMenuModel(mysqlConn, c.Cache),
-		SysRoleModel:     model.NewSysRoleModel(mysqlConn, c.Cache),
-		SysDeptModel:     model.NewSysDeptModel(mysqlConn, c.Cache),
-		SysJobModel:      model.NewSysJobModel(mysqlConn, c.Cache),
+		Config:             c,
+		Redis:              redisClient,
+		PermMenuAuth:       middleware.NewPermMenuAuthMiddleware(c.JwtAuth.AccessSecret, redisClient).Handle,
+		SysUserModel:       model.NewSysUserModel(mysqlConn, c.Cache),
+		SysPermMenuModel:   model.NewSysPermMenuModel(mysqlConn, c.Cache),
+		SysRoleModel:       model.NewSysRoleModel(mysqlConn, c.Cache),
+		SysDeptModel:       model.NewSysDeptModel(mysqlConn, c.Cache),
+		SysJobModel:        model.NewSysJobModel(mysqlConn, c.Cache),
+		SysProfessionModel: model.NewSysProfessionModel(mysqlConn, c.Cache),
 	}
 }

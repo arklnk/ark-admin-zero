@@ -1,0 +1,45 @@
+package profession
+
+import (
+	"context"
+
+	"ark-zero-admin/app/core/cmd/api/internal/svc"
+	"ark-zero-admin/app/core/cmd/api/internal/types"
+	"ark-zero-admin/common/errorx"
+
+	"github.com/jinzhu/copier"
+	"github.com/zeromicro/go-zero/core/logx"
+)
+
+type UpdateSysProfessionLogic struct {
+	logx.Logger
+	ctx    context.Context
+	svcCtx *svc.ServiceContext
+}
+
+func NewUpdateSysProfessionLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateSysProfessionLogic {
+	return &UpdateSysProfessionLogic{
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
+		svcCtx: svcCtx,
+	}
+}
+
+func (l *UpdateSysProfessionLogic) UpdateSysProfession(req *types.UpdateSysProfessionReq) error {
+	sysProfession, err := l.svcCtx.SysProfessionModel.FindOne(l.ctx, req.Id)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	err = copier.Copy(sysProfession, req)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	err = l.svcCtx.SysProfessionModel.Update(l.ctx, sysProfession)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	return nil
+}

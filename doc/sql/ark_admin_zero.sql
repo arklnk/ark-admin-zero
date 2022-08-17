@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-17 04:30:59
+-- 生成日期： 2022-08-17 05:33:35
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -86,13 +86,9 @@ CREATE TABLE `sys_job` (
 --
 
 INSERT INTO `sys_job` (`id`, `name`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, '后端', 1, 0, '2022-08-17 03:15:56', '2022-08-17 03:15:56'),
-(2, '前端', 1, 0, '2022-08-17 03:15:56', '2022-08-17 03:17:05'),
-(3, '设计', 1, 0, '2022-08-17 03:15:56', '2022-08-17 03:17:05'),
-(4, '产品', 1, 0, '2022-08-17 03:15:56', '2022-08-17 03:17:05'),
-(5, '测试', 1, 0, '2022-08-17 03:15:56', '2022-08-17 03:17:05'),
-(6, '销售', 1, 0, '2022-08-17 03:15:56', '2022-08-17 03:17:05'),
-(7, '运营', 1, 0, '2022-08-17 03:15:56', '2022-08-17 03:17:05');
+(1, '前端', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:27:26'),
+(2, '后端', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:32:50'),
+(3, '设计', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:32:55');
 
 -- --------------------------------------------------------
 
@@ -199,8 +195,11 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (22, 20, '新增', '', '[\"sys/job/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 02:59:54'),
 (23, 20, '删除', '', '[\"sys/job/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 03:00:11'),
 (24, 20, '更新', '', '[\"sys/job/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 03:00:26'),
-(25, 3, '测试', '', '[\"sys/perm/menu/list\",\"sys/perm/menu/add\"]', 2, '', 0, '', 1, '', '2022-08-17 03:42:42', '2022-08-17 03:42:42'),
-(26, 3, 'aa', '', '[\"sys/perm/menu/list\",\"sys/perm/menu/add\"]', 2, '', 0, '', 1, '', '2022-08-17 03:45:28', '2022-08-17 03:45:28');
+(25, 2, '职称列表', '/sys/perms/profession/list', '[]', 1, '', 0, 'views/system/profession/job', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:01:11'),
+(26, 25, '列表', '', '[\"sys/profession/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
+(27, 25, '新增', '', '[\"sys/profession/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
+(28, 25, '删除', '', '[\"sys/profession/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
+(29, 25, '更新', '', '[\"sys/profession/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22');
 
 -- --------------------------------------------------------
 
@@ -216,6 +215,14 @@ CREATE TABLE `sys_profession` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='职称';
+
+--
+-- 转存表中的数据 `sys_profession`
+--
+
+INSERT INTO `sys_profession` (`id`, `name`, `status`, `order_num`, `create_time`, `update_time`) VALUES
+(1, 'CEO', 1, 0, '2022-08-17 05:09:26', '2022-08-17 05:09:26'),
+(2, 'CTO', 1, 0, '2022-08-17 05:09:26', '2022-08-17 05:09:26');
 
 -- --------------------------------------------------------
 
@@ -369,7 +376,7 @@ ALTER TABLE `sys_dictionary`
 -- 使用表AUTO_INCREMENT `sys_job`
 --
 ALTER TABLE `sys_job`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `sys_log_action`
@@ -393,13 +400,13 @@ ALTER TABLE `sys_param`
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=32;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`
 --
 ALTER TABLE `sys_profession`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_role`

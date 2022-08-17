@@ -7,6 +7,7 @@ import (
 	syspermdept "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/dept"
 	syspermjob "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/job"
 	syspermmenu "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/menu"
+	syspermprofession "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/profession"
 	syspermrole "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/role"
 	user "ark-zero-admin/app/core/cmd/api/internal/handler/user"
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
@@ -196,5 +197,35 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/sys/job"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.PermMenuAuth},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/list",
+					Handler: syspermprofession.GetSysProfessionListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/add",
+					Handler: syspermprofession.AddSysProfessionHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/delete",
+					Handler: syspermprofession.DeleteSysProfessionHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/update",
+					Handler: syspermprofession.UpdateSysProfessionHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+		rest.WithPrefix("/sys/profession"),
 	)
 }
