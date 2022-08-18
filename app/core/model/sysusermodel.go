@@ -37,7 +37,8 @@ type (
 	SysUserModel interface {
 		sysUserModel
 		FindByCondition(ctx context.Context, condition string, value int64) ([]*SysUser, error)
-		FindByPage(ctx context.Context) ([]*SysUserDetail, error)
+		FindByPage(ctx context.Context, page int64, limit int64, deptIds string) ([]*SysUserDetail, error)
+		FindCountByDeptIds(ctx context.Context, deptIds string)(int64, error)
 	}
 
 	customSysUserModel struct {
@@ -64,8 +65,9 @@ func (m *customSysUserModel) FindByCondition(ctx context.Context, condition stri
 	}
 }
 
-func (m *customSysUserModel) FindByPage(ctx context.Context) ([]*SysUserDetail, error) {
-	query := fmt.Sprintf("SELECT u.id,u.account,u.username,u.nickname,u.avatar,u.gender,p.name as profession,j.name as job,d.name as dept,GROUP_CONCAT(r.name) as roles,u.birthday,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM `sys_user` u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id")
+func (m *customSysUserModel) FindByPage(ctx context.Context, page int64, limit int64, deptIds string) ([]*SysUserDetail, error) {
+	offset := (page - 1) * limit
+	query := fmt.Sprintf("SELECT u.id,u.account,u.username,u.nickname,u.avatar,u.gender,p.name as profession,j.name as job,d.name as dept,GROUP_CONCAT(r.name) as roles,u.birthday,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM (SELECT * FROM sys_user WHERE dept_id IN(%s) LIMIT %d,%d) u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id", deptIds, offset, limit)
 	var resp []*SysUserDetail
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -73,5 +75,17 @@ func (m *customSysUserModel) FindByPage(ctx context.Context) ([]*SysUserDetail, 
 		return resp, nil
 	default:
 		return nil, err
+	}
+}
+
+func (m *customSysUserModel) FindCountByDeptIds(ctx context.Context, deptIds string) (int64, error) {
+	query := fmt.Sprintf("select count(id) from %s where dept_id IN(%s)", m.table, deptIds)
+	var resp int64
+	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return 0, err
 	}
 }

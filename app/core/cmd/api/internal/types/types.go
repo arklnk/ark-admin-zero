@@ -278,8 +278,21 @@ type User struct {
 	Remark     string   `json:"remark"`
 }
 
+type SysUserListReq struct {
+	Page    int64   `json:"page"`
+	Limit   int64   `json:"limit"`
+	DeptIds []int64 `json:"deptIds"`
+}
+
+type Pagination struct {
+	Page  int64 `json:"page"`
+	Size  int64 `json:"size"`
+	Total int64 `json:"total"`
+}
+
 type SysUserListResp struct {
-	UserList []User `json:"list"`
+	UserList   []User     `json:"list"`
+	Pagination Pagination `json:"pagination"`
 }
 
 type AddSysUserReq struct {

@@ -118,8 +118,12 @@ func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64
 
 		// 过滤重复的权限id
 		permMenu = utils.ArrayUniqueValue[int64](permMenu)
-		roleIds := globalkey.DefaultRoleId
-		for _, id := range permMenu {
+		var roleIds string
+		for i, id := range permMenu {
+			if i == 0 {
+				roleIds = strconv.FormatInt(id, 10)
+				continue
+			}
 			roleIds = roleIds + "," + strconv.FormatInt(id, 10)
 		}
 

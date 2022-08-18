@@ -5,6 +5,5 @@ const (
 	CachePermMenuKey       = "cache:arkAdminZero:permMenu:"
 	CacheLoginCaptchaKey   = "cache:arkAdminZero:captcha:"
 	SuperAdminRole         = 1
-	DefaultRoleId          = "0"
 	PermMenuPrefix         = "/"
 )
