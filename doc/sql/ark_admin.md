@@ -186,7 +186,7 @@
 |nickname|varchar(25)|昵称|
 |avatar|varchar(200)|头像|
 |gender|tinyint(1)|0=保密 1=女 2=男|
-|birthday|datetime|生日|
+|birthday|date|生日|
 |email|varchar(50)|邮件|
 |mobile|char(11)|手机号|
 |profession_id|int(11)|职称|

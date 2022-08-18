@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-17 14:19:52
+-- 生成日期： 2022-08-18 06:43:00
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -179,7 +179,7 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (6, 3, 'common.basic.delete', '', '[\"sys/perm/menu/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 07:32:09'),
 (7, 3, 'common.basic.update', '', '[\"sys/perm/menu/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 07:32:18'),
 (8, 2, '角色列表', '/sys/perms/role/list', '[]', 1, '', 0, 'views/system/permission/role', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:12:14'),
-(9, 8, '列表', '', '[\"sys/role/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:12:54'),
+(9, 8, 'common.basic.query', '', '[\"sys/role/list\",\"sys/perm/menu/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-18 04:03:01'),
 (10, 8, '新增', '', '[\"sys/role/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:13:29'),
 (11, 8, '删除', '', '[\"sys/role/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:13:51'),
 (12, 8, '更新', '', '[\"sys/role/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:14:10'),
@@ -270,7 +270,7 @@ CREATE TABLE `sys_user` (
   `nickname` varchar(25) NOT NULL DEFAULT '""' COMMENT '昵称',
   `avatar` varchar(200) NOT NULL DEFAULT '""' COMMENT '头像',
   `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=保密 1=女 2=男',
-  `birthday` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '生日',
+  `birthday` date NOT NULL DEFAULT '1970-01-01' COMMENT '生日',
   `email` varchar(50) NOT NULL DEFAULT '""' COMMENT '邮件',
   `mobile` char(11) NOT NULL DEFAULT '""' COMMENT '手机号',
   `profession_id` int(11) NOT NULL COMMENT '职称',
@@ -289,7 +289,7 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'http://dummyimage.com/100x100', 1, '1970-01-01 00:00:00', 'arklnk@163.com', '12000000000', 1, 1, 1, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-17 14:15:02');
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'http://dummyimage.com/100x100', 1, '1970-01-01', 'arklnk@163.com', '12000000000', 1, 1, 1, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-17 14:15:02');
 
 --
 -- 转储表的索引

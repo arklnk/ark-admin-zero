@@ -5,6 +5,7 @@ import (
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"ark-zero-admin/common/globalkey"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -51,4 +52,12 @@ func ArrayContainValue(arr []int64, search int64) bool {
 	}
 
 	return false
+}
+
+func StrToTime(s string) time.Time {
+	date, err := time.Parse("2006-01-02", s)
+	if err != nil {
+		return time.Time{}
+	}
+	return date
 }

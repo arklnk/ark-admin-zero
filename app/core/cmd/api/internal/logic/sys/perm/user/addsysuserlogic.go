@@ -1,11 +1,15 @@
 package user
 
 import (
-	"context"
-
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
-
+	"ark-zero-admin/app/core/model"
+	"ark-zero-admin/common/errorx"
+	"ark-zero-admin/common/globalkey"
+	"ark-zero-admin/common/utils"
+	"context"
+	"encoding/json"
+	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,7 +28,30 @@ func NewAddSysUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddSys
 }
 
 func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
-	// todo: add your logic here and delete this line
+	_, err := l.svcCtx.SysUserModel.FindOneByAccount(l.ctx, req.Account)
+	if err == model.ErrNotFound {
+		var sysUser = new(model.SysUser)
+		err = copier.Copy(sysUser, req)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ServerErrorCode)
+		}
 
-	return nil
+		bytes, err := json.Marshal(req.RoleIds)
+		if err != nil {
+			return err
+		}
+
+		sysUser.RoleIds = string(bytes)
+		sysUser.Password = utils.MD5(globalkey.NewSysUserDefaultPassword + l.svcCtx.Config.Salt)
+		sysUser.Birthday=utils.StrToTime(req.Birthday)
+		_, err = l.svcCtx.SysUserModel.Insert(l.ctx, sysUser)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ServerErrorCode)
+		}
+
+		return nil
+	} else {
+
+		return errorx.NewDefaultError(errorx.AddUserErrorCode)
+	}
 }
