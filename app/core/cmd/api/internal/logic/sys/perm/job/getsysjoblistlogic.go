@@ -33,8 +33,8 @@ func (l *GetSysJobListLogic) GetSysJobList() (resp *types.SysJobListResp, err er
 
 	var job types.Job
 	var jobList []types.Job
-	for _, sysJob := range sysJobList {
-		err := copier.Copy(&job, &sysJob)
+	for _, v := range sysJobList {
+		err := copier.Copy(job, v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}

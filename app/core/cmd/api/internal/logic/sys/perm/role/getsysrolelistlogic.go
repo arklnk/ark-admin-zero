@@ -35,7 +35,7 @@ func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err
 	var role types.Role
 	var roleList []types.Role
 	for _, v := range sysRoleList {
-		err := copier.Copy(&role, &v)
+		err := copier.Copy(role, v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}

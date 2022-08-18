@@ -45,7 +45,7 @@ func (l *GetSysUserListLogic) GetSysUserList(req *types.SysUserListReq) (resp *t
 	var user types.User
 	var userList []types.User
 	for _, v := range users {
-		err := copier.Copy(&user, &v)
+		err := copier.Copy(user, v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
