@@ -341,6 +341,6 @@ type UpdateSysUserPasswordReq struct {
 }
 
 type TransferSysUserReq struct {
-	Id     int64 `json:"id"`
-	DeptId int64 `json:"deptId"`
+	Ids    []int64 `json:"ids"`
+	DeptId int64   `json:"deptId"`
 }

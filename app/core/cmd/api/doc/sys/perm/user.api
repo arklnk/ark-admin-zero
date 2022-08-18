@@ -97,7 +97,7 @@ type (
 
 type (
     TransferSysUserReq {
-        Id int64 `json:"id"`
+        Ids []int64 `json:"ids"`
         DeptId int64 `json:"deptId"`
     }
 )

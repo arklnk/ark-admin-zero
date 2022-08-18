@@ -5,6 +5,7 @@ import (
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
+	"ark-zero-admin/common/errorx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +25,14 @@ func NewTransferSysUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *T
 }
 
 func (l *TransferSysUserLogic) TransferSysUser(req *types.TransferSysUserReq) error {
-	// todo: add your logic here and delete this line
+	for _, id := range req.Ids {
+		sysUser, err := l.svcCtx.SysUserModel.FindOne(l.ctx, id)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ServerErrorCode)
+		}
+		sysUser.DeptId = req.DeptId
+		err = l.svcCtx.SysUserModel.Update(l.ctx, sysUser)
+	}
 
 	return nil
 }
