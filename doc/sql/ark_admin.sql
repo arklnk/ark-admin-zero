@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-18 06:43:00
+-- 生成日期： 2022-08-18 10:19:51
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -205,7 +205,8 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (32, 30, '新增', '', '[\"sys/user/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
 (33, 30, '删除', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
 (34, 30, '更新', '', '[\"sys/user/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(35, 30, '改密', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22');
+(35, 30, '改密', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
+(36, 30, '转移', '', '[\"sys/user/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22');
 
 -- --------------------------------------------------------
 
@@ -254,7 +255,7 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '', '[0]', 1, 0, '2022-08-11 09:18:21', '2022-08-15 14:31:00');
+(1, 0, '超级管理员', 'superadmin', '', '[1]', 1, 0, '2022-08-11 09:18:21', '2022-08-18 10:16:19');
 
 -- --------------------------------------------------------
 
@@ -406,7 +407,7 @@ ALTER TABLE `sys_param`
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=37;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`
