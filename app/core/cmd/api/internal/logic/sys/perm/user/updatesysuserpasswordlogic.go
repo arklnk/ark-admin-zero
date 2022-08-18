@@ -5,7 +5,10 @@ import (
 
 	"ark-zero-admin/app/core/cmd/api/internal/svc"
 	"ark-zero-admin/app/core/cmd/api/internal/types"
+	"ark-zero-admin/common/errorx"
+	"ark-zero-admin/common/utils"
 
+	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,7 +27,21 @@ func NewUpdateSysUserPasswordLogic(ctx context.Context, svcCtx *svc.ServiceConte
 }
 
 func (l *UpdateSysUserPasswordLogic) UpdateSysUserPassword(req *types.UpdateSysUserPasswordReq) error {
-	// todo: add your logic here and delete this line
+	sysUser, err := l.svcCtx.SysUserModel.FindOne(l.ctx, req.Id)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	err = copier.Copy(sysUser, req)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	sysUser.Password = utils.MD5(req.Password + l.svcCtx.Config.Salt)
+	err = l.svcCtx.SysUserModel.Update(l.ctx, sysUser)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
 
 	return nil
 }
