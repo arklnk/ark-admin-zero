@@ -7,4 +7,5 @@ const (
 	SuperAdminRole            = 1
 	PermMenuPrefix            = "/"
 	NewSysUserDefaultPassword = "123456"
+	DefaultPermType           = 2
 )

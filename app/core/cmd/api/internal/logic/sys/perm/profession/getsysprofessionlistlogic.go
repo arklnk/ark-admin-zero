@@ -33,8 +33,8 @@ func (l *GetSysProfessionListLogic) GetSysProfessionList() (resp *types.SysProfe
 
 	var profession types.Profession
 	var professionList []types.Profession
-	for _, sysProfession := range sysProfessionList {
-		err := copier.Copy(&profession, &sysProfession)
+	for _, v := range sysProfessionList {
+		err := copier.Copy(&profession, &v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}

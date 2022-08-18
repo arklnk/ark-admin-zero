@@ -51,41 +51,39 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 
 	userPermMenu, permMenu, err = l.countUserPermMenu(roles, permMenu)
 	if err != nil {
-		return nil, err
+		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	var menus []types.Menu
-	var perms []string
-	if err != nil {
-		return &types.UserPermMenuResp{Menus: menus, Perms: perms}, nil
-	}
-
-	for _, perm := range userPermMenu {
-		var menu types.Menu
-		err := copier.Copy(&menu, perm)
+	var menu types.Menu
+	var menuList []types.Menu
+	var permList []string
+	for _, v := range userPermMenu {
+		err := copier.Copy(&menu, &v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
 
-		menus = append(menus, menu)
-		var permArr []string
-		err = json.Unmarshal([]byte(perm.Perms), &permArr)
+		if menu.Type != globalkey.DefaultPermType {
+			menuList = append(menuList, menu)
+		}
+		var permArray []string
+		err = json.Unmarshal([]byte(v.Perms), &permArray)
 		if err != nil {
-			return nil, err
+			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
 
-		for _, s := range permArr {
-			s = globalkey.PermMenuPrefix + s
-			_, err := l.svcCtx.Redis.Sadd(globalkey.CachePermMenuKey+strconv.FormatInt(userId, 10), s)
+		for _, p := range permArray {
+			p = globalkey.PermMenuPrefix + p
+			_, err := l.svcCtx.Redis.Sadd(globalkey.CachePermMenuKey+strconv.FormatInt(userId, 10), p)
 			if err != nil {
 				return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 			}
-			perms = append(perms, s)
+			permList = append(permList, p)
 		}
 
 	}
 
-	return &types.UserPermMenuResp{Menus: menus, Perms: utils.ArrayUniqueValue[string](perms)}, nil
+	return &types.UserPermMenuResp{Menus: menuList, Perms: utils.ArrayUniqueValue[string](permList)}, nil
 }
 
 func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64) ([]*model.SysPermMenu, []int64, error) {
