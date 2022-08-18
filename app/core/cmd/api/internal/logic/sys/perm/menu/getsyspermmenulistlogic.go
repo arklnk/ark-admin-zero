@@ -35,7 +35,7 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 	var menu types.PermMenu
 	var PermMenuList []types.PermMenu
 	for _, v := range permMenus {
-		err := copier.Copy(menu, v)
+		err := copier.Copy(&menu, &v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}

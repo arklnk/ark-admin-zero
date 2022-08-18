@@ -33,8 +33,8 @@ func (l *GetSysDeptListLogic) GetSysDeptList() (resp *types.SysDeptListResp, err
 
 	var dept types.Dept
 	var deptList []types.Dept
-	for _, v := range sysDeptList {
-		err := copier.Copy(dept, v)
+	for _, sysDept := range sysDeptList {
+		err := copier.Copy(&dept, &sysDept)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
