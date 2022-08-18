@@ -35,13 +35,11 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 	var menu types.PermMenu
 	var PermMenuList []types.PermMenu
 	for _, v := range permMenus {
-		var perms []string
 		err := copier.Copy(&menu, &v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
-		err = json.Unmarshal([]byte(v.Perms), &perms)
-		menu.Perms = perms
+		err = json.Unmarshal([]byte(v.Perms), &menu.Perms)
 		PermMenuList = append(PermMenuList, menu)
 	}
 

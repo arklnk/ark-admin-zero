@@ -115,13 +115,14 @@ type UpdateSysPermMenuReq struct {
 }
 
 type Role struct {
-	Id        int64  `json:"id"`
-	ParentId  int64  `json:"parentId"`
-	Name      string `json:"name"`
-	UniqueKey string `json:"uniqueKey"`
-	Remark    string `json:"remark"`
-	Status    int64  `json:"status"`
-	OrderNum  int64  `json:"orderNum"`
+	Id          int64   `json:"id"`
+	ParentId    int64   `json:"parentId"`
+	Name        string  `json:"name"`
+	UniqueKey   string  `json:"uniqueKey"`
+	PermMenuIds []int64 `json:"permMenuIds"`
+	Remark      string  `json:"remark"`
+	Status      int64   `json:"status"`
+	OrderNum    int64   `json:"orderNum"`
 }
 
 type SysRoleListResp struct {

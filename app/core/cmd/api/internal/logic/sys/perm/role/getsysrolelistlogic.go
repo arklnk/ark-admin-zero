@@ -2,6 +2,7 @@ package role
 
 import (
 	"context"
+	"encoding/json"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
@@ -38,6 +39,7 @@ func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
+		err = json.Unmarshal([]byte(sysRole.PermMenuIds), &role.PermMenuIds)
 		roleList = append(roleList, role)
 	}
 
