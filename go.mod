@@ -1,4 +1,4 @@
-module ark-zero-admin
+module ark-admin-zero
 
 go 1.18
 

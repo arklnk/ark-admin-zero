@@ -3,8 +3,8 @@ package user
 import (
 	"context"
 
-	"ark-zero-admin/app/core/cmd/api/internal/svc"
-	"ark-zero-admin/app/core/cmd/api/internal/types"
+	"ark-admin-zero/app/core/cmd/api/internal/svc"
+	"ark-admin-zero/app/core/cmd/api/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

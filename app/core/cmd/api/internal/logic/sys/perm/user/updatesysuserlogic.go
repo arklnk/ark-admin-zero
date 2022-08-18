@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/json"
 
-	"ark-zero-admin/app/core/cmd/api/internal/svc"
-	"ark-zero-admin/app/core/cmd/api/internal/types"
-	"ark-zero-admin/common/errorx"
-	"ark-zero-admin/common/utils"
+	"ark-admin-zero/app/core/cmd/api/internal/svc"
+	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/utils"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"

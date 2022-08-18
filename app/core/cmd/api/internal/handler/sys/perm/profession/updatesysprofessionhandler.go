@@ -3,11 +3,11 @@ package profession
 import (
 	"net/http"
 
-	"ark-zero-admin/app/core/cmd/api/internal/logic/sys/perm/profession"
-	"ark-zero-admin/app/core/cmd/api/internal/svc"
-	"ark-zero-admin/app/core/cmd/api/internal/types"
-	"ark-zero-admin/common/errorx"
-	"ark-zero-admin/common/response"
+	"ark-admin-zero/app/core/cmd/api/internal/logic/sys/perm/profession"
+	"ark-admin-zero/app/core/cmd/api/internal/svc"
+	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/response"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/zeromicro/go-zero/rest/httpx"

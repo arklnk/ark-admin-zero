@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"ark-zero-admin/common/globalkey"
+	"ark-admin-zero/common/globalkey"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 

@@ -4,10 +4,10 @@ import (
 	"context"
 	"strconv"
 
-	"ark-zero-admin/app/core/cmd/api/internal/svc"
-	"ark-zero-admin/common/errorx"
-	"ark-zero-admin/common/globalkey"
-	"ark-zero-admin/common/utils"
+	"ark-admin-zero/app/core/cmd/api/internal/svc"
+	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
+	"ark-admin-zero/common/utils"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

@@ -3,9 +3,9 @@ package job
 import (
 	"net/http"
 
-	"ark-zero-admin/app/core/cmd/api/internal/logic/sys/perm/job"
-	"ark-zero-admin/app/core/cmd/api/internal/svc"
-	"ark-zero-admin/common/response"
+	"ark-admin-zero/app/core/cmd/api/internal/logic/sys/perm/job"
+	"ark-admin-zero/app/core/cmd/api/internal/svc"
+	"ark-admin-zero/common/response"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 )

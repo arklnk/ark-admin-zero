@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"ark-zero-admin/app/core/cmd/api/internal/config"
-	"ark-zero-admin/app/core/cmd/api/internal/handler"
-	"ark-zero-admin/app/core/cmd/api/internal/svc"
-	"ark-zero-admin/common/errorx"
+	"ark-admin-zero/app/core/cmd/api/internal/config"
+	"ark-admin-zero/app/core/cmd/api/internal/handler"
+	"ark-admin-zero/app/core/cmd/api/internal/svc"
+	"ark-admin-zero/common/errorx"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

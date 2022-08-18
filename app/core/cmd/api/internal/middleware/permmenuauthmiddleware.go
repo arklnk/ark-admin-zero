@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"ark-zero-admin/common/errorx"
-	"ark-zero-admin/common/globalkey"
-	"ark-zero-admin/common/utils"
+	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
+	"ark-admin-zero/common/utils"
 
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest/httpx"

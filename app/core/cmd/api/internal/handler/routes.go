@@ -4,14 +4,14 @@ package handler
 import (
 	"net/http"
 
-	syspermdept "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/dept"
-	syspermjob "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/job"
-	syspermmenu "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/menu"
-	syspermprofession "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/profession"
-	syspermrole "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/role"
-	syspermuser "ark-zero-admin/app/core/cmd/api/internal/handler/sys/perm/user"
-	user "ark-zero-admin/app/core/cmd/api/internal/handler/user"
-	"ark-zero-admin/app/core/cmd/api/internal/svc"
+	syspermdept "ark-admin-zero/app/core/cmd/api/internal/handler/sys/perm/dept"
+	syspermjob "ark-admin-zero/app/core/cmd/api/internal/handler/sys/perm/job"
+	syspermmenu "ark-admin-zero/app/core/cmd/api/internal/handler/sys/perm/menu"
+	syspermprofession "ark-admin-zero/app/core/cmd/api/internal/handler/sys/perm/profession"
+	syspermrole "ark-admin-zero/app/core/cmd/api/internal/handler/sys/perm/role"
+	syspermuser "ark-admin-zero/app/core/cmd/api/internal/handler/sys/perm/user"
+	user "ark-admin-zero/app/core/cmd/api/internal/handler/user"
+	"ark-admin-zero/app/core/cmd/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )

@@ -3,9 +3,9 @@ package user
 import (
 	"net/http"
 
-	"ark-zero-admin/app/core/cmd/api/internal/logic/user"
-	"ark-zero-admin/app/core/cmd/api/internal/svc"
-	"ark-zero-admin/common/response"
+	"ark-admin-zero/app/core/cmd/api/internal/logic/user"
+	"ark-admin-zero/app/core/cmd/api/internal/svc"
+	"ark-admin-zero/common/response"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
