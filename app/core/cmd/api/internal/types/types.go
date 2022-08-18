@@ -319,7 +319,6 @@ type DeleteSysUserReq struct {
 
 type UpdateSysUserReq struct {
 	Id           int64   `json:"id"`
-	Account      string  `json:"account"`
 	Username     string  `json:"username"`
 	Nickname     string  `json:"nickname"`
 	Avatar       string  `json:"avatar"`
