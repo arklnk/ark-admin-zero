@@ -34,12 +34,14 @@ func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err
 
 	var role types.Role
 	var roleList []types.Role
-	for _, sysRole := range sysRoleList {
-		err := copier.Copy(&role, &sysRole)
+	for _, v := range sysRoleList {
+		err := copier.Copy(&role, &v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
-		err = json.Unmarshal([]byte(sysRole.PermMenuIds), &role.PermMenuIds)
+		var permMenuIds []int64
+		err = json.Unmarshal([]byte(v.PermMenuIds), &permMenuIds)
+		role.PermMenuIds = permMenuIds
 		roleList = append(roleList, role)
 	}
 
