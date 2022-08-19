@@ -57,13 +57,6 @@ type (
     }
 )
 
-type (
-    TransferSysDeptReq {
-        Id int64 `json:"id"`
-        ParentId int64 `json:"parentId"`
-    }
-)
-
 
 @server(
     jwt: JwtAuth
@@ -95,10 +88,4 @@ service core-api {
     )
     @handler UpdateSysDept
     post /update (UpdateSysDeptReq)
-
-    @doc(
-        summary: "转移部门"
-    )
-    @handler TransferSysDept
-    post /transfer (TransferSysDeptReq)
 }

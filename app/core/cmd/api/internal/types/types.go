@@ -202,11 +202,6 @@ type UpdateSysDeptReq struct {
 	Remark    string `json:"remark"`
 }
 
-type TransferSysDeptReq struct {
-	Id       int64 `json:"id"`
-	ParentId int64 `json:"parentId"`
-}
-
 type Job struct {
 	Id       int64  `json:"id"`
 	Name     string `json:"name"`

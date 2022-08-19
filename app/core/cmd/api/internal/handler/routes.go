@@ -159,11 +159,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/update",
 					Handler: syspermdept.UpdateSysDeptHandler(serverCtx),
 				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/transfer",
-					Handler: syspermdept.TransferSysDeptHandler(serverCtx),
-				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
