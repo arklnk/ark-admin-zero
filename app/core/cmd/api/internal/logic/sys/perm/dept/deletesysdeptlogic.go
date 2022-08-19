@@ -30,6 +30,11 @@ func (l *DeleteSysDeptLogic) DeleteSysDept(req *types.DeleteSysDeptReq) error {
 		return errorx.NewDefaultError(errorx.DeleteDeptErrorCode)
 	}
 
+	userList, _ := l.svcCtx.SysUserModel.FindByCondition(l.ctx, "dept_id", req.Id)
+	if len(userList) != 0 {
+		return errorx.NewDefaultError(errorx.DeptHasUserErrorCode)
+	}
+
 	err := l.svcCtx.SysDeptModel.Delete(l.ctx, req.Id)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
