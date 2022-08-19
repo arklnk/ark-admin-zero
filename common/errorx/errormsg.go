@@ -20,6 +20,7 @@ const (
 	AddProfessionErrorCode    = 1014
 	DeleteProfessionErrorCode = 1015
 	AddUserErrorCode          = 1016
+	DeleteUserErrorCode       = 1017
 )
 
 func init() {
@@ -40,6 +41,7 @@ func init() {
 	errorMsg[AddProfessionErrorCode] = "职称已存在"
 	errorMsg[DeleteProfessionErrorCode] = "该职称正在使用中"
 	errorMsg[AddUserErrorCode] = "账号已存在"
+	errorMsg[DeleteUserErrorCode] = "禁止刪除超级管理员"
 }
 
 func MapErrMsg(errCode int) string {
