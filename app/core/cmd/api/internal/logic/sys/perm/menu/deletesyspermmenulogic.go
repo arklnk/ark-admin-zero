@@ -6,6 +6,7 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -25,6 +26,10 @@ func NewDeleteSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuReq) error {
+	if req.Id <= globalkey.MaxSysDefaultPermMenuId {
+		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
+	}
+
 	count, _ := l.svcCtx.SysPermMenuModel.FindCountByParentId(l.ctx, req.Id)
 	if count != 0 {
 		return errorx.NewDefaultError(errorx.DeletePermMenuErrorCode)

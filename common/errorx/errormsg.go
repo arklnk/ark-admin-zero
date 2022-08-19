@@ -3,28 +3,27 @@ package errorx
 var errorMsg map[int]string
 
 const (
-	ServerErrorCode               = 1000
-	ParamErrorCode                = 1001
-	CaptchaErrorCode              = 1002
-	AccountErrorCode              = 1003
-	PasswordErrorCode             = 1004
-	NotPermMenuErrorCode          = 1005
-	DeletePermMenuErrorCode       = 1006
-	ParentPermMenuErrorCode       = 1007
-	AddRoleErrorCode              = 1008
-	DeleteRoleErrorCode           = 1009
-	AddDeptErrorCode              = 1010
-	DeleteDeptErrorCode           = 1011
-	AddJobErrorCode               = 1012
-	DeleteJobErrorCode            = 1013
-	AddProfessionErrorCode        = 1014
-	DeleteProfessionErrorCode     = 1015
-	AddUserErrorCode              = 1016
-	DeleteUserErrorCode           = 1017
-	DeptHasUserErrorCode          = 1018
-	RoleIsUsingErrorCode          = 1019
-	ParentRoleErrorCode           = 1020
-	ParentDeptErrorCode           = 1021
+	ServerErrorCode           = 1000
+	ParamErrorCode            = 1001
+	CaptchaErrorCode          = 1002
+	AccountErrorCode          = 1003
+	PasswordErrorCode         = 1004
+	NotPermMenuErrorCode      = 1005
+	DeletePermMenuErrorCode   = 1006
+	ParentPermMenuErrorCode   = 1007
+	AddRoleErrorCode          = 1008
+	DeleteRoleErrorCode       = 1009
+	AddDeptErrorCode          = 1010
+	DeleteDeptErrorCode       = 1011
+	AddJobErrorCode           = 1012
+	DeleteJobErrorCode        = 1013
+	AddProfessionErrorCode    = 1014
+	DeleteProfessionErrorCode = 1015
+	AddUserErrorCode          = 1016
+	DeptHasUserErrorCode      = 1017
+	RoleIsUsingErrorCode      = 1018
+	ParentRoleErrorCode       = 1019
+	ParentDeptErrorCode       = 1020
 )
 
 func init() {
@@ -45,7 +44,6 @@ func init() {
 	errorMsg[AddProfessionErrorCode] = "职称已存在"
 	errorMsg[DeleteProfessionErrorCode] = "该职称正在使用中"
 	errorMsg[AddUserErrorCode] = "账号已存在"
-	errorMsg[DeleteUserErrorCode] = "禁止刪除超级管理员"
 	errorMsg[DeptHasUserErrorCode] = "该部门正在使用中"
 	errorMsg[RoleIsUsingErrorCode] = "该角色正在使用中"
 	errorMsg[ParentRoleErrorCode] = "父级角色不能为自己"
