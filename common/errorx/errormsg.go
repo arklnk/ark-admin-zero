@@ -3,24 +3,25 @@ package errorx
 var errorMsg map[int]string
 
 const (
-	ServerErrorCode           = 1000
-	ParamErrorCode            = 1001
-	CaptchaErrorCode          = 1002
-	AccountErrorCode          = 1003
-	PasswordErrorCode         = 1004
-	NotPermMenuErrorCode      = 1005
-	DeletePermMenuErrorCode   = 1006
-	ParentPermMenuErrorCode   = 1007
-	AddRoleErrorCode          = 1008
-	DeleteRoleErrorCode       = 1009
-	AddDeptErrorCode          = 1010
-	DeleteDeptErrorCode       = 1011
-	AddJobErrorCode           = 1012
-	DeleteJobErrorCode        = 1013
-	AddProfessionErrorCode    = 1014
-	DeleteProfessionErrorCode = 1015
-	AddUserErrorCode          = 1016
-	DeleteUserErrorCode       = 1017
+	ServerErrorCode               = 1000
+	ParamErrorCode                = 1001
+	CaptchaErrorCode              = 1002
+	AccountErrorCode              = 1003
+	PasswordErrorCode             = 1004
+	NotPermMenuErrorCode          = 1005
+	DeletePermMenuErrorCode       = 1006
+	ParentPermMenuErrorCode       = 1007
+	AddRoleErrorCode              = 1008
+	DeleteRoleErrorCode           = 1009
+	AddDeptErrorCode              = 1010
+	DeleteDeptErrorCode           = 1011
+	AddJobErrorCode               = 1012
+	DeleteJobErrorCode            = 1013
+	AddProfessionErrorCode        = 1014
+	DeleteProfessionErrorCode     = 1015
+	AddUserErrorCode              = 1016
+	DeleteUserErrorCode           = 1017
+	DeleteSuperAdminRoleErrorCode = 1018
 )
 
 func init() {
@@ -42,6 +43,7 @@ func init() {
 	errorMsg[DeleteProfessionErrorCode] = "该职称正在使用中"
 	errorMsg[AddUserErrorCode] = "账号已存在"
 	errorMsg[DeleteUserErrorCode] = "禁止刪除超级管理员"
+	errorMsg[DeleteSuperAdminRoleErrorCode] = "禁止刪除超级管理员角色"
 }
 
 func MapErrMsg(errCode int) string {
