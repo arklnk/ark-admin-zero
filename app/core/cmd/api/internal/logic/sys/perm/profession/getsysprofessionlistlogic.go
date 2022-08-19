@@ -46,7 +46,7 @@ func (l *GetSysProfessionListLogic) GetSysProfessionList(req *types.SysProfessio
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	pagination := types.Pagination{
+	pagination := types.ProfessionListPagination{
 		Page:  req.Page,
 		Limit: req.Limit,
 		Total: total,

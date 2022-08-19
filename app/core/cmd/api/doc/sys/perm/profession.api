@@ -1,80 +1,85 @@
 syntax = "v1"
 
 info(
-    title: "职称"
-    desc: "职称"
-    author: "Trevor"
-    email: "trevorlan@163.com"
+	title: "职称"
+	desc: "职称"
+	author: "Trevor"
+	email: "trevorlan@163.com"
 )
 
 type (
-    Profession {
-        Id int64 `json:"id"`
-        Name string `json:"name"`
-        Status int64 `json:"status"`
-        OrderNum int64 `json:"orderNum"`
-    }
-    SysProfessionListReq {
-        Page int64 `form:"page"`
-        Limit int64 `form:"limit"`
-    }
-    SysProfessionListResp {
-        ProfessionList []Profession `json:"list"`
-        Pagination Pagination `json:"pagination"`
-    }
+	Profession {
+		Id       int64  `json:"id"`
+		Name     string `json:"name"`
+		Status   int64  `json:"status"`
+		OrderNum int64  `json:"orderNum"`
+	}
+	SysProfessionListReq {
+		Page  int64 `form:"page"`
+		Limit int64 `form:"limit"`
+	}
+	ProfessionListPagination {
+		Page  int64 `json:"page"`
+		Limit int64 `json:"limit"`
+		Total int64 `json:"total"`
+	}
+	SysProfessionListResp {
+		ProfessionList []Profession             `json:"list"`
+		Pagination     ProfessionListPagination `json:"pagination"`
+	}
 )
 
 type (
-    AddSysProfessionReq {
-        Name string `json:"name"`
-        Status int64 `json:"status"`
-        OrderNum int64 `json:"orderNum"`
-    }
+	AddSysProfessionReq {
+		Name     string `json:"name"`
+		Status   int64  `json:"status"`
+		OrderNum int64  `json:"orderNum"`
+	}
 )
 
 type (
-    DeleteSysProfessionReq {
-        Id int64 `json:"id"`
-    }
+	DeleteSysProfessionReq {
+		Id int64 `json:"id"`
+	}
 )
 
 type (
-    UpdateSysProfessionReq {
-        Id int64 `json:"id"`
-        Name string `json:"name"`
-        Status int64 `json:"status"`
-        OrderNum int64 `json:"orderNum"`
-    }
+	UpdateSysProfessionReq {
+		Id       int64  `json:"id"`
+		Name     string `json:"name"`
+		Status   int64  `json:"status"`
+		OrderNum int64  `json:"orderNum"`
+	}
 )
 
 @server(
-    jwt: JwtAuth
-    group : sys/perm/profession
-    prefix : /sys/profession
-    middleware: PermMenuAuth
+	jwt: JwtAuth
+	group : sys/perm/profession
+	prefix : /sys/profession
+	middleware: PermMenuAuth
 )
 service core-api {
-    @doc(
-        summary: "职称列表"
-    )
-    @handler GetSysProfessionList
-    get /list (SysProfessionListReq) returns (SysProfessionListResp)
-
-    @doc(
-        summary: "新增职称"
-    )
-    @handler AddSysProfession
-    post /add (AddSysProfessionReq)
-
-    @doc(
-        summary: "删除职称"
-    )
-    @handler DeleteSysProfession
-    post /delete (DeleteSysProfessionReq)
-
-    @doc(
-        summary: "更新职称"
-    )
-    @handler UpdateSysProfession
-    post /update (UpdateSysProfessionReq)
+	@doc(
+		summary: "职称列表"
+	)
+	@handler GetSysProfessionList
+	get /list (SysProfessionListReq) returns (SysProfessionListResp)
+	
+	@doc(
+		summary: "新增职称"
+	)
+	@handler AddSysProfession
+	post /add (AddSysProfessionReq)
+	
+	@doc(
+		summary: "删除职称"
+	)
+	@handler DeleteSysProfession
+	post /delete (DeleteSysProfessionReq)
+	
+	@doc(
+		summary: "更新职称"
+	)
+	@handler UpdateSysProfession
+	post /update (UpdateSysProfessionReq)
 }

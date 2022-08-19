@@ -1,97 +1,96 @@
 syntax = "v1"
 
 info(
-    title: "权限菜单"
-    desc: "权限菜单"
-    author: "Trevor"
-    email: "trevorlan@163.com"
+	title: "权限菜单"
+	desc: "权限菜单"
+	author: "Trevor"
+	email: "trevorlan@163.com"
 )
 
 type (
-    PermMenu {
-        Id int64 `json:"id"`
-        ParentId int64 `json:"parentId"`
-        Name string `json:"name"`
-        Router string `json:"router"`
-        Perms []string `json:"perms"`
-        Type int64 `json:"type"`
-        Icon string `json:"icon"`
-        OrderNum int64 `json:"orderNum"`
-        ViewPath string `json:"viewPath"`
-        IsShow int64 `json:"isShow"`
-        ActiveRouter string `json:"activeRouter"`
-    }
-    SysPermMenuListResp {
-        PermMenuList []PermMenu `json:"list"`
-    }
+	PermMenu {
+		Id           int64    `json:"id"`
+		ParentId     int64    `json:"parentId"`
+		Name         string   `json:"name"`
+		Router       string   `json:"router"`
+		Perms        []string `json:"perms"`
+		Type         int64    `json:"type"`
+		Icon         string   `json:"icon"`
+		OrderNum     int64    `json:"orderNum"`
+		ViewPath     string   `json:"viewPath"`
+		IsShow       int64    `json:"isShow"`
+		ActiveRouter string   `json:"activeRouter"`
+	}
+	SysPermMenuListResp {
+		PermMenuList []PermMenu `json:"list"`
+	}
 )
 
 type (
-    AddSysPermMenuReq {
-        ParentId int64 `json:"parentId"`
-        Name string `json:"name"`
-        Router string `json:"router"`
-        Perms []string `json:"perms"`
-        Type int64 `json:"type"`
-        Icon string `json:"icon"`
-        OrderNum int64 `json:"orderNum"`
-        ViewPath string `json:"viewPath"`
-        IsShow int64 `json:"isShow"`
-        ActiveRouter string `json:"activeRouter"`
-    }
+	AddSysPermMenuReq {
+		ParentId     int64    `json:"parentId"`
+		Name         string   `json:"name"`
+		Router       string   `json:"router"`
+		Perms        []string `json:"perms"`
+		Type         int64    `json:"type"`
+		Icon         string   `json:"icon"`
+		OrderNum     int64    `json:"orderNum"`
+		ViewPath     string   `json:"viewPath"`
+		IsShow       int64    `json:"isShow"`
+		ActiveRouter string   `json:"activeRouter"`
+	}
 )
 
 type (
-    DeleteSysPermMenuReq {
-        Id int64 `json:"id"`
-    }
+	DeleteSysPermMenuReq {
+		Id int64 `json:"id"`
+	}
 )
 
 type (
-    UpdateSysPermMenuReq {
-        Id int64 `json:"id"`
-        ParentId int64 `json:"parentId"`
-        Name string `json:"name"`
-        Router string `json:"router"`
-        Perms []string `json:"perms"`
-        Type int64 `json:"type"`
-        Icon string `json:"icon"`
-        OrderNum int64 `json:"orderNum"`
-        ViewPath string `json:"viewPath"`
-        IsShow int64 `json:"isShow"`
-        ActiveRouter string `json:"activeRouter"`
-    }
+	UpdateSysPermMenuReq {
+		Id           int64    `json:"id"`
+		ParentId     int64    `json:"parentId"`
+		Name         string   `json:"name"`
+		Router       string   `json:"router"`
+		Perms        []string `json:"perms"`
+		Type         int64    `json:"type"`
+		Icon         string   `json:"icon"`
+		OrderNum     int64    `json:"orderNum"`
+		ViewPath     string   `json:"viewPath"`
+		IsShow       int64    `json:"isShow"`
+		ActiveRouter string   `json:"activeRouter"`
+	}
 )
-
 
 @server(
-    jwt: JwtAuth
-    group : sys/perm/menu
-    prefix : /sys/perm/menu
-    middleware: PermMenuAuth
+	jwt: JwtAuth
+	group : sys/perm/menu
+	prefix : /sys/perm/menu
+	middleware: PermMenuAuth
 )
 service core-api {
-    @doc(
-        summary: "权限菜单列表"
-    )
-    @handler GetSysPermMenuList
-    get /list returns (SysPermMenuListResp)
-
-    @doc(
-        summary: "新增权限菜单"
-    )
-    @handler AddSysPermMenu
-    post /add (AddSysPermMenuReq)
-
-    @doc(
-        summary: "删除权限菜单"
-    )
-    @handler DeleteSysPermMenu
-    post /delete (DeleteSysPermMenuReq)
-
-    @doc(
-        summary: "更新权限菜单"
-    )
-    @handler UpdateSysPermMenu
-    post /update (UpdateSysPermMenuReq)
+	@doc(
+		summary: "权限菜单列表"
+	)
+	@handler GetSysPermMenuList
+	get /list returns (SysPermMenuListResp)
+	
+	@doc(
+		summary: "新增权限菜单"
+	)
+	@handler AddSysPermMenu
+	post /add (AddSysPermMenuReq)
+	
+	@doc(
+		summary: "删除权限菜单"
+	)
+	@handler DeleteSysPermMenu
+	post /delete (DeleteSysPermMenuReq)
+	
+	@doc(
+		summary: "更新权限菜单"
+	)
+	@handler UpdateSysPermMenu
+	post /update (UpdateSysPermMenuReq)
 }

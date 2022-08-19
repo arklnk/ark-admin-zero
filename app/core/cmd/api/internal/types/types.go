@@ -214,9 +214,15 @@ type SysJobListReq struct {
 	Limit int64 `form:"limit"`
 }
 
+type SysJobListPagination struct {
+	Page  int64 `json:"page"`
+	Limit int64 `json:"limit"`
+	Total int64 `json:"total"`
+}
+
 type SysJobListResp struct {
-	JobList    []Job      `json:"list"`
-	Pagination Pagination `json:"pagination"`
+	JobList    []Job                `json:"list"`
+	Pagination SysJobListPagination `json:"pagination"`
 }
 
 type AddSysJobReq struct {
@@ -248,9 +254,15 @@ type SysProfessionListReq struct {
 	Limit int64 `form:"limit"`
 }
 
+type ProfessionListPagination struct {
+	Page  int64 `json:"page"`
+	Limit int64 `json:"limit"`
+	Total int64 `json:"total"`
+}
+
 type SysProfessionListResp struct {
-	ProfessionList []Profession `json:"list"`
-	Pagination     Pagination   `json:"pagination"`
+	ProfessionList []Profession             `json:"list"`
+	Pagination     ProfessionListPagination `json:"pagination"`
 }
 
 type AddSysProfessionReq struct {
@@ -295,15 +307,15 @@ type SysUserListReq struct {
 	DeptIds []int64 `json:"deptIds"`
 }
 
-type Pagination struct {
+type UserListPagination struct {
 	Page  int64 `json:"page"`
 	Limit int64 `json:"limit"`
 	Total int64 `json:"total"`
 }
 
 type SysUserListResp struct {
-	UserList   []User     `json:"list"`
-	Pagination Pagination `json:"pagination"`
+	UserList   []User             `json:"list"`
+	Pagination UserListPagination `json:"pagination"`
 }
 
 type AddSysUserReq struct {
