@@ -62,9 +62,9 @@ func (l *UpdateSysDeptLogic) getSubDept(deptIds []int64, id int64) []int64 {
 		return deptIds
 	}
 
-	for _, dept := range deptList {
-		deptIds = append(deptIds, dept.Id)
-		deptIds = l.getSubDept(deptIds, dept.Id)
+	for _, v := range deptList {
+		deptIds = append(deptIds, v.Id)
+		deptIds = l.getSubDept(deptIds, v.Id)
 	}
 
 	return deptIds

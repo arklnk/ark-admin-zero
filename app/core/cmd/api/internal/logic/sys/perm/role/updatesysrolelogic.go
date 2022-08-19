@@ -1,14 +1,15 @@
 package role
 
 import (
+	"ark-admin-zero/app/core/model"
+	"ark-admin-zero/common/globalkey"
+	"ark-admin-zero/common/utils"
 	"context"
 	"encoding/json"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
-	"ark-admin-zero/common/globalkey"
-
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -28,12 +29,18 @@ func NewUpdateSysRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
+	if req.Id == globalkey.SysSuperAdminRoleId {
+		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
+	}
+
 	if req.Id == req.ParentId {
 		return errorx.NewDefaultError(errorx.ParentRoleErrorCode)
 	}
 
-	if req.Id == globalkey.SysSuperAdminRoleId {
-		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
+	roleIds := make([]int64, 0)
+	roleIds = l.getSubRole(roleIds, req.Id)
+	if utils.ArrayContainValue(roleIds, req.ParentId) {
+		return errorx.NewDefaultError(errorx.SetParentIdErrorCode)
 	}
 
 	sysRole, err := l.svcCtx.SysRoleModel.FindOne(l.ctx, req.Id)
@@ -57,4 +64,18 @@ func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
 	}
 
 	return nil
+}
+
+func (l *UpdateSysRoleLogic) getSubRole(roleIds []int64, id int64) []int64 {
+	roleList, err := l.svcCtx.SysRoleModel.FindSubRole(l.ctx, id)
+	if err != nil && err != model.ErrNotFound {
+		return roleIds
+	}
+
+	for _, v := range roleList {
+		roleIds = append(roleIds, v.Id)
+		roleIds = l.getSubRole(roleIds, v.Id)
+	}
+
+	return roleIds
 }
