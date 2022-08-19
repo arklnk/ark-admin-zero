@@ -25,6 +25,7 @@ const (
 	ParentRoleErrorCode       = 1019
 	ParentDeptErrorCode       = 1020
 	AccountDisableErrorCode   = 1021
+	SetParentIdErrorCode      = 1022
 )
 
 func init() {
@@ -50,6 +51,7 @@ func init() {
 	errorMsg[ParentRoleErrorCode] = "父级角色不能为自己"
 	errorMsg[ParentDeptErrorCode] = "父级部门不能为自己"
 	errorMsg[AccountDisableErrorCode] = "账号已禁用"
+	errorMsg[SetParentIdErrorCode] = "不能设置子级为自己的父级"
 
 }
 

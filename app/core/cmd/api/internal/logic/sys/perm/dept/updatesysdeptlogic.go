@@ -1,6 +1,8 @@
 package dept
 
 import (
+	"ark-admin-zero/app/core/model"
+	"ark-admin-zero/common/utils"
 	"context"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
@@ -30,6 +32,12 @@ func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
 		return errorx.NewDefaultError(errorx.ParentDeptErrorCode)
 	}
 
+	deptIds := make([]int64, 0)
+	deptIds = l.getSubDept(deptIds, req.Id)
+	if utils.ArrayContainValue(deptIds, req.ParentId) {
+		return errorx.NewDefaultError(errorx.SetParentIdErrorCode)
+	}
+
 	sysDept, err := l.svcCtx.SysDeptModel.FindOne(l.ctx, req.Id)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
@@ -46,4 +54,18 @@ func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
 	}
 
 	return nil
+}
+
+func (l *UpdateSysDeptLogic) getSubDept(deptIds []int64, id int64) []int64 {
+	deptList, err := l.svcCtx.SysDeptModel.FindSubDept(l.ctx, id)
+	if err != nil && err != model.ErrNotFound {
+		return deptIds
+	}
+
+	for _, dept := range deptList {
+		deptIds = append(deptIds, dept.Id)
+		deptIds = l.getSubDept(deptIds, dept.Id)
+	}
+
+	return deptIds
 }
