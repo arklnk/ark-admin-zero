@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-18 14:38:54
+-- 生成日期： 2022-08-19 05:49:39
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -33,6 +33,7 @@ CREATE TABLE `sys_dept` (
   `name` varchar(25) NOT NULL COMMENT '部门简称',
   `full_name` varchar(50) NOT NULL COMMENT '部门全称',
   `unique_key` varchar(25) NOT NULL COMMENT '唯一值',
+  `type` tinyint(1) NOT NULL COMMENT '1=公司 2=子公司 3=部门',
   `status` tinyint(1) NOT NULL COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL COMMENT '排序值',
   `remark` varchar(100) NOT NULL DEFAULT '""' COMMENT '备注',
@@ -44,8 +45,8 @@ CREATE TABLE `sys_dept` (
 -- 转存表中的数据 `sys_dept`
 --
 
-INSERT INTO `sys_dept` (`id`, `parent_id`, `name`, `full_name`, `unique_key`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 0, '方舟', '方舟互联', 'arklnk', 1, 1, '', '2022-08-17 02:09:17', '2022-08-17 03:16:32');
+INSERT INTO `sys_dept` (`id`, `parent_id`, `name`, `full_name`, `unique_key`, `type`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
+(1, 0, '方舟', '方舟互联', 'arklnk', 1, 1, 1, '', '2022-08-17 02:09:17', '2022-08-19 05:38:14');
 
 -- --------------------------------------------------------
 
@@ -195,12 +196,12 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (22, 20, '新增', '', '[\"sys/job/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 02:59:54'),
 (23, 20, '删除', '', '[\"sys/job/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 03:00:11'),
 (24, 20, '更新', '', '[\"sys/job/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 03:00:26'),
-(25, 2, '职称列表', '/sys/perms/profession/list', '[]', 1, '', 0, 'views/system/profession/job', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:01:11'),
+(25, 2, '职称列表', '/sys/perms/profession/list', '[]', 1, '', 0, 'views/system/permission/profession', 1, '', '2022-08-12 02:14:20', '2022-08-19 01:22:28'),
 (26, 25, '列表', '', '[\"sys/profession/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
 (27, 25, '新增', '', '[\"sys/profession/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
 (28, 25, '删除', '', '[\"sys/profession/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
 (29, 25, '更新', '', '[\"sys/profession/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(30, 2, '用户列表', '/sys/perms/user/list', '[]', 1, '', 0, 'views/system/user/job', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:01:11'),
+(30, 2, '用户列表', '/sys/perms/user/list', '[]', 1, '', 0, 'views/system/permission/user', 1, '', '2022-08-12 02:14:20', '2022-08-19 01:23:02'),
 (31, 30, '列表', '', '[\"sys/user/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
 (32, 30, '新增', '', '[\"sys/user/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
 (33, 30, '删除', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
@@ -255,7 +256,7 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '', '[1]', 1, 0, '2022-08-11 09:18:21', '2022-08-18 10:16:19');
+(1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19');
 
 -- --------------------------------------------------------
 
@@ -290,7 +291,7 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'http://dummyimage.com/100x100', 1, '1970-01-01', 'arklnk@163.com', '12000000000', 1, 1, 1, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-17 14:15:02');
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'http://dummyimage.com/100x100', 1, '1970-01-01', 'arklnk@163.com', '12000000000', 1, 1, 1, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-19 05:49:01');
 
 --
 -- 转储表的索引

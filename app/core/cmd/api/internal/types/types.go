@@ -165,6 +165,7 @@ type Dept struct {
 	Name      string `json:"name"`
 	FullName  string `json:"fullName"`
 	UniqueKey string `json:"uniqueKey"`
+	Type      int64  `json:"type"`
 	Status    int64  `json:"status"`
 	OrderNum  int64  `json:"orderNum"`
 	Remark    string `json:"remark"`
@@ -179,6 +180,7 @@ type AddSysDeptReq struct {
 	Name      string `json:"name"`
 	FullName  string `json:"fullName"`
 	UniqueKey string `json:"uniqueKey"`
+	Type      int64  `json:"type"`
 	Status    int64  `json:"status"`
 	OrderNum  int64  `json:"orderNum"`
 	Remark    string `json:"remark"`
@@ -194,6 +196,7 @@ type UpdateSysDeptReq struct {
 	Name      string `json:"name"`
 	FullName  string `json:"fullName"`
 	UniqueKey string `json:"uniqueKey"`
+	Type      int64  `json:"type"`
 	Status    int64  `json:"status"`
 	OrderNum  int64  `json:"orderNum"`
 	Remark    string `json:"remark"`
