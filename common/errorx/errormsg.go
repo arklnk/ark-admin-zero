@@ -25,6 +25,7 @@ const (
 	DeptHasUserErrorCode          = 1019
 	RoleIsUsingErrorCode          = 1020
 	ParentRoleErrorCode           = 1021
+	ParentDeptErrorCode           = 1022
 )
 
 func init() {
@@ -50,6 +51,7 @@ func init() {
 	errorMsg[DeptHasUserErrorCode] = "该部门正在使用中"
 	errorMsg[RoleIsUsingErrorCode] = "该角色正在使用中"
 	errorMsg[ParentRoleErrorCode] = "父级角色不能为自己"
+	errorMsg[ParentDeptErrorCode] = "父级部门不能为自己"
 
 }
 
