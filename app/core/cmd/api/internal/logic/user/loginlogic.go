@@ -34,20 +34,20 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		return nil, errorx.NewDefaultError(errorx.CaptchaErrorCode)
 	}
 
-	account, err := l.svcCtx.SysUserModel.FindOneByAccount(l.ctx, req.Account)
+	sysUser, err := l.svcCtx.SysUserModel.FindOneByAccount(l.ctx, req.Account)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.AccountErrorCode)
 	}
 
-	if account.Password != utils.MD5(req.Password+l.svcCtx.Config.Salt) {
+	if sysUser.Password != utils.MD5(req.Password+l.svcCtx.Config.Salt) {
 		return nil, errorx.NewDefaultError(errorx.PasswordErrorCode)
 	}
 
-	token, _ := l.getJwtToken(
-		l.svcCtx.Config.JwtAuth.AccessSecret,
-		time.Now().Unix(),
-		l.svcCtx.Config.JwtAuth.AccessExpire,
-		int64(account.Id))
+	if sysUser.Status != globalkey.SysEnable {
+		return nil, errorx.NewDefaultError(errorx.AccountDisableErrorCode)
+	}
+
+	token, _ := l.getJwtToken(sysUser.Id)
 	_, err = l.svcCtx.Redis.Del(req.CaptchaId)
 
 	return &types.LoginResp{
@@ -55,12 +55,13 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	}, nil
 }
 
-func (l *LoginLogic) getJwtToken(secretKey string, iat, seconds, userId int64) (string, error) {
+func (l *LoginLogic) getJwtToken(userId int64) (string, error) {
+	iat := time.Now().Unix()
 	claims := make(jwt.MapClaims)
-	claims["exp"] = iat + seconds
+	claims["exp"] = iat + l.svcCtx.Config.JwtAuth.AccessExpire
 	claims["iat"] = iat
 	claims[globalkey.SysJwtUserId] = userId
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
-	return token.SignedString([]byte(secretKey))
+	return token.SignedString([]byte(l.svcCtx.Config.JwtAuth.AccessSecret))
 }

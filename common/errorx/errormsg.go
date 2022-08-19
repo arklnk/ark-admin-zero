@@ -24,6 +24,7 @@ const (
 	RoleIsUsingErrorCode      = 1018
 	ParentRoleErrorCode       = 1019
 	ParentDeptErrorCode       = 1020
+	AccountDisableErrorCode   = 1021
 )
 
 func init() {
@@ -48,6 +49,7 @@ func init() {
 	errorMsg[RoleIsUsingErrorCode] = "该角色正在使用中"
 	errorMsg[ParentRoleErrorCode] = "父级角色不能为自己"
 	errorMsg[ParentDeptErrorCode] = "父级部门不能为自己"
+	errorMsg[AccountDisableErrorCode] = "账号已禁用"
 
 }
 

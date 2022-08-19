@@ -10,4 +10,5 @@ const (
 	SysNewUserDefaultPassword  = "123456"
 	SysDefaultPermType         = 2
 	SysMaxPermMenuId           = 36
+	SysEnable                  = 1
 )
