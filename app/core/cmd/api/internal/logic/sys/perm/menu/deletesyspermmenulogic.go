@@ -1,11 +1,11 @@
 package menu
 
 import (
-	"ark-admin-zero/common/errorx"
 	"context"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/common/errorx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

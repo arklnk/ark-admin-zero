@@ -28,7 +28,6 @@ func (l *DeleteSysJobLogic) DeleteSysJob(req *types.DeleteSysJobReq) error {
 	userList, _ := l.svcCtx.SysUserModel.FindByCondition(l.ctx, "job_id", req.Id)
 	if len(userList) != 0 {
 		return errorx.NewDefaultError(errorx.DeleteJobErrorCode)
-
 	}
 
 	err := l.svcCtx.SysJobModel.Delete(l.ctx, req.Id)

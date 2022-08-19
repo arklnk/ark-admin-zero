@@ -42,6 +42,7 @@ type (
 		FindByCondition(ctx context.Context, condition string, value int64) ([]*SysUser, error)
 		FindByPage(ctx context.Context, page int64, limit int64, deptIds string) ([]*SysUserDetail, error)
 		FindCountByDeptIds(ctx context.Context, deptIds string) (int64, error)
+		FindCountByRoleId(ctx context.Context, roleId int64) (int64, error)
 	}
 
 	customSysUserModel struct {
@@ -83,6 +84,18 @@ func (m *customSysUserModel) FindByPage(ctx context.Context, page int64, limit i
 
 func (m *customSysUserModel) FindCountByDeptIds(ctx context.Context, deptIds string) (int64, error) {
 	query := fmt.Sprintf("select count(id) from %s where dept_id IN(%s)", m.table, deptIds)
+	var resp int64
+	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return 0, err
+	}
+}
+
+func (m *customSysUserModel) FindCountByRoleId(ctx context.Context, roleId int64) (int64, error) {
+	query := fmt.Sprintf("select count(id) from %s r where JSON_CONTAINS(r.role_ids,JSON_ARRAY(%d))", m.table, roleId)
 	var resp int64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
 	switch err {

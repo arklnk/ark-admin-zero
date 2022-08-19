@@ -23,6 +23,7 @@ const (
 	DeleteUserErrorCode           = 1017
 	DeleteSuperAdminRoleErrorCode = 1018
 	DeptHasUserErrorCode          = 1019
+	RoleIsUsingErrorCode          = 1020
 )
 
 func init() {
@@ -46,6 +47,8 @@ func init() {
 	errorMsg[DeleteUserErrorCode] = "禁止刪除超级管理员"
 	errorMsg[DeleteSuperAdminRoleErrorCode] = "禁止刪除超级管理员角色"
 	errorMsg[DeptHasUserErrorCode] = "该部门正在使用中"
+	errorMsg[RoleIsUsingErrorCode] = "该角色正在使用中"
+
 }
 
 func MapErrMsg(errCode int) string {

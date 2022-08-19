@@ -35,6 +35,11 @@ func (l *DeleteSysRoleLogic) DeleteSysRole(req *types.DeleteSysRoleReq) error {
 		return errorx.NewDefaultError(errorx.DeleteRoleErrorCode)
 	}
 
+	count, _ := l.svcCtx.SysUserModel.FindCountByRoleId(l.ctx, req.Id)
+	if count != 0 {
+		return errorx.NewDefaultError(errorx.RoleIsUsingErrorCode)
+	}
+
 	err := l.svcCtx.SysRoleModel.Delete(l.ctx, req.Id)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
