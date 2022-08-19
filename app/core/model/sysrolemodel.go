@@ -1,6 +1,7 @@
 package model
 
 import (
+	"ark-admin-zero/common/globalkey"
 	"context"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/stores/cache"
@@ -43,7 +44,7 @@ func (m *customSysRoleModel) FindSubRole(ctx context.Context, id int64) ([]*SysR
 }
 
 func (m *customSysRoleModel) FindAll(ctx context.Context) ([]*SysRole, error) {
-	query := fmt.Sprintf("select %s from %s", sysRoleRows, m.table)
+	query := fmt.Sprintf("select %s from %s where id!=%d", sysRoleRows, m.table, globalkey.SuperAdminRoleId)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

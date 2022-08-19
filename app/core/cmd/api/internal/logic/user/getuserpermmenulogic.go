@@ -87,7 +87,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 }
 
 func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64) ([]*model.SysPermMenu, []int64, error) {
-	if utils.ArrayContainValue(roles, globalkey.SuperAdminRole) {
+	if utils.ArrayContainValue(roles, globalkey.SuperAdminRoleId) {
 		sysPermMenus, err := l.svcCtx.SysPermMenuModel.FindAll(l.ctx)
 		if err != nil {
 			return nil, permMenu, err
