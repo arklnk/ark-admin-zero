@@ -71,7 +71,7 @@ func (m *customSysUserModel) FindByPage(ctx context.Context, page int64, limit i
 }
 
 func (m *customSysUserModel) FindCountByCondition(ctx context.Context, condition string, value int64) (int64, error) {
-	query := fmt.Sprintf("select count(id) from %s where %s=?", m.table, condition)
+	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE %s=?", m.table, condition)
 	var resp int64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query, value)
 	switch err {
@@ -83,7 +83,7 @@ func (m *customSysUserModel) FindCountByCondition(ctx context.Context, condition
 }
 
 func (m *customSysUserModel) FindCountByDeptIds(ctx context.Context, deptIds string) (int64, error) {
-	query := fmt.Sprintf("select count(id) from %s where dept_id IN(%s)", m.table, deptIds)
+	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE dept_id IN(%s)", m.table, deptIds)
 	var resp int64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -95,7 +95,7 @@ func (m *customSysUserModel) FindCountByDeptIds(ctx context.Context, deptIds str
 }
 
 func (m *customSysUserModel) FindCountByRoleId(ctx context.Context, roleId int64) (int64, error) {
-	query := fmt.Sprintf("select count(id) from %s r where JSON_CONTAINS(r.role_ids,JSON_ARRAY(%d))", m.table, roleId)
+	query := fmt.Sprintf("SELECT COUNT(id) FROM %s u WHERE JSON_CONTAINS(u.role_ids,JSON_ARRAY(%d))", m.table, roleId)
 	var resp int64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
 	switch err {

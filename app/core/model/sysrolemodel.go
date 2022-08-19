@@ -32,7 +32,7 @@ func NewSysRoleModel(conn sqlx.SqlConn, c cache.CacheConf) SysRoleModel {
 }
 
 func (m *customSysRoleModel) FindSubRole(ctx context.Context, id int64) ([]*SysRole, error) {
-	query := fmt.Sprintf("select %s from %s where `parent_id` = ?", sysRoleRows, m.table)
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id` = ?", sysRoleRows, m.table)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
 	switch err {
@@ -44,7 +44,7 @@ func (m *customSysRoleModel) FindSubRole(ctx context.Context, id int64) ([]*SysR
 }
 
 func (m *customSysRoleModel) FindAll(ctx context.Context) ([]*SysRole, error) {
-	query := fmt.Sprintf("select %s from %s  where id!=%d order by order_num desc", sysRoleRows, m.table, globalkey.SysSuperAdminRoleId)
+	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d ORDER BY order_num DESC", sysRoleRows, m.table, globalkey.SysSuperAdminRoleId)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

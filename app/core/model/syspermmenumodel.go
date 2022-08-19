@@ -33,7 +33,7 @@ func NewSysPermMenuModel(conn sqlx.SqlConn, c cache.CacheConf) SysPermMenuModel 
 }
 
 func (m *customSysPermMenuModel) FindByIds(ctx context.Context, ids string) ([]*SysPermMenu, error) {
-	query := fmt.Sprintf("select %s from %s where `id` in(%s)", sysPermMenuRows, m.table, ids)
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE `id` IN(%s)", sysPermMenuRows, m.table, ids)
 	var resp []*SysPermMenu
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -45,7 +45,7 @@ func (m *customSysPermMenuModel) FindByIds(ctx context.Context, ids string) ([]*
 }
 
 func (m *customSysPermMenuModel) FindCountByParentId(ctx context.Context, id int64) (int64, error) {
-	query := fmt.Sprintf("select count(id) from %s where `parent_id`=%d", m.table, id)
+	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE `parent_id`=%d", m.table, id)
 	var resp int64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -57,7 +57,7 @@ func (m *customSysPermMenuModel) FindCountByParentId(ctx context.Context, id int
 }
 
 func (m *customSysPermMenuModel) FindAll(ctx context.Context) ([]*SysPermMenu, error) {
-	query := fmt.Sprintf("select %s from %s order by order_num desc", sysPermMenuRows, m.table)
+	query := fmt.Sprintf("SELECT %s FROM %s ORDER BY order_num DESC", sysPermMenuRows, m.table)
 	var resp []*SysPermMenu
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -69,7 +69,7 @@ func (m *customSysPermMenuModel) FindAll(ctx context.Context) ([]*SysPermMenu, e
 }
 
 func (m *customSysPermMenuModel) FindSubPermMenu(ctx context.Context, id int64) ([]*SysPermMenu, error) {
-	query := fmt.Sprintf("select %s from %s where `parent_id` = ?", sysPermMenuRows, m.table)
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id` = ?", sysPermMenuRows, m.table)
 	var resp []*SysPermMenu
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
 	switch err {
