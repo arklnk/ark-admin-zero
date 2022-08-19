@@ -32,7 +32,7 @@ func (l *GetSysJobListLogic) GetSysJobList() (resp *types.SysJobListResp, err er
 	}
 
 	var job types.Job
-	var jobList []types.Job
+	jobList := make([]types.Job, 0)
 	for _, sysJob := range sysJobList {
 		err := copier.Copy(&job, &sysJob)
 		if err != nil {

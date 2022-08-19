@@ -33,7 +33,7 @@ func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err
 	}
 
 	var role types.Role
-	var roleList []types.Role
+	roleList := make([]types.Role, 0)
 	for _, v := range sysRoleList {
 		err := copier.Copy(&role, &v)
 		if err != nil {

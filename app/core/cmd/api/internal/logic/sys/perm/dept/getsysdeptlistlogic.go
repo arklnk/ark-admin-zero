@@ -32,7 +32,7 @@ func (l *GetSysDeptListLogic) GetSysDeptList() (resp *types.SysDeptListResp, err
 	}
 
 	var dept types.Dept
-	var deptList []types.Dept
+	deptList := make([]types.Dept, 0)
 	for _, v := range sysDeptList {
 		err := copier.Copy(&dept, &v)
 		if err != nil {

@@ -32,7 +32,7 @@ func (l *GetSysProfessionListLogic) GetSysProfessionList() (resp *types.SysProfe
 	}
 
 	var profession types.Profession
-	var professionList []types.Profession
+	professionList :=make([]types.Profession,0)
 	for _, v := range sysProfessionList {
 		err := copier.Copy(&profession, &v)
 		if err != nil {
