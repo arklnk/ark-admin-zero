@@ -26,15 +26,14 @@ func NewDeleteSysRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 
 func (l *DeleteSysRoleLogic) DeleteSysRole(req *types.DeleteSysRoleReq) error {
 	roleList, _ := l.svcCtx.SysRoleModel.FindSubRole(l.ctx, req.Id)
-	if len(roleList) == 0 {
-		err := l.svcCtx.SysRoleModel.Delete(l.ctx, req.Id)
-		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
-		}
-
-		return nil
-	} else {
-
+	if len(roleList) != 0 {
 		return errorx.NewDefaultError(errorx.DeleteRoleErrorCode)
 	}
+
+	err := l.svcCtx.SysRoleModel.Delete(l.ctx, req.Id)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	return nil
 }

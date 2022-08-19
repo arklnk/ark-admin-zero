@@ -26,15 +26,15 @@ func NewDeleteSysJobLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Dele
 
 func (l *DeleteSysJobLogic) DeleteSysJob(req *types.DeleteSysJobReq) error {
 	userList, _ := l.svcCtx.SysUserModel.FindByCondition(l.ctx, "job_id", req.Id)
-	if len(userList) == 0 {
-		err := l.svcCtx.SysJobModel.Delete(l.ctx, req.Id)
-		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
-		}
-
-		return nil
-	} else {
-
+	if len(userList) != 0 {
 		return errorx.NewDefaultError(errorx.DeleteJobErrorCode)
+
 	}
+
+	err := l.svcCtx.SysJobModel.Delete(l.ctx, req.Id)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	return nil
 }
