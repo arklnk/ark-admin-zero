@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-19 05:49:39
+-- 生成日期： 2022-08-19 09:56:11
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -46,7 +46,8 @@ CREATE TABLE `sys_dept` (
 --
 
 INSERT INTO `sys_dept` (`id`, `parent_id`, `name`, `full_name`, `unique_key`, `type`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 0, '方舟', '方舟互联', 'arklnk', 1, 1, 1, '', '2022-08-17 02:09:17', '2022-08-19 05:38:14');
+(1, 0, '方舟', '方舟互联', 'arklnk', 1, 1, 1, '', '2022-08-17 02:09:17', '2022-08-19 08:17:51'),
+(2, 1, '思忆', '思忆技术', 'siyee', 2, 1, 0, '', '2022-08-19 06:40:10', '2022-08-19 09:53:51');
 
 -- --------------------------------------------------------
 
@@ -190,24 +191,23 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (16, 14, '新增', '', '[\"sys/dept/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:52:17'),
 (17, 14, '删除', '', '[\"sys/dept/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:52:44'),
 (18, 14, '更新', '', '[\"sys/dept/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:53:04'),
-(19, 14, '转移', '', '[\"sys/dept/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:53:53'),
-(20, 2, '岗位列表', '/sys/perms/job/list', '[]', 1, '', 0, 'views/system/permission/job', 1, '', '2022-08-12 02:14:20', '2022-08-17 02:59:03'),
-(21, 20, '列表', '', '[\"sys/job/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 02:59:25'),
-(22, 20, '新增', '', '[\"sys/job/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 02:59:54'),
-(23, 20, '删除', '', '[\"sys/job/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 03:00:11'),
-(24, 20, '更新', '', '[\"sys/job/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 03:00:26'),
-(25, 2, '职称列表', '/sys/perms/profession/list', '[]', 1, '', 0, 'views/system/permission/profession', 1, '', '2022-08-12 02:14:20', '2022-08-19 01:22:28'),
-(26, 25, '列表', '', '[\"sys/profession/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(27, 25, '新增', '', '[\"sys/profession/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(28, 25, '删除', '', '[\"sys/profession/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(29, 25, '更新', '', '[\"sys/profession/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(30, 2, '用户列表', '/sys/perms/user/list', '[]', 1, '', 0, 'views/system/permission/user', 1, '', '2022-08-12 02:14:20', '2022-08-19 01:23:02'),
-(31, 30, '列表', '', '[\"sys/user/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(32, 30, '新增', '', '[\"sys/user/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(33, 30, '删除', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(34, 30, '更新', '', '[\"sys/user/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(35, 30, '改密', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22'),
-(36, 30, '转移', '', '[\"sys/user/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 05:02:22');
+(19, 2, '岗位列表', '/sys/perms/job/list', '[]', 1, '', 0, 'views/system/permission/job', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:10:39'),
+(20, 19, '列表', '', '[\"sys/job/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:11:01'),
+(21, 19, '新增', '', '[\"sys/job/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:11:03'),
+(22, 19, '删除', '', '[\"sys/job/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:11:06'),
+(23, 19, '更新', '', '[\"sys/job/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:11:09'),
+(24, 2, '职称列表', '/sys/perms/profession/list', '[]', 1, '', 0, 'views/system/permission/profession', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:11:29'),
+(25, 24, '列表', '', '[\"sys/profession/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:12:48'),
+(26, 24, '新增', '', '[\"sys/profession/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:13:00'),
+(27, 24, '删除', '', '[\"sys/profession/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:13:04'),
+(28, 24, '更新', '', '[\"sys/profession/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:13:08'),
+(29, 2, '用户列表', '/sys/perms/user/list', '[]', 1, '', 0, 'views/system/permission/user', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:13:13'),
+(30, 29, '列表', '', '[\"sys/user/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:13:39'),
+(31, 29, '新增', '', '[\"sys/user/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:13:42'),
+(32, 29, '删除', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:13:46'),
+(33, 29, '更新', '', '[\"sys/user/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:13:50'),
+(34, 29, '改密', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:13:54'),
+(35, 29, '转移', '', '[\"sys/user/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:13:57');
 
 -- --------------------------------------------------------
 
@@ -256,7 +256,8 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19');
+(1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19'),
+(2, 0, '测试', 'test', '测试', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 09:55:28');
 
 -- --------------------------------------------------------
 
@@ -291,7 +292,8 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'http://dummyimage.com/100x100', 1, '1970-01-01', 'arklnk@163.com', '12000000000', 1, 1, 1, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-19 05:49:01');
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'http://dummyimage.com/100x100', 1, '1970-01-01', 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-19 07:54:02'),
+(2, 'test', '596bfe4bb02db60c2a25965598529e7e', 'test', 'test', 'http://dummyimage.com/100x100', 1, '1970-01-01', 'arklnk@163.com', '12000000000', 1, 1, 1, '[1]', 1, 0, 'test', '2022-08-11 06:19:45', '2022-08-19 09:55:51');
 
 --
 -- 转储表的索引
@@ -372,7 +374,7 @@ ALTER TABLE `sys_user`
 -- 使用表AUTO_INCREMENT `sys_dept`
 --
 ALTER TABLE `sys_dept`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_dictionary`
@@ -408,7 +410,7 @@ ALTER TABLE `sys_param`
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=36;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`
@@ -420,13 +422,13 @@ ALTER TABLE `sys_profession`
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`
 --
 ALTER TABLE `sys_user`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

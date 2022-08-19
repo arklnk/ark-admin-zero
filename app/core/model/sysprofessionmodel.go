@@ -15,6 +15,8 @@ type (
 	SysProfessionModel interface {
 		sysProfessionModel
 		FindAll(ctx context.Context) ([]*SysProfession, error)
+		FindCount(ctx context.Context) (int64, error)
+		FindByPage(ctx context.Context, page int64, limit int64) ([]*SysProfession, error)
 	}
 
 	customSysProfessionModel struct {
@@ -38,5 +40,30 @@ func (m *customSysProfessionModel) FindAll(ctx context.Context) ([]*SysProfessio
 		return resp, nil
 	default:
 		return nil, err
+	}
+}
+
+func (m *customSysProfessionModel) FindByPage(ctx context.Context, page int64, limit int64) ([]*SysProfession, error) {
+	offset := (page - 1) * limit
+	query := fmt.Sprintf("select %s from %s limit %d,%d", sysProfessionRows, m.table, offset, limit)
+	var resp []*SysProfession
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return nil, err
+	}
+}
+
+func (m *customSysProfessionModel) FindCount(ctx context.Context) (int64, error) {
+	query := fmt.Sprintf("select count(id) from %s", m.table)
+	var resp int64
+	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return 0, err
 	}
 }

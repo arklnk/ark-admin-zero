@@ -243,8 +243,14 @@ type Profession struct {
 	OrderNum int64  `json:"orderNum"`
 }
 
+type SysProfessionListReq struct {
+	Page  int64 `form:"page"`
+	Limit int64 `form:"limit"`
+}
+
 type SysProfessionListResp struct {
 	ProfessionList []Profession `json:"list"`
+	Pagination     Pagination   `json:"pagination"`
 }
 
 type AddSysProfessionReq struct {

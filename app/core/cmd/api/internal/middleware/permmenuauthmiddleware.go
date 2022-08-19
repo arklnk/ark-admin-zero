@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -29,7 +28,6 @@ func (m *PermMenuAuthMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc 
 		if len(r.Header.Get("Authorization")) > 0 {
 			userId := utils.GetUserId(r.Context())
 			uri := strings.Split(r.RequestURI, "?")
-			fmt.Println("============",uri[0])
 			is, err := m.Redis.Sismember(globalkey.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), uri[0])
 			if err != nil || is != true {
 				httpx.Error(w, errorx.NewDefaultError(errorx.NotPermMenuErrorCode))

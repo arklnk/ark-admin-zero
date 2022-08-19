@@ -14,8 +14,13 @@ type (
         Status int64 `json:"status"`
         OrderNum int64 `json:"orderNum"`
     }
+    SysProfessionListReq {
+        Page int64 `form:"page"`
+        Limit int64 `form:"limit"`
+    }
     SysProfessionListResp {
         ProfessionList []Profession `json:"list"`
+        Pagination Pagination `json:"pagination"`
     }
 )
 
@@ -53,7 +58,7 @@ service core-api {
         summary: "职称列表"
     )
     @handler GetSysProfessionList
-    get /list returns (SysProfessionListResp)
+    get /list (SysProfessionListReq) returns (SysProfessionListResp)
 
     @doc(
         summary: "新增职称"
