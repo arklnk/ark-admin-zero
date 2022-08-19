@@ -58,10 +58,11 @@ func (l *GetSysUserListLogic) GetSysUserList(req *types.SysUserListReq) (resp *t
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	var pagination types.Pagination
-	pagination.Page = req.Page
-	pagination.Size = req.Limit
-	pagination.Total = total
+	pagination := types.Pagination{
+		Page:  req.Page,
+		Limit: req.Limit,
+		Total: total,
+	}
 
 	return &types.SysUserListResp{
 		UserList:   userList,

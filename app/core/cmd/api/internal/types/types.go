@@ -285,7 +285,7 @@ type SysUserListReq struct {
 
 type Pagination struct {
 	Page  int64 `json:"page"`
-	Size  int64 `json:"size"`
+	Limit int64 `json:"limit"`
 	Total int64 `json:"total"`
 }
 
