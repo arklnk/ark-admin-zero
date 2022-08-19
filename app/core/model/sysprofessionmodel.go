@@ -32,7 +32,7 @@ func NewSysProfessionModel(conn sqlx.SqlConn, c cache.CacheConf) SysProfessionMo
 }
 
 func (m *customSysProfessionModel) FindAll(ctx context.Context) ([]*SysProfession, error) {
-	query := fmt.Sprintf("select %s from %s", sysProfessionRows, m.table)
+	query := fmt.Sprintf("select %s from %s order by order_num desc", sysProfessionRows, m.table)
 	var resp []*SysProfession
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -45,7 +45,7 @@ func (m *customSysProfessionModel) FindAll(ctx context.Context) ([]*SysProfessio
 
 func (m *customSysProfessionModel) FindByPage(ctx context.Context, page int64, limit int64) ([]*SysProfession, error) {
 	offset := (page - 1) * limit
-	query := fmt.Sprintf("select %s from %s limit %d,%d", sysProfessionRows, m.table, offset, limit)
+	query := fmt.Sprintf("select %s from %s order by order_num desc limit %d,%d", sysProfessionRows, m.table, offset, limit)
 	var resp []*SysProfession
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

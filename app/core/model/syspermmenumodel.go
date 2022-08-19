@@ -57,7 +57,7 @@ func (m *customSysPermMenuModel) FindCountByParentId(ctx context.Context, id int
 }
 
 func (m *customSysPermMenuModel) FindAll(ctx context.Context) ([]*SysPermMenu, error) {
-	query := fmt.Sprintf("select %s from %s", sysPermMenuRows, m.table)
+	query := fmt.Sprintf("select %s from %s order by order_num desc", sysPermMenuRows, m.table)
 	var resp []*SysPermMenu
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

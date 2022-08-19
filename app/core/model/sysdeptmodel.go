@@ -31,7 +31,7 @@ func NewSysDeptModel(conn sqlx.SqlConn, c cache.CacheConf) SysDeptModel {
 }
 
 func (m *customSysDeptModel) FindAll(ctx context.Context) ([]*SysDept, error) {
-	query := fmt.Sprintf("select %s from %s", sysDeptRows, m.table)
+	query := fmt.Sprintf("select %s from %s order by order_num desc", sysDeptRows, m.table)
 	var resp []*SysDept
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

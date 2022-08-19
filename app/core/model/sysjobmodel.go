@@ -32,7 +32,7 @@ func NewSysJobModel(conn sqlx.SqlConn, c cache.CacheConf) SysJobModel {
 }
 
 func (m *customSysJobModel) FindAll(ctx context.Context) ([]*SysJob, error) {
-	query := fmt.Sprintf("select %s from %s", sysJobRows, m.table)
+	query := fmt.Sprintf("select %s from %s order by order_num desc", sysJobRows, m.table)
 	var resp []*SysJob
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -44,7 +44,7 @@ func (m *customSysJobModel) FindAll(ctx context.Context) ([]*SysJob, error) {
 }
 func (m *customSysJobModel) FindByPage(ctx context.Context, page int64, limit int64) ([]*SysJob, error) {
 	offset := (page - 1) * limit
-	query := fmt.Sprintf("select %s from %s limit %d,%d", sysJobRows, m.table, offset, limit)
+	query := fmt.Sprintf("select %s from %s order by order_num desc limit %d,%d", sysJobRows, m.table, offset, limit)
 	var resp []*SysJob
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
