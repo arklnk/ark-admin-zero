@@ -15,6 +15,8 @@ type (
 	SysJobModel interface {
 		sysJobModel
 		FindAll(ctx context.Context) ([]*SysJob, error)
+		FindByPage(ctx context.Context, page int64, limit int64) ([]*SysJob, error)
+		FindCount(ctx context.Context) (int64, error)
 	}
 
 	customSysJobModel struct {
@@ -38,5 +40,29 @@ func (m *customSysJobModel) FindAll(ctx context.Context) ([]*SysJob, error) {
 		return resp, nil
 	default:
 		return nil, err
+	}
+}
+func (m *customSysJobModel) FindByPage(ctx context.Context, page int64, limit int64) ([]*SysJob, error) {
+	offset := (page - 1) * limit
+	query := fmt.Sprintf("select %s from %s limit %d,%d", sysJobRows, m.table, offset, limit)
+	var resp []*SysJob
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return nil, err
+	}
+}
+
+func (m *customSysJobModel) FindCount(ctx context.Context) (int64, error) {
+	query := fmt.Sprintf("select count(id) from %s", m.table)
+	var resp int64
+	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return 0, err
 	}
 }

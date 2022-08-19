@@ -71,7 +71,7 @@ func (m *customSysUserModel) FindByPage(ctx context.Context, page int64, limit i
 }
 
 func (m *customSysUserModel) FindCountByCondition(ctx context.Context, condition string, value int64) (int64, error) {
-	query := fmt.Sprintf("select count(id) id from %s where %s=?", m.table, condition)
+	query := fmt.Sprintf("select count(id) from %s where %s=?", m.table, condition)
 	var resp int64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query, value)
 	switch err {

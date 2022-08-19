@@ -14,8 +14,13 @@ type (
         Status int64 `json:"status"`
         OrderNum int64 `json:"orderNum"`
     }
+    SysJobListReq {
+        Page int64 `form:"page"`
+        Limit int64 `form:"limit"`
+    }
     SysJobListResp {
         JobList []Job `json:"list"`
+        Pagination Pagination `json:"pagination"`
     }
 )
 
@@ -54,7 +59,7 @@ service core-api {
         summary: "岗位列表"
     )
     @handler GetSysJobList
-    get /list returns (SysJobListResp)
+    get /list (SysJobListReq) returns (SysJobListResp)
 
     @doc(
         summary: "新增岗位"

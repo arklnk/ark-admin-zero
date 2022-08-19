@@ -209,8 +209,14 @@ type Job struct {
 	OrderNum int64  `json:"orderNum"`
 }
 
+type SysJobListReq struct {
+	Page  int64 `form:"page"`
+	Limit int64 `form:"limit"`
+}
+
 type SysJobListResp struct {
-	JobList []Job `json:"list"`
+	JobList    []Job      `json:"list"`
+	Pagination Pagination `json:"pagination"`
 }
 
 type AddSysJobReq struct {

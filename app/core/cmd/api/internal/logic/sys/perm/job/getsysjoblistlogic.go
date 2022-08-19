@@ -25,8 +25,8 @@ func NewGetSysJobListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Get
 	}
 }
 
-func (l *GetSysJobListLogic) GetSysJobList() (resp *types.SysJobListResp, err error) {
-	sysJobList, err := l.svcCtx.SysJobModel.FindAll(l.ctx)
+func (l *GetSysJobListLogic) GetSysJobList(req *types.SysJobListReq) (resp *types.SysJobListResp, err error) {
+	sysJobList, err := l.svcCtx.SysJobModel.FindByPage(l.ctx, req.Page, req.Limit)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
@@ -41,7 +41,19 @@ func (l *GetSysJobListLogic) GetSysJobList() (resp *types.SysJobListResp, err er
 		jobList = append(jobList, job)
 	}
 
+	total, err := l.svcCtx.SysJobModel.FindCount(l.ctx)
+	if err != nil {
+		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	pagination := types.Pagination{
+		Page:  req.Page,
+		Limit: req.Limit,
+		Total: total,
+	}
+
 	return &types.SysJobListResp{
-		JobList: jobList,
+		JobList:    jobList,
+		Pagination: pagination,
 	}, nil
 }
