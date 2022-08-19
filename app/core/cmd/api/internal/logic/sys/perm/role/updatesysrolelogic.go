@@ -32,7 +32,7 @@ func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
 		return errorx.NewDefaultError(errorx.ParentRoleErrorCode)
 	}
 
-	if req.Id == globalkey.SuperAdminRoleId {
+	if req.Id == globalkey.SysSuperAdminRoleId {
 		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 	}
 

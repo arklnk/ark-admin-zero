@@ -29,7 +29,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
-	verifyCode, _ := l.svcCtx.Redis.Get(globalkey.CacheLoginCaptchaKey + req.CaptchaId)
+	verifyCode, _ := l.svcCtx.Redis.Get(globalkey.SysLoginCaptchaCachePrefix + req.CaptchaId)
 	if verifyCode != req.VerifyCode {
 		return nil, errorx.NewDefaultError(errorx.CaptchaErrorCode)
 	}
@@ -59,7 +59,7 @@ func (l *LoginLogic) getJwtToken(secretKey string, iat, seconds, userId int64) (
 	claims := make(jwt.MapClaims)
 	claims["exp"] = iat + seconds
 	claims["iat"] = iat
-	claims[globalkey.JwtUserId] = userId
+	claims[globalkey.SysJwtUserId] = userId
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
 	return token.SignedString([]byte(secretKey))

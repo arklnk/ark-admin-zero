@@ -19,7 +19,7 @@ func MD5(str string) string {
 
 func GetUserId(ctx context.Context) int64 {
 	var uid int64
-	if jsonUid, ok := ctx.Value(globalkey.JwtUserId).(json.Number); ok {
+	if jsonUid, ok := ctx.Value(globalkey.SysJwtUserId).(json.Number); ok {
 		if int64Uid, err := jsonUid.Int64(); err == nil {
 			uid = int64Uid
 		} else {

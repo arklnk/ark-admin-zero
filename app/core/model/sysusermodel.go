@@ -59,7 +59,7 @@ func NewSysUserModel(conn sqlx.SqlConn, c cache.CacheConf) SysUserModel {
 
 func (m *customSysUserModel) FindByPage(ctx context.Context, page int64, limit int64, deptIds string) ([]*SysUserDetail, error) {
 	offset := (page - 1) * limit
-	query := fmt.Sprintf("SELECT u.id,u.account,u.username,u.nickname,u.avatar,u.gender,p.name as profession,j.name as job,d.name as dept,GROUP_CONCAT(r.name) as roles,u.birthday,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM (SELECT * FROM sys_user WHERE id!=%d AND dept_id IN(%s) LIMIT %d,%d) u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id", globalkey.SuperAdminUserId, deptIds, offset, limit)
+	query := fmt.Sprintf("SELECT u.id,u.account,u.username,u.nickname,u.avatar,u.gender,p.name as profession,j.name as job,d.name as dept,GROUP_CONCAT(r.name) as roles,u.birthday,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM (SELECT * FROM sys_user WHERE id!=%d AND dept_id IN(%s) LIMIT %d,%d) u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id", globalkey.SysSuperAdminUserId, deptIds, offset, limit)
 	var resp []*SysUserDetail
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

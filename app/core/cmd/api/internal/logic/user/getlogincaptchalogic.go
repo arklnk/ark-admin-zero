@@ -44,7 +44,7 @@ func (l *GetLoginCaptchaLogic) GetLoginCaptcha() (resp *types.LoginCaptchaResp, 
 	id, b64s, err := c.Generate()
 	val := store.Get(id, true)
 	captchaId := uuid.NewV4().String()
-	err = l.svcCtx.Redis.Setex(globalkey.CacheLoginCaptchaKey +captchaId, val, 300)
+	err = l.svcCtx.Redis.Setex(globalkey.SysLoginCaptchaCachePrefix+captchaId, val, 300)
 
 	return &types.LoginCaptchaResp{
 		CaptchaId:  captchaId,

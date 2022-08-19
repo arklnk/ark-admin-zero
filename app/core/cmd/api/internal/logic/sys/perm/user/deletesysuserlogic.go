@@ -26,7 +26,7 @@ func NewDeleteSysUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 }
 
 func (l *DeleteSysUserLogic) DeleteSysUser(req *types.DeleteSysUserReq) error {
-	if req.Id == globalkey.SuperAdminUserId {
+	if req.Id == globalkey.SysSuperAdminUserId {
 		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 	}
 

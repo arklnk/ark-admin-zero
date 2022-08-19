@@ -44,7 +44,7 @@ func (m *customSysRoleModel) FindSubRole(ctx context.Context, id int64) ([]*SysR
 }
 
 func (m *customSysRoleModel) FindAll(ctx context.Context) ([]*SysRole, error) {
-	query := fmt.Sprintf("select %s from %s where id!=%d", sysRoleRows, m.table, globalkey.SuperAdminRoleId)
+	query := fmt.Sprintf("select %s from %s where id!=%d", sysRoleRows, m.table, globalkey.SysSuperAdminRoleId)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

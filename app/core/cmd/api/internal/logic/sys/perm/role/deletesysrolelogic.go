@@ -26,7 +26,7 @@ func NewDeleteSysRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 }
 
 func (l *DeleteSysRoleLogic) DeleteSysRole(req *types.DeleteSysRoleReq) error {
-	if req.Id == globalkey.SuperAdminRoleId {
+	if req.Id == globalkey.SysSuperAdminRoleId {
 		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 	}
 
