@@ -17,6 +17,7 @@ type (
 		FindByIds(ctx context.Context, ids string) ([]*SysPermMenu, error)
 		FindCountByParentId(ctx context.Context, id int64) (int64, error)
 		FindAll(ctx context.Context) ([]*SysPermMenu, error)
+		FindSubPermMenu(ctx context.Context, id int64) ([]*SysPermMenu, error)
 	}
 
 	customSysPermMenuModel struct {
@@ -59,6 +60,18 @@ func (m *customSysPermMenuModel) FindAll(ctx context.Context) ([]*SysPermMenu, e
 	query := fmt.Sprintf("select %s from %s", sysPermMenuRows, m.table)
 	var resp []*SysPermMenu
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return nil, err
+	}
+}
+
+func (m *customSysPermMenuModel) FindSubPermMenu(ctx context.Context, id int64) ([]*SysPermMenu, error) {
+	query := fmt.Sprintf("select %s from %s where `parent_id` = ?", sysPermMenuRows, m.table)
+	var resp []*SysPermMenu
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
 	switch err {
 	case nil:
 		return resp, nil

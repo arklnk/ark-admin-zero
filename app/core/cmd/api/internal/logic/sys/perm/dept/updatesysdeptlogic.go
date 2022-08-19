@@ -1,13 +1,13 @@
 package dept
 
 import (
-	"ark-admin-zero/app/core/model"
-	"ark-admin-zero/common/utils"
 	"context"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/utils"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"

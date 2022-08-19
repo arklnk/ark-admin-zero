@@ -6,7 +6,9 @@ import (
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/utils"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -31,6 +33,12 @@ func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuR
 		return errorx.NewDefaultError(errorx.ParentPermMenuErrorCode)
 	}
 
+	permMenuIds := make([]int64, 0)
+	permMenuIds = l.getSubPermMenu(permMenuIds, req.Id)
+	if utils.ArrayContainValue(permMenuIds, req.ParentId) {
+		return errorx.NewDefaultError(errorx.SetParentIdErrorCode)
+	}
+
 	permMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.Id)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
@@ -53,4 +61,18 @@ func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuR
 	}
 
 	return nil
+}
+
+func (l *UpdateSysPermMenuLogic) getSubPermMenu(permMenuIds []int64, id int64) []int64 {
+	permMenuList, err := l.svcCtx.SysPermMenuModel.FindSubPermMenu(l.ctx, id)
+	if err != nil && err != model.ErrNotFound {
+		return permMenuIds
+	}
+
+	for _, v := range permMenuList {
+		permMenuIds = append(permMenuIds, v.Id)
+		permMenuIds = l.getSubPermMenu(permMenuIds, v.Id)
+	}
+
+	return permMenuIds
 }
