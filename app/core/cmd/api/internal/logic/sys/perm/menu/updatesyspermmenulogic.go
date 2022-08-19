@@ -27,6 +27,10 @@ func NewUpdateSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuReq) error {
+	if req.Id == req.ParentId {
+		return errorx.NewDefaultError(errorx.ParentPermMenuErrorCode)
+	}
+
 	permMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.Id)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)

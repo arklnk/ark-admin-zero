@@ -10,15 +10,16 @@ const (
 	PasswordErrorCode         = 1004
 	NotPermMenuErrorCode      = 1005
 	DeletePermMenuErrorCode   = 1006
-	AddRoleErrorCode          = 1007
-	DeleteRoleErrorCode       = 1008
-	AddDeptErrorCode          = 1008
-	DeleteDeptErrorCode       = 1010
-	AddJobErrorCode           = 1011
-	DeleteJobErrorCode        = 1012
-	AddProfessionErrorCode    = 1013
-	DeleteProfessionErrorCode = 1014
-	AddUserErrorCode          = 1015
+	ParentPermMenuErrorCode   = 1007
+	AddRoleErrorCode          = 1008
+	DeleteRoleErrorCode       = 1009
+	AddDeptErrorCode          = 1010
+	DeleteDeptErrorCode       = 1011
+	AddJobErrorCode           = 1012
+	DeleteJobErrorCode        = 1013
+	AddProfessionErrorCode    = 1014
+	DeleteProfessionErrorCode = 1015
+	AddUserErrorCode          = 1016
 )
 
 func init() {
@@ -29,6 +30,7 @@ func init() {
 	errorMsg[PasswordErrorCode] = "密码错误"
 	errorMsg[NotPermMenuErrorCode] = "权限不足"
 	errorMsg[DeletePermMenuErrorCode] = "该权限菜单存在子级权限菜单"
+	errorMsg[ParentPermMenuErrorCode] = "父级菜单不能为自己"
 	errorMsg[AddRoleErrorCode] = "角色已存在"
 	errorMsg[DeleteRoleErrorCode] = "该角色存在子角色"
 	errorMsg[AddDeptErrorCode] = "部门已存在"
