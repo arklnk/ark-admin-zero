@@ -27,7 +27,7 @@ func NewDeleteSysRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 
 func (l *DeleteSysRoleLogic) DeleteSysRole(req *types.DeleteSysRoleReq) error {
 	if req.Id == globalkey.SuperAdminRoleId {
-		return errorx.NewDefaultError(errorx.DeleteSuperAdminRoleErrorCode)
+		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 	}
 
 	roleList, _ := l.svcCtx.SysRoleModel.FindSubRole(l.ctx, req.Id)

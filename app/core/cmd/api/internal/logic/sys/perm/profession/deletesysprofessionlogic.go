@@ -25,8 +25,8 @@ func NewDeleteSysProfessionLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *DeleteSysProfessionLogic) DeleteSysProfession(req *types.DeleteSysProfessionReq) error {
-	userList, _ := l.svcCtx.SysUserModel.FindByCondition(l.ctx, "profession_id", req.Id)
-	if len(userList) != 0 {
+	count, _ := l.svcCtx.SysUserModel.FindCountByCondition(l.ctx, "profession_id", req.Id)
+	if count != 0 {
 		return errorx.NewDefaultError(errorx.DeleteProfessionErrorCode)
 	}
 

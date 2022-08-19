@@ -39,8 +39,8 @@ type (
 	// and implement the added methods in customSysUserModel.
 	SysUserModel interface {
 		sysUserModel
-		FindByCondition(ctx context.Context, condition string, value int64) ([]*SysUser, error)
 		FindByPage(ctx context.Context, page int64, limit int64, deptIds string) ([]*SysUserDetail, error)
+		FindCountByCondition(ctx context.Context, condition string, value int64) (int64, error)
 		FindCountByDeptIds(ctx context.Context, deptIds string) (int64, error)
 		FindCountByRoleId(ctx context.Context, roleId int64) (int64, error)
 	}
@@ -57,18 +57,6 @@ func NewSysUserModel(conn sqlx.SqlConn, c cache.CacheConf) SysUserModel {
 	}
 }
 
-func (m *customSysUserModel) FindByCondition(ctx context.Context, condition string, value int64) ([]*SysUser, error) {
-	query := fmt.Sprintf("select %s from %s where %s=?", sysUserRows, m.table, condition)
-	var resp []*SysUser
-	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, value)
-	switch err {
-	case nil:
-		return resp, nil
-	default:
-		return nil, err
-	}
-}
-
 func (m *customSysUserModel) FindByPage(ctx context.Context, page int64, limit int64, deptIds string) ([]*SysUserDetail, error) {
 	offset := (page - 1) * limit
 	query := fmt.Sprintf("SELECT u.id,u.account,u.username,u.nickname,u.avatar,u.gender,p.name as profession,j.name as job,d.name as dept,GROUP_CONCAT(r.name) as roles,u.birthday,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM (SELECT * FROM sys_user WHERE id!=%d AND dept_id IN(%s) LIMIT %d,%d) u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id", globalkey.SuperAdminUserId, deptIds, offset, limit)
@@ -79,6 +67,18 @@ func (m *customSysUserModel) FindByPage(ctx context.Context, page int64, limit i
 		return resp, nil
 	default:
 		return nil, err
+	}
+}
+
+func (m *customSysUserModel) FindCountByCondition(ctx context.Context, condition string, value int64) (int64, error) {
+	query := fmt.Sprintf("select count(id) id from %s where %s=?", m.table, condition)
+	var resp int64
+	err := m.QueryRowNoCacheCtx(ctx, &resp, query, value)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return 0, err
 	}
 }
 

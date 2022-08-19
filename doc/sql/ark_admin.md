@@ -39,6 +39,7 @@
 |full_name|varchar(50)|部门全称|
 |unique_key|varchar(25)|唯一值|
 |parent_id|int(11)|父级id|
+|type|tinyint(1)|1=公司 2=子公司 3=部门|
 |status|tinyint(1)|0=禁用 1=开启|
 |order_num|int(11)|排序值|
 |remark|varchar(100)|备注|

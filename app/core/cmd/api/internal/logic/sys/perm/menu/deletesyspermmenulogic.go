@@ -25,8 +25,8 @@ func NewDeleteSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuReq) error {
-	subPermMenu, _ := l.svcCtx.SysPermMenuModel.FindSubPermMenuById(l.ctx, req.Id)
-	if len(subPermMenu) != 0 {
+	count, _ := l.svcCtx.SysPermMenuModel.FindCountByParentId(l.ctx, req.Id)
+	if count != 0 {
 		return errorx.NewDefaultError(errorx.DeletePermMenuErrorCode)
 	}
 

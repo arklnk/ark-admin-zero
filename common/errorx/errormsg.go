@@ -21,11 +21,10 @@ const (
 	DeleteProfessionErrorCode     = 1015
 	AddUserErrorCode              = 1016
 	DeleteUserErrorCode           = 1017
-	DeleteSuperAdminRoleErrorCode = 1018
-	DeptHasUserErrorCode          = 1019
-	RoleIsUsingErrorCode          = 1020
-	ParentRoleErrorCode           = 1021
-	ParentDeptErrorCode           = 1022
+	DeptHasUserErrorCode          = 1018
+	RoleIsUsingErrorCode          = 1019
+	ParentRoleErrorCode           = 1020
+	ParentDeptErrorCode           = 1021
 )
 
 func init() {
@@ -47,7 +46,6 @@ func init() {
 	errorMsg[DeleteProfessionErrorCode] = "该职称正在使用中"
 	errorMsg[AddUserErrorCode] = "账号已存在"
 	errorMsg[DeleteUserErrorCode] = "禁止刪除超级管理员"
-	errorMsg[DeleteSuperAdminRoleErrorCode] = "禁止刪除超级管理员角色"
 	errorMsg[DeptHasUserErrorCode] = "该部门正在使用中"
 	errorMsg[RoleIsUsingErrorCode] = "该角色正在使用中"
 	errorMsg[ParentRoleErrorCode] = "父级角色不能为自己"
