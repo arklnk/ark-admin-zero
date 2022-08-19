@@ -24,6 +24,7 @@ const (
 	DeleteSuperAdminRoleErrorCode = 1018
 	DeptHasUserErrorCode          = 1019
 	RoleIsUsingErrorCode          = 1020
+	ParentRoleErrorCode           = 1021
 )
 
 func init() {
@@ -48,6 +49,7 @@ func init() {
 	errorMsg[DeleteSuperAdminRoleErrorCode] = "禁止刪除超级管理员角色"
 	errorMsg[DeptHasUserErrorCode] = "该部门正在使用中"
 	errorMsg[RoleIsUsingErrorCode] = "该角色正在使用中"
+	errorMsg[ParentRoleErrorCode] = "父级角色不能为自己"
 
 }
 
