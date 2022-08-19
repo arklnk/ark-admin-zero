@@ -13,13 +13,11 @@ import (
 )
 
 type PermMenuAuthMiddleware struct {
-	JwtSecret string
 	Redis     *redis.Redis
 }
 
-func NewPermMenuAuthMiddleware(s string, r *redis.Redis) *PermMenuAuthMiddleware {
+func NewPermMenuAuthMiddleware(r *redis.Redis) *PermMenuAuthMiddleware {
 	return &PermMenuAuthMiddleware{
-		JwtSecret: s,
 		Redis:     r,
 	}
 }
