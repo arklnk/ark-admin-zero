@@ -282,29 +282,49 @@ type UpdateSysProfessionReq struct {
 	OrderNum int64  `json:"orderNum"`
 }
 
+type UserProfession struct {
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
+type UserJob struct {
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
+type UserDept struct {
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
+type UserRole struct {
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
 type User struct {
-	Id         int64    `json:"id"`
-	Account    string   `json:"account"`
-	Username   string   `json:"username"`
-	Nickname   string   `json:"nickname"`
-	Avatar     string   `json:"avatar"`
-	Gender     int64    `json:"gender"`
-	Birthday   string   `json:"birthday"`
-	Email      string   `json:"email"`
-	Mobile     string   `json:"mobile"`
-	Profession string   `json:"profession"`
-	Job        string   `json:"job"`
-	Dept       string   `json:"dept"`
-	Roles      []string `json:"roles"`
-	Status     int64    `json:"status"`
-	OrderNum   int64    `json:"orderNum"`
-	Remark     string   `json:"remark"`
+	Id         int64          `json:"id"`
+	Account    string         `json:"account"`
+	Username   string         `json:"username"`
+	Nickname   string         `json:"nickname"`
+	Avatar     string         `json:"avatar"`
+	Gender     int64          `json:"gender"`
+	Birthday   string         `json:"birthday"`
+	Email      string         `json:"email"`
+	Mobile     string         `json:"mobile"`
+	Profession UserProfession `json:"profession"`
+	Job        UserJob        `json:"job"`
+	Dept       UserDept       `json:"dept"`
+	Roles      []UserRole     `json:"roles"`
+	Status     int64          `json:"status"`
+	OrderNum   int64          `json:"orderNum"`
+	Remark     string         `json:"remark"`
 }
 
 type SysUserListReq struct {
-	Page    int64   `json:"page"`
-	Limit   int64   `json:"limit"`
-	DeptIds []int64 `json:"deptIds"`
+	Page   int64 `form:"page"`
+	Limit  int64 `form:"limit"`
+	DeptId int64 `form:"deptId"`
 }
 
 type UserListPagination struct {

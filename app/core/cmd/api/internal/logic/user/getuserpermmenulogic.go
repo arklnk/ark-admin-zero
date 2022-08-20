@@ -55,8 +55,8 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 	}
 
 	var menu types.Menu
-	var menuList []types.Menu
-	var permList []string
+	menuList := make([]types.Menu, 0)
+	permList := make([]string, 0)
 	for _, v := range userPermMenu {
 		err := copier.Copy(&menu, &v)
 		if err != nil {
