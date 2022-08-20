@@ -26,6 +26,7 @@ const (
 	ParentDeptErrorCode       = 1020
 	AccountDisableErrorCode   = 1021
 	SetParentIdErrorCode      = 1022
+	SetParentTypeErrorCode    = 1023
 )
 
 func init() {
@@ -52,6 +53,7 @@ func init() {
 	errorMsg[ParentDeptErrorCode] = "父级部门不能为自己"
 	errorMsg[AccountDisableErrorCode] = "账号已禁用"
 	errorMsg[SetParentIdErrorCode] = "不能设置子级为自己的父级"
+	errorMsg[SetParentTypeErrorCode] = "权限类型不能作为父级菜单"
 
 }
 

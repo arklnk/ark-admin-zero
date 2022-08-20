@@ -33,6 +33,11 @@ func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuR
 		return errorx.NewDefaultError(errorx.ParentPermMenuErrorCode)
 	}
 
+	parentPermMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.ParentId)
+	if parentPermMenu.Type == 2 {
+		return errorx.NewDefaultError(errorx.SetParentTypeErrorCode)
+	}
+
 	permMenuIds := make([]int64, 0)
 	permMenuIds = l.getSubPermMenu(permMenuIds, req.Id)
 	if utils.ArrayContainValue(permMenuIds, req.ParentId) {
