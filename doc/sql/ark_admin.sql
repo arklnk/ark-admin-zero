@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-22 02:38:53
+-- 生成日期： 2022-08-22 10:11:08
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -24,6 +24,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `sys_config`
+--
+
+CREATE TABLE `sys_config` (
+  `id` int(11) NOT NULL COMMENT '编号',
+  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '0=配置集 !0=父级id',
+  `name` varchar(25) NOT NULL COMMENT '名称',
+  `unique_key` varchar(25) NOT NULL COMMENT '唯一值',
+  `value` varchar(2048) NOT NULL COMMENT '配置值',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
+  `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
+  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统参数';
+
+--
+-- 转存表中的数据 `sys_config`
+--
+
+INSERT INTO `sys_config` (`id`, `parent_id`, `name`, `unique_key`, `value`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
+(1, 0, '配置集1', 'config1', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-22 10:03:58'),
+(2, 1, '配置集1', 'key1', 'value1', 1, 0, '', '2022-08-22 10:03:58', '2022-08-22 10:04:45'),
+(3, 1, '配置集1', 'key2', 'value2', 1, 0, '', '2022-08-22 10:03:58', '2022-08-22 10:04:51'),
+(4, 1, '配置集1', 'key3', 'value3', 1, 0, '', '2022-08-22 10:03:58', '2022-08-22 10:04:51');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `sys_dept`
 --
 
@@ -36,7 +65,7 @@ CREATE TABLE `sys_dept` (
   `type` tinyint(1) NOT NULL COMMENT '1=公司 2=子公司 3=部门',
   `status` tinyint(1) NOT NULL COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL COMMENT '排序值',
-  `remark` varchar(100) NOT NULL DEFAULT '""' COMMENT '备注',
+  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='部门';
@@ -57,13 +86,14 @@ INSERT INTO `sys_dept` (`id`, `parent_id`, `name`, `full_name`, `unique_key`, `t
 
 CREATE TABLE `sys_dictionary` (
   `id` int(11) NOT NULL COMMENT '编号',
-  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级id',
+  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '0=字典集 !0=父级id',
   `name` varchar(25) NOT NULL COMMENT '名称',
-  `type` tinyint(2) NOT NULL COMMENT '1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单文件 10多文件  ',
+  `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单文件 10多文件  ',
   `unique_key` varchar(25) NOT NULL COMMENT '唯一值',
-  `value` int(11) NOT NULL COMMENT '配置值',
+  `value` varchar(2048) NOT NULL DEFAULT '' COMMENT '配置值',
   `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
-  `remark` varchar(100) NOT NULL DEFAULT '""' COMMENT '备注',
+  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='字典';
@@ -130,25 +160,6 @@ CREATE TABLE `sys_log_login` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sys_param`
---
-
-CREATE TABLE `sys_param` (
-  `id` int(11) NOT NULL COMMENT '编号',
-  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级id',
-  `name` varchar(25) NOT NULL COMMENT '名称',
-  `unique_key` varchar(25) NOT NULL COMMENT '唯一值',
-  `value` int(11) NOT NULL COMMENT '配置值',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
-  `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
-  `remark` varchar(100) NOT NULL DEFAULT '""' COMMENT '备注',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统参数';
-
--- --------------------------------------------------------
-
---
 -- 表的结构 `sys_perm_menu`
 --
 
@@ -156,14 +167,14 @@ CREATE TABLE `sys_perm_menu` (
   `id` int(11) NOT NULL COMMENT '编号',
   `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级id',
   `name` varchar(255) NOT NULL COMMENT '名称',
-  `router` varchar(255) NOT NULL DEFAULT '""' COMMENT '路由',
-  `perms` varchar(255) NOT NULL DEFAULT '""' COMMENT '权限',
+  `router` varchar(255) NOT NULL DEFAULT '' COMMENT '路由',
+  `perms` varchar(255) NOT NULL DEFAULT '' COMMENT '权限',
   `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=目录 1=菜单 2=权限',
-  `icon` varchar(255) NOT NULL DEFAULT '""' COMMENT '图标',
+  `icon` varchar(255) NOT NULL DEFAULT '' COMMENT '图标',
   `order_num` int(11) DEFAULT '0' COMMENT '排序值',
-  `view_path` varchar(255) NOT NULL DEFAULT '""' COMMENT '页面路径',
+  `view_path` varchar(255) NOT NULL DEFAULT '' COMMENT '页面路径',
   `is_show` tinyint(1) DEFAULT '1' COMMENT '0=隐藏 1=显示',
-  `active_router` varchar(255) NOT NULL DEFAULT '""' COMMENT '当前激活的菜单',
+  `active_router` varchar(255) NOT NULL DEFAULT '' COMMENT '当前激活的菜单',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限&菜单';
@@ -173,43 +184,50 @@ CREATE TABLE `sys_perm_menu` (
 --
 
 INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type`, `icon`, `order_num`, `view_path`, `is_show`, `active_router`, `create_time`, `update_time`) VALUES
-(1, 0, 'routes.systemManagement', '/sys', '[]', 0, 'system', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-15 13:29:53'),
-(2, 1, 'routes.permManagement', '/sys/perms', '[]', 0, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 06:26:42'),
-(3, 2, 'routes.menuList', '/sys/perms/menu/list', '[]', 1, '', 0, 'views/system/permission/menu', 1, '', '2022-08-12 02:14:20', '2022-08-16 06:57:24'),
-(4, 3, 'common.basic.query', '', '[\"sys/perm/menu/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 07:31:41'),
-(5, 3, 'common.basic.add', '', '[\"sys/perm/menu/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 06:21:43'),
-(6, 3, 'common.basic.delete', '', '[\"sys/perm/menu/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 07:32:09'),
-(7, 3, 'common.basic.update', '', '[\"sys/perm/menu/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 07:32:18'),
-(8, 2, '角色列表', '/sys/perms/role/list', '[]', 1, '', 0, 'views/system/permission/role', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:12:14'),
-(9, 8, 'common.basic.query', '', '[\"sys/role/list\",\"sys/perm/menu/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-18 04:03:01'),
-(10, 8, '新增', '', '[\"sys/role/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:13:29'),
-(11, 8, '删除', '', '[\"sys/role/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:13:51'),
-(12, 8, '更新', '', '[\"sys/role/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-16 13:14:10'),
-(13, 8, '权限', '', '[\"sys/role/perm/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:53:24'),
-(14, 2, '部门列表', '/sys/perms/dept/list', '[]', 1, '', 0, 'views/system/permission/dept', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:51:04'),
-(15, 14, '列表', '', '[\"sys/dept/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:51:48'),
-(16, 14, '新增', '', '[\"sys/dept/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:52:17'),
-(17, 14, '删除', '', '[\"sys/dept/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:52:44'),
-(18, 14, '更新', '', '[\"sys/dept/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-17 01:53:04'),
-(19, 2, '岗位列表', '/sys/perms/job/list', '[]', 1, '', 0, 'views/system/permission/job', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:10:39'),
-(20, 19, '列表', '', '[\"sys/job/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 02:34:05'),
-(21, 19, '新增', '', '[\"sys/job/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:11:03'),
-(22, 19, '删除', '', '[\"sys/job/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:11:06'),
-(23, 19, '更新', '', '[\"sys/job/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-19 07:11:09'),
-(24, 19, '分页', '', '[\"sys/job/page\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 02:34:02'),
-(25, 2, '职称列表', '/sys/perms/profession/list', '[]', 1, '', 0, 'views/system/permission/profession', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:43:03'),
-(26, 25, '列表', '', '[\"sys/profession/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 02:34:58'),
-(27, 25, '新增', '', '[\"sys/profession/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:43:29'),
-(28, 25, '删除', '', '[\"sys/profession/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:43:26'),
-(29, 25, '更新', '', '[\"sys/profession/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:43:23'),
-(30, 25, '分页', '', '[\"sys/profession/page\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 02:35:10'),
-(31, 2, '用户列表', '/sys/perms/user/list', '[]', 1, '', 0, 'views/system/permission/user', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:36:38'),
-(32, 31, '列表', '', '[\"sys/user/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:36:45'),
-(33, 31, '新增', '', '[\"sys/user/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:36:48'),
-(34, 31, '删除', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:36:51'),
-(35, 31, '更新', '', '[\"sys/user/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:36:53'),
-(36, 31, '改密', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:36:56'),
-(37, 31, '转移', '', '[\"sys/user/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 01:36:59');
+(1, 0, 'routes.system.name', '/sys', '[]', 0, 'system', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:51:41'),
+(2, 1, 'routes.system.menu.name', '/sys/menu', '[]', 1, '', 0, 'views/system/menu', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:27:53'),
+(3, 2, 'common.basic.query', '', '[\"sys/perm/menu/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 04:55:04'),
+(4, 2, 'common.basic.add', '', '[\"sys/perm/menu/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 04:55:06'),
+(5, 2, 'common.basic.delete', '', '[\"sys/perm/menu/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 04:55:08'),
+(6, 2, 'common.basic.update', '', '[\"sys/perm/menu/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 04:55:10'),
+(7, 1, 'routes.system.role.name', '/sys/role', '[]', 1, '', 0, 'views/system/role', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:28:15'),
+(8, 7, 'common.basic.query', '', '[\"sys/role/list\",\"sys/perm/menu/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 04:55:36'),
+(9, 7, 'common.basic.add', '', '[\"sys/role/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:18:12'),
+(10, 7, 'common.basic.delete', '', '[\"sys/role/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:18:54'),
+(11, 7, 'common.basic.update', '', '[\"sys/role/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:19:15'),
+(13, 1, 'routes.system.department.name', '/sys/dept', '[]', 1, '', 0, 'views/system/dept', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:28:33'),
+(14, 13, 'common.basic.query', '', '[\"sys/dept/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:19:42'),
+(15, 13, 'common.basic.add', '', '[\"sys/dept/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:19:53'),
+(16, 13, 'common.basic.delete', '', '[\"sys/dept/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:20:04'),
+(17, 13, 'common.basic.update', '', '[\"sys/dept/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:20:13'),
+(18, 1, 'routes.system.job.name', '/sys/job', '[]', 1, '', 0, 'views/system/job', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:28:47'),
+(19, 18, 'common.basic.query', '', '[\"sys/job/page\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:22:57'),
+(20, 18, 'common.basic.add', '', '[\"sys/job/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:20:49'),
+(21, 18, 'common.basic.delete', '', '[\"sys/job/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:20:59'),
+(22, 18, 'common.basic.update', '', '[\"sys/job/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:21:12'),
+(24, 1, 'routes.system.profession.name', '/sys/profession', '[]', 1, '', 0, 'views/system/profession', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:29:07'),
+(25, 24, 'common.basic.query', '', '[\"sys/profession/page\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:23:08'),
+(26, 24, 'common.basic.add', '', '[\"sys/profession/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:21:50'),
+(27, 24, 'common.basic.delete', '', '[\"sys/profession/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:22:02'),
+(28, 24, 'common.basic.update', '', '[\"sys/profession/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:22:12'),
+(30, 1, 'routes.system.user.name', '/sys/user', '[]', 1, '', 0, 'views/system/user', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:29:23'),
+(31, 30, 'common.basic.query', '', '[\"sys/user/list\",\"sys/dept/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 08:01:27'),
+(32, 30, 'common.basic.add', '', '[\"sys/user/add\",\"sys/dept/list\",\"sys/job/list\",\"sys/role/list\",\"sys/profession/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:59:16'),
+(33, 30, 'common.basic.delete', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:21'),
+(34, 30, 'common.basic.update', '', '[\"sys/user/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:12'),
+(35, 30, 'permission.changepasswd', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:01'),
+(36, 30, 'permission.transfer', '', '[\"sys/user/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:46'),
+(37, 0, 'routes.param.name', '/param', '[]', 0, 'documentation', 0, '', 1, '', '2022-08-22 03:33:42', '2022-08-22 08:12:06'),
+(38, 37, 'routes.param.config.name', '/param/config', '[]', 1, '', 0, 'views/param/config', 1, '', '2022-08-22 03:39:21', '2022-08-22 08:12:36'),
+(39, 38, 'common.basic.query', '', '[\"param/config/set\",\"param/config/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 08:31:52'),
+(40, 38, 'common.basic.add', '', '[\"param/config/add\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 08:32:19'),
+(41, 38, 'common.basic.delete', '', '[\"param/config/delete\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 08:32:27'),
+(42, 38, 'common.basic.update', '', '[\"param/config/update\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 08:32:35'),
+(44, 37, 'routes.param.dictionary.name', '/param/dictionary', '[]', 1, '', 0, '', 1, '', '2022-08-22 04:35:29', '2022-08-22 07:35:56'),
+(45, 44, 'common.basic.query', '', '[\"param/dictionary/set\",\"param/dictionary/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 09:16:17'),
+(46, 44, 'common.basic.add', '', '[\"param/dictionary/add\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 09:16:42'),
+(47, 44, 'common.basic.delete', '', '[\"param/dictionary/delete\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 09:16:50'),
+(48, 44, 'common.basic.update', '', '[\"param/dictionary/update\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 09:17:26');
 
 -- --------------------------------------------------------
 
@@ -245,7 +263,7 @@ CREATE TABLE `sys_role` (
   `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级id',
   `name` varchar(25) NOT NULL COMMENT '名称',
   `unique_key` varchar(25) NOT NULL COMMENT '唯一标识',
-  `remark` varchar(100) NOT NULL DEFAULT '""' COMMENT '备注',
+  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
   `perm_menu_ids` json NOT NULL COMMENT '权限集',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
@@ -258,8 +276,7 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19'),
-(2, 0, '测试', 'test', '测试', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 09:55:28');
+(1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19');
 
 -- --------------------------------------------------------
 
@@ -272,19 +289,18 @@ CREATE TABLE `sys_user` (
   `account` varchar(25) NOT NULL COMMENT '账号',
   `password` char(32) NOT NULL COMMENT '密码',
   `username` varchar(25) NOT NULL COMMENT '姓名',
-  `nickname` varchar(25) NOT NULL DEFAULT '""' COMMENT '昵称',
-  `avatar` varchar(200) NOT NULL DEFAULT '""' COMMENT '头像',
+  `nickname` varchar(25) NOT NULL DEFAULT '' COMMENT '昵称',
+  `avatar` varchar(200) NOT NULL DEFAULT '' COMMENT '头像',
   `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=保密 1=女 2=男',
-  `birthday` date NOT NULL DEFAULT '1970-01-01' COMMENT '生日',
-  `email` varchar(50) NOT NULL DEFAULT '""' COMMENT '邮件',
-  `mobile` char(11) NOT NULL DEFAULT '""' COMMENT '手机号',
+  `email` varchar(50) NOT NULL DEFAULT '' COMMENT '邮件',
+  `mobile` char(11) NOT NULL DEFAULT '' COMMENT '手机号',
   `profession_id` int(11) NOT NULL COMMENT '职称',
   `job_id` int(11) NOT NULL COMMENT '岗位',
   `dept_id` int(11) NOT NULL COMMENT '部门',
   `role_ids` json NOT NULL COMMENT '角色集',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
-  `remark` varchar(100) NOT NULL DEFAULT '""' COMMENT '备注',
+  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户';
@@ -293,13 +309,19 @@ CREATE TABLE `sys_user` (
 -- 转存表中的数据 `sys_user`
 --
 
-INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `birthday`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'http://dummyimage.com/100x100', 1, '1970-01-01', 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-19 07:54:02'),
-(2, 'test', '596bfe4bb02db60c2a25965598529e7e', 'test', 'test', 'http://dummyimage.com/100x100', 1, '1970-01-01', 'arklnk@163.com', '12000000000', 1, 1, 1, '[1]', 1, 0, 'test', '2022-08-11 06:19:45', '2022-08-19 09:55:51');
+INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', '', 1, 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-22 09:42:42');
 
 --
 -- 转储表的索引
 --
+
+--
+-- 表的索引 `sys_config`
+--
+ALTER TABLE `sys_config`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_key` (`unique_key`);
 
 --
 -- 表的索引 `sys_dept`
@@ -335,13 +357,6 @@ ALTER TABLE `sys_log_login`
   ADD PRIMARY KEY (`id`);
 
 --
--- 表的索引 `sys_param`
---
-ALTER TABLE `sys_param`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_key` (`unique_key`);
-
---
 -- 表的索引 `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
@@ -371,6 +386,12 @@ ALTER TABLE `sys_user`
 --
 -- 在导出的表使用AUTO_INCREMENT
 --
+
+--
+-- 使用表AUTO_INCREMENT `sys_config`
+--
+ALTER TABLE `sys_config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `sys_dept`
@@ -403,16 +424,10 @@ ALTER TABLE `sys_log_login`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号';
 
 --
--- 使用表AUTO_INCREMENT `sys_param`
---
-ALTER TABLE `sys_param`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号';
-
---
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=49;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`
@@ -424,13 +439,13 @@ ALTER TABLE `sys_profession`
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`
 --
 ALTER TABLE `sys_user`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

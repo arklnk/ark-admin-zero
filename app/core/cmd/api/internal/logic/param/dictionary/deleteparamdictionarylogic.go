@@ -1,6 +1,8 @@
 package dictionary
 
 import (
+	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"context"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
@@ -24,7 +26,14 @@ func NewDeleteParamDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceConte
 }
 
 func (l *DeleteParamDictionaryLogic) DeleteParamDictionary(req *types.DeleteParamDictionaryReq) error {
-	// todo: add your logic here and delete this line
+	if req.Id < globalkey.SysMaxDictionaryId {
+		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
+	}
+
+	err := l.svcCtx.SysDictionaryModel.Delete(l.ctx, req.Id)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
 
 	return nil
 }

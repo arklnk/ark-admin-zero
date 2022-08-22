@@ -32,7 +32,7 @@ func NewSysDictionaryModel(conn sqlx.SqlConn, c cache.CacheConf) SysDictionaryMo
 }
 
 func (m *customSysDictionaryModel) FindDictionarySet(ctx context.Context) ([]*SysDictionary, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s WHERE parent_id=0 ORDER BY order_num DESC", sysConfigRows, m.table)
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE parent_id=0 ORDER BY order_num DESC", sysDictionaryRows, m.table)
 	var resp []*SysDictionary
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -45,7 +45,7 @@ func (m *customSysDictionaryModel) FindDictionarySet(ctx context.Context) ([]*Sy
 
 func (m *customSysDictionaryModel) FindPageByParentId(ctx context.Context, id int64, page int64, limit int64) ([]*SysDictionary, error) {
 	offset := (page - 1) * limit
-	query := fmt.Sprintf("SELECT %s FROM %s WHERE parent_id=? ORDER BY order_num DESC LIMIT %d,%d", sysConfigRows, m.table, offset, limit)
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE parent_id=? ORDER BY order_num DESC LIMIT %d,%d", sysDictionaryRows, m.table, offset, limit)
 	var resp []*SysDictionary
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
 	switch err {
