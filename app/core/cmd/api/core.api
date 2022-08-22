@@ -8,11 +8,17 @@ info(
 	version: "v1.0.0"
 )
 
+// 用户公共模块
 import "doc/user/user.api"
+
+// 系统管理模块
 import "doc/sys/menu.api"
 import "doc/sys/role.api"
 import "doc/sys/dept.api"
 import "doc/sys/job.api"
 import "doc/sys/profession.api"
 import "doc/sys/user.api"
+
+// 参数管理模块
 import "doc/param/config.api"
+import "doc/param/dictionary.api"

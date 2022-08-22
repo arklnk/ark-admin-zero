@@ -28,6 +28,7 @@ const (
 	SetParentIdErrorCode      = 1022
 	SetParentTypeErrorCode    = 1023
 	AddConfigErrorCode        = 1024
+	AddDictionaryErrorCode    = 1025
 )
 
 func init() {
@@ -56,7 +57,7 @@ func init() {
 	errorMsg[SetParentIdErrorCode] = "不能设置子级为自己的父级"
 	errorMsg[SetParentTypeErrorCode] = "权限类型不能作为父级菜单"
 	errorMsg[AddConfigErrorCode] = "配置已存在"
-
+	errorMsg[AddDictionaryErrorCode] = "字典已存在"
 }
 
 func MapErrMsg(errCode int) string {

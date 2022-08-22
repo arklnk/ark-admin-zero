@@ -14,7 +14,7 @@ type (
 	// and implement the added methods in customSysConfigModel.
 	SysConfigModel interface {
 		sysConfigModel
-		FindList(ctx context.Context) ([]*SysConfig, error)
+		FindConfigSet(ctx context.Context) ([]*SysConfig, error)
 		FindPageByParentId(ctx context.Context, id int64, page int64, limit int64) ([]*SysConfig, error)
 		FindCountByParentId(ctx context.Context, id int64) (int64, error)
 	}
@@ -31,7 +31,7 @@ func NewSysConfigModel(conn sqlx.SqlConn, c cache.CacheConf) SysConfigModel {
 	}
 }
 
-func (m *customSysConfigModel) FindList(ctx context.Context) ([]*SysConfig, error) {
+func (m *customSysConfigModel) FindConfigSet(ctx context.Context) ([]*SysConfig, error) {
 	query := fmt.Sprintf("SELECT %s FROM %s WHERE parent_id=0 ORDER BY order_num DESC", sysConfigRows, m.table)
 	var resp []*SysConfig
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)

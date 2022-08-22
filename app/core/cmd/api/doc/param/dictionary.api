@@ -1,1 +1,113 @@
 syntax = "v1"
+
+info(
+    title: "字典"
+    desc: "字典"
+    author: "Trevor"
+    email: "trevorlan@163.com"
+)
+
+type (
+    ParamDictionary {
+        Id int64 `json:"id"`
+        ParentId int64 `json:"parentId"`
+        Name string `json:"name"`
+        Type int64 `json:"type"`
+        UniqueKey string `json:"uniqueKey"`
+        Value string `json:"value"`
+        OrderNum int64 `json:"orderNum"`
+        Remark string `json:"remark"`
+        Status int64 `json:"status"`
+    }
+    ParamDictionarySetResp {
+        DictionaryList []ParamDictionary `json:"list"`
+    }
+)
+
+type (
+    ParamDictionaryPageReq {
+        Page int64 `form:"page"`
+        Limit int64 `form:"limit"`
+        ParentId int64 `form:"parentId"`
+    }
+    ParamDictionaryPagination {
+        Page int64 `json:"page"`
+        Limit int64 `json:"limit"`
+        Total int64 `json:"total"`
+    }
+    ParamDictionaryPageResp {
+        ParamDictionaryList []ParamDictionary `json:"list"`
+        Pagination ParamDictionaryPagination `json:"pagination"`
+    }
+)
+
+type (
+    AddParamDictionaryReq {
+        ParentId int64 `json:"parentId"`
+        Name string `json:"name"`
+        Type int64 `json:"type"`
+        UniqueKey string `json:"uniqueKey"`
+        Value string `json:"value"`
+        OrderNum int64 `json:"orderNum"`
+        Remark string `json:"remark"`
+        Status int64 `json:"status"`
+    }
+)
+
+type (
+    DeleteParamDictionaryReq {
+        Id int64 `json:"id"`
+    }
+)
+
+type (
+    UpdateParamDictionaryReq {
+        Id int64 `json:"id"`
+        ParentId int64 `json:"parentId"`
+        Name string `json:"name"`
+        Type int64 `json:"type"`
+        UniqueKey string `json:"uniqueKey"`
+        Value string `json:"value"`
+        OrderNum int64 `json:"orderNum"`
+        Remark string `json:"remark"`
+    }
+)
+
+@server(
+    jwt: JwtAuth
+    group : param/dictionary
+    prefix : /param/dictionary
+    middleware: PermMenuAuth
+)
+service core-api {
+    @doc(
+        summary: "字典集"
+    )
+    @handler GetParamDictionarySet
+    get /set returns (ParamDictionarySetResp)
+
+    @doc(
+        summary: "分页字典"
+    )
+    @handler GetParamDictionaryPage
+    get /page (ParamDictionaryPageReq) returns (ParamDictionaryPageResp)
+
+
+    @doc(
+        summary: "新增字典"
+    )
+    @handler AddParamDictionary
+    post /add (AddParamDictionaryReq)
+
+    @doc(
+        summary: "删除字典"
+    )
+    @handler DeleteParamDictionary
+    post /delete (DeleteParamDictionaryReq)
+
+    @doc(
+        summary: "更新字典"
+    )
+    @handler UpdateParamDictionary
+    post /update (UpdateParamDictionaryReq)
+}

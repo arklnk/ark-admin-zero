@@ -444,3 +444,62 @@ type UpdateParamConfigReq struct {
 	OrderNum  int64  `json:"orderNum"`
 	Remark    string `json:"remark"`
 }
+
+type ParamDictionary struct {
+	Id        int64  `json:"id"`
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	Type      int64  `json:"type"`
+	UniqueKey string `json:"uniqueKey"`
+	Value     string `json:"value"`
+	OrderNum  int64  `json:"orderNum"`
+	Remark    string `json:"remark"`
+	Status    int64  `json:"status"`
+}
+
+type ParamDictionarySetResp struct {
+	DictionaryList []ParamDictionary `json:"list"`
+}
+
+type ParamDictionaryPageReq struct {
+	Page     int64 `form:"page"`
+	Limit    int64 `form:"limit"`
+	ParentId int64 `form:"parentId"`
+}
+
+type ParamDictionaryPagination struct {
+	Page  int64 `json:"page"`
+	Limit int64 `json:"limit"`
+	Total int64 `json:"total"`
+}
+
+type ParamDictionaryPageResp struct {
+	ParamDictionaryList []ParamDictionary         `json:"list"`
+	Pagination          ParamDictionaryPagination `json:"pagination"`
+}
+
+type AddParamDictionaryReq struct {
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	Type      int64  `json:"type"`
+	UniqueKey string `json:"uniqueKey"`
+	Value     string `json:"value"`
+	OrderNum  int64  `json:"orderNum"`
+	Remark    string `json:"remark"`
+	Status    int64  `json:"status"`
+}
+
+type DeleteParamDictionaryReq struct {
+	Id int64 `json:"id"`
+}
+
+type UpdateParamDictionaryReq struct {
+	Id        int64  `json:"id"`
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	Type      int64  `json:"type"`
+	UniqueKey string `json:"uniqueKey"`
+	Value     string `json:"value"`
+	OrderNum  int64  `json:"orderNum"`
+	Remark    string `json:"remark"`
+}

@@ -26,7 +26,7 @@ func NewGetParamConfigSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *GetParamConfigSetLogic) GetParamConfigSet() (resp *types.ParamConfigSetResp, err error) {
-	paramConfigList, err := l.svcCtx.SysConfigModel.FindList(l.ctx)
+	paramConfigList, err := l.svcCtx.SysConfigModel.FindConfigSet(l.ctx)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
