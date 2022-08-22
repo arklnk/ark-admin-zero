@@ -41,8 +41,6 @@ func (l *GetSysUserListLogic) GetSysUserList(req *types.SysUserListReq) (resp *t
 	var userProfession types.UserProfession
 	var userJob types.UserJob
 	var userDept types.UserDept
-	var userRole types.UserRole
-	var roles []types.UserRole
 	userList := make([]types.User, 0)
 	for _, v := range users {
 		err := copier.Copy(&user, &v)
@@ -59,6 +57,8 @@ func (l *GetSysUserListLogic) GetSysUserList(req *types.SysUserListReq) (resp *t
 		userDept.Id = v.DeptId
 		userDept.Name = v.Dept
 
+		var userRole types.UserRole
+		var roles []types.UserRole
 		var roleNameArr []string
 		var roleIdArr []string
 		roleNameArr = strings.Split(v.Roles, ",")
