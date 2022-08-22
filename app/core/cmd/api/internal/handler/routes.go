@@ -171,13 +171,13 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
-					Path:    "/list",
-					Handler: syspermjob.GetSysJobListHandler(serverCtx),
+					Path:    "/page",
+					Handler: syspermjob.GetSysJobPageHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
-					Path:    "/all",
-					Handler: syspermjob.GetSysJobAllHandler(serverCtx),
+					Path:    "/list",
+					Handler: syspermjob.GetSysJobListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,

@@ -14,23 +14,23 @@ type (
         Status int64 `json:"status"`
         OrderNum int64 `json:"orderNum"`
     }
-    SysJobListReq {
+    SysJobPageReq {
         Page int64 `form:"page"`
         Limit int64 `form:"limit"`
     }
-    SysJobListPagination {
+    SysJobPagePagination {
         Page int64 `json:"page"`
         Limit int64 `json:"limit"`
         Total int64 `json:"total"`
     }
-    SysJobListResp {
+    SysJobPageResp {
         JobList []Job `json:"list"`
-        Pagination SysJobListPagination `json:"pagination"`
+        Pagination SysJobPagePagination `json:"pagination"`
     }
 )
 
 type (
-    SysJobAllResp{
+    SysJobListResp{
 		JobList []Job `json:"list"`
     }
 )
@@ -68,14 +68,14 @@ service core-api {
     @doc(
         summary: "岗位列表"
     )
-    @handler GetSysJobList
-    get /list (SysJobListReq) returns (SysJobListResp)
+    @handler GetSysJobPage
+    get /page (SysJobPageReq) returns (SysJobPageResp)
 
     @doc(
         summary: "全部岗位"
     )
-    @handler GetSysJobAll
-    get /all returns (SysJobAllResp)
+    @handler GetSysJobList
+    get /list returns (SysJobListResp)
 
     @doc(
         summary: "新增岗位"

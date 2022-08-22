@@ -3,7 +3,7 @@ package {{.PkgName}}
 import (
 	"net/http"
 
-    {{if .HasRequest}}"ark-zero-admin/common/errorx"{{end}}
+    {{if .HasRequest}}"ark-admin-zero/common/errorx"{{end}}
 	"ark-admin-zero/common/response"
 	{{.ImportPackages}}
     {{if .HasRequest}}"github.com/go-playground/validator/v10"{{end}}
