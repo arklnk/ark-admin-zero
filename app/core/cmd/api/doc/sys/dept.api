@@ -1,0 +1,90 @@
+syntax = "v1"
+
+info(
+	title: "部门"
+	desc: "部门"
+	author: "Trevor"
+	email: "trevorlan@163.com"
+)
+
+type (
+	Dept {
+		Id        int64  `json:"id"`
+		ParentId  int64  `json:"parentId"`
+		Name      string `json:"name"`
+		FullName  string `json:"fullName"`
+		UniqueKey string `json:"uniqueKey"`
+		Type      int64  `json:"type"`
+		Status    int64  `json:"status"`
+		OrderNum  int64  `json:"orderNum"`
+		Remark    string `json:"remark"`
+	}
+	SysDeptListResp {
+		DeptList []Dept `json:"list"`
+	}
+)
+
+type (
+	AddSysDeptReq {
+		ParentId  int64  `json:"parentId"`
+		Name      string `json:"name"`
+		FullName  string `json:"fullName"`
+		UniqueKey string `json:"uniqueKey"`
+		Type      int64  `json:"type"`
+		Status    int64  `json:"status"`
+		OrderNum  int64  `json:"orderNum"`
+		Remark    string `json:"remark"`
+	}
+)
+
+type (
+	DeleteSysDeptReq {
+		Id int64 `json:"id"`
+	}
+)
+
+type (
+	UpdateSysDeptReq {
+		Id        int64  `json:"id"`
+		ParentId  int64  `json:"parentId"`
+		Name      string `json:"name"`
+		FullName  string `json:"fullName"`
+		UniqueKey string `json:"uniqueKey"`
+		Type      int64  `json:"type"`
+		Status    int64  `json:"status"`
+		OrderNum  int64  `json:"orderNum"`
+		Remark    string `json:"remark"`
+	}
+)
+
+@server(
+	jwt: JwtAuth
+	group : sys/dept
+	prefix : /sys/dept
+	middleware: PermMenuAuth
+)
+service core-api {
+	@doc(
+		summary: "部门列表"
+	)
+	@handler GetSysDeptList
+	get /list returns (SysDeptListResp)
+	
+	@doc(
+		summary: "新增部门"
+	)
+	@handler AddSysDept
+	post /add (AddSysDeptReq)
+	
+	@doc(
+		summary: "删除部门"
+	)
+	@handler DeleteSysDept
+	post /delete (DeleteSysDeptReq)
+	
+	@doc(
+		summary: "更新部门"
+	)
+	@handler UpdateSysDept
+	post /update (UpdateSysDeptReq)
+}

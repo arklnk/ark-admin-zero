@@ -9,6 +9,6 @@ const (
 	SysPermMenuPrefix          = "/"
 	SysNewUserDefaultPassword  = "123456"
 	SysDefaultPermType         = 2
-	SysMaxPermMenuId           = 36
+	SysMaxPermMenuId           = 50
 	SysEnable                  = 1
 )

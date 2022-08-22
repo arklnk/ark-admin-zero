@@ -9,9 +9,9 @@ info(
 )
 
 import "doc/user/user.api"
-import "doc/sys/perm/menu.api"
-import "doc/sys/perm/role.api"
-import "doc/sys/perm/dept.api"
-import "doc/sys/perm/job.api"
-import "doc/sys/perm/profession.api"
-import "doc/sys/perm/user.api"
+import "doc/sys/menu.api"
+import "doc/sys/role.api"
+import "doc/sys/dept.api"
+import "doc/sys/job.api"
+import "doc/sys/profession.api"
+import "doc/sys/user.api"
