@@ -4,7 +4,7 @@ import (
 	"net/http"
 
     {{if .HasRequest}}"ark-zero-admin/common/errorx"{{end}}
-	"ark-zero-admin/common/response"
+	"ark-admin-zero/common/response"
 	{{.ImportPackages}}
     {{if .HasRequest}}"github.com/go-playground/validator/v10"{{end}}
     "github.com/zeromicro/go-zero/rest/httpx"

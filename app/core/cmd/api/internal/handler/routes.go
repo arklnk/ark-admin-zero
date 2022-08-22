@@ -175,6 +175,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: syspermjob.GetSysJobListHandler(serverCtx),
 				},
 				{
+					Method:  http.MethodGet,
+					Path:    "/all",
+					Handler: syspermjob.GetSysJobAllHandler(serverCtx),
+				},
+				{
 					Method:  http.MethodPost,
 					Path:    "/add",
 					Handler: syspermjob.AddSysJobHandler(serverCtx),

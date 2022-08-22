@@ -225,6 +225,10 @@ type SysJobListResp struct {
 	Pagination SysJobListPagination `json:"pagination"`
 }
 
+type SysJobAllResp struct {
+	JobList []Job `json:"list"`
+}
+
 type AddSysJobReq struct {
 	Name     string `json:"name"`
 	Status   int64  `json:"status"`

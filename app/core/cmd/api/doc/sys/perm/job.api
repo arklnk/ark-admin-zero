@@ -1,85 +1,97 @@
 syntax = "v1"
 
 info(
-	title: "岗位"
-	desc: "岗位"
-	author: "Trevor"
-	email: "trevorlan@163.com"
+    title: "岗位"
+    desc: "岗位"
+    author: "Trevor"
+    email: "trevorlan@163.com"
 )
 
 type (
-	Job {
-		Id       int64  `json:"id"`
-		Name     string `json:"name"`
-		Status   int64  `json:"status"`
-		OrderNum int64  `json:"orderNum"`
-	}
-	SysJobListReq {
-		Page  int64 `form:"page"`
-		Limit int64 `form:"limit"`
-	}
-	SysJobListPagination {
-		Page  int64 `json:"page"`
-		Limit int64 `json:"limit"`
-		Total int64 `json:"total"`
-	}
-	SysJobListResp {
-		JobList    []Job                `json:"list"`
-		Pagination SysJobListPagination `json:"pagination"`
-	}
+    Job {
+        Id int64 `json:"id"`
+        Name string `json:"name"`
+        Status int64 `json:"status"`
+        OrderNum int64 `json:"orderNum"`
+    }
+    SysJobListReq {
+        Page int64 `form:"page"`
+        Limit int64 `form:"limit"`
+    }
+    SysJobListPagination {
+        Page int64 `json:"page"`
+        Limit int64 `json:"limit"`
+        Total int64 `json:"total"`
+    }
+    SysJobListResp {
+        JobList []Job `json:"list"`
+        Pagination SysJobListPagination `json:"pagination"`
+    }
 )
 
 type (
-	AddSysJobReq {
-		Name     string `json:"name"`
-		Status   int64  `json:"status"`
-		OrderNum int64  `json:"orderNum"`
-	}
+    SysJobAllResp{
+		JobList []Job `json:"list"`
+    }
 )
 
 type (
-	DeleteSysJobReq {
-		Id int64 `json:"id"`
-	}
+    AddSysJobReq {
+        Name string `json:"name"`
+        Status int64 `json:"status"`
+        OrderNum int64 `json:"orderNum"`
+    }
 )
 
 type (
-	UpdateSysJobReq {
-		Id       int64  `json:"id"`
-		Name     string `json:"name"`
-		Status   int64  `json:"status"`
-		OrderNum int64  `json:"orderNum"`
-	}
+    DeleteSysJobReq {
+        Id int64 `json:"id"`
+    }
+)
+
+type (
+    UpdateSysJobReq {
+        Id int64 `json:"id"`
+        Name string `json:"name"`
+        Status int64 `json:"status"`
+        OrderNum int64 `json:"orderNum"`
+    }
 )
 
 @server(
-	jwt: JwtAuth
-	group : sys/perm/job
-	prefix : /sys/job
-	middleware: PermMenuAuth
+    jwt: JwtAuth
+    group : sys/perm/job
+    prefix : /sys/job
+    middleware: PermMenuAuth
 )
 service core-api {
-	@doc(
-		summary: "岗位列表"
-	)
-	@handler GetSysJobList
-	get /list (SysJobListReq) returns (SysJobListResp)
-	
-	@doc(
-		summary: "新增岗位"
-	)
-	@handler AddSysJob
-	post /add (AddSysJobReq)
-	
-	@doc(
-		summary: "删除岗位"
-	)
-	@handler DeleteSysJob
-	post /delete (DeleteSysJobReq)
-	
-	@doc(
-		summary: "更新岗位"
-	)
-	@handler UpdateSysJob
-	post /update (UpdateSysJobReq)
+    @doc(
+        summary: "岗位列表"
+    )
+    @handler GetSysJobList
+    get /list (SysJobListReq) returns (SysJobListResp)
+
+    @doc(
+        summary: "全部岗位"
+    )
+    @handler GetSysJobAll
+    get /all returns (SysJobAllResp)
+
+    @doc(
+        summary: "新增岗位"
+    )
+    @handler AddSysJob
+    post /add (AddSysJobReq)
+
+    @doc(
+        summary: "删除岗位"
+    )
+    @handler DeleteSysJob
+    post /delete (DeleteSysJobReq)
+
+    @doc(
+        summary: "更新岗位"
+    )
+    @handler UpdateSysJob
+    post /update (UpdateSysJobReq)
 }

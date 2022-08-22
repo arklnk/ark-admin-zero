@@ -42,6 +42,7 @@ func (m *customSysJobModel) FindAll(ctx context.Context) ([]*SysJob, error) {
 		return nil, err
 	}
 }
+
 func (m *customSysJobModel) FindByPage(ctx context.Context, page int64, limit int64) ([]*SysJob, error) {
 	offset := (page - 1) * limit
 	query := fmt.Sprintf("SELECT %s FROM %s ORDER BY order_num DESC LIMIT %d,%d", sysJobRows, m.table, offset, limit)
