@@ -18,7 +18,7 @@ type (
         OrderNum int64 `json:"orderNum"`
         Remark string `json:"remark"`
     }
-    ParamConfigListResp {
+    ParamConfigSetResp {
         ConfigList []ParamConfig `json:"list"`
     }
 )
@@ -80,13 +80,13 @@ type (
 )
 service core-api {
     @doc(
-        summary: "配置集列表"
+        summary: "配置集"
     )
-    @handler GetParamConfigList
-    get /list returns (ParamConfigListResp)
+    @handler GetParamConfigSet
+    get /set returns (ParamConfigSetResp)
 
     @doc(
-        summary: "配置分页"
+        summary: "分页配置"
     )
     @handler GetParamConfigPage
     get /page (ParamConfigPageReq) returns (ParamConfigPageResp)

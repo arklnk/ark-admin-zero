@@ -10,10 +10,10 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func GetParamConfigListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func GetParamConfigSetHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := config.NewGetParamConfigListLogic(r.Context(), svcCtx)
-		resp, err := l.GetParamConfigList()
+		l := config.NewGetParamConfigSetLogic(r.Context(), svcCtx)
+		resp, err := l.GetParamConfigSet()
 		if err != nil {
 			httpx.Error(w, err)
 			return

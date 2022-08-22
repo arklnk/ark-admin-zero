@@ -399,7 +399,7 @@ type ParamConfig struct {
 	Remark    string `json:"remark"`
 }
 
-type ParamConfigListResp struct {
+type ParamConfigSetResp struct {
 	ConfigList []ParamConfig `json:"list"`
 }
 

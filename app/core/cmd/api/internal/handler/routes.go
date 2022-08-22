@@ -277,8 +277,8 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
-					Path:    "/list",
-					Handler: paramconfig.GetParamConfigListHandler(serverCtx),
+					Path:    "/set",
+					Handler: paramconfig.GetParamConfigSetHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,

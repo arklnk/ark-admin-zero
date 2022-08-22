@@ -11,21 +11,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GetParamConfigListLogic struct {
+type GetParamConfigSetLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewGetParamConfigListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetParamConfigListLogic {
-	return &GetParamConfigListLogic{
+func NewGetParamConfigSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetParamConfigSetLogic {
+	return &GetParamConfigSetLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *GetParamConfigListLogic) GetParamConfigList() (resp *types.ParamConfigListResp, err error) {
+func (l *GetParamConfigSetLogic) GetParamConfigSet() (resp *types.ParamConfigSetResp, err error) {
 	paramConfigList, err := l.svcCtx.SysConfigModel.FindList(l.ctx)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
@@ -41,7 +41,7 @@ func (l *GetParamConfigListLogic) GetParamConfigList() (resp *types.ParamConfigL
 		configList = append(configList, config)
 	}
 
-	return &types.ParamConfigListResp{
+	return &types.ParamConfigSetResp{
 		ConfigList: configList,
 	}, nil
 }
