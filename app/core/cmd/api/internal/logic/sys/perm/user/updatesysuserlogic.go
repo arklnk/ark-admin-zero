@@ -7,8 +7,6 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
-	"ark-admin-zero/common/utils"
-
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -43,7 +41,6 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 	}
 
 	sysUser.RoleIds = string(bytes)
-	sysUser.Birthday = utils.StrToTime(req.Birthday)
 	err = l.svcCtx.SysUserModel.Update(l.ctx, sysUser)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)

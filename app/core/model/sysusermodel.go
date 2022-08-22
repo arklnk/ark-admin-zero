@@ -28,7 +28,6 @@ type SysUserDetail struct {
 	DeptId       int64     `db:"dept_id"`       // 部门id
 	Roles        string    `db:"roles"`         // 角色集
 	RoleIds      string    `db:"role_ids"`      // 角色集id
-	Birthday     time.Time `db:"birthday"`      // 生日
 	Email        string    `db:"email"`         // 邮件
 	Mobile       string    `db:"mobile"`        // 手机号
 	Remark       string    `db:"remark"`        // 备注
@@ -63,7 +62,7 @@ func NewSysUserModel(conn sqlx.SqlConn, c cache.CacheConf) SysUserModel {
 
 func (m *customSysUserModel) FindByPage(ctx context.Context, page int64, limit int64, deptIds string) ([]*SysUserDetail, error) {
 	offset := (page - 1) * limit
-	query := fmt.Sprintf("SELECT u.id,u.dept_id,u.job_id,u.profession_id,u.account,u.username,u.nickname,u.avatar,u.gender,p.name as profession,j.name as job,d.name as dept,GROUP_CONCAT(r.name) as roles,GROUP_CONCAT(r.id) as role_ids,u.birthday,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM (SELECT * FROM sys_user WHERE id!=%d AND dept_id IN(%s) ORDER BY order_num DESC LIMIT %d,%d) u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id", globalkey.SysSuperAdminUserId, deptIds, offset, limit)
+	query := fmt.Sprintf("SELECT u.id,u.dept_id,u.job_id,u.profession_id,u.account,u.username,u.nickname,u.avatar,u.gender,p.name as profession,j.name as job,d.name as dept,GROUP_CONCAT(r.name) as roles,GROUP_CONCAT(r.id) as role_ids,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM (SELECT * FROM sys_user WHERE id!=%d AND dept_id IN(%s) ORDER BY order_num DESC LIMIT %d,%d) u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id", globalkey.SysSuperAdminUserId, deptIds, offset, limit)
 	var resp []*SysUserDetail
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

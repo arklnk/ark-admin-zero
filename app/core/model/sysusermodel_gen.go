@@ -22,8 +22,8 @@ var (
 	sysUserRowsExpectAutoSet   = strings.Join(stringx.Remove(sysUserFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), ",")
 	sysUserRowsWithPlaceHolder = strings.Join(stringx.Remove(sysUserFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), "=?,") + "=?"
 
-	cacheArkAdminZeroSysUserIdPrefix      = "cache:arkAdminZero:sysUser:id:"
-	cacheArkAdminZeroSysUserAccountPrefix = "cache:arkAdminZero:sysUser:account:"
+	cacheArkAdminSysUserIdPrefix      = "cache:arkAdmin:sysUser:id:"
+	cacheArkAdminSysUserAccountPrefix = "cache:arkAdmin:sysUser:account:"
 )
 
 type (
@@ -48,7 +48,6 @@ type (
 		Nickname     string    `db:"nickname"`      // 昵称
 		Avatar       string    `db:"avatar"`        // 头像
 		Gender       int64     `db:"gender"`        // 0=保密 1=女 2=男
-		Birthday     time.Time `db:"birthday"`      // 生日
 		Email        string    `db:"email"`         // 邮件
 		Mobile       string    `db:"mobile"`        // 手机号
 		ProfessionId int64     `db:"profession_id"` // 职称
@@ -76,19 +75,19 @@ func (m *defaultSysUserModel) Delete(ctx context.Context, id int64) error {
 		return err
 	}
 
-	arkAdminZeroSysUserAccountKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserAccountPrefix, data.Account)
-	arkAdminZeroSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserIdPrefix, id)
+	arkAdminSysUserAccountKey := fmt.Sprintf("%s%v", cacheArkAdminSysUserAccountPrefix, data.Account)
+	arkAdminSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysUserIdPrefix, id)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
 		return conn.ExecCtx(ctx, query, id)
-	}, arkAdminZeroSysUserAccountKey, arkAdminZeroSysUserIdKey)
+	}, arkAdminSysUserAccountKey, arkAdminSysUserIdKey)
 	return err
 }
 
 func (m *defaultSysUserModel) FindOne(ctx context.Context, id int64) (*SysUser, error) {
-	arkAdminZeroSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserIdPrefix, id)
+	arkAdminSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysUserIdPrefix, id)
 	var resp SysUser
-	err := m.QueryRowCtx(ctx, &resp, arkAdminZeroSysUserIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {
+	err := m.QueryRowCtx(ctx, &resp, arkAdminSysUserIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {
 		query := fmt.Sprintf("select %s from %s where `id` = ? limit 1", sysUserRows, m.table)
 		return conn.QueryRowCtx(ctx, v, query, id)
 	})
@@ -103,9 +102,9 @@ func (m *defaultSysUserModel) FindOne(ctx context.Context, id int64) (*SysUser, 
 }
 
 func (m *defaultSysUserModel) FindOneByAccount(ctx context.Context, account string) (*SysUser, error) {
-	arkAdminZeroSysUserAccountKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserAccountPrefix, account)
+	arkAdminSysUserAccountKey := fmt.Sprintf("%s%v", cacheArkAdminSysUserAccountPrefix, account)
 	var resp SysUser
-	err := m.QueryRowIndexCtx(ctx, &resp, arkAdminZeroSysUserAccountKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
+	err := m.QueryRowIndexCtx(ctx, &resp, arkAdminSysUserAccountKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
 		query := fmt.Sprintf("select %s from %s where `account` = ? limit 1", sysUserRows, m.table)
 		if err := conn.QueryRowCtx(ctx, &resp, query, account); err != nil {
 			return nil, err
@@ -123,12 +122,12 @@ func (m *defaultSysUserModel) FindOneByAccount(ctx context.Context, account stri
 }
 
 func (m *defaultSysUserModel) Insert(ctx context.Context, data *SysUser) (sql.Result, error) {
-	arkAdminZeroSysUserAccountKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserAccountPrefix, data.Account)
-	arkAdminZeroSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserIdPrefix, data.Id)
+	arkAdminSysUserAccountKey := fmt.Sprintf("%s%v", cacheArkAdminSysUserAccountPrefix, data.Account)
+	arkAdminSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysUserIdPrefix, data.Id)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, sysUserRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.Account, data.Password, data.Username, data.Nickname, data.Avatar, data.Gender, data.Birthday, data.Email, data.Mobile, data.ProfessionId, data.JobId, data.DeptId, data.RoleIds, data.Status, data.OrderNum, data.Remark)
-	}, arkAdminZeroSysUserAccountKey, arkAdminZeroSysUserIdKey)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, sysUserRowsExpectAutoSet)
+		return conn.ExecCtx(ctx, query, data.Account, data.Password, data.Username, data.Nickname, data.Avatar, data.Gender, data.Email, data.Mobile, data.ProfessionId, data.JobId, data.DeptId, data.RoleIds, data.Status, data.OrderNum, data.Remark)
+	}, arkAdminSysUserAccountKey, arkAdminSysUserIdKey)
 	return ret, err
 }
 
@@ -138,17 +137,17 @@ func (m *defaultSysUserModel) Update(ctx context.Context, newData *SysUser) erro
 		return err
 	}
 
-	arkAdminZeroSysUserAccountKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserAccountPrefix, data.Account)
-	arkAdminZeroSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserIdPrefix, data.Id)
+	arkAdminSysUserAccountKey := fmt.Sprintf("%s%v", cacheArkAdminSysUserAccountPrefix, data.Account)
+	arkAdminSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysUserIdPrefix, data.Id)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, sysUserRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, newData.Account, newData.Password, newData.Username, newData.Nickname, newData.Avatar, newData.Gender, newData.Birthday, newData.Email, newData.Mobile, newData.ProfessionId, newData.JobId, newData.DeptId, newData.RoleIds, newData.Status, newData.OrderNum, newData.Remark, newData.Id)
-	}, arkAdminZeroSysUserAccountKey, arkAdminZeroSysUserIdKey)
+		return conn.ExecCtx(ctx, query, newData.Account, newData.Password, newData.Username, newData.Nickname, newData.Avatar, newData.Gender, newData.Email, newData.Mobile, newData.ProfessionId, newData.JobId, newData.DeptId, newData.RoleIds, newData.Status, newData.OrderNum, newData.Remark, newData.Id)
+	}, arkAdminSysUserAccountKey, arkAdminSysUserIdKey)
 	return err
 }
 
 func (m *defaultSysUserModel) formatPrimary(primary interface{}) string {
-	return fmt.Sprintf("%s%v", cacheArkAdminZeroSysUserIdPrefix, primary)
+	return fmt.Sprintf("%s%v", cacheArkAdminSysUserIdPrefix, primary)
 }
 
 func (m *defaultSysUserModel) queryPrimary(ctx context.Context, conn sqlx.SqlConn, v, primary interface{}) error {

@@ -45,7 +45,6 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 
 		sysUser.RoleIds = string(bytes)
 		sysUser.Password = utils.MD5(globalkey.SysNewUserDefaultPassword + l.svcCtx.Config.Salt)
-		sysUser.Birthday=utils.StrToTime(req.Birthday)
 		_, err = l.svcCtx.SysUserModel.Insert(l.ctx, sysUser)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ServerErrorCode)
