@@ -22,8 +22,8 @@ var (
 	sysJobRowsExpectAutoSet   = strings.Join(stringx.Remove(sysJobFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), ",")
 	sysJobRowsWithPlaceHolder = strings.Join(stringx.Remove(sysJobFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), "=?,") + "=?"
 
-	cacheArkAdminZeroSysJobIdPrefix   = "cache:arkAdminZero:sysJob:id:"
-	cacheArkAdminZeroSysJobNamePrefix = "cache:arkAdminZero:sysJob:name:"
+	cacheArkAdminSysJobIdPrefix   = "cache:arkAdmin:sysJob:id:"
+	cacheArkAdminSysJobNamePrefix = "cache:arkAdmin:sysJob:name:"
 )
 
 type (
@@ -63,19 +63,19 @@ func (m *defaultSysJobModel) Delete(ctx context.Context, id int64) error {
 		return err
 	}
 
-	arkAdminZeroSysJobIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysJobIdPrefix, id)
-	arkAdminZeroSysJobNameKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysJobNamePrefix, data.Name)
+	arkAdminSysJobIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysJobIdPrefix, id)
+	arkAdminSysJobNameKey := fmt.Sprintf("%s%v", cacheArkAdminSysJobNamePrefix, data.Name)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
 		return conn.ExecCtx(ctx, query, id)
-	}, arkAdminZeroSysJobIdKey, arkAdminZeroSysJobNameKey)
+	}, arkAdminSysJobIdKey, arkAdminSysJobNameKey)
 	return err
 }
 
 func (m *defaultSysJobModel) FindOne(ctx context.Context, id int64) (*SysJob, error) {
-	arkAdminZeroSysJobIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysJobIdPrefix, id)
+	arkAdminSysJobIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysJobIdPrefix, id)
 	var resp SysJob
-	err := m.QueryRowCtx(ctx, &resp, arkAdminZeroSysJobIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {
+	err := m.QueryRowCtx(ctx, &resp, arkAdminSysJobIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {
 		query := fmt.Sprintf("select %s from %s where `id` = ? limit 1", sysJobRows, m.table)
 		return conn.QueryRowCtx(ctx, v, query, id)
 	})
@@ -90,9 +90,9 @@ func (m *defaultSysJobModel) FindOne(ctx context.Context, id int64) (*SysJob, er
 }
 
 func (m *defaultSysJobModel) FindOneByName(ctx context.Context, name string) (*SysJob, error) {
-	arkAdminZeroSysJobNameKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysJobNamePrefix, name)
+	arkAdminSysJobNameKey := fmt.Sprintf("%s%v", cacheArkAdminSysJobNamePrefix, name)
 	var resp SysJob
-	err := m.QueryRowIndexCtx(ctx, &resp, arkAdminZeroSysJobNameKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
+	err := m.QueryRowIndexCtx(ctx, &resp, arkAdminSysJobNameKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
 		query := fmt.Sprintf("select %s from %s where `name` = ? limit 1", sysJobRows, m.table)
 		if err := conn.QueryRowCtx(ctx, &resp, query, name); err != nil {
 			return nil, err
@@ -110,12 +110,12 @@ func (m *defaultSysJobModel) FindOneByName(ctx context.Context, name string) (*S
 }
 
 func (m *defaultSysJobModel) Insert(ctx context.Context, data *SysJob) (sql.Result, error) {
-	arkAdminZeroSysJobIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysJobIdPrefix, data.Id)
-	arkAdminZeroSysJobNameKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysJobNamePrefix, data.Name)
+	arkAdminSysJobIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysJobIdPrefix, data.Id)
+	arkAdminSysJobNameKey := fmt.Sprintf("%s%v", cacheArkAdminSysJobNamePrefix, data.Name)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?)", m.table, sysJobRowsExpectAutoSet)
 		return conn.ExecCtx(ctx, query, data.Name, data.Status, data.OrderNum)
-	}, arkAdminZeroSysJobIdKey, arkAdminZeroSysJobNameKey)
+	}, arkAdminSysJobIdKey, arkAdminSysJobNameKey)
 	return ret, err
 }
 
@@ -125,17 +125,17 @@ func (m *defaultSysJobModel) Update(ctx context.Context, newData *SysJob) error 
 		return err
 	}
 
-	arkAdminZeroSysJobIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysJobIdPrefix, data.Id)
-	arkAdminZeroSysJobNameKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysJobNamePrefix, data.Name)
+	arkAdminSysJobIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysJobIdPrefix, data.Id)
+	arkAdminSysJobNameKey := fmt.Sprintf("%s%v", cacheArkAdminSysJobNamePrefix, data.Name)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, sysJobRowsWithPlaceHolder)
 		return conn.ExecCtx(ctx, query, newData.Name, newData.Status, newData.OrderNum, newData.Id)
-	}, arkAdminZeroSysJobIdKey, arkAdminZeroSysJobNameKey)
+	}, arkAdminSysJobIdKey, arkAdminSysJobNameKey)
 	return err
 }
 
 func (m *defaultSysJobModel) formatPrimary(primary interface{}) string {
-	return fmt.Sprintf("%s%v", cacheArkAdminZeroSysJobIdPrefix, primary)
+	return fmt.Sprintf("%s%v", cacheArkAdminSysJobIdPrefix, primary)
 }
 
 func (m *defaultSysJobModel) queryPrimary(ctx context.Context, conn sqlx.SqlConn, v, primary interface{}) error {

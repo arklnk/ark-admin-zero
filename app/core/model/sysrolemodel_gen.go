@@ -22,8 +22,8 @@ var (
 	sysRoleRowsExpectAutoSet   = strings.Join(stringx.Remove(sysRoleFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), ",")
 	sysRoleRowsWithPlaceHolder = strings.Join(stringx.Remove(sysRoleFieldNames, "`id`", "`create_time`", "`update_time`", "`create_at`", "`update_at`"), "=?,") + "=?"
 
-	cacheArkAdminZeroSysRoleIdPrefix        = "cache:arkAdminZero:sysRole:id:"
-	cacheArkAdminZeroSysRoleUniqueKeyPrefix = "cache:arkAdminZero:sysRole:uniqueKey:"
+	cacheArkAdminSysRoleIdPrefix        = "cache:arkAdmin:sysRole:id:"
+	cacheArkAdminSysRoleUniqueKeyPrefix = "cache:arkAdmin:sysRole:uniqueKey:"
 )
 
 type (
@@ -67,19 +67,19 @@ func (m *defaultSysRoleModel) Delete(ctx context.Context, id int64) error {
 		return err
 	}
 
-	arkAdminZeroSysRoleIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysRoleIdPrefix, id)
-	arkAdminZeroSysRoleUniqueKeyKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysRoleUniqueKeyPrefix, data.UniqueKey)
+	arkAdminSysRoleIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysRoleIdPrefix, id)
+	arkAdminSysRoleUniqueKeyKey := fmt.Sprintf("%s%v", cacheArkAdminSysRoleUniqueKeyPrefix, data.UniqueKey)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
 		return conn.ExecCtx(ctx, query, id)
-	}, arkAdminZeroSysRoleIdKey, arkAdminZeroSysRoleUniqueKeyKey)
+	}, arkAdminSysRoleIdKey, arkAdminSysRoleUniqueKeyKey)
 	return err
 }
 
 func (m *defaultSysRoleModel) FindOne(ctx context.Context, id int64) (*SysRole, error) {
-	arkAdminZeroSysRoleIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysRoleIdPrefix, id)
+	arkAdminSysRoleIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysRoleIdPrefix, id)
 	var resp SysRole
-	err := m.QueryRowCtx(ctx, &resp, arkAdminZeroSysRoleIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {
+	err := m.QueryRowCtx(ctx, &resp, arkAdminSysRoleIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {
 		query := fmt.Sprintf("select %s from %s where `id` = ? limit 1", sysRoleRows, m.table)
 		return conn.QueryRowCtx(ctx, v, query, id)
 	})
@@ -94,9 +94,9 @@ func (m *defaultSysRoleModel) FindOne(ctx context.Context, id int64) (*SysRole, 
 }
 
 func (m *defaultSysRoleModel) FindOneByUniqueKey(ctx context.Context, uniqueKey string) (*SysRole, error) {
-	arkAdminZeroSysRoleUniqueKeyKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysRoleUniqueKeyPrefix, uniqueKey)
+	arkAdminSysRoleUniqueKeyKey := fmt.Sprintf("%s%v", cacheArkAdminSysRoleUniqueKeyPrefix, uniqueKey)
 	var resp SysRole
-	err := m.QueryRowIndexCtx(ctx, &resp, arkAdminZeroSysRoleUniqueKeyKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
+	err := m.QueryRowIndexCtx(ctx, &resp, arkAdminSysRoleUniqueKeyKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
 		query := fmt.Sprintf("select %s from %s where `unique_key` = ? limit 1", sysRoleRows, m.table)
 		if err := conn.QueryRowCtx(ctx, &resp, query, uniqueKey); err != nil {
 			return nil, err
@@ -114,12 +114,12 @@ func (m *defaultSysRoleModel) FindOneByUniqueKey(ctx context.Context, uniqueKey 
 }
 
 func (m *defaultSysRoleModel) Insert(ctx context.Context, data *SysRole) (sql.Result, error) {
-	arkAdminZeroSysRoleIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysRoleIdPrefix, data.Id)
-	arkAdminZeroSysRoleUniqueKeyKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysRoleUniqueKeyPrefix, data.UniqueKey)
+	arkAdminSysRoleIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysRoleIdPrefix, data.Id)
+	arkAdminSysRoleUniqueKeyKey := fmt.Sprintf("%s%v", cacheArkAdminSysRoleUniqueKeyPrefix, data.UniqueKey)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?)", m.table, sysRoleRowsExpectAutoSet)
 		return conn.ExecCtx(ctx, query, data.ParentId, data.Name, data.UniqueKey, data.Remark, data.PermMenuIds, data.Status, data.OrderNum)
-	}, arkAdminZeroSysRoleIdKey, arkAdminZeroSysRoleUniqueKeyKey)
+	}, arkAdminSysRoleIdKey, arkAdminSysRoleUniqueKeyKey)
 	return ret, err
 }
 
@@ -129,17 +129,17 @@ func (m *defaultSysRoleModel) Update(ctx context.Context, newData *SysRole) erro
 		return err
 	}
 
-	arkAdminZeroSysRoleIdKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysRoleIdPrefix, data.Id)
-	arkAdminZeroSysRoleUniqueKeyKey := fmt.Sprintf("%s%v", cacheArkAdminZeroSysRoleUniqueKeyPrefix, data.UniqueKey)
+	arkAdminSysRoleIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysRoleIdPrefix, data.Id)
+	arkAdminSysRoleUniqueKeyKey := fmt.Sprintf("%s%v", cacheArkAdminSysRoleUniqueKeyPrefix, data.UniqueKey)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, sysRoleRowsWithPlaceHolder)
 		return conn.ExecCtx(ctx, query, newData.ParentId, newData.Name, newData.UniqueKey, newData.Remark, newData.PermMenuIds, newData.Status, newData.OrderNum, newData.Id)
-	}, arkAdminZeroSysRoleIdKey, arkAdminZeroSysRoleUniqueKeyKey)
+	}, arkAdminSysRoleIdKey, arkAdminSysRoleUniqueKeyKey)
 	return err
 }
 
 func (m *defaultSysRoleModel) formatPrimary(primary interface{}) string {
-	return fmt.Sprintf("%s%v", cacheArkAdminZeroSysRoleIdPrefix, primary)
+	return fmt.Sprintf("%s%v", cacheArkAdminSysRoleIdPrefix, primary)
 }
 
 func (m *defaultSysRoleModel) queryPrimary(ctx context.Context, conn sqlx.SqlConn, v, primary interface{}) error {

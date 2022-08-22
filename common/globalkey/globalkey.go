@@ -2,8 +2,8 @@ package globalkey
 
 const (
 	SysJwtUserId               = "userId"
-	SysPermMenuCachePrefix     = "cache:arkAdminZero:permMenu:"
-	SysLoginCaptchaCachePrefix = "cache:arkAdminZero:captcha:"
+	SysPermMenuCachePrefix     = "cache:arkAdmin:permMenu:"
+	SysLoginCaptchaCachePrefix = "cache:arkAdmin:captcha:"
 	SysSuperAdminUserId        = 1
 	SysSuperAdminRoleId        = 1
 	SysPermMenuPrefix          = "/"
