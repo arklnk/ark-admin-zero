@@ -2,14 +2,15 @@
 package handler
 
 import (
-	"ark-admin-zero/app/core/cmd/api/internal/handler/sys/dept"
-	"ark-admin-zero/app/core/cmd/api/internal/handler/sys/job"
-	"ark-admin-zero/app/core/cmd/api/internal/handler/sys/menu"
-	"ark-admin-zero/app/core/cmd/api/internal/handler/sys/profession"
-	"ark-admin-zero/app/core/cmd/api/internal/handler/sys/role"
-	user2 "ark-admin-zero/app/core/cmd/api/internal/handler/sys/user"
 	"net/http"
 
+	paramconfig "ark-admin-zero/app/core/cmd/api/internal/handler/param/config"
+	sysdept "ark-admin-zero/app/core/cmd/api/internal/handler/sys/dept"
+	sysjob "ark-admin-zero/app/core/cmd/api/internal/handler/sys/job"
+	sysmenu "ark-admin-zero/app/core/cmd/api/internal/handler/sys/menu"
+	sysprofession "ark-admin-zero/app/core/cmd/api/internal/handler/sys/profession"
+	sysrole "ark-admin-zero/app/core/cmd/api/internal/handler/sys/role"
+	sysuser "ark-admin-zero/app/core/cmd/api/internal/handler/sys/user"
 	user "ark-admin-zero/app/core/cmd/api/internal/handler/user"
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 
@@ -77,22 +78,22 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: menu.GetSysPermMenuListHandler(serverCtx),
+					Handler: sysmenu.GetSysPermMenuListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/add",
-					Handler: menu.AddSysPermMenuHandler(serverCtx),
+					Handler: sysmenu.AddSysPermMenuHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/delete",
-					Handler: menu.DeleteSysPermMenuHandler(serverCtx),
+					Handler: sysmenu.DeleteSysPermMenuHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/update",
-					Handler: menu.UpdateSysPermMenuHandler(serverCtx),
+					Handler: sysmenu.UpdateSysPermMenuHandler(serverCtx),
 				},
 			}...,
 		),
@@ -107,27 +108,27 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: role.GetSysRoleListHandler(serverCtx),
+					Handler: sysrole.GetSysRoleListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/add",
-					Handler: role.AddSysRoleHandler(serverCtx),
+					Handler: sysrole.AddSysRoleHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/delete",
-					Handler: role.DeleteSysRoleHandler(serverCtx),
+					Handler: sysrole.DeleteSysRoleHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/update",
-					Handler: role.UpdateSysRoleHandler(serverCtx),
+					Handler: sysrole.UpdateSysRoleHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/perm/update",
-					Handler: role.UpdateSysRolePermMenuHandler(serverCtx),
+					Handler: sysrole.UpdateSysRolePermMenuHandler(serverCtx),
 				},
 			}...,
 		),
@@ -142,22 +143,22 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: dept.GetSysDeptListHandler(serverCtx),
+					Handler: sysdept.GetSysDeptListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/add",
-					Handler: dept.AddSysDeptHandler(serverCtx),
+					Handler: sysdept.AddSysDeptHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/delete",
-					Handler: dept.DeleteSysDeptHandler(serverCtx),
+					Handler: sysdept.DeleteSysDeptHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/update",
-					Handler: dept.UpdateSysDeptHandler(serverCtx),
+					Handler: sysdept.UpdateSysDeptHandler(serverCtx),
 				},
 			}...,
 		),
@@ -172,27 +173,27 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodGet,
 					Path:    "/page",
-					Handler: job.GetSysJobPageHandler(serverCtx),
+					Handler: sysjob.GetSysJobPageHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: job.GetSysJobListHandler(serverCtx),
+					Handler: sysjob.GetSysJobListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/add",
-					Handler: job.AddSysJobHandler(serverCtx),
+					Handler: sysjob.AddSysJobHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/delete",
-					Handler: job.DeleteSysJobHandler(serverCtx),
+					Handler: sysjob.DeleteSysJobHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/update",
-					Handler: job.UpdateSysJobHandler(serverCtx),
+					Handler: sysjob.UpdateSysJobHandler(serverCtx),
 				},
 			}...,
 		),
@@ -207,27 +208,27 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodGet,
 					Path:    "/page",
-					Handler: profession.GetSysProfessionPageHandler(serverCtx),
+					Handler: sysprofession.GetSysProfessionPageHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: profession.GetSysProfessionListHandler(serverCtx),
+					Handler: sysprofession.GetSysProfessionListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/add",
-					Handler: profession.AddSysProfessionHandler(serverCtx),
+					Handler: sysprofession.AddSysProfessionHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/delete",
-					Handler: profession.DeleteSysProfessionHandler(serverCtx),
+					Handler: sysprofession.DeleteSysProfessionHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/update",
-					Handler: profession.UpdateSysProfessionHandler(serverCtx),
+					Handler: sysprofession.UpdateSysProfessionHandler(serverCtx),
 				},
 			}...,
 		),
@@ -242,36 +243,71 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: user2.GetSysUserListHandler(serverCtx),
+					Handler: sysuser.GetSysUserListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/add",
-					Handler: user2.AddSysUserHandler(serverCtx),
+					Handler: sysuser.AddSysUserHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/delete",
-					Handler: user2.DeleteSysUserHandler(serverCtx),
+					Handler: sysuser.DeleteSysUserHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/update",
-					Handler: user2.UpdateSysUserHandler(serverCtx),
+					Handler: sysuser.UpdateSysUserHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/password/update",
-					Handler: user2.UpdateSysUserPasswordHandler(serverCtx),
+					Handler: sysuser.UpdateSysUserPasswordHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/transfer",
-					Handler: user2.TransferSysUserHandler(serverCtx),
+					Handler: sysuser.TransferSysUserHandler(serverCtx),
 				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/sys/user"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.PermMenuAuth},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/list",
+					Handler: paramconfig.GetParamConfigListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/page",
+					Handler: paramconfig.GetParamConfigPageHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/add",
+					Handler: paramconfig.AddParamConfigHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/delete",
+					Handler: paramconfig.DeleteParamConfigHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/update",
+					Handler: paramconfig.UpdateParamConfigHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+		rest.WithPrefix("/param/config"),
 	)
 }

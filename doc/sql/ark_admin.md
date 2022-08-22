@@ -14,7 +14,7 @@
 
 * [sys_log_login(登录日志)](#sys_log_login_pointer)
 
-* [sys_param(系统参数)](#sys_param_pointer)
+* [sys_config(配置)](#sys_config_pointer)
 
 * [sys_perm_menu(权限&菜单)](#sys_perm_menu_pointer)
 
@@ -57,7 +57,7 @@
 |name|varchar(25)|名称|
 |type|tinyint(2)|1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单文件 10多文件  |
 |unique_key|varchar(25)|唯一值|
-|value|int(11)|配置值|
+|value|varchar(2048)|配置值|
 |order_num|int(11)|排序值|
 |remark|varchar(100)|备注|
 |create_time|timestamp|创建时间|
@@ -107,9 +107,9 @@
 |create_time|timestamp|创建时间|
 |update_time|timestamp|更新时间|
 
-<a name="sys_param_pointer"></a>
+<a name="sys_config_pointer"></a>
 
-* sys_param表(系统参数)[↑](#返回顶部)
+* sys_config表(配置)[↑](#返回顶部)
 
 |字段名称|字段类型|字段含义|
 |:---:|:---:|:---:|
@@ -117,7 +117,7 @@
 |parent_id|int(11)|父级id|
 |name|varchar(25)|名称|
 |unique_key|varchar(25)|唯一值|
-|value|int(11)|配置值|
+|value|varchar(2048)|配置值|
 |status|tinyint(1)|0=禁用 1=开启|
 |order_num|int(11)|排序值|
 |remark|varchar(100)|备注|

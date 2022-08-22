@@ -1,1 +1,112 @@
 syntax = "v1"
+
+info(
+    title: "配置"
+    desc: "配置"
+    author: "Trevor"
+    email: "trevorlan@163.com"
+)
+
+type (
+    ParamConfig {
+        Id int64 `json:"id"`
+        ParentId int64 `json:"parentId"`
+        Name string `json:"name"`
+        UniqueKey string `json:"uniqueKey"`
+        Value string `json:"value"`
+        Status int64 `json:"status"`
+        OrderNum int64 `json:"orderNum"`
+        Remark string `json:"remark"`
+    }
+    ParamConfigListResp {
+        ConfigList []ParamConfig `json:"list"`
+    }
+)
+
+type (
+    ParamConfigPageReq {
+        Page int64 `form:"page"`
+        Limit int64 `form:"limit"`
+        ParentId int64 `form:"parentId"`
+    }
+    ParamConfigPagination {
+        Page int64 `json:"page"`
+        Limit int64 `json:"limit"`
+        Total int64 `json:"total"`
+    }
+    ParamConfigPageResp {
+        JobList []ParamConfig `json:"list"`
+        Pagination ParamConfigPagination `json:"pagination"`
+    }
+)
+
+type (
+    AddParamConfigReq {
+        ParentId int64 `json:"parentId"`
+        Name string `json:"name"`
+        UniqueKey string `json:"uniqueKey"`
+        Value string `json:"value"`
+        Status int64 `json:"status"`
+        OrderNum int64 `json:"orderNum"`
+        Remark string `json:"remark"`
+    }
+)
+
+type (
+    DeleteParamConfigReq {
+        Id int64 `json:"id"`
+    }
+)
+
+type (
+    UpdateParamConfigReq {
+        Id int64 `json:"id"`
+        ParentId int64 `json:"parentId"`
+        Name string `json:"name"`
+        UniqueKey string `json:"uniqueKey"`
+        Value string `json:"value"`
+        Status int64 `json:"status"`
+        OrderNum int64 `json:"orderNum"`
+        Remark string `json:"remark"`
+    }
+)
+
+
+@server(
+    jwt: JwtAuth
+    group : param/config
+    prefix : /param/config
+    middleware: PermMenuAuth
+)
+service core-api {
+    @doc(
+        summary: "配置集列表"
+    )
+    @handler GetParamConfigList
+    get /list returns (ParamConfigListResp)
+
+    @doc(
+        summary: "配置分页"
+    )
+    @handler GetParamConfigPage
+    get /page (ParamConfigPageReq) returns (ParamConfigPageResp)
+
+
+    @doc(
+        summary: "新增配置"
+    )
+    @handler AddParamConfig
+    post /add (AddParamConfigReq)
+
+    @doc(
+        summary: "删除配置"
+    )
+    @handler DeleteParamConfig
+    post /delete (DeleteParamConfigReq)
+
+    @doc(
+        summary: "更新配置"
+    )
+    @handler UpdateParamConfig
+    post /update (UpdateParamConfigReq)
+}

@@ -392,3 +392,60 @@ type TransferSysUserReq struct {
 	Ids    []int64 `json:"ids"`
 	DeptId int64   `json:"deptId"`
 }
+
+type ParamConfig struct {
+	Id        int64  `json:"id"`
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	UniqueKey string `json:"uniqueKey"`
+	Value     string `json:"value"`
+	Status    int64  `json:"status"`
+	OrderNum  int64  `json:"orderNum"`
+	Remark    string `json:"remark"`
+}
+
+type ParamConfigListResp struct {
+	ConfigList []ParamConfig `json:"list"`
+}
+
+type ParamConfigPageReq struct {
+	Page     int64 `form:"page"`
+	Limit    int64 `form:"limit"`
+	ParentId int64 `form:"parentId"`
+}
+
+type ParamConfigPagination struct {
+	Page  int64 `json:"page"`
+	Limit int64 `json:"limit"`
+	Total int64 `json:"total"`
+}
+
+type ParamConfigPageResp struct {
+	JobList    []ParamConfig         `json:"list"`
+	Pagination ParamConfigPagination `json:"pagination"`
+}
+
+type AddParamConfigReq struct {
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	UniqueKey string `json:"uniqueKey"`
+	Value     string `json:"value"`
+	Status    int64  `json:"status"`
+	OrderNum  int64  `json:"orderNum"`
+	Remark    string `json:"remark"`
+}
+
+type DeleteParamConfigReq struct {
+	Id int64 `json:"id"`
+}
+
+type UpdateParamConfigReq struct {
+	Id        int64  `json:"id"`
+	ParentId  int64  `json:"parentId"`
+	Name      string `json:"name"`
+	UniqueKey string `json:"uniqueKey"`
+	Value     string `json:"value"`
+	Status    int64  `json:"status"`
+	OrderNum  int64  `json:"orderNum"`
+	Remark    string `json:"remark"`
+}
