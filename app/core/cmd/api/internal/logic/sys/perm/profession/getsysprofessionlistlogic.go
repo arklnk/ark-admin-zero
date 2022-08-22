@@ -25,8 +25,8 @@ func NewGetSysProfessionListLogic(ctx context.Context, svcCtx *svc.ServiceContex
 	}
 }
 
-func (l *GetSysProfessionListLogic) GetSysProfessionList(req *types.SysProfessionListReq) (resp *types.SysProfessionListResp, err error) {
-	sysProfessionList, err := l.svcCtx.SysProfessionModel.FindByPage(l.ctx, req.Page, req.Limit)
+func (l *GetSysProfessionListLogic) GetSysProfessionList() (resp *types.SysProfessionListResp, err error) {
+	sysProfessionList, err := l.svcCtx.SysProfessionModel.FindAll(l.ctx)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
@@ -41,19 +41,7 @@ func (l *GetSysProfessionListLogic) GetSysProfessionList(req *types.SysProfessio
 		professionList = append(professionList, profession)
 	}
 
-	total, err := l.svcCtx.SysProfessionModel.FindCount(l.ctx)
-	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
-	}
-
-	pagination := types.ProfessionListPagination{
-		Page:  req.Page,
-		Limit: req.Limit,
-		Total: total,
-	}
-
 	return &types.SysProfessionListResp{
 		ProfessionList: professionList,
-		Pagination:     pagination,
 	}, nil
 }

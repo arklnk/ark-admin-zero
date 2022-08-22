@@ -14,23 +14,23 @@ type (
         Status int64 `json:"status"`
         OrderNum int64 `json:"orderNum"`
     }
-    SysProfessionListReq {
+    SysProfessionPageReq {
         Page int64 `form:"page"`
         Limit int64 `form:"limit"`
     }
-    ProfessionListPagination {
+    ProfessionPagePagination {
         Page int64 `json:"page"`
         Limit int64 `json:"limit"`
         Total int64 `json:"total"`
     }
-    SysProfessionListResp {
+    SysProfessionPageResp {
         ProfessionList []Profession `json:"list"`
-        Pagination ProfessionListPagination `json:"pagination"`
+        Pagination ProfessionPagePagination `json:"pagination"`
     }
 )
 
 type (
-    SysProfessionAllResp {
+    SysProfessionListResp {
         ProfessionList []Profession `json:"list"`
     }
 )
@@ -68,14 +68,14 @@ service core-api {
     @doc(
         summary: "职称列表"
     )
-    @handler GetSysProfessionList
-    get /list (SysProfessionListReq) returns (SysProfessionListResp)
+    @handler GetSysProfessionPage
+    get /page (SysProfessionPageReq) returns (SysProfessionPageResp)
 
     @doc(
         summary: "全部职称"
     )
-    @handler GetSysProfessionAll
-    get /all returns (SysProfessionAllResp)
+    @handler GetSysProfessionList
+    get /list returns (SysProfessionListResp)
 
     @doc(
         summary: "新增职称"

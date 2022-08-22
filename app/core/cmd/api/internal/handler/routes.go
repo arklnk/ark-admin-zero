@@ -206,13 +206,13 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
-					Path:    "/list",
-					Handler: syspermprofession.GetSysProfessionListHandler(serverCtx),
+					Path:    "/page",
+					Handler: syspermprofession.GetSysProfessionPageHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
-					Path:    "/all",
-					Handler: syspermprofession.GetSysProfessionAllHandler(serverCtx),
+					Path:    "/list",
+					Handler: syspermprofession.GetSysProfessionListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,

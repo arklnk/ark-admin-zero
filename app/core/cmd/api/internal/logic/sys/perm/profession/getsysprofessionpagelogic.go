@@ -11,22 +11,22 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GetSysProfessionAllLogic struct {
+type GetSysProfessionPageLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewGetSysProfessionAllLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetSysProfessionAllLogic {
-	return &GetSysProfessionAllLogic{
+func NewGetSysProfessionPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetSysProfessionPageLogic {
+	return &GetSysProfessionPageLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *GetSysProfessionAllLogic) GetSysProfessionAll() (resp *types.SysProfessionAllResp, err error) {
-	sysProfessionList, err := l.svcCtx.SysProfessionModel.FindAll(l.ctx)
+func (l *GetSysProfessionPageLogic) GetSysProfessionPage(req *types.SysProfessionPageReq) (resp *types.SysProfessionPageResp, err error) {
+	sysProfessionList, err := l.svcCtx.SysProfessionModel.FindByPage(l.ctx, req.Page, req.Limit)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
@@ -41,7 +41,19 @@ func (l *GetSysProfessionAllLogic) GetSysProfessionAll() (resp *types.SysProfess
 		professionList = append(professionList, profession)
 	}
 
-	return &types.SysProfessionAllResp{
+	total, err := l.svcCtx.SysProfessionModel.FindCount(l.ctx)
+	if err != nil {
+		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	pagination := types.ProfessionPagePagination{
+		Page:  req.Page,
+		Limit: req.Limit,
+		Total: total,
+	}
+
+	return &types.SysProfessionPageResp{
 		ProfessionList: professionList,
+		Pagination:     pagination,
 	}, nil
 }

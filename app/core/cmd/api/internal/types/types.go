@@ -253,23 +253,23 @@ type Profession struct {
 	OrderNum int64  `json:"orderNum"`
 }
 
-type SysProfessionListReq struct {
+type SysProfessionPageReq struct {
 	Page  int64 `form:"page"`
 	Limit int64 `form:"limit"`
 }
 
-type ProfessionListPagination struct {
+type ProfessionPagePagination struct {
 	Page  int64 `json:"page"`
 	Limit int64 `json:"limit"`
 	Total int64 `json:"total"`
 }
 
-type SysProfessionListResp struct {
+type SysProfessionPageResp struct {
 	ProfessionList []Profession             `json:"list"`
-	Pagination     ProfessionListPagination `json:"pagination"`
+	Pagination     ProfessionPagePagination `json:"pagination"`
 }
 
-type SysProfessionAllResp struct {
+type SysProfessionListResp struct {
 	ProfessionList []Profession `json:"list"`
 }
 
