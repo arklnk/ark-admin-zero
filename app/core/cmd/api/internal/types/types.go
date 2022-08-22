@@ -154,11 +154,6 @@ type UpdateSysRoleReq struct {
 	OrderNum    int64   `json:"orderNum"`
 }
 
-type UpdateSysRolePermMenuReq struct {
-	Id          int64   `json:"id"`
-	PermMenuIds []int64 `json:"permMenuIds"`
-}
-
 type Dept struct {
 	Id        int64  `json:"id"`
 	ParentId  int64  `json:"parentId"`

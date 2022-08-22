@@ -125,11 +125,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/update",
 					Handler: sysrole.UpdateSysRoleHandler(serverCtx),
 				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/perm/update",
-					Handler: sysrole.UpdateSysRolePermMenuHandler(serverCtx),
-				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),

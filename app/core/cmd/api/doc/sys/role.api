@@ -54,13 +54,6 @@ type (
 	}
 )
 
-type (
-	UpdateSysRolePermMenuReq {
-		Id          int64   `json:"id"`
-		PermMenuIds []int64 `json:"permMenuIds"`
-	}
-)
-
 @server(
 	jwt: JwtAuth
 	group : sys/role
@@ -91,10 +84,4 @@ service core-api {
 	)
 	@handler UpdateSysRole
 	post /update (UpdateSysRoleReq)
-	
-	@doc(
-		summary: "更新角色权限"
-	)
-	@handler UpdateSysRolePermMenu
-	post /perm/update (UpdateSysRolePermMenuReq)
 }
