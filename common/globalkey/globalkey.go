@@ -11,4 +11,5 @@ const (
 	SysDefaultPermType         = 2
 	SysMaxPermMenuId           = 50
 	SysEnable                  = 1
+	SysTopMenuId               = 0
 )

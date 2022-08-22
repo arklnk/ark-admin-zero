@@ -8,6 +8,7 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
 
 	"github.com/jinzhu/copier"
@@ -33,9 +34,11 @@ func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuR
 		return errorx.NewDefaultError(errorx.ParentPermMenuErrorCode)
 	}
 
-	parentPermMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.ParentId)
-	if parentPermMenu.Type == 2 {
-		return errorx.NewDefaultError(errorx.SetParentTypeErrorCode)
+	if req.ParentId != globalkey.SysTopMenuId {
+		parentPermMenu, _ := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.ParentId)
+		if parentPermMenu.Type == 2 {
+			return errorx.NewDefaultError(errorx.SetParentTypeErrorCode)
+		}
 	}
 
 	permMenuIds := make([]int64, 0)
