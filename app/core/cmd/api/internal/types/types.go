@@ -355,7 +355,7 @@ type AddSysUserReq struct {
 	Birthday     string  `json:"birthday"`
 	Email        string  `json:"email"`
 	Mobile       string  `json:"mobile"`
-	ProfessionId int64   `json:"profession"`
+	ProfessionId int64   `json:"professionId"`
 	JobId        int64   `json:"jobId"`
 	DeptId       int64   `json:"deptId"`
 	RoleIds      []int64 `json:"roleIds"`
@@ -377,7 +377,7 @@ type UpdateSysUserReq struct {
 	Birthday     string  `json:"birthday"`
 	Email        string  `json:"email"`
 	Mobile       string  `json:"mobile"`
-	ProfessionId int64   `json:"profession"`
+	ProfessionId int64   `json:"professionId"`
 	JobId        int64   `json:"jobId"`
 	DeptId       int64   `json:"deptId"`
 	RoleIds      []int64 `json:"roleIds"`
