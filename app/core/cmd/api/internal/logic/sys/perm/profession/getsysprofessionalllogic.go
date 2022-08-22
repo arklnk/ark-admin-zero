@@ -1,0 +1,47 @@
+package profession
+
+import (
+	"context"
+
+	"ark-admin-zero/app/core/cmd/api/internal/svc"
+	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/common/errorx"
+
+	"github.com/jinzhu/copier"
+	"github.com/zeromicro/go-zero/core/logx"
+)
+
+type GetSysProfessionAllLogic struct {
+	logx.Logger
+	ctx    context.Context
+	svcCtx *svc.ServiceContext
+}
+
+func NewGetSysProfessionAllLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetSysProfessionAllLogic {
+	return &GetSysProfessionAllLogic{
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
+		svcCtx: svcCtx,
+	}
+}
+
+func (l *GetSysProfessionAllLogic) GetSysProfessionAll() (resp *types.SysProfessionAllResp, err error) {
+	sysProfessionList, err := l.svcCtx.SysProfessionModel.FindAll(l.ctx)
+	if err != nil {
+		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	var profession types.Profession
+	professionList := make([]types.Profession, 0)
+	for _, v := range sysProfessionList {
+		err := copier.Copy(&profession, &v)
+		if err != nil {
+			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		}
+		professionList = append(professionList, profession)
+	}
+
+	return &types.SysProfessionAllResp{
+		ProfessionList: professionList,
+	}, nil
+}

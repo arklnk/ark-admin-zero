@@ -269,6 +269,10 @@ type SysProfessionListResp struct {
 	Pagination     ProfessionListPagination `json:"pagination"`
 }
 
+type SysProfessionAllResp struct {
+	ProfessionList []Profession `json:"list"`
+}
+
 type AddSysProfessionReq struct {
 	Name     string `json:"name"`
 	Status   int64  `json:"status"`

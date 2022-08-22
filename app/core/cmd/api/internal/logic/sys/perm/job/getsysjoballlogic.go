@@ -1,13 +1,13 @@
 package job
 
 import (
-	"ark-admin-zero/common/errorx"
 	"context"
-	"github.com/jinzhu/copier"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/common/errorx"
 
+	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
