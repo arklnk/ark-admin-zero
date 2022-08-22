@@ -421,8 +421,8 @@ type ParamConfigPagination struct {
 }
 
 type ParamConfigPageResp struct {
-	JobList    []ParamConfig         `json:"list"`
-	Pagination ParamConfigPagination `json:"pagination"`
+	ParamConfigList []ParamConfig         `json:"list"`
+	Pagination      ParamConfigPagination `json:"pagination"`
 }
 
 type AddParamConfigReq struct {

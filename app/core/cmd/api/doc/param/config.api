@@ -35,7 +35,7 @@ type (
         Total int64 `json:"total"`
     }
     ParamConfigPageResp {
-        JobList []ParamConfig `json:"list"`
+        ParamConfigList []ParamConfig `json:"list"`
         Pagination ParamConfigPagination `json:"pagination"`
     }
 )
