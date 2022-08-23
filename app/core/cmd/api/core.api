@@ -19,6 +19,5 @@ import "doc/sys/job.api"
 import "doc/sys/profession.api"
 import "doc/sys/user.api"
 
-// 参数管理模块
-import "doc/param/config.api"
-import "doc/param/dictionary.api"
+// 配置管理模块
+import "doc/config/dict.api"

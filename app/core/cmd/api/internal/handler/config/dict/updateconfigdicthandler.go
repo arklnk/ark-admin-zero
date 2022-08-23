@@ -1,9 +1,9 @@
-package dictionary
+package dict
 
 import (
 	"net/http"
 
-	"ark-admin-zero/app/core/cmd/api/internal/logic/param/dictionary"
+	"ark-admin-zero/app/core/cmd/api/internal/logic/config/dict"
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
@@ -13,9 +13,9 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func AddParamDictionaryHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func UpdateConfigDictHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.AddParamDictionaryReq
+		var req types.UpdateConfigDictReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, errorx.NewHandlerError(errorx.ParamErrorCode, err.Error()))
 			return
@@ -26,8 +26,8 @@ func AddParamDictionaryHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := dictionary.NewAddParamDictionaryLogic(r.Context(), svcCtx)
-		err := l.AddParamDictionary(&req)
+		l := dict.NewUpdateConfigDictLogic(r.Context(), svcCtx)
+		err := l.UpdateConfigDict(&req)
 		if err != nil {
 			httpx.Error(w, err)
 			return

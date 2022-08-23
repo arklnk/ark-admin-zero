@@ -4,8 +4,7 @@ package handler
 import (
 	"net/http"
 
-	paramconfig "ark-admin-zero/app/core/cmd/api/internal/handler/param/config"
-	paramdictionary "ark-admin-zero/app/core/cmd/api/internal/handler/param/dictionary"
+	configdict "ark-admin-zero/app/core/cmd/api/internal/handler/config/dict"
 	sysdept "ark-admin-zero/app/core/cmd/api/internal/handler/sys/dept"
 	sysjob "ark-admin-zero/app/core/cmd/api/internal/handler/sys/job"
 	sysmenu "ark-admin-zero/app/core/cmd/api/internal/handler/sys/menu"
@@ -278,67 +277,32 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
-					Path:    "/set",
-					Handler: paramconfig.GetParamConfigSetHandler(serverCtx),
+					Path:    "/list",
+					Handler: configdict.GetConfigDictListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
-					Path:    "/page",
-					Handler: paramconfig.GetParamConfigPageHandler(serverCtx),
+					Path:    "/data/page",
+					Handler: configdict.GetConfigDictPageHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/add",
-					Handler: paramconfig.AddParamConfigHandler(serverCtx),
+					Handler: configdict.AddConfigDictHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/delete",
-					Handler: paramconfig.DeleteParamConfigHandler(serverCtx),
+					Handler: configdict.DeleteConfigDictHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/update",
-					Handler: paramconfig.UpdateParamConfigHandler(serverCtx),
+					Handler: configdict.UpdateConfigDictHandler(serverCtx),
 				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/param/config"),
-	)
-
-	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.PermMenuAuth},
-			[]rest.Route{
-				{
-					Method:  http.MethodGet,
-					Path:    "/set",
-					Handler: paramdictionary.GetParamDictionarySetHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/page",
-					Handler: paramdictionary.GetParamDictionaryPageHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/add",
-					Handler: paramdictionary.AddParamDictionaryHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/delete",
-					Handler: paramdictionary.DeleteParamDictionaryHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/update",
-					Handler: paramdictionary.UpdateParamDictionaryHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/param/dictionary"),
+		rest.WithPrefix("/config/dict"),
 	)
 }

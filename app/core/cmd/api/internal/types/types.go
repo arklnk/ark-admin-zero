@@ -388,64 +388,7 @@ type TransferSysUserReq struct {
 	DeptId int64   `json:"deptId"`
 }
 
-type ParamConfig struct {
-	Id        int64  `json:"id"`
-	ParentId  int64  `json:"parentId"`
-	Name      string `json:"name"`
-	UniqueKey string `json:"uniqueKey"`
-	Value     string `json:"value"`
-	Status    int64  `json:"status"`
-	OrderNum  int64  `json:"orderNum"`
-	Remark    string `json:"remark"`
-}
-
-type ParamConfigSetResp struct {
-	ConfigList []ParamConfig `json:"list"`
-}
-
-type ParamConfigPageReq struct {
-	Page     int64 `form:"page"`
-	Limit    int64 `form:"limit"`
-	ParentId int64 `form:"parentId"`
-}
-
-type ParamConfigPagination struct {
-	Page  int64 `json:"page"`
-	Limit int64 `json:"limit"`
-	Total int64 `json:"total"`
-}
-
-type ParamConfigPageResp struct {
-	ParamConfigList []ParamConfig         `json:"list"`
-	Pagination      ParamConfigPagination `json:"pagination"`
-}
-
-type AddParamConfigReq struct {
-	ParentId  int64  `json:"parentId"`
-	Name      string `json:"name"`
-	UniqueKey string `json:"uniqueKey"`
-	Value     string `json:"value"`
-	Status    int64  `json:"status"`
-	OrderNum  int64  `json:"orderNum"`
-	Remark    string `json:"remark"`
-}
-
-type DeleteParamConfigReq struct {
-	Id int64 `json:"id"`
-}
-
-type UpdateParamConfigReq struct {
-	Id        int64  `json:"id"`
-	ParentId  int64  `json:"parentId"`
-	Name      string `json:"name"`
-	UniqueKey string `json:"uniqueKey"`
-	Value     string `json:"value"`
-	Status    int64  `json:"status"`
-	OrderNum  int64  `json:"orderNum"`
-	Remark    string `json:"remark"`
-}
-
-type ParamDictionary struct {
+type ConfigDict struct {
 	Id        int64  `json:"id"`
 	ParentId  int64  `json:"parentId"`
 	Name      string `json:"name"`
@@ -457,28 +400,28 @@ type ParamDictionary struct {
 	Status    int64  `json:"status"`
 }
 
-type ParamDictionarySetResp struct {
-	DictionaryList []ParamDictionary `json:"list"`
+type ConfigDictListResp struct {
+	DictList []ConfigDict `json:"list"`
 }
 
-type ParamDictionaryPageReq struct {
+type ConfigDictPageReq struct {
 	Page     int64 `form:"page"`
 	Limit    int64 `form:"limit"`
 	ParentId int64 `form:"parentId"`
 }
 
-type ParamDictionaryPagination struct {
+type ConfigDictPagination struct {
 	Page  int64 `json:"page"`
 	Limit int64 `json:"limit"`
 	Total int64 `json:"total"`
 }
 
-type ParamDictionaryPageResp struct {
-	ParamDictionaryList []ParamDictionary         `json:"list"`
-	Pagination          ParamDictionaryPagination `json:"pagination"`
+type ConfigDictPageResp struct {
+	ConfigDictList []ConfigDict         `json:"list"`
+	Pagination     ConfigDictPagination `json:"pagination"`
 }
 
-type AddParamDictionaryReq struct {
+type AddConfigDictReq struct {
 	ParentId  int64  `json:"parentId"`
 	Name      string `json:"name"`
 	Type      int64  `json:"type"`
@@ -489,11 +432,11 @@ type AddParamDictionaryReq struct {
 	Status    int64  `json:"status"`
 }
 
-type DeleteParamDictionaryReq struct {
+type DeleteConfigDictReq struct {
 	Id int64 `json:"id"`
 }
 
-type UpdateParamDictionaryReq struct {
+type UpdateConfigDictReq struct {
 	Id        int64  `json:"id"`
 	ParentId  int64  `json:"parentId"`
 	Name      string `json:"name"`

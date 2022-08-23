@@ -1,112 +1,113 @@
 syntax = "v1"
 
 info(
-    title: "配置"
-    desc: "配置"
+    title: "字典"
+    desc: "字典"
     author: "Trevor"
     email: "trevorlan@163.com"
 )
 
 type (
-    ParamConfig {
+    ConfigDict {
         Id int64 `json:"id"`
         ParentId int64 `json:"parentId"`
         Name string `json:"name"`
+        Type int64 `json:"type"`
         UniqueKey string `json:"uniqueKey"`
         Value string `json:"value"`
-        Status int64 `json:"status"`
         OrderNum int64 `json:"orderNum"`
         Remark string `json:"remark"`
+        Status int64 `json:"status"`
     }
-    ParamConfigSetResp {
-        ConfigList []ParamConfig `json:"list"`
+    ConfigDictListResp {
+        DictList []ConfigDict `json:"list"`
     }
 )
 
 type (
-    ParamConfigPageReq {
+    ConfigDictPageReq {
         Page int64 `form:"page"`
         Limit int64 `form:"limit"`
         ParentId int64 `form:"parentId"`
     }
-    ParamConfigPagination {
+    ConfigDictPagination {
         Page int64 `json:"page"`
         Limit int64 `json:"limit"`
         Total int64 `json:"total"`
     }
-    ParamConfigPageResp {
-        ParamConfigList []ParamConfig `json:"list"`
-        Pagination ParamConfigPagination `json:"pagination"`
+    ConfigDictPageResp {
+        ConfigDictList []ConfigDict `json:"list"`
+        Pagination ConfigDictPagination `json:"pagination"`
     }
 )
 
 type (
-    AddParamConfigReq {
+    AddConfigDictReq {
         ParentId int64 `json:"parentId"`
         Name string `json:"name"`
+        Type int64 `json:"type"`
         UniqueKey string `json:"uniqueKey"`
         Value string `json:"value"`
-        Status int64 `json:"status"`
         OrderNum int64 `json:"orderNum"`
         Remark string `json:"remark"`
+        Status int64 `json:"status"`
     }
 )
 
 type (
-    DeleteParamConfigReq {
+    DeleteConfigDictReq {
         Id int64 `json:"id"`
     }
 )
 
 type (
-    UpdateParamConfigReq {
+    UpdateConfigDictReq {
         Id int64 `json:"id"`
         ParentId int64 `json:"parentId"`
         Name string `json:"name"`
+        Type int64 `json:"type"`
         UniqueKey string `json:"uniqueKey"`
         Value string `json:"value"`
-        Status int64 `json:"status"`
         OrderNum int64 `json:"orderNum"`
         Remark string `json:"remark"`
     }
 )
-
 
 @server(
     jwt: JwtAuth
-    group : param/config
-    prefix : /param/config
+    group : config/dict
+    prefix : /config/dict
     middleware: PermMenuAuth
 )
 service core-api {
     @doc(
-        summary: "配置集"
+        summary: "字典集"
     )
-    @handler GetParamConfigSet
-    get /set returns (ParamConfigSetResp)
+    @handler GetConfigDictList
+    get /list returns (ConfigDictListResp)
 
     @doc(
-        summary: "分页配置"
+        summary: "分页字典"
     )
-    @handler GetParamConfigPage
-    get /page (ParamConfigPageReq) returns (ParamConfigPageResp)
+    @handler GetConfigDictPage
+    get /data/page (ConfigDictPageReq) returns (ConfigDictPageResp)
 
 
     @doc(
-        summary: "新增配置"
+        summary: "新增字典"
     )
-    @handler AddParamConfig
-    post /add (AddParamConfigReq)
+    @handler AddConfigDict
+    post /add (AddConfigDictReq)
 
     @doc(
-        summary: "删除配置"
+        summary: "删除字典"
     )
-    @handler DeleteParamConfig
-    post /delete (DeleteParamConfigReq)
+    @handler DeleteConfigDict
+    post /delete (DeleteConfigDictReq)
 
     @doc(
-        summary: "更新配置"
+        summary: "更新字典"
     )
-    @handler UpdateParamConfig
-    post /update (UpdateParamConfigReq)
+    @handler UpdateConfigDict
+    post /update (UpdateConfigDictReq)
 }

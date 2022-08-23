@@ -1,4 +1,4 @@
-package dictionary
+package dict
 
 import (
 	"context"
@@ -11,29 +11,29 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GetParamDictionarySetLogic struct {
+type GetConfigDictListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewGetParamDictionarySetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetParamDictionarySetLogic {
-	return &GetParamDictionarySetLogic{
+func NewGetConfigDictListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetConfigDictListLogic {
+	return &GetConfigDictListLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *GetParamDictionarySetLogic) GetParamDictionarySet() (resp *types.ParamDictionarySetResp, err error) {
-	paramDictionaryList, err := l.svcCtx.SysDictionaryModel.FindDictionarySet(l.ctx)
+func (l *GetConfigDictListLogic) GetConfigDictList() (resp *types.ConfigDictListResp, err error) {
+	configDictionaryList, err := l.svcCtx.SysDictionaryModel.FindDictionarySet(l.ctx)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	var dictionary types.ParamDictionary
-	dictionaryList := make([]types.ParamDictionary, 0)
-	for _, v := range paramDictionaryList {
+	var dictionary types.ConfigDict
+	dictionaryList := make([]types.ConfigDict, 0)
+	for _, v := range configDictionaryList {
 		err := copier.Copy(&dictionary, &v)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
@@ -41,7 +41,7 @@ func (l *GetParamDictionarySetLogic) GetParamDictionarySet() (resp *types.ParamD
 		dictionaryList = append(dictionaryList, dictionary)
 	}
 
-	return &types.ParamDictionarySetResp{
-		DictionaryList: dictionaryList,
+	return &types.ConfigDictListResp{
+		DictList: dictionaryList,
 	}, nil
 }

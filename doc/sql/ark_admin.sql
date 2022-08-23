@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-22 10:11:08
+-- 生成日期： 2022-08-23 03:15:55
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -20,35 +20,6 @@ SET time_zone = "+00:00";
 --
 -- 数据库： `ark_admin`
 --
-
--- --------------------------------------------------------
-
---
--- 表的结构 `sys_config`
---
-
-CREATE TABLE `sys_config` (
-  `id` int(11) NOT NULL COMMENT '编号',
-  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '0=配置集 !0=父级id',
-  `name` varchar(25) NOT NULL COMMENT '名称',
-  `unique_key` varchar(25) NOT NULL COMMENT '唯一值',
-  `value` varchar(2048) NOT NULL COMMENT '配置值',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
-  `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
-  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统参数';
-
---
--- 转存表中的数据 `sys_config`
---
-
-INSERT INTO `sys_config` (`id`, `parent_id`, `name`, `unique_key`, `value`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 0, '配置集1', 'config1', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-22 10:03:58'),
-(2, 1, '配置集1', 'key1', 'value1', 1, 0, '', '2022-08-22 10:03:58', '2022-08-22 10:04:45'),
-(3, 1, '配置集1', 'key2', 'value2', 1, 0, '', '2022-08-22 10:03:58', '2022-08-22 10:04:51'),
-(4, 1, '配置集1', 'key3', 'value3', 1, 0, '', '2022-08-22 10:03:58', '2022-08-22 10:04:51');
 
 -- --------------------------------------------------------
 
@@ -86,17 +57,28 @@ INSERT INTO `sys_dept` (`id`, `parent_id`, `name`, `full_name`, `unique_key`, `t
 
 CREATE TABLE `sys_dictionary` (
   `id` int(11) NOT NULL COMMENT '编号',
-  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '0=字典集 !0=父级id',
+  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '0=配置集 !0=父级id',
   `name` varchar(25) NOT NULL COMMENT '名称',
-  `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单文件 10多文件  ',
+  `type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0字典 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单文件 10多文件	',
   `unique_key` varchar(25) NOT NULL COMMENT '唯一值',
-  `value` varchar(2048) NOT NULL DEFAULT '' COMMENT '配置值',
+  `value` varchar(2048) NOT NULL COMMENT '配置值',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
   `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序值',
   `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
-  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='字典';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统参数';
+
+--
+-- 转存表中的数据 `sys_dictionary`
+--
+
+INSERT INTO `sys_dictionary` (`id`, `parent_id`, `name`, `type`, `unique_key`, `value`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
+(1, 0, '系统配置', 0, 'sys', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 01:25:31'),
+(2, 1, '站点名称', 1, 'sys_title', '方舟管理后台', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 03:02:15'),
+(3, 1, '站点logo', 1, 'sys_logo', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 03:02:19'),
+(4, 1, '系统语言', 4, 'sys_language', 'cn', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 03:02:27'),
+(5, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 03:02:31');
 
 -- --------------------------------------------------------
 
@@ -217,17 +199,12 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (34, 30, 'common.basic.update', '', '[\"sys/user/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:12'),
 (35, 30, 'permission.changepasswd', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:01'),
 (36, 30, 'permission.transfer', '', '[\"sys/user/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:46'),
-(37, 0, 'routes.param.name', '/param', '[]', 0, 'documentation', 0, '', 1, '', '2022-08-22 03:33:42', '2022-08-22 08:12:06'),
-(38, 37, 'routes.param.config.name', '/param/config', '[]', 1, '', 0, 'views/param/config', 1, '', '2022-08-22 03:39:21', '2022-08-22 08:12:36'),
-(39, 38, 'common.basic.query', '', '[\"param/config/set\",\"param/config/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 08:31:52'),
-(40, 38, 'common.basic.add', '', '[\"param/config/add\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 08:32:19'),
-(41, 38, 'common.basic.delete', '', '[\"param/config/delete\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 08:32:27'),
-(42, 38, 'common.basic.update', '', '[\"param/config/update\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 08:32:35'),
-(44, 37, 'routes.param.dictionary.name', '/param/dictionary', '[]', 1, '', 0, '', 1, '', '2022-08-22 04:35:29', '2022-08-22 07:35:56'),
-(45, 44, 'common.basic.query', '', '[\"param/dictionary/set\",\"param/dictionary/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 09:16:17'),
-(46, 44, 'common.basic.add', '', '[\"param/dictionary/add\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 09:16:42'),
-(47, 44, 'common.basic.delete', '', '[\"param/dictionary/delete\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 09:16:50'),
-(48, 44, 'common.basic.update', '', '[\"param/dictionary/update\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-22 09:17:26');
+(37, 0, 'routes.config.name', '/config', '[]', 0, 'documentation', 0, '', 1, '', '2022-08-22 03:33:42', '2022-08-23 02:54:22'),
+(38, 37, 'routes.config.dictionary.name', '/config/dict', '[]', 1, '', 0, 'views/config/dict', 1, '', '2022-08-22 03:39:21', '2022-08-23 02:54:50'),
+(39, 38, 'common.basic.query', '', '[\"config/dict/list\",\"config/dict/data/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 02:35:06'),
+(40, 38, 'common.basic.add', '', '[\"config/dict/add\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 02:36:06'),
+(41, 38, 'common.basic.delete', '', '[\"config/dict/delete\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 02:36:17'),
+(42, 38, 'common.basic.update', '', '[\"config/dict/update\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 02:36:29');
 
 -- --------------------------------------------------------
 
@@ -317,13 +294,6 @@ INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `av
 --
 
 --
--- 表的索引 `sys_config`
---
-ALTER TABLE `sys_config`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_key` (`unique_key`);
-
---
 -- 表的索引 `sys_dept`
 --
 ALTER TABLE `sys_dept`
@@ -388,12 +358,6 @@ ALTER TABLE `sys_user`
 --
 
 --
--- 使用表AUTO_INCREMENT `sys_config`
---
-ALTER TABLE `sys_config`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=5;
-
---
 -- 使用表AUTO_INCREMENT `sys_dept`
 --
 ALTER TABLE `sys_dept`
@@ -403,7 +367,7 @@ ALTER TABLE `sys_dept`
 -- 使用表AUTO_INCREMENT `sys_dictionary`
 --
 ALTER TABLE `sys_dictionary`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=6;
 
 --
 -- 使用表AUTO_INCREMENT `sys_job`
@@ -427,7 +391,7 @@ ALTER TABLE `sys_log_login`
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=43;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`
@@ -439,7 +403,7 @@ ALTER TABLE `sys_profession`
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`

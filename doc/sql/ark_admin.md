@@ -5,23 +5,13 @@
 ## 数据表列表
 
 * [sys_dept(部门)](#sys_dept_pointer)
-
 * [sys_dictionary(字典)](#sys_dictionary_pointer)
-
 * [sys_job(工作岗位)](#sys_job_pointer)
-
 * [sys_log_action(操作日志)](#sys_log_action_pointer)
-
 * [sys_log_login(登录日志)](#sys_log_login_pointer)
-
-* [sys_config(配置)](#sys_config_pointer)
-
 * [sys_perm_menu(权限&菜单)](#sys_perm_menu_pointer)
-
 * [sys_profession(职称)](#sys_profession_pointer)
-
 * [sys_role(角色)](#sys_role_pointer)
-
 * [sys_user(用户)](#sys_user_pointer)
 
 
@@ -55,7 +45,7 @@
 |id|int(11)|编号|
 |parent_id|int(11)|0=字典集 !0=父级id|
 |name|varchar(25)|名称|
-|type|tinyint(2)|1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单文件 10多文件  |
+|type|tinyint(2)|0字典 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单文件 10多文件  |
 |unique_key|varchar(25)|唯一值|
 |value|varchar(2048)|配置值|
 |order_num|int(11)|排序值|
@@ -105,23 +95,6 @@
 |ip|varchar(100)|ip|
 |os|varchar(50)|操作系统|
 |browser|varchar(50)|浏览器|
-|create_time|timestamp|创建时间|
-|update_time|timestamp|更新时间|
-
-<a name="sys_config_pointer"></a>
-
-* sys_config表(配置)[↑](#返回顶部)
-
-|字段名称|字段类型|字段含义|
-|:---:|:---:|:---:|
-|id|int(11)|编号|
-|parent_id|int(11)|0=配置集 !0=父级id|
-|name|varchar(25)|名称|
-|unique_key|varchar(25)|唯一值|
-|value|varchar(2048)|配置值|
-|status|tinyint(1)|0=禁用 1=开启|
-|order_num|int(11)|排序值|
-|remark|varchar(100)|备注|
 |create_time|timestamp|创建时间|
 |update_time|timestamp|更新时间|
 

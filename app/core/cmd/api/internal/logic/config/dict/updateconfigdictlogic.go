@@ -1,4 +1,4 @@
-package config
+package dict
 
 import (
 	"context"
@@ -11,32 +11,32 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type UpdateParamConfigLogic struct {
+type UpdateConfigDictLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewUpdateParamConfigLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateParamConfigLogic {
-	return &UpdateParamConfigLogic{
+func NewUpdateConfigDictLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateConfigDictLogic {
+	return &UpdateConfigDictLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *UpdateParamConfigLogic) UpdateParamConfig(req *types.UpdateParamConfigReq) error {
-	paramConfig, err := l.svcCtx.SysConfigModel.FindOne(l.ctx, req.Id)
+func (l *UpdateConfigDictLogic) UpdateConfigDict(req *types.UpdateConfigDictReq) error {
+	configDictionary, err := l.svcCtx.SysDictionaryModel.FindOne(l.ctx, req.Id)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	err = copier.Copy(paramConfig, req)
+	err = copier.Copy(configDictionary, req)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	err = l.svcCtx.SysConfigModel.Update(l.ctx, paramConfig)
+	err = l.svcCtx.SysDictionaryModel.Update(l.ctx, configDictionary)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}

@@ -1,19 +1,19 @@
-package config
+package dict
 
 import (
 	"net/http"
 
-	"ark-admin-zero/app/core/cmd/api/internal/logic/param/config"
+	"ark-admin-zero/app/core/cmd/api/internal/logic/config/dict"
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/common/response"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func GetParamConfigSetHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func GetConfigDictListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := config.NewGetParamConfigSetLogic(r.Context(), svcCtx)
-		resp, err := l.GetParamConfigSet()
+		l := dict.NewGetConfigDictListLogic(r.Context(), svcCtx)
+		resp, err := l.GetConfigDictList()
 		if err != nil {
 			httpx.Error(w, err)
 			return

@@ -1,4 +1,4 @@
-package dictionary
+package dict
 
 import (
 	"context"
@@ -11,29 +11,29 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GetParamDictionaryPageLogic struct {
+type GetConfigDictPageLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewGetParamDictionaryPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetParamDictionaryPageLogic {
-	return &GetParamDictionaryPageLogic{
+func NewGetConfigDictPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetConfigDictPageLogic {
+	return &GetConfigDictPageLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *GetParamDictionaryPageLogic) GetParamDictionaryPage(req *types.ParamDictionaryPageReq) (resp *types.ParamDictionaryPageResp, err error) {
-	paramDictionaryList, err := l.svcCtx.SysDictionaryModel.FindPageByParentId(l.ctx, req.ParentId, req.Page, req.Limit)
+func (l *GetConfigDictPageLogic) GetConfigDictPage(req *types.ConfigDictPageReq) (resp *types.ConfigDictPageResp, err error) {
+	configDictionaryList, err := l.svcCtx.SysDictionaryModel.FindPageByParentId(l.ctx, req.ParentId, req.Page, req.Limit)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	var dictionary types.ParamDictionary
-	dictionaryList := make([]types.ParamDictionary, 0)
-	for _, sysDictionary := range paramDictionaryList {
+	var dictionary types.ConfigDict
+	dictionaryList := make([]types.ConfigDict, 0)
+	for _, sysDictionary := range configDictionaryList {
 		err := copier.Copy(&dictionary, &sysDictionary)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
@@ -46,14 +46,14 @@ func (l *GetParamDictionaryPageLogic) GetParamDictionaryPage(req *types.ParamDic
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	pagination := types.ParamDictionaryPagination{
+	pagination := types.ConfigDictPagination{
 		Page:  req.Page,
 		Limit: req.Limit,
 		Total: total,
 	}
 
-	return &types.ParamDictionaryPageResp{
-		ParamDictionaryList: dictionaryList,
-		Pagination:          pagination,
+	return &types.ConfigDictPageResp{
+		ConfigDictList: dictionaryList,
+		Pagination:     pagination,
 	}, nil
 }
