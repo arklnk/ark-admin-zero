@@ -29,6 +29,7 @@ const (
 	SetParentTypeErrorCode    = 1023
 	AddConfigErrorCode        = 1024
 	AddDictionaryErrorCode    = 1025
+	AuthErrorCode             = 1026
 )
 
 func init() {
@@ -58,6 +59,7 @@ func init() {
 	errorMsg[SetParentTypeErrorCode] = "权限类型不能作为父级菜单"
 	errorMsg[AddConfigErrorCode] = "配置已存在"
 	errorMsg[AddDictionaryErrorCode] = "字典已存在"
+	errorMsg[AuthErrorCode] = "授权已失效，请重新登录"
 }
 
 func MapErrMsg(errCode int) string {

@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"time"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
@@ -53,13 +54,18 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 	_, err = l.svcCtx.Redis.Del(req.CaptchaId)
 
 	loginLog := model.SysLog{
-		UserId:  sysUser.Id,
-		Ip:      r.RemoteAddr,
-		Uri:     r.RequestURI,
-		Type:    1,
-		Status:  1,
+		UserId: sysUser.Id,
+		Ip:     r.RemoteAddr,
+		Uri:    r.RequestURI,
+		Type:   1,
+		Status: 1,
 	}
 	_, err = l.svcCtx.SysLogModel.Insert(l.ctx, &loginLog)
+
+	err = l.svcCtx.Redis.Setex(config.SysOnlineUserCachePrefix+strconv.FormatInt(sysUser.Id, 10), "1", int(l.svcCtx.Config.JwtAuth.AccessExpire))
+	if err != nil {
+		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
 
 	return &types.LoginResp{
 		Token: token,

@@ -3,6 +3,7 @@ package config
 const (
 	SysJwtUserId               = "userId"
 	SysPermMenuCachePrefix     = "cache:arkAdmin:permMenu:"
+	SysOnlineUserCachePrefix   = "cache:arkAdmin:online:"
 	SysLoginCaptchaCachePrefix = "cache:arkAdmin:captcha:"
 	SysSuperAdminUserId        = 1
 	SysSuperAdminRoleId        = 1

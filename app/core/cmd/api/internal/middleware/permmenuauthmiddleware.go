@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/config"
+	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/utils"
 
 	"github.com/zeromicro/go-zero/core/stores/redis"
@@ -27,6 +27,14 @@ func (m *PermMenuAuthMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc 
 	return func(w http.ResponseWriter, r *http.Request) {
 		if len(r.Header.Get("Authorization")) > 0 {
 			userId := utils.GetUserId(r.Context())
+			online, err := m.Redis.Get(config.SysOnlineUserCachePrefix + strconv.FormatInt(userId, 10))
+			if err != nil || online == "" {
+				httpx.Error(w, errorx.NewDefaultError(errorx.AuthErrorCode))
+				var erring any
+				erring = "Auth fail"
+				panic(erring)
+			}
+
 			uri := strings.Split(r.RequestURI, "?")
 			is, err := m.Redis.Sismember(config.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), uri[0])
 			if err != nil || is != true {

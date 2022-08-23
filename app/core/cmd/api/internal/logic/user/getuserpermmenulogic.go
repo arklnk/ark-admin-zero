@@ -33,6 +33,11 @@ func NewGetUserPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, err error) {
 	userId := utils.GetUserId(l.ctx)
 
+	online, err := l.svcCtx.Redis.Get(config.SysOnlineUserCachePrefix + strconv.FormatInt(userId, 10))
+	if err != nil || online == "" {
+		return nil, errorx.NewDefaultError(errorx.AuthErrorCode)
+	}
+
 	// 查询用户信息
 	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
 	if err != nil {
