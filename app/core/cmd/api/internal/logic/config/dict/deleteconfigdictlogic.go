@@ -30,7 +30,16 @@ func (l *DeleteConfigDictLogic) DeleteConfigDict(req *types.DeleteConfigDictReq)
 		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 	}
 
-	err := l.svcCtx.SysDictionaryModel.Delete(l.ctx, req.Id)
+	total, err := l.svcCtx.SysDictionaryModel.FindCountByParentId(l.ctx, req.Id)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
+	}
+
+	if total > 0 {
+		return errorx.NewDefaultError(errorx.DeleteDictionaryErrorCode)
+	}
+
+	err = l.svcCtx.SysDictionaryModel.Delete(l.ctx, req.Id)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}

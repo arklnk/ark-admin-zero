@@ -30,6 +30,7 @@ const (
 	AddConfigErrorCode        = 1024
 	AddDictionaryErrorCode    = 1025
 	AuthErrorCode             = 1026
+	DeleteDictionaryErrorCode = 1026
 )
 
 func init() {
@@ -60,6 +61,7 @@ func init() {
 	errorMsg[AddConfigErrorCode] = "配置已存在"
 	errorMsg[AddDictionaryErrorCode] = "字典已存在"
 	errorMsg[AuthErrorCode] = "授权已失效，请重新登录"
+	errorMsg[DeleteDictionaryErrorCode] = "该字典集存在配置项"
 }
 
 func MapErrMsg(errCode int) string {
