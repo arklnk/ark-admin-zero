@@ -2,10 +2,12 @@ package user
 
 import (
 	"context"
+	"net/http"
 	"time"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
@@ -28,7 +30,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 	}
 }
 
-func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
+func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.LoginResp, err error) {
 	verifyCode, _ := l.svcCtx.Redis.Get(globalkey.SysLoginCaptchaCachePrefix + req.CaptchaId)
 	if verifyCode != req.VerifyCode {
 		return nil, errorx.NewDefaultError(errorx.CaptchaErrorCode)
@@ -49,6 +51,15 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 
 	token, _ := l.getJwtToken(sysUser.Id)
 	_, err = l.svcCtx.Redis.Del(req.CaptchaId)
+
+	loginLog := model.SysLog{
+		UserId:  sysUser.Id,
+		Ip:      r.RemoteAddr,
+		Uri:     r.RequestURI,
+		Type:    1,
+		Status:  1,
+	}
+	_, err = l.svcCtx.SysLogModel.Insert(l.ctx, &loginLog)
 
 	return &types.LoginResp{
 		Token: token,
