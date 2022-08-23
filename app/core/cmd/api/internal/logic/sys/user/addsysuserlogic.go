@@ -7,7 +7,6 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
-	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/utils"
 
@@ -39,12 +38,9 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 		}
 
 		bytes, err := json.Marshal(req.RoleIds)
-		if err != nil {
-			return err
-		}
-
 		sysUser.RoleIds = string(bytes)
-		sysUser.Password = utils.MD5(config.SysNewUserDefaultPassword + l.svcCtx.Config.Salt)
+		dictionary, err := l.svcCtx.SysDictionaryModel.FindOneByUniqueKey(l.ctx, "sys_pwd")
+		sysUser.Password = utils.MD5(dictionary.Value + l.svcCtx.Config.Salt)
 		_, err = l.svcCtx.SysUserModel.Insert(l.ctx, sysUser)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ServerErrorCode)

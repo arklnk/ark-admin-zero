@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-23 10:07:30
+-- 生成日期： 2022-08-23 13:44:56
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -75,7 +75,7 @@ CREATE TABLE `sys_dictionary` (
 
 INSERT INTO `sys_dictionary` (`id`, `parent_id`, `name`, `type`, `unique_key`, `value`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
 (1, 0, '系统配置', 0, 'sys', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 01:25:31'),
-(2, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '新建用户默认密码', '2022-08-22 10:03:58', '2022-08-23 10:04:57');
+(2, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '新建用户默认密码', '2022-08-22 10:03:58', '2022-08-23 13:43:51');
 
 -- --------------------------------------------------------
 
@@ -237,7 +237,8 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19');
+(1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19'),
+(2, 0, '测试', 'test', '', '[42, 43, 44, 45]', 1, 0, '2022-08-23 13:13:05', '2022-08-23 13:44:28');
 
 -- --------------------------------------------------------
 
@@ -375,13 +376,13 @@ ALTER TABLE `sys_profession`
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=6;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`
 --
 ALTER TABLE `sys_user`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

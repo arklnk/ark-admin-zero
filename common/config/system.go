@@ -8,10 +8,9 @@ const (
 	SysSuperAdminUserId        = 1
 	SysSuperAdminRoleId        = 1
 	SysPermMenuPrefix          = "/"
-	SysNewUserDefaultPassword  = "123456"
 	SysDefaultPermType         = 2
 	SysMaxPermMenuId           = 50
-	SysMaxDictionaryId         = 0
+	SysMaxDictionaryId         = 2
 	SysEnable                  = 1
 	SysTopMenuId               = 0
 	SysLoginLogType            = 1
