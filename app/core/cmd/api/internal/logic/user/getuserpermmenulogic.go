@@ -57,6 +57,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 	var menu types.Menu
 	menuList := make([]types.Menu, 0)
 	permList := make([]string, 0)
+	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatInt(userId, 10))
 	for _, v := range userPermMenu {
 		err := copier.Copy(&menu, &v)
 		if err != nil {
