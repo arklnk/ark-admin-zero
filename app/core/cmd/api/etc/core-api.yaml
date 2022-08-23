@@ -4,6 +4,11 @@ Port: 7002
 Mode: dev
 Salt: K8i8mTfc5sTXO7OG
 
+Log:
+  Mode: file
+  Path: logs/core
+  KeepDays: 7
+
 JwtAuth:
   AccessSecret: kRZ3kA7LuB4LqOWi
   AccessExpire: 86400

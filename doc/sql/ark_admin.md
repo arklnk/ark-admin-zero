@@ -44,7 +44,7 @@
 |id|int(11)|编号|
 |parent_id|int(11)|0=字典集 !0=父级id|
 |name|varchar(25)|名称|
-|type|tinyint(2)|0字典 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图  |
+|type|tinyint(2)|1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图 11单文件 12多文件  |
 |unique_key|varchar(25)|唯一值|
 |value|varchar(2048)|配置值|
 |order_num|int(11)|排序值|

@@ -44,7 +44,7 @@ type (
 		Id         int64     `db:"id"`          // 编号
 		ParentId   int64     `db:"parent_id"`   // 0=字典集 !0=父级id
 		Name       string    `db:"name"`        // 名称
-		Type       int64     `db:"type"`        // 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单文件 10多文件
+		Type       int64     `db:"type"`        // 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图 11单文件 12多文件
 		UniqueKey  string    `db:"unique_key"`  // 唯一值
 		Value      string    `db:"value"`       // 配置值
 		OrderNum   int64     `db:"order_num"`   // 排序值

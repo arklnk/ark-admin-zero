@@ -39,9 +39,11 @@ func main() {
 			return http.StatusInternalServerError, nil
 		}
 	})
+
 	if c.Mode == "dev" {
 		logx.DisableStat()
 	}
+
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()
 }
