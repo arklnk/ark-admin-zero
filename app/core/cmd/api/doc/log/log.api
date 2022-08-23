@@ -1,0 +1,59 @@
+syntax = "v1"
+
+info(
+    title: "日志"
+    desc: "日志"
+    author: "Trevor"
+    email: "trevorlan@163.com"
+)
+
+type (
+    LogLogin {
+        Id uint64 `json:"id"`
+        Account string `json:"account"`
+        Ip string `json:"ip"`
+        Uri string `json:"uri"`
+        Status int64 `json:"status"`
+        CreateTime string `json:"createTime"`
+    }
+    LogLoginPageReq {
+        Page int64 `form:"page"`
+        Limit int64 `form:"limit"`
+    }
+    LogLoginPagePagination {
+        Page int64 `json:"page"`
+        Limit int64 `json:"limit"`
+        Total int64 `json:"total"`
+    }
+    LogLoginPageResp {
+        LogLoginList []LogLogin `json:"list"`
+        Pagination LogLoginPagePagination `json:"pagination"`
+    }
+)
+
+type (
+    DeleteLogLoginReq {
+        Id uint64 `json:"id"`
+    }
+)
+
+
+@server(
+    jwt: JwtAuth
+    group : log/login
+    prefix : /log/login
+    middleware: PermMenuAuth
+)
+service core-api {
+    @doc(
+        summary: "分页日志"
+    )
+    @handler GetLogLoginPage
+    get /page (LogLoginPageReq) returns (LogLoginPageResp)
+
+    @doc(
+        summary: "删除日志"
+    )
+    @handler DeleteLogLogin
+    post /delete (DeleteLogLoginReq)
+}

@@ -446,3 +446,32 @@ type UpdateConfigDictReq struct {
 	OrderNum  int64  `json:"orderNum"`
 	Remark    string `json:"remark"`
 }
+
+type LogLogin struct {
+	Id         uint64 `json:"id"`
+	Account    string `json:"account"`
+	Ip         string `json:"ip"`
+	Uri        string `json:"uri"`
+	Status     int64  `json:"status"`
+	CreateTime string `json:"createTime"`
+}
+
+type LogLoginPageReq struct {
+	Page  int64 `form:"page"`
+	Limit int64 `form:"limit"`
+}
+
+type LogLoginPagePagination struct {
+	Page  int64 `json:"page"`
+	Limit int64 `json:"limit"`
+	Total int64 `json:"total"`
+}
+
+type LogLoginPageResp struct {
+	LogLoginList []LogLogin             `json:"list"`
+	Pagination   LogLoginPagePagination `json:"pagination"`
+}
+
+type DeleteLogLoginReq struct {
+	Id uint64 `json:"id"`
+}

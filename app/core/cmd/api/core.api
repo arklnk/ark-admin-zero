@@ -21,3 +21,6 @@ import "doc/sys/user.api"
 
 // 配置管理模块
 import "doc/config/dict.api"
+
+// 日志管理模块
+import "doc/log/log.api"

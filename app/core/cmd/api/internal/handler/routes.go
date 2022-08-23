@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	configdict "ark-admin-zero/app/core/cmd/api/internal/handler/config/dict"
+	loglogin "ark-admin-zero/app/core/cmd/api/internal/handler/log/login"
 	sysdept "ark-admin-zero/app/core/cmd/api/internal/handler/sys/dept"
 	sysjob "ark-admin-zero/app/core/cmd/api/internal/handler/sys/job"
 	sysmenu "ark-admin-zero/app/core/cmd/api/internal/handler/sys/menu"
@@ -304,5 +305,25 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/config/dict"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.PermMenuAuth},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/page",
+					Handler: loglogin.GetLogLoginPageHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/delete",
+					Handler: loglogin.DeleteLogLoginHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+		rest.WithPrefix("/log/login"),
 	)
 }

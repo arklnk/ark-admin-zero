@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-23 03:15:55
+-- 生成日期： 2022-08-23 05:57:51
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -59,7 +59,7 @@ CREATE TABLE `sys_dictionary` (
   `id` int(11) NOT NULL COMMENT '编号',
   `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '0=配置集 !0=父级id',
   `name` varchar(25) NOT NULL COMMENT '名称',
-  `type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0字典 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单文件 10多文件	',
+  `type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0字典 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图	',
   `unique_key` varchar(25) NOT NULL COMMENT '唯一值',
   `value` varchar(2048) NOT NULL COMMENT '配置值',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=禁用 1=开启',
@@ -77,7 +77,7 @@ INSERT INTO `sys_dictionary` (`id`, `parent_id`, `name`, `type`, `unique_key`, `
 (1, 0, '系统配置', 0, 'sys', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 01:25:31'),
 (2, 1, '站点名称', 1, 'sys_title', '方舟管理后台', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 03:02:15'),
 (3, 1, '站点logo', 1, 'sys_logo', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 03:02:19'),
-(4, 1, '系统语言', 4, 'sys_language', 'cn', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 03:02:27'),
+(4, 1, '系统语言', 4, 'sys_language', 'cn', 1, 0, 'cn=中文 en=英语', '2022-08-22 10:03:58', '2022-08-23 03:36:17'),
 (5, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 03:02:31');
 
 -- --------------------------------------------------------
@@ -107,37 +107,27 @@ INSERT INTO `sys_job` (`id`, `name`, `status`, `order_num`, `create_time`, `upda
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sys_log_action`
+-- 表的结构 `sys_log`
 --
 
-CREATE TABLE `sys_log_action` (
+CREATE TABLE `sys_log` (
   `id` int(10) UNSIGNED NOT NULL COMMENT '编号',
   `user_id` int(11) NOT NULL COMMENT '操作账号',
   `ip` varchar(100) NOT NULL COMMENT 'ip',
-  `os` varchar(50) NOT NULL COMMENT '系统',
-  `browser` varchar(50) NOT NULL COMMENT '浏览器',
   `uri` varchar(200) NOT NULL COMMENT '请求路径',
-  `request` json NOT NULL COMMENT '请求数据',
-  `response` json NOT NULL COMMENT '响应数据',
+  `type` tinyint(1) NOT NULL COMMENT '1=登录日志 2=操作日志',
+  `request` varchar(2048) NOT NULL DEFAULT '' COMMENT '请求数据',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=失败 1=成功',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='操作日志';
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统日志';
 
 --
--- 表的结构 `sys_log_login`
+-- 转存表中的数据 `sys_log`
 --
 
-CREATE TABLE `sys_log_login` (
-  `id` int(10) UNSIGNED NOT NULL COMMENT '编号',
-  `user_id` int(11) NOT NULL COMMENT '登录账号',
-  `ip` varchar(100) NOT NULL COMMENT 'ip',
-  `os` varchar(50) NOT NULL COMMENT '操作系统',
-  `browser` varchar(50) NOT NULL COMMENT '浏览器',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='登录日志';
+INSERT INTO `sys_log` (`id`, `user_id`, `ip`, `uri`, `type`, `request`, `status`, `create_time`, `update_time`) VALUES
+(1, 1, '127.0.0.1:56431', '/user/login', 1, '', 1, '2022-08-23 04:45:00', '2022-08-23 04:45:00');
 
 -- --------------------------------------------------------
 
@@ -192,19 +182,23 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (26, 24, 'common.basic.add', '', '[\"sys/profession/add\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:21:50'),
 (27, 24, 'common.basic.delete', '', '[\"sys/profession/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:22:02'),
 (28, 24, 'common.basic.update', '', '[\"sys/profession/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:22:12'),
-(30, 1, 'routes.system.user.name', '/sys/user', '[]', 1, '', 0, 'views/system/user', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:29:23'),
-(31, 30, 'common.basic.query', '', '[\"sys/user/list\",\"sys/dept/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 08:01:27'),
-(32, 30, 'common.basic.add', '', '[\"sys/user/add\",\"sys/dept/list\",\"sys/job/list\",\"sys/role/list\",\"sys/profession/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:59:16'),
-(33, 30, 'common.basic.delete', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:21'),
-(34, 30, 'common.basic.update', '', '[\"sys/user/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:12'),
-(35, 30, 'permission.changepasswd', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:01'),
-(36, 30, 'permission.transfer', '', '[\"sys/user/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-22 07:58:46'),
-(37, 0, 'routes.config.name', '/config', '[]', 0, 'documentation', 0, '', 1, '', '2022-08-22 03:33:42', '2022-08-23 02:54:22'),
-(38, 37, 'routes.config.dictionary.name', '/config/dict', '[]', 1, '', 0, 'views/config/dict', 1, '', '2022-08-22 03:39:21', '2022-08-23 02:54:50'),
-(39, 38, 'common.basic.query', '', '[\"config/dict/list\",\"config/dict/data/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 02:35:06'),
-(40, 38, 'common.basic.add', '', '[\"config/dict/add\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 02:36:06'),
-(41, 38, 'common.basic.delete', '', '[\"config/dict/delete\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 02:36:17'),
-(42, 38, 'common.basic.update', '', '[\"config/dict/update\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 02:36:29');
+(29, 1, 'routes.system.user.name', '/sys/user', '[]', 1, '', 0, 'views/system/user', 1, '', '2022-08-12 02:14:20', '2022-08-23 03:21:04'),
+(30, 29, 'common.basic.query', '', '[\"sys/user/list\",\"sys/dept/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 03:21:29'),
+(31, 29, 'common.basic.add', '', '[\"sys/user/add\",\"sys/dept/list\",\"sys/job/list\",\"sys/role/list\",\"sys/profession/list\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 03:21:51'),
+(32, 29, 'common.basic.delete', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 03:21:53'),
+(33, 29, 'common.basic.update', '', '[\"sys/user/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 03:21:56'),
+(34, 29, 'permission.changepasswd', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 03:21:59'),
+(35, 29, 'permission.transfer', '', '[\"sys/user/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 03:22:02'),
+(36, 0, 'routes.config.name', '/config', '[]', 0, 'documentation', 0, '', 1, '', '2022-08-22 03:33:42', '2022-08-23 03:22:07'),
+(37, 36, 'routes.config.dictionary.name', '/config/dict', '[]', 1, '', 0, 'views/config/dict', 1, '', '2022-08-22 03:39:21', '2022-08-23 03:22:19'),
+(38, 37, 'common.basic.query', '', '[\"config/dict/list\",\"config/dict/data/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 03:22:34'),
+(39, 37, 'common.basic.add', '', '[\"config/dict/add\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 03:22:37'),
+(40, 37, 'common.basic.delete', '', '[\"config/dict/delete\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 03:22:40'),
+(41, 37, 'common.basic.update', '', '[\"config/dict/update\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 03:22:43'),
+(42, 0, '日志管理', '/log', '[]', 0, 'netdisk', 0, '', 1, '', '2022-08-23 04:47:23', '2022-08-23 04:47:23'),
+(43, 42, '登录日志', '/log/login', '[]', 1, '', 0, '', 1, '', '2022-08-23 04:47:51', '2022-08-23 04:47:51'),
+(44, 43, 'common.basic.query', '', '[\"log/login/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 04:49:17'),
+(45, 43, 'common.basic.delete', '', '[\"log/login/delete\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 04:49:41');
 
 -- --------------------------------------------------------
 
@@ -253,7 +247,8 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19');
+(1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19'),
+(2, 0, 'test', 'test', '', '[2, 3, 4, 5, 6, 36, 37, 38, 39, 40, 41, 1]', 1, 0, '2022-08-23 04:20:10', '2022-08-23 04:40:39');
 
 -- --------------------------------------------------------
 
@@ -315,15 +310,9 @@ ALTER TABLE `sys_job`
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- 表的索引 `sys_log_action`
+-- 表的索引 `sys_log`
 --
-ALTER TABLE `sys_log_action`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `sys_log_login`
---
-ALTER TABLE `sys_log_login`
+ALTER TABLE `sys_log`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -376,22 +365,16 @@ ALTER TABLE `sys_job`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
 
 --
--- 使用表AUTO_INCREMENT `sys_log_action`
+-- 使用表AUTO_INCREMENT `sys_log`
 --
-ALTER TABLE `sys_log_action`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号';
-
---
--- 使用表AUTO_INCREMENT `sys_log_login`
---
-ALTER TABLE `sys_log_login`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号';
+ALTER TABLE `sys_log`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=46;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`
@@ -403,7 +386,7 @@ ALTER TABLE `sys_profession`
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`
