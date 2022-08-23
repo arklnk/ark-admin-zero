@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-23 13:44:56
+-- 生成日期： 2022-08-23 14:15:29
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -47,7 +47,8 @@ CREATE TABLE `sys_dept` (
 
 INSERT INTO `sys_dept` (`id`, `parent_id`, `name`, `full_name`, `unique_key`, `type`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
 (1, 0, '方舟', '方舟互联', 'arklnk', 1, 1, 0, '', '2022-08-17 02:09:17', '2022-08-22 02:13:54'),
-(2, 0, '思忆', '思忆技术', 'siyee', 1, 1, 0, '', '2022-08-19 06:40:10', '2022-08-22 02:13:39');
+(2, 0, '思忆', '思忆技术', 'siyee', 1, 1, 0, '', '2022-08-19 06:40:10', '2022-08-22 02:13:39'),
+(3, 0, '演示', '演示部门', 'demo', 3, 1, 0, '', '2022-08-23 14:02:27', '2022-08-23 14:10:07');
 
 -- --------------------------------------------------------
 
@@ -75,7 +76,7 @@ CREATE TABLE `sys_dictionary` (
 
 INSERT INTO `sys_dictionary` (`id`, `parent_id`, `name`, `type`, `unique_key`, `value`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
 (1, 0, '系统配置', 0, 'sys', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 01:25:31'),
-(2, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '新建用户默认密码', '2022-08-22 10:03:58', '2022-08-23 13:43:51');
+(2, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '新建用户默认密码', '2022-08-22 10:03:58', '2022-08-23 14:05:50');
 
 -- --------------------------------------------------------
 
@@ -99,7 +100,8 @@ CREATE TABLE `sys_job` (
 INSERT INTO `sys_job` (`id`, `name`, `status`, `order_num`, `create_time`, `update_time`) VALUES
 (1, '前端', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:27:26'),
 (2, '后端', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:32:50'),
-(3, '设计', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:32:55');
+(3, '设计', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:32:55'),
+(4, '演示', 1, 0, '2022-08-23 14:01:23', '2022-08-23 14:01:23');
 
 -- --------------------------------------------------------
 
@@ -118,6 +120,14 @@ CREATE TABLE `sys_log` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统日志';
+
+--
+-- 转存表中的数据 `sys_log`
+--
+
+INSERT INTO `sys_log` (`id`, `user_id`, `ip`, `uri`, `type`, `request`, `status`, `create_time`, `update_time`) VALUES
+(1, 2, '127.0.0.1:53982', '/user/login', 1, '', 1, '2022-08-23 14:06:43', '2022-08-23 14:06:43'),
+(2, 1, '127.0.0.1:54024', '/user/login', 1, '', 1, '2022-08-23 14:09:13', '2022-08-23 14:09:13');
 
 -- --------------------------------------------------------
 
@@ -211,7 +221,8 @@ CREATE TABLE `sys_profession` (
 
 INSERT INTO `sys_profession` (`id`, `name`, `status`, `order_num`, `create_time`, `update_time`) VALUES
 (1, 'CEO', 1, 0, '2022-08-17 05:09:26', '2022-08-17 05:09:26'),
-(2, 'CTO', 1, 0, '2022-08-17 05:09:26', '2022-08-17 05:09:26');
+(2, 'CTO', 1, 0, '2022-08-17 05:09:26', '2022-08-17 05:09:26'),
+(3, '演示', 1, 0, '2022-08-23 14:01:43', '2022-08-23 14:01:43');
 
 -- --------------------------------------------------------
 
@@ -238,7 +249,7 @@ CREATE TABLE `sys_role` (
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
 (1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19'),
-(2, 0, '测试', 'test', '', '[42, 43, 44, 45]', 1, 0, '2022-08-23 13:13:05', '2022-08-23 13:44:28');
+(2, 0, '演示', 'demo', '', '[3, 8, 14, 19, 25, 30, 38, 44, 1, 2, 7, 13, 18, 24, 29, 36, 37, 42, 43]', 1, 0, '2022-08-23 13:13:05', '2022-08-23 14:03:28');
 
 -- --------------------------------------------------------
 
@@ -272,7 +283,8 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', '', 1, 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-22 09:42:42');
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', '', 1, 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-22 09:42:42'),
+(2, 'demo', '596bfe4bb02db60c2a25965598529e7e', 'demo', '', '', 0, '', '', 3, 4, 3, '[2]', 1, 0, '', '2022-08-23 14:04:24', '2022-08-23 14:06:16');
 
 --
 -- 转储表的索引
@@ -340,25 +352,25 @@ ALTER TABLE `sys_user`
 -- 使用表AUTO_INCREMENT `sys_dept`
 --
 ALTER TABLE `sys_dept`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `sys_dictionary`
 --
 ALTER TABLE `sys_dictionary`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `sys_job`
 --
 ALTER TABLE `sys_job`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `sys_log`
 --
 ALTER TABLE `sys_log`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号';
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
@@ -370,7 +382,7 @@ ALTER TABLE `sys_perm_menu`
 -- 使用表AUTO_INCREMENT `sys_profession`
 --
 ALTER TABLE `sys_profession`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `sys_role`
@@ -382,7 +394,7 @@ ALTER TABLE `sys_role`
 -- 使用表AUTO_INCREMENT `sys_user`
 --
 ALTER TABLE `sys_user`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
