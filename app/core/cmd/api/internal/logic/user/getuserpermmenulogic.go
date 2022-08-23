@@ -8,8 +8,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
+	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
-	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
 
 	"github.com/jinzhu/copier"
@@ -63,7 +63,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
 
-		if menu.Type != globalkey.SysDefaultPermType {
+		if menu.Type != config.SysDefaultPermType {
 			menuList = append(menuList, menu)
 		}
 		var permArray []string
@@ -73,8 +73,8 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 		}
 
 		for _, p := range permArray {
-			p = globalkey.SysPermMenuPrefix + p
-			_, err := l.svcCtx.Redis.Sadd(globalkey.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), p)
+			p = config.SysPermMenuPrefix + p
+			_, err := l.svcCtx.Redis.Sadd(config.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), p)
 			if err != nil {
 				return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 			}
@@ -87,7 +87,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 }
 
 func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64) ([]*model.SysPermMenu, []int64, error) {
-	if utils.ArrayContainValue(roles, globalkey.SysSuperAdminRoleId) {
+	if utils.ArrayContainValue(roles, config.SysSuperAdminRoleId) {
 		sysPermMenus, err := l.svcCtx.SysPermMenuModel.FindAll(l.ctx)
 		if err != nil {
 			return nil, permMenu, err

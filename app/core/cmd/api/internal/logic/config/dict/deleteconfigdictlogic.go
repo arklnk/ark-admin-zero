@@ -5,8 +5,8 @@ import (
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
-	"ark-admin-zero/common/globalkey"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -26,7 +26,7 @@ func NewDeleteConfigDictLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *DeleteConfigDictLogic) DeleteConfigDict(req *types.DeleteConfigDictReq) error {
-	if req.Id < globalkey.SysMaxDictionaryId {
+	if req.Id < config.SysMaxDictionaryId {
 		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 	}
 

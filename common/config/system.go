@@ -1,4 +1,4 @@
-package globalkey
+package config
 
 const (
 	SysJwtUserId               = "userId"

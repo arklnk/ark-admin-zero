@@ -5,8 +5,8 @@ import (
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
-	"ark-admin-zero/common/globalkey"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -27,7 +27,7 @@ func NewGetLogLoginPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 }
 
 func (l *GetLogLoginPageLogic) GetLogLoginPage(req *types.LogLoginPageReq) (resp *types.LogLoginPageResp, err error) {
-	loginLogList, err := l.svcCtx.SysLogModel.FindPageByType(l.ctx, globalkey.SysLoginLogType, req.Page, req.Limit)
+	loginLogList, err := l.svcCtx.SysLogModel.FindPageByType(l.ctx, config.SysLoginLogType, req.Page, req.Limit)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
@@ -36,14 +36,14 @@ func (l *GetLogLoginPageLogic) GetLogLoginPage(req *types.LogLoginPageReq) (resp
 	logList := make([]types.LogLogin, 0)
 	for _, v := range loginLogList {
 		err := copier.Copy(&loginLog, &v)
-		loginLog.CreateTime = v.CreateTime.Format(globalkey.SysDateFormat)
+		loginLog.CreateTime = v.CreateTime.Format(config.SysDateFormat)
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
 		logList = append(logList, loginLog)
 	}
 
-	total, err := l.svcCtx.SysLogModel.FindCountByType(l.ctx, globalkey.SysLoginLogType)
+	total, err := l.svcCtx.SysLogModel.FindCountByType(l.ctx, config.SysLoginLogType)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
