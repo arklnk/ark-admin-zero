@@ -125,6 +125,10 @@ func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64
 			roleIds = roleIds + "," + strconv.FormatInt(id, 10)
 		}
 
+		if len(roleIds) == 0 {
+			return nil, permMenu, nil
+		}
+
 		// 根据权限id获取具体权限
 		sysPermMenus, err := l.svcCtx.SysPermMenuModel.FindByIds(l.ctx, roleIds)
 		if err != nil {
