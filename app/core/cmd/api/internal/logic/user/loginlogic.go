@@ -62,7 +62,7 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 
 	loginLog := model.SysLog{
 		UserId: sysUser.Id,
-		Ip:     r.RemoteAddr,
+		Ip:     r.Header.Get("X-Forwarded-For"),
 		Uri:    r.RequestURI,
 		Type:   1,
 		Status: 1,
