@@ -31,6 +31,13 @@ func (l *UpdateSysJobLogic) UpdateSysJob(req *types.UpdateSysJobReq) error {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
+	if req.Status == 0 {
+		count, _ := l.svcCtx.SysUserModel.FindCountByJobId(l.ctx, req.Id)
+		if count > 0 {
+			return errorx.NewDefaultError(errorx.JobIsUsingErrorCode)
+		}
+	}
+
 	err = copier.Copy(sysJob, req)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)

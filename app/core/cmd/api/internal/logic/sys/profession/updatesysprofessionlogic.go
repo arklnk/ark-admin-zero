@@ -31,6 +31,13 @@ func (l *UpdateSysProfessionLogic) UpdateSysProfession(req *types.UpdateSysProfe
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
+	if req.Status == 0 {
+		count, _ := l.svcCtx.SysUserModel.FindCountByProfessionId(l.ctx, req.Id)
+		if count > 0 {
+			return errorx.NewDefaultError(errorx.JobIsUsingErrorCode)
+		}
+	}
+
 	err = copier.Copy(sysProfession, req)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)

@@ -46,6 +46,8 @@ type (
 		FindCountByCondition(ctx context.Context, condition string, value int64) (int64, error)
 		FindCountByDeptIds(ctx context.Context, deptIds string) (int64, error)
 		FindCountByRoleId(ctx context.Context, roleId int64) (int64, error)
+		FindCountByJobId(ctx context.Context, jobId int64) (int64, error)
+		FindCountByProfessionId(ctx context.Context, professionId int64) (int64, error)
 	}
 
 	customSysUserModel struct {
@@ -99,6 +101,30 @@ func (m *customSysUserModel) FindCountByDeptIds(ctx context.Context, deptIds str
 
 func (m *customSysUserModel) FindCountByRoleId(ctx context.Context, roleId int64) (int64, error) {
 	query := fmt.Sprintf("SELECT COUNT(id) FROM %s u WHERE JSON_CONTAINS(u.role_ids,JSON_ARRAY(%d))", m.table, roleId)
+	var resp int64
+	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return 0, err
+	}
+}
+
+func (m *customSysUserModel) FindCountByJobId(ctx context.Context, jobId int64) (int64, error) {
+	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE job_id=%d", m.table, jobId)
+	var resp int64
+	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return 0, err
+	}
+}
+
+func (m *customSysUserModel) FindCountByProfessionId(ctx context.Context, jobId int64) (int64, error) {
+	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE profession_id=%d", m.table, jobId)
 	var resp int64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
 	switch err {

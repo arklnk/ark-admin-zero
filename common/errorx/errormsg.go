@@ -3,34 +3,36 @@ package errorx
 var errorMsg map[int]string
 
 const (
-	ServerErrorCode           = 1000
-	ParamErrorCode            = 1001
-	CaptchaErrorCode          = 1002
-	AccountErrorCode          = 1003
-	PasswordErrorCode         = 1004
-	NotPermMenuErrorCode      = 1005
-	DeletePermMenuErrorCode   = 1006
-	ParentPermMenuErrorCode   = 1007
-	AddRoleErrorCode          = 1008
-	DeleteRoleErrorCode       = 1009
-	AddDeptErrorCode          = 1010
-	DeleteDeptErrorCode       = 1011
-	AddJobErrorCode           = 1012
-	DeleteJobErrorCode        = 1013
-	AddProfessionErrorCode    = 1014
-	DeleteProfessionErrorCode = 1015
-	AddUserErrorCode          = 1016
-	DeptHasUserErrorCode      = 1017
-	RoleIsUsingErrorCode      = 1018
-	ParentRoleErrorCode       = 1019
-	ParentDeptErrorCode       = 1020
-	AccountDisableErrorCode   = 1021
-	SetParentIdErrorCode      = 1022
-	SetParentTypeErrorCode    = 1023
-	AddConfigErrorCode        = 1024
-	AddDictionaryErrorCode    = 1025
-	AuthErrorCode             = 1026
-	DeleteDictionaryErrorCode = 1026
+	ServerErrorCode            = 1000
+	ParamErrorCode             = 1001
+	CaptchaErrorCode           = 1002
+	AccountErrorCode           = 1003
+	PasswordErrorCode          = 1004
+	NotPermMenuErrorCode       = 1005
+	DeletePermMenuErrorCode    = 1006
+	ParentPermMenuErrorCode    = 1007
+	AddRoleErrorCode           = 1008
+	DeleteRoleErrorCode        = 1009
+	AddDeptErrorCode           = 1010
+	DeleteDeptErrorCode        = 1011
+	AddJobErrorCode            = 1012
+	DeleteJobErrorCode         = 1013
+	AddProfessionErrorCode     = 1014
+	DeleteProfessionErrorCode  = 1015
+	AddUserErrorCode           = 1016
+	DeptHasUserErrorCode       = 1017
+	RoleIsUsingErrorCode       = 1018
+	ParentRoleErrorCode        = 1019
+	ParentDeptErrorCode        = 1020
+	AccountDisableErrorCode    = 1021
+	SetParentIdErrorCode       = 1022
+	SetParentTypeErrorCode     = 1023
+	AddConfigErrorCode         = 1024
+	AddDictionaryErrorCode     = 1025
+	AuthErrorCode              = 1026
+	DeleteDictionaryErrorCode  = 1026
+	JobIsUsingErrorCode        = 1027
+	ProfessionIsUsingErrorCode = 1028
 )
 
 func init() {
@@ -62,6 +64,8 @@ func init() {
 	errorMsg[AddDictionaryErrorCode] = "字典已存在"
 	errorMsg[AuthErrorCode] = "授权已失效，请重新登录"
 	errorMsg[DeleteDictionaryErrorCode] = "该字典集存在配置项"
+	errorMsg[JobIsUsingErrorCode] = "该岗位正在使用中"
+	errorMsg[ProfessionIsUsingErrorCode] = "该职称正在使用中"
 }
 
 func MapErrMsg(errCode int) string {
