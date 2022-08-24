@@ -7,7 +7,7 @@ import (
 
 func AvatarUrl() string {
 	url := fmt.Sprintf(
-		"https://getavataaars.com/?accessoriesType=%s&avatarStyle=%s&clotheType=%s&eyeType=%s&eyebrowType=%s&facialHairColor=%s&facialHairType=%s&hairColor=%s&hatColor=%s&mouthType=%s&skinColor=%s&topType=%s",
+		"https://avataaars.io/?accessoriesType=%s&avatarStyle=%s&clotheType=%s&eyeType=%s&eyebrowType=%s&facialHairColor=%s&facialHairType=%s&hairColor=%s&hatColor=%s&mouthType=%s&skinColor=%s&topType=%s",
 		accessoriesType(),
 		avatarStyle(),
 		clotheType(),
@@ -20,6 +20,7 @@ func AvatarUrl() string {
 		mouthType(),
 		skinColor(),
 		topType())
+
 	return url
 }
 
