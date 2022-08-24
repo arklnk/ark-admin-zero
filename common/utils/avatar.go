@@ -7,7 +7,8 @@ import (
 
 func AvatarUrl() string {
 	url := fmt.Sprintf(
-		"https://avataaars.io/?accessoriesType=%s&avatarStyle=%s&clotheType=%s&eyeType=%s&eyebrowType=%s&facialHairColor=%s&facialHairType=%s&hairColor=%s&hatColor=%s&mouthType=%s&skinColor=%s&topType=%s",
+		"https://avataaars.io/?clotheColor=%s&accessoriesType=%s&avatarStyle=%s&clotheType=%s&eyeType=%s&eyebrowType=%s&facialHairColor=%s&facialHairType=%s&hairColor=%s&hatColor=%s&mouthType=%s&skinColor=%s&topType=%s",
+		clotheColor(),
 		accessoriesType(),
 		avatarStyle(),
 		clotheType(),
@@ -22,6 +23,26 @@ func AvatarUrl() string {
 		topType())
 
 	return url
+}
+
+func clotheColor() string {
+	clotheColor := make(map[int]string, 0)
+	clotheColor[0] = "Black"
+	clotheColor[1] = "Blue01"
+	clotheColor[2] = "Blue02"
+	clotheColor[3] = "Blue03"
+	clotheColor[4] = "Gray01"
+	clotheColor[5] = "Gray02"
+	clotheColor[6] = "Heather"
+	clotheColor[7] = "PastelBlue"
+	clotheColor[8] = "PastelGreen"
+	clotheColor[9] = "PastelOrange"
+	clotheColor[10] = "PastelRed"
+	clotheColor[11] = "PastelYellow"
+	clotheColor[12] = "Pink"
+	clotheColor[13] = "Red"
+	clotheColor[14] = "White"
+	return clotheColor[rand.Intn(15)]
 }
 
 func accessoriesType() string {
