@@ -63,6 +63,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: user.UpdateUserPasswordHandler(serverCtx),
 			},
 			{
+				Method:  http.MethodGet,
+				Path:    "/avatar/generate",
+				Handler: user.GetGenerateAvatarHandler(serverCtx),
+			},
+			{
 				Method:  http.MethodPost,
 				Path:    "/logout",
 				Handler: user.LogoutHandler(serverCtx),

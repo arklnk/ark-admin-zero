@@ -65,6 +65,10 @@ type LoginCaptchaResp struct {
 	VerifyCode string `json:"verifyCode"`
 }
 
+type GenerateAvatarResp struct {
+	AvatarUrl string `json:"avatarUrl"`
+}
+
 type PermMenu struct {
 	Id           int64    `json:"id"`
 	ParentId     int64    `json:"parentId"`
