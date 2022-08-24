@@ -41,6 +41,7 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 		sysUser.RoleIds = string(bytes)
 		dictionary, err := l.svcCtx.SysDictionaryModel.FindOneByUniqueKey(l.ctx, "sys_pwd")
 		sysUser.Password = utils.MD5(dictionary.Value + l.svcCtx.Config.Salt)
+		sysUser.Avatar = utils.AvatarUrl()
 		_, err = l.svcCtx.SysUserModel.Insert(l.ctx, sysUser)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ServerErrorCode)
