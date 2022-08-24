@@ -115,8 +115,10 @@ func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64
 				return nil, permMenu, errorx.NewDefaultError(errorx.ServerErrorCode)
 			}
 
+			if role.Status != 0 {
+				permMenu = append(permMenu, perms...)
+			}
 			// 汇总用户所属角色权限id
-			permMenu = append(permMenu, perms...)
 			permMenu = l.getRolePermMenu(permMenu, roleId)
 		}
 

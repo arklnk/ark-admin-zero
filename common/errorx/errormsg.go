@@ -30,9 +30,9 @@ const (
 	AddConfigErrorCode         = 1024
 	AddDictionaryErrorCode     = 1025
 	AuthErrorCode              = 1026
-	DeleteDictionaryErrorCode  = 1026
-	JobIsUsingErrorCode        = 1027
-	ProfessionIsUsingErrorCode = 1028
+	DeleteDictionaryErrorCode  = 1027
+	JobIsUsingErrorCode        = 1028
+	ProfessionIsUsingErrorCode = 1029
 )
 
 func init() {
