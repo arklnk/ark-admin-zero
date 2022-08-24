@@ -45,7 +45,6 @@ type (
         Gender int64 `json:"gender" validate:"gte=0,lte=2"`
         Email string `json:"email"`
         Mobile string `json:"mobile"`
-        Remark string `json:"remark"`
         Avatar string `json:"avatar"`
     }
 )
