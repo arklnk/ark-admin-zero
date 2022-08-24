@@ -41,19 +41,19 @@ type (
         OrderNum int64 `json:"orderNum"`
         Remark string `json:"remark"`
     }
-    SysUserListReq {
+    SysUserPageReq {
         Page int64 `form:"page"`
         Limit int64 `form:"limit"`
         DeptId int64 `form:"deptId"`
     }
-    UserListPagination {
+    UserPagePagination {
         Page int64 `json:"page"`
         Limit int64 `json:"limit"`
         Total int64 `json:"total"`
     }
-    SysUserListResp {
+    SysUserPageResp {
         UserList []User `json:"list"`
-        Pagination UserListPagination `json:"pagination"`
+        Pagination UserPagePagination `json:"pagination"`
     }
 )
 
@@ -141,10 +141,10 @@ type (
 )
 service core-api {
     @doc(
-        summary: "用户列表"
+        summary: "分页用户"
     )
-    @handler GetSysUserList
-    get /list (SysUserListReq) returns (SysUserListResp)
+    @handler GetSysUserPage
+    get /page (SysUserPageReq) returns (SysUserPageResp)
 
     @doc(
         summary: "新增用户"

@@ -319,21 +319,21 @@ type User struct {
 	Remark     string         `json:"remark"`
 }
 
-type SysUserListReq struct {
+type SysUserPageReq struct {
 	Page   int64 `form:"page"`
 	Limit  int64 `form:"limit"`
 	DeptId int64 `form:"deptId"`
 }
 
-type UserListPagination struct {
+type UserPagePagination struct {
 	Page  int64 `json:"page"`
 	Limit int64 `json:"limit"`
 	Total int64 `json:"total"`
 }
 
-type SysUserListResp struct {
+type SysUserPageResp struct {
 	UserList   []User             `json:"list"`
-	Pagination UserListPagination `json:"pagination"`
+	Pagination UserPagePagination `json:"pagination"`
 }
 
 type AddSysUserReq struct {

@@ -1,9 +1,9 @@
 package user
 
 import (
-	"ark-admin-zero/app/core/cmd/api/internal/logic/sys/user"
 	"net/http"
 
+	"ark-admin-zero/app/core/cmd/api/internal/logic/sys/user"
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
@@ -13,9 +13,9 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func GetSysUserListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func GetSysUserPageHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.SysUserListReq
+		var req types.SysUserPageReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, errorx.NewHandlerError(errorx.ParamErrorCode, err.Error()))
 			return
@@ -26,8 +26,8 @@ func GetSysUserListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := user.NewGetSysUserListLogic(r.Context(), svcCtx)
-		resp, err := l.GetSysUserList(&req)
+		l := user.NewGetSysUserPageLogic(r.Context(), svcCtx)
+		resp, err := l.GetSysUserPage(&req)
 		if err != nil {
 			httpx.Error(w, err)
 			return

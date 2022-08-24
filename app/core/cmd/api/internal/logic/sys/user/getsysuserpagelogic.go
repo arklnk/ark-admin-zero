@@ -1,36 +1,36 @@
 package user
 
 import (
-	"ark-admin-zero/app/core/model"
 	"context"
 	"strconv"
 	"strings"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GetSysUserListLogic struct {
+type GetSysUserPageLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewGetSysUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetSysUserListLogic {
-	return &GetSysUserListLogic{
+func NewGetSysUserPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetSysUserPageLogic {
+	return &GetSysUserPageLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *GetSysUserListLogic) GetSysUserList(req *types.SysUserListReq) (resp *types.SysUserListResp, err error) {
+func (l *GetSysUserPageLogic) GetSysUserPage(req *types.SysUserPageReq) (resp *types.SysUserPageResp, err error) {
 	s := strconv.FormatInt(req.DeptId, 10)
-	deptIds :=l.getDeptIds(s,req.DeptId)
+	deptIds := l.getDeptIds(s, req.DeptId)
 
 	users, err := l.svcCtx.SysUserModel.FindByPage(l.ctx, req.Page, req.Limit, deptIds)
 	if err != nil {
@@ -82,19 +82,19 @@ func (l *GetSysUserListLogic) GetSysUserList(req *types.SysUserListReq) (resp *t
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	pagination := types.UserListPagination{
+	pagination := types.UserPagePagination{
 		Page:  req.Page,
 		Limit: req.Limit,
 		Total: total,
 	}
 
-	return &types.SysUserListResp{
+	return &types.SysUserPageResp{
 		UserList:   userList,
 		Pagination: pagination,
 	}, nil
 }
 
-func (l *GetSysUserListLogic) getDeptIds(deptId string, id int64) string {
+func (l *GetSysUserPageLogic) getDeptIds(deptId string, id int64) string {
 	deptList, err := l.svcCtx.SysDeptModel.FindSubDept(l.ctx, id)
 	if err != nil && err != model.ErrNotFound {
 		return deptId

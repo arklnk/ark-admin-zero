@@ -233,8 +233,8 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
-					Path:    "/list",
-					Handler: sysuser.GetSysUserListHandler(serverCtx),
+					Path:    "/page",
+					Handler: sysuser.GetSysUserPageHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
