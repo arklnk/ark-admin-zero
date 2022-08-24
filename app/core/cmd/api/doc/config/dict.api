@@ -1,114 +1,113 @@
 syntax = "v1"
 
 info(
-    title: "字典"
-    desc: "字典"
-    author: "Trevor"
-    email: "trevorlan@163.com"
+	title: "字典"
+	desc: "字典"
+	author: "Trevor"
+	email: "trevorlan@163.com"
 )
 
 type (
-    ConfigDict {
-        Id int64 `json:"id"`
-        ParentId int64 `json:"parentId"`
-        Name string `json:"name"`
-        Type int64 `json:"type"`
-        UniqueKey string `json:"uniqueKey"`
-        Value string `json:"value"`
-        OrderNum int64 `json:"orderNum"`
-        Remark string `json:"remark"`
-        Status int64 `json:"status"`
-    }
-    ConfigDictListResp {
-        DictList []ConfigDict `json:"list"`
-    }
+	ConfigDict {
+		Id        int64  `json:"id"`
+		ParentId  int64  `json:"parentId"`
+		Name      string `json:"name"`
+		Type      int64  `json:"type"`
+		UniqueKey string `json:"uniqueKey"`
+		Value     string `json:"value"`
+		OrderNum  int64  `json:"orderNum"`
+		Remark    string `json:"remark"`
+		Status    int64  `json:"status"`
+	}
+	ConfigDictListResp {
+		DictList []ConfigDict `json:"list"`
+	}
 )
 
 type (
-    ConfigDictPageReq {
-        Page int64 `form:"page"`
-        Limit int64 `form:"limit"`
-        ParentId int64 `form:"parentId"`
-    }
-    ConfigDictPagination {
-        Page int64 `json:"page"`
-        Limit int64 `json:"limit"`
-        Total int64 `json:"total"`
-    }
-    ConfigDictPageResp {
-        ConfigDictList []ConfigDict `json:"list"`
-        Pagination ConfigDictPagination `json:"pagination"`
-    }
+	ConfigDictPageReq {
+		Page     int64 `form:"page"`
+		Limit    int64 `form:"limit"`
+		ParentId int64 `form:"parentId"`
+	}
+	ConfigDictPagination {
+		Page  int64 `json:"page"`
+		Limit int64 `json:"limit"`
+		Total int64 `json:"total"`
+	}
+	ConfigDictPageResp {
+		ConfigDictList []ConfigDict         `json:"list"`
+		Pagination     ConfigDictPagination `json:"pagination"`
+	}
 )
 
 type (
-    AddConfigDictReq {
-        ParentId int64 `json:"parentId"`
-        Name string `json:"name"`
-        Type int64 `json:"type"`
-        UniqueKey string `json:"uniqueKey"`
-        Value string `json:"value"`
-        OrderNum int64 `json:"orderNum"`
-        Remark string `json:"remark"`
-        Status int64 `json:"status"`
-    }
+	AddConfigDictReq {
+		ParentId  int64  `json:"parentId"`
+		Name      string `json:"name"`
+		Type      int64  `json:"type"`
+		UniqueKey string `json:"uniqueKey"`
+		Value     string `json:"value"`
+		OrderNum  int64  `json:"orderNum"`
+		Remark    string `json:"remark"`
+		Status    int64  `json:"status"`
+	}
 )
 
 type (
-    DeleteConfigDictReq {
-        Id int64 `json:"id"`
-    }
+	DeleteConfigDictReq {
+		Id int64 `json:"id"`
+	}
 )
 
 type (
-    UpdateConfigDictReq {
-        Id int64 `json:"id"`
-        ParentId int64 `json:"parentId"`
-        Name string `json:"name"`
-        Type int64 `json:"type"`
-        UniqueKey string `json:"uniqueKey"`
-        Value string `json:"value"`
-        OrderNum int64 `json:"orderNum"`
-        Remark string `json:"remark"`
-        Status int64 `json:"status"`
-    }
+	UpdateConfigDictReq {
+		Id        int64  `json:"id"`
+		ParentId  int64  `json:"parentId"`
+		Name      string `json:"name"`
+		Type      int64  `json:"type"`
+		UniqueKey string `json:"uniqueKey"`
+		Value     string `json:"value"`
+		OrderNum  int64  `json:"orderNum"`
+		Remark    string `json:"remark"`
+		Status    int64  `json:"status"`
+	}
 )
 
 @server(
-    jwt: JwtAuth
-    group : config/dict
-    prefix : /config/dict
-    middleware: PermMenuAuth
+	jwt: JwtAuth
+	group : config/dict
+	prefix : /config/dict
+	middleware: PermMenuAuth
 )
 service core-api {
-    @doc(
-        summary: "字典集"
-    )
-    @handler GetConfigDictList
-    get /list returns (ConfigDictListResp)
-
-    @doc(
-        summary: "分页字典"
-    )
-    @handler GetConfigDictPage
-    get /data/page (ConfigDictPageReq) returns (ConfigDictPageResp)
-
-
-    @doc(
-        summary: "新增字典"
-    )
-    @handler AddConfigDict
-    post /add (AddConfigDictReq)
-
-    @doc(
-        summary: "删除字典"
-    )
-    @handler DeleteConfigDict
-    post /delete (DeleteConfigDictReq)
-
-    @doc(
-        summary: "更新字典"
-    )
-    @handler UpdateConfigDict
-    post /update (UpdateConfigDictReq)
+	@doc(
+		summary: "字典列表"
+	)
+	@handler GetConfigDictList
+	get /list returns (ConfigDictListResp)
+	
+	@doc(
+		summary: "分页字典数据"
+	)
+	@handler GetConfigDictPage
+	get /data/page (ConfigDictPageReq) returns (ConfigDictPageResp)
+	
+	@doc(
+		summary: "新增字典"
+	)
+	@handler AddConfigDict
+	post /add (AddConfigDictReq)
+	
+	@doc(
+		summary: "删除字典"
+	)
+	@handler DeleteConfigDict
+	post /delete (DeleteConfigDictReq)
+	
+	@doc(
+		summary: "更新字典"
+	)
+	@handler UpdateConfigDict
+	post /update (UpdateConfigDictReq)
 }
