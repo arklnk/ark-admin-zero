@@ -144,7 +144,7 @@
 |password|char(32)|密码|
 |username|varchar(25)|姓名|
 |nickname|varchar(25)|昵称|
-|avatar|varchar(200)|头像|
+|avatar|varchar(2048)|头像|
 |gender|tinyint(1)|0=保密 1=女 2=男|
 |email|varchar(50)|邮件|
 |mobile|char(11)|手机号|

@@ -33,6 +33,7 @@ const (
 	DeleteDictionaryErrorCode  = 1027
 	JobIsUsingErrorCode        = 1028
 	ProfessionIsUsingErrorCode = 1029
+	ForbiddenErrorCode         = 1030
 )
 
 func init() {
@@ -66,6 +67,7 @@ func init() {
 	errorMsg[DeleteDictionaryErrorCode] = "该字典集存在配置项"
 	errorMsg[JobIsUsingErrorCode] = "该岗位正在使用中"
 	errorMsg[ProfessionIsUsingErrorCode] = "该职称正在使用中"
+	errorMsg[ForbiddenErrorCode] = "禁止操作"
 }
 
 func MapErrMsg(errCode int) string {

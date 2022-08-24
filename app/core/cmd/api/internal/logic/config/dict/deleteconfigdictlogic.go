@@ -27,7 +27,7 @@ func NewDeleteConfigDictLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 func (l *DeleteConfigDictLogic) DeleteConfigDict(req *types.DeleteConfigDictReq) error {
 	if req.Id <= config.SysMaxDictionaryId {
-		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
+		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
 	}
 
 	total, err := l.svcCtx.SysDictionaryModel.FindCountByParentId(l.ctx, req.Id)
