@@ -42,7 +42,7 @@ func NewSysLogModel(conn sqlx.SqlConn, c cache.CacheConf) SysLogModel {
 
 func (m *customSysLogModel) FindPageByType(ctx context.Context, t int64, page int64, limit int64) ([]*SysLoginLog, error) {
 	offset := (page - 1) * limit
-	query := fmt.Sprintf("SELECT l.id,IFNULL(u.account,'已删除') as account,l.ip,l.uri,l.status,l.create_time FROM (SELECT * FROM sys_log WHERE type=? ORDER BY id DESC LIMIT ?,?) l LEFT JOIN sys_user u ON l.user_id=u.id")
+	query := fmt.Sprintf("SELECT l.id,IFNULL(u.account,'NULL') as account,l.ip,l.uri,l.status,l.create_time FROM (SELECT * FROM sys_log WHERE type=? ORDER BY id DESC LIMIT ?,?) l LEFT JOIN sys_user u ON l.user_id=u.id")
 	var resp []*SysLoginLog
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, t, offset, limit)
 	switch err {
