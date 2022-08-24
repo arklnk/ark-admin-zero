@@ -177,11 +177,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: sysjob.GetSysJobPageHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodGet,
-					Path:    "/list",
-					Handler: sysjob.GetSysJobListHandler(serverCtx),
-				},
-				{
 					Method:  http.MethodPost,
 					Path:    "/add",
 					Handler: sysjob.AddSysJobHandler(serverCtx),
@@ -210,11 +205,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodGet,
 					Path:    "/page",
 					Handler: sysprofession.GetSysProfessionPageHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/list",
-					Handler: sysprofession.GetSysProfessionListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,

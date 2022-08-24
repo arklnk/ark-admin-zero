@@ -30,12 +30,6 @@ type (
 )
 
 type (
-    SysProfessionListResp {
-        ProfessionList []Profession `json:"list"`
-    }
-)
-
-type (
     AddSysProfessionReq {
         Name string `json:"name"`
         Status int64 `json:"status"`
@@ -66,16 +60,10 @@ type (
 )
 service core-api {
     @doc(
-        summary: "职称列表"
+        summary: "分页职称"
     )
     @handler GetSysProfessionPage
     get /page (SysProfessionPageReq) returns (SysProfessionPageResp)
-
-    @doc(
-        summary: "全部职称"
-    )
-    @handler GetSysProfessionList
-    get /list returns (SysProfessionListResp)
 
     @doc(
         summary: "新增职称"

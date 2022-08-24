@@ -30,12 +30,6 @@ type (
 )
 
 type (
-    SysJobListResp{
-		JobList []Job `json:"list"`
-    }
-)
-
-type (
     AddSysJobReq {
         Name string `json:"name"`
         Status int64 `json:"status"`
@@ -66,16 +60,10 @@ type (
 )
 service core-api {
     @doc(
-        summary: "岗位列表"
+        summary: "分页岗位"
     )
     @handler GetSysJobPage
     get /page (SysJobPageReq) returns (SysJobPageResp)
-
-    @doc(
-        summary: "全部岗位"
-    )
-    @handler GetSysJobList
-    get /list returns (SysJobListResp)
 
     @doc(
         summary: "新增岗位"
