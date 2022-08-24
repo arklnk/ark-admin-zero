@@ -5,6 +5,7 @@ const (
 	SysPermMenuCachePrefix     = "cache:arkAdmin:permMenu:"
 	SysOnlineUserCachePrefix   = "cache:arkAdmin:online:"
 	SysLoginCaptchaCachePrefix = "cache:arkAdmin:captcha:"
+	SysUserIdCachePrefix       = "cache:arkAdmin:sysUser:id:"
 	SysSuperAdminUserId        = 1
 	SysSuperAdminRoleId        = 1
 	SysPermMenuPrefix          = "/"
