@@ -15,5 +15,5 @@ const (
 	SysEnable                  = 1
 	SysTopMenuId               = 0
 	SysLoginLogType            = 1
-	SysDateFormat              = "2006-01-02"
+	SysDateFormat              = "2006.01.02 15:04:05"
 )
