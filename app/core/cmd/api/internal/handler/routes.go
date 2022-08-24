@@ -267,6 +267,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: sysuser.UpdateSysUserPasswordHandler(serverCtx),
 				},
 				{
+					Method:  http.MethodGet,
+					Path:    "/rdpj/info",
+					Handler: sysuser.GetSysUserRdpjInfoHandler(serverCtx),
+				},
+				{
 					Method:  http.MethodPost,
 					Path:    "/transfer",
 					Handler: sysuser.TransferSysUserHandler(serverCtx),

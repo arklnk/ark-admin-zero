@@ -387,6 +387,24 @@ type UpdateSysUserPasswordReq struct {
 	Password string `json:"password"`
 }
 
+type Rdpj struct {
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
+type RdpjTree struct {
+	Id       int64  `json:"id"`
+	ParentId int64  `json:"parentId"`
+	Name     string `json:"name"`
+}
+
+type GetSysUserRdpjInfoResp struct {
+	Role       []RdpjTree `json:"role"`
+	Dept       []RdpjTree `json:"dept"`
+	Profession []Rdpj     `json:"profession"`
+	Job        []Rdpj     `json:"job"`
+}
+
 type TransferSysUserReq struct {
 	Ids    []int64 `json:"ids"`
 	DeptId int64   `json:"deptId"`

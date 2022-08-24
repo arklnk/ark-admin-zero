@@ -1,160 +1,184 @@
 syntax = "v1"
 
 info(
-	title: "用户"
-	desc: "用户"
-	author: "Trevor"
-	email: "trevorlan@163.com"
+    title: "用户"
+    desc: "用户"
+    author: "Trevor"
+    email: "trevorlan@163.com"
 )
 
 type (
-	UserProfession {
-		Id   int64  `json:"id"`
-		Name string `json:"name"`
-	}
-	UserJob {
-		Id   int64  `json:"id"`
-		Name string `json:"name"`
-	}
-	UserDept {
-		Id   int64  `json:"id"`
-		Name string `json:"name"`
-	}
-	UserRole {
-		Id   int64  `json:"id"`
-		Name string `json:"name"`
-	}
-	User {
-		Id         int64          `json:"id"`
-		Account    string         `json:"account"`
-		Username   string         `json:"username"`
-		Nickname   string         `json:"nickname"`
-		Avatar     string         `json:"avatar"`
-		Gender     int64          `json:"gender"`
-		Email      string         `json:"email"`
-		Mobile     string         `json:"mobile"`
-		Profession UserProfession `json:"profession"`
-		Job        UserJob        `json:"job"`
-		Dept       UserDept       `json:"dept"`
-		Roles      []UserRole     `json:"roles"`
-		Status     int64          `json:"status"`
-		OrderNum   int64          `json:"orderNum"`
-		Remark     string         `json:"remark"`
-	}
-	SysUserListReq {
-		Page    int64 `form:"page"`
-		Limit   int64 `form:"limit"`
-		DeptId  int64 `form:"deptId"`
-	}
-	UserListPagination {
-		Page  int64 `json:"page"`
-		Limit int64 `json:"limit"`
-		Total int64 `json:"total"`
-	}
-	SysUserListResp {
-		UserList   []User             `json:"list"`
-		Pagination UserListPagination `json:"pagination"`
-	}
+    UserProfession {
+        Id int64 `json:"id"`
+        Name string `json:"name"`
+    }
+    UserJob {
+        Id int64 `json:"id"`
+        Name string `json:"name"`
+    }
+    UserDept {
+        Id int64 `json:"id"`
+        Name string `json:"name"`
+    }
+    UserRole {
+        Id int64 `json:"id"`
+        Name string `json:"name"`
+    }
+    User {
+        Id int64 `json:"id"`
+        Account string `json:"account"`
+        Username string `json:"username"`
+        Nickname string `json:"nickname"`
+        Avatar string `json:"avatar"`
+        Gender int64 `json:"gender"`
+        Email string `json:"email"`
+        Mobile string `json:"mobile"`
+        Profession UserProfession `json:"profession"`
+        Job UserJob `json:"job"`
+        Dept UserDept `json:"dept"`
+        Roles []UserRole `json:"roles"`
+        Status int64 `json:"status"`
+        OrderNum int64 `json:"orderNum"`
+        Remark string `json:"remark"`
+    }
+    SysUserListReq {
+        Page int64 `form:"page"`
+        Limit int64 `form:"limit"`
+        DeptId int64 `form:"deptId"`
+    }
+    UserListPagination {
+        Page int64 `json:"page"`
+        Limit int64 `json:"limit"`
+        Total int64 `json:"total"`
+    }
+    SysUserListResp {
+        UserList []User `json:"list"`
+        Pagination UserListPagination `json:"pagination"`
+    }
 )
 
 type (
-	AddSysUserReq {
-		Account      string  `json:"account"`
-		Username     string  `json:"username"`
-		Nickname     string  `json:"nickname"`
-		Avatar       string  `json:"avatar"`
-		Gender       int64   `json:"gender"`
-		Email        string  `json:"email"`
-		Mobile       string  `json:"mobile"`
-		ProfessionId int64   `json:"professionId"`
-		JobId        int64   `json:"jobId"`
-		DeptId       int64   `json:"deptId"`
-		RoleIds      []int64 `json:"roleIds"`
-		Status       int64   `json:"status"`
-		OrderNum     int64   `json:"orderNum"`
-		Remark       string  `json:"remark"`
-	}
+    AddSysUserReq {
+        Account string `json:"account"`
+        Username string `json:"username"`
+        Nickname string `json:"nickname"`
+        Avatar string `json:"avatar"`
+        Gender int64 `json:"gender"`
+        Email string `json:"email"`
+        Mobile string `json:"mobile"`
+        ProfessionId int64 `json:"professionId"`
+        JobId int64 `json:"jobId"`
+        DeptId int64 `json:"deptId"`
+        RoleIds []int64 `json:"roleIds"`
+        Status int64 `json:"status"`
+        OrderNum int64 `json:"orderNum"`
+        Remark string `json:"remark"`
+    }
 )
 
 type (
-	DeleteSysUserReq {
-		Id int64 `json:"id"`
-	}
+    DeleteSysUserReq {
+        Id int64 `json:"id"`
+    }
 )
 
 type (
-	UpdateSysUserReq {
-		Id           int64   `json:"id"`
-		Username     string  `json:"username"`
-		Nickname     string  `json:"nickname"`
-		Avatar       string  `json:"avatar"`
-		Gender       int64   `json:"gender"`
-		Email        string  `json:"email"`
-		Mobile       string  `json:"mobile"`
-		ProfessionId int64   `json:"professionId"`
-		JobId        int64   `json:"jobId"`
-		DeptId       int64   `json:"deptId"`
-		RoleIds      []int64 `json:"roleIds"`
-		Status       int64   `json:"status"`
-		OrderNum     int64   `json:"orderNum"`
-		Remark       string  `json:"remark"`
-	}
+    UpdateSysUserReq {
+        Id int64 `json:"id"`
+        Username string `json:"username"`
+        Nickname string `json:"nickname"`
+        Avatar string `json:"avatar"`
+        Gender int64 `json:"gender"`
+        Email string `json:"email"`
+        Mobile string `json:"mobile"`
+        ProfessionId int64 `json:"professionId"`
+        JobId int64 `json:"jobId"`
+        DeptId int64 `json:"deptId"`
+        RoleIds []int64 `json:"roleIds"`
+        Status int64 `json:"status"`
+        OrderNum int64 `json:"orderNum"`
+        Remark string `json:"remark"`
+    }
 )
 
 type (
-	UpdateSysUserPasswordReq {
-		Id       int64  `json:"id"`
-		Password string `json:"password"`
-	}
+    UpdateSysUserPasswordReq {
+        Id int64 `json:"id"`
+        Password string `json:"password"`
+    }
 )
 
 type (
-	TransferSysUserReq {
-		Ids    []int64 `json:"ids"`
-		DeptId int64   `json:"deptId"`
-	}
+    Rdpj {
+        Id int64 `json:"id"`
+        Name string `json:"name"`
+    }
+    RdpjTree {
+        Id int64 `json:"id"`
+        ParentId int64 `json:"parentId"`
+        Name string `json:"name"`
+    }
+    GetSysUserRdpjInfoResp {
+        Role []RdpjTree `json:"role"`
+        Dept []RdpjTree `json:"dept"`
+        Profession []Rdpj `json:"profession"`
+        Job []Rdpj `json:"job"`
+    }
+)
+
+type (
+    TransferSysUserReq {
+        Ids []int64 `json:"ids"`
+        DeptId int64 `json:"deptId"`
+    }
 )
 
 @server(
-	jwt: JwtAuth
-	group : sys/user
-	prefix : /sys/user
-	middleware: PermMenuAuth
+    jwt: JwtAuth
+    group : sys/user
+    prefix : /sys/user
+    middleware: PermMenuAuth
 )
 service core-api {
-	@doc(
-		summary: "用户列表"
-	)
-	@handler GetSysUserList
-	get /list (SysUserListReq) returns (SysUserListResp)
-	
-	@doc(
-		summary: "新增用户"
-	)
-	@handler AddSysUser
-	post /add (AddSysUserReq)
-	
-	@doc(
-		summary: "删除用户"
-	)
-	@handler DeleteSysUser
-	post /delete (DeleteSysUserReq)
-	
-	@doc(
-		summary: "更新用户"
-	)
-	@handler UpdateSysUser
-	post /update (UpdateSysUserReq)
-	
-	@doc(
-		summary: "更新用户密码"
-	)
-	@handler UpdateSysUserPassword
-	post /password/update (UpdateSysUserPasswordReq)
-	
-	@doc(
-		summary: "转移用户"
-	)
-	@handler TransferSysUser
-	post /transfer (TransferSysUserReq)
+    @doc(
+        summary: "用户列表"
+    )
+    @handler GetSysUserList
+    get /list (SysUserListReq) returns (SysUserListResp)
+
+    @doc(
+        summary: "新增用户"
+    )
+    @handler AddSysUser
+    post /add (AddSysUserReq)
+
+    @doc(
+        summary: "删除用户"
+    )
+    @handler DeleteSysUser
+    post /delete (DeleteSysUserReq)
+
+    @doc(
+        summary: "更新用户"
+    )
+    @handler UpdateSysUser
+    post /update (UpdateSysUserReq)
+
+    @doc(
+        summary: "更新用户密码"
+    )
+    @handler UpdateSysUserPassword
+    post /password/update (UpdateSysUserPasswordReq)
+
+    @doc(
+        summary: "角色部门职称岗位信息"
+    )
+    @handler GetSysUserRdpjInfo
+    get /rdpj/info returns (GetSysUserRdpjInfoResp)
+
+    @doc(
+        summary: "转移用户"
+    )
+    @handler TransferSysUser
+    post /transfer (TransferSysUserReq)
 }

@@ -15,6 +15,7 @@ type (
 	SysProfessionModel interface {
 		sysProfessionModel
 		FindAll(ctx context.Context) ([]*SysProfession, error)
+		FindEnable(ctx context.Context) ([]*SysProfession, error)
 		FindCount(ctx context.Context) (int64, error)
 		FindByPage(ctx context.Context, page int64, limit int64) ([]*SysProfession, error)
 	}
@@ -33,6 +34,18 @@ func NewSysProfessionModel(conn sqlx.SqlConn, c cache.CacheConf) SysProfessionMo
 
 func (m *customSysProfessionModel) FindAll(ctx context.Context) ([]*SysProfession, error) {
 	query := fmt.Sprintf("SELECT %s FROM %s ORDER BY order_num DESC", sysProfessionRows, m.table)
+	var resp []*SysProfession
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return nil, err
+	}
+}
+
+func (m *customSysProfessionModel) FindEnable(ctx context.Context) ([]*SysProfession, error) {
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE status=1 ORDER BY order_num DESC", sysProfessionRows, m.table)
 	var resp []*SysProfession
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

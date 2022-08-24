@@ -15,8 +15,9 @@ type (
 	// and implement the added methods in customSysRoleModel.
 	SysRoleModel interface {
 		sysRoleModel
-		FindSubRole(ctx context.Context, id int64) ([]*SysRole, error)
 		FindAll(ctx context.Context) ([]*SysRole, error)
+		FindEnable(ctx context.Context) ([]*SysRole, error)
+		FindSubRole(ctx context.Context, id int64) ([]*SysRole, error)
 	}
 
 	customSysRoleModel struct {
@@ -31,10 +32,10 @@ func NewSysRoleModel(conn sqlx.SqlConn, c cache.CacheConf) SysRoleModel {
 	}
 }
 
-func (m *customSysRoleModel) FindSubRole(ctx context.Context, id int64) ([]*SysRole, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id` = ?", sysRoleRows, m.table)
+func (m *customSysRoleModel) FindAll(ctx context.Context) ([]*SysRole, error) {
+	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d ORDER BY order_num DESC", sysRoleRows, m.table, config.SysSuperAdminRoleId)
 	var resp []*SysRole
-	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
 	case nil:
 		return resp, nil
@@ -43,10 +44,22 @@ func (m *customSysRoleModel) FindSubRole(ctx context.Context, id int64) ([]*SysR
 	}
 }
 
-func (m *customSysRoleModel) FindAll(ctx context.Context) ([]*SysRole, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d ORDER BY order_num DESC", sysRoleRows, m.table, config.SysSuperAdminRoleId)
+func (m *customSysRoleModel) FindEnable(ctx context.Context) ([]*SysRole, error) {
+	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 ORDER BY order_num DESC", sysRoleRows, m.table, config.SysSuperAdminRoleId)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return nil, err
+	}
+}
+
+func (m *customSysRoleModel) FindSubRole(ctx context.Context, id int64) ([]*SysRole, error) {
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id` = ?", sysRoleRows, m.table)
+	var resp []*SysRole
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
 	switch err {
 	case nil:
 		return resp, nil
