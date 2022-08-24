@@ -459,6 +459,7 @@ type UpdateConfigDictReq struct {
 	Value     string `json:"value"`
 	OrderNum  int64  `json:"orderNum"`
 	Remark    string `json:"remark"`
+	Status    int64  `json:"status"`
 }
 
 type LogLogin struct {
