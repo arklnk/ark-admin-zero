@@ -29,7 +29,6 @@ type (
         Account string `json:"account"`
         Username string `json:"username"`
         Nickname string `json:"nickname"`
-        Avatar string `json:"avatar"`
         Gender int64 `json:"gender"`
         Email string `json:"email"`
         Mobile string `json:"mobile"`
@@ -62,7 +61,6 @@ type (
         Account string `json:"account"`
         Username string `json:"username"`
         Nickname string `json:"nickname"`
-        Avatar string `json:"avatar"`
         Gender int64 `json:"gender"`
         Email string `json:"email"`
         Mobile string `json:"mobile"`
@@ -87,7 +85,6 @@ type (
         Id int64 `json:"id"`
         Username string `json:"username"`
         Nickname string `json:"nickname"`
-        Avatar string `json:"avatar"`
         Gender int64 `json:"gender"`
         Email string `json:"email"`
         Mobile string `json:"mobile"`

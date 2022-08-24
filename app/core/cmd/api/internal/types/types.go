@@ -305,7 +305,6 @@ type User struct {
 	Account    string         `json:"account"`
 	Username   string         `json:"username"`
 	Nickname   string         `json:"nickname"`
-	Avatar     string         `json:"avatar"`
 	Gender     int64          `json:"gender"`
 	Email      string         `json:"email"`
 	Mobile     string         `json:"mobile"`
@@ -339,7 +338,6 @@ type AddSysUserReq struct {
 	Account      string  `json:"account"`
 	Username     string  `json:"username"`
 	Nickname     string  `json:"nickname"`
-	Avatar       string  `json:"avatar"`
 	Gender       int64   `json:"gender"`
 	Email        string  `json:"email"`
 	Mobile       string  `json:"mobile"`
@@ -360,7 +358,6 @@ type UpdateSysUserReq struct {
 	Id           int64   `json:"id"`
 	Username     string  `json:"username"`
 	Nickname     string  `json:"nickname"`
-	Avatar       string  `json:"avatar"`
 	Gender       int64   `json:"gender"`
 	Email        string  `json:"email"`
 	Mobile       string  `json:"mobile"`
