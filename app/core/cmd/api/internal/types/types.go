@@ -344,7 +344,7 @@ type AddSysUserReq struct {
 	ProfessionId uint64   `json:"professionId"  validate:"number,gte=1"`
 	JobId        uint64   `json:"jobId"         validate:"number,gte=1"`
 	DeptId       uint64   `json:"deptId"        validate:"number,gte=1"`
-	RoleIds      []uint64 `json:"roleIds"       validate:"number,gte=1,dive"`
+	RoleIds      []uint64 `json:"roleIds"       validate:"dive"`
 	Status       uint64   `json:"status"        validate:"number,gte=0,lte=1"`
 	OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
 	Remark       string   `json:"remark"        validate:"max=200"`
@@ -364,7 +364,7 @@ type UpdateSysUserReq struct {
 	ProfessionId uint64   `json:"professionId"  validate:"number,gte=1"`
 	JobId        uint64   `json:"jobId"         validate:"number,gte=1"`
 	DeptId       uint64   `json:"deptId"        validate:"number,gte=1"`
-	RoleIds      []uint64 `json:"roleIds"       validate:"number,gte=2,dive"`
+	RoleIds      []uint64 `json:"roleIds"       validate:"dive"`
 	Status       uint64   `json:"status"        validate:"number,gte=0,lte=1"`
 	OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
 	Remark       string   `json:"remark"        validate:"max=200"`
