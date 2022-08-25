@@ -28,12 +28,12 @@ type UserProfileInfoResp struct {
 }
 
 type UpdateProfileReq struct {
-	Username string `json:"username" validate:"required,min=2,max=12"`
-	Nickname string `json:"nickname"`
-	Gender   uint64 `json:"gender" validate:"gte=0,lte=2"`
-	Email    string `json:"email"`
-	Mobile   string `json:"mobile"`
-	Avatar   string `json:"avatar"`
+	Username string `json:"username"   validate:"required,min=2,max=12"`
+	Nickname string `json:"nickname"   validate:"omitempty,min=2,max=12"`
+	Gender   uint64 `json:"gender"     validate:"gte=0,lte=2"`
+	Email    string `json:"email"      validate:"omitempty,email"`
+	Mobile   string `json:"mobile"     validate:"omitempty,len=11"`
+	Avatar   string `json:"avatar"     validate:"required,url"`
 }
 
 type Menu struct {
