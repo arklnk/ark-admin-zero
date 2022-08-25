@@ -69,9 +69,9 @@ func (m *customSysPermMenuModel) FindAll(ctx context.Context) ([]*SysPermMenu, e
 }
 
 func (m *customSysPermMenuModel) FindSubPermMenu(ctx context.Context, id uint64) ([]*SysPermMenu, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id` = ?", sysPermMenuRows, m.table)
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id`=%d", sysPermMenuRows, m.table,id)
 	var resp []*SysPermMenu
-	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
 	case nil:
 		return resp, nil

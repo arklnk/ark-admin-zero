@@ -56,9 +56,9 @@ func (m *customSysDeptModel) FindEnable(ctx context.Context) ([]*SysDept, error)
 }
 
 func (m *customSysDeptModel) FindSubDept(ctx context.Context, id uint64) ([]*SysDept, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id` = ?", sysDeptRows, m.table)
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id`=%d", sysDeptRows, m.table,id)
 	var resp []*SysDept
-	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, )
 	switch err {
 	case nil:
 		return resp, nil

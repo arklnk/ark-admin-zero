@@ -14,7 +14,7 @@ type (
 	// and implement the added methods in customSysDictionaryModel.
 	SysDictionaryModel interface {
 		sysDictionaryModel
-		FindDictionarySet(ctx context.Context) ([]*SysDictionary, error)
+		FindDictionaryList(ctx context.Context) ([]*SysDictionary, error)
 		FindPageByParentId(ctx context.Context, id uint64, page uint64, limit uint64) ([]*SysDictionary, error)
 		FindCountByParentId(ctx context.Context, id uint64) (uint64, error)
 	}
@@ -31,7 +31,7 @@ func NewSysDictionaryModel(conn sqlx.SqlConn, c cache.CacheConf) SysDictionaryMo
 	}
 }
 
-func (m *customSysDictionaryModel) FindDictionarySet(ctx context.Context) ([]*SysDictionary, error) {
+func (m *customSysDictionaryModel) FindDictionaryList(ctx context.Context) ([]*SysDictionary, error) {
 	query := fmt.Sprintf("SELECT %s FROM %s WHERE parent_id=0 ORDER BY order_num DESC", sysDictionaryRows, m.table)
 	var resp []*SysDictionary
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
@@ -45,9 +45,9 @@ func (m *customSysDictionaryModel) FindDictionarySet(ctx context.Context) ([]*Sy
 
 func (m *customSysDictionaryModel) FindPageByParentId(ctx context.Context, id uint64, page uint64, limit uint64) ([]*SysDictionary, error) {
 	offset := (page - 1) * limit
-	query := fmt.Sprintf("SELECT %s FROM %s WHERE parent_id=? ORDER BY order_num DESC LIMIT %d,%d", sysDictionaryRows, m.table, offset, limit)
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE parent_id=%d ORDER BY order_num DESC LIMIT %d,%d", sysDictionaryRows, m.table, id,offset, limit)
 	var resp []*SysDictionary
-	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
 	case nil:
 		return resp, nil
@@ -57,9 +57,9 @@ func (m *customSysDictionaryModel) FindPageByParentId(ctx context.Context, id ui
 }
 
 func (m *customSysDictionaryModel) FindCountByParentId(ctx context.Context, id uint64) (uint64, error) {
-	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE parent_id=?", m.table)
+	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE parent_id=%d", m.table,id)
 	var resp uint64
-	err := m.QueryRowNoCacheCtx(ctx, &resp, query, id)
+	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
 	switch err {
 	case nil:
 		return resp, nil

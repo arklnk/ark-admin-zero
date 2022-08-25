@@ -26,7 +26,7 @@ func NewGetConfigDictListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *GetConfigDictListLogic) GetConfigDictList() (resp *types.ConfigDictListResp, err error) {
-	configDictionaryList, err := l.svcCtx.SysDictionaryModel.FindDictionarySet(l.ctx)
+	configDictionaryList, err := l.svcCtx.SysDictionaryModel.FindDictionaryList(l.ctx)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}

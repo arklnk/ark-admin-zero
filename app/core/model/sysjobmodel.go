@@ -16,7 +16,7 @@ type (
 		sysJobModel
 		FindAll(ctx context.Context) ([]*SysJob, error)
 		FindEnable(ctx context.Context) ([]*SysJob, error)
-		FindByPage(ctx context.Context, page uint64, limit uint64) ([]*SysJob, error)
+		FindPage(ctx context.Context, page uint64, limit uint64) ([]*SysJob, error)
 		FindCount(ctx context.Context) (uint64, error)
 	}
 
@@ -56,7 +56,7 @@ func (m *customSysJobModel) FindEnable(ctx context.Context) ([]*SysJob, error) {
 	}
 }
 
-func (m *customSysJobModel) FindByPage(ctx context.Context, page uint64, limit uint64) ([]*SysJob, error) {
+func (m *customSysJobModel) FindPage(ctx context.Context, page uint64, limit uint64) ([]*SysJob, error) {
 	offset := (page - 1) * limit
 	query := fmt.Sprintf("SELECT %s FROM %s ORDER BY order_num DESC LIMIT %d,%d", sysJobRows, m.table, offset, limit)
 	var resp []*SysJob

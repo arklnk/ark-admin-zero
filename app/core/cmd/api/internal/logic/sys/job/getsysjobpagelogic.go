@@ -26,7 +26,7 @@ func NewGetSysJobPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Get
 }
 
 func (l *GetSysJobPageLogic) GetSysJobPage(req *types.SysJobPageReq) (resp *types.SysJobPageResp, err error) {
-	sysJobList, err := l.svcCtx.SysJobModel.FindByPage(l.ctx, req.Page, req.Limit)
+	sysJobList, err := l.svcCtx.SysJobModel.FindPage(l.ctx, req.Page, req.Limit)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}

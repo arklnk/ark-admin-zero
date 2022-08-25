@@ -14,25 +14,25 @@ import (
 var _ SysUserModel = (*customSysUserModel)(nil)
 
 type SysUserDetail struct {
-	Id           uint64     `db:"id"`            // 编号
+	Id           uint64    `db:"id"`            // 编号
 	Account      string    `db:"account"`       // 账号
 	Username     string    `db:"username"`      // 姓名
 	Nickname     string    `db:"nickname"`      // 昵称
 	Avatar       string    `db:"avatar"`        // 头像
-	Gender       uint64     `db:"gender"`        // 0=保密 1=女 2=男
+	Gender       uint64    `db:"gender"`        // 0=保密 1=女 2=男
 	Profession   string    `db:"profession"`    // 职称
-	ProfessionId uint64     `db:"profession_id"` // 职称id
+	ProfessionId uint64    `db:"profession_id"` // 职称id
 	Job          string    `db:"job"`           // 岗位
-	JobId        uint64     `db:"job_id"`        // 岗位id
+	JobId        uint64    `db:"job_id"`        // 岗位id
 	Dept         string    `db:"dept"`          // 部门
-	DeptId       uint64     `db:"dept_id"`       // 部门id
+	DeptId       uint64    `db:"dept_id"`       // 部门id
 	Roles        string    `db:"roles"`         // 角色集
 	RoleIds      string    `db:"role_ids"`      // 角色集id
 	Email        string    `db:"email"`         // 邮件
 	Mobile       string    `db:"mobile"`        // 手机号
 	Remark       string    `db:"remark"`        // 备注
-	OrderNum     uint64     `db:"order_num"`     // 排序值
-	Status       uint64     `db:"status"`        // 0=禁用 1=开启
+	OrderNum     uint64    `db:"order_num"`     // 排序值
+	Status       uint64    `db:"status"`        // 0=禁用 1=开启
 	CreateTime   time.Time `db:"create_time"`   // 创建时间
 	UpdateTime   time.Time `db:"update_time"`   // 更新时间
 }
@@ -42,7 +42,7 @@ type (
 	// and implement the added methods in customSysUserModel.
 	SysUserModel interface {
 		sysUserModel
-		FindByPage(ctx context.Context, page uint64, limit uint64, deptIds string) ([]*SysUserDetail, error)
+		FindPage(ctx context.Context, page uint64, limit uint64, deptIds string) ([]*SysUserDetail, error)
 		FindCountByCondition(ctx context.Context, condition string, value uint64) (uint64, error)
 		FindCountByDeptIds(ctx context.Context, deptIds string) (uint64, error)
 		FindCountByRoleId(ctx context.Context, roleId uint64) (uint64, error)
@@ -62,7 +62,7 @@ func NewSysUserModel(conn sqlx.SqlConn, c cache.CacheConf) SysUserModel {
 	}
 }
 
-func (m *customSysUserModel) FindByPage(ctx context.Context, page uint64, limit uint64, deptIds string) ([]*SysUserDetail, error) {
+func (m *customSysUserModel) FindPage(ctx context.Context, page uint64, limit uint64, deptIds string) ([]*SysUserDetail, error) {
 	offset := (page - 1) * limit
 	query := fmt.Sprintf("SELECT u.id,u.dept_id,u.job_id,u.profession_id,u.account,u.username,u.nickname,u.avatar,u.gender,IFNULL(p.name,'NULL') as profession,IFNULL(j.name,'NULL') as job,IFNULL(d.name,'NULL') as dept,IFNULL(GROUP_CONCAT(r.name),'NULL') as roles,IFNULL(GROUP_CONCAT(r.id),0) as role_ids,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM (SELECT * FROM sys_user WHERE id!=%d AND dept_id IN(%s) ORDER BY order_num DESC LIMIT %d,%d) u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id", config.SysSuperAdminUserId, deptIds, offset, limit)
 	var resp []*SysUserDetail
@@ -76,9 +76,9 @@ func (m *customSysUserModel) FindByPage(ctx context.Context, page uint64, limit 
 }
 
 func (m *customSysUserModel) FindCountByCondition(ctx context.Context, condition string, value uint64) (uint64, error) {
-	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE %s=?", m.table, condition)
+	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE %s=%d", m.table, condition,value)
 	var resp uint64
-	err := m.QueryRowNoCacheCtx(ctx, &resp, query, value)
+	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
 	switch err {
 	case nil:
 		return resp, nil

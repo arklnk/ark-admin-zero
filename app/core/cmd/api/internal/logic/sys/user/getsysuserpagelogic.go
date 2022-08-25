@@ -32,7 +32,7 @@ func (l *GetSysUserPageLogic) GetSysUserPage(req *types.SysUserPageReq) (resp *t
 	s := strconv.FormatUint(req.DeptId, 10)
 	deptIds := l.getDeptIds(s, req.DeptId)
 
-	users, err := l.svcCtx.SysUserModel.FindByPage(l.ctx, req.Page, req.Limit, deptIds)
+	users, err := l.svcCtx.SysUserModel.FindPage(l.ctx, req.Page, req.Limit, deptIds)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}

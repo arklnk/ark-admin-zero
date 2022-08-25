@@ -26,7 +26,7 @@ func NewGetSysProfessionPageLogic(ctx context.Context, svcCtx *svc.ServiceContex
 }
 
 func (l *GetSysProfessionPageLogic) GetSysProfessionPage(req *types.SysProfessionPageReq) (resp *types.SysProfessionPageResp, err error) {
-	sysProfessionList, err := l.svcCtx.SysProfessionModel.FindByPage(l.ctx, req.Page, req.Limit)
+	sysProfessionList, err := l.svcCtx.SysProfessionModel.FindPage(l.ctx, req.Page, req.Limit)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}

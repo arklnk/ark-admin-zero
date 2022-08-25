@@ -57,9 +57,9 @@ func (m *customSysRoleModel) FindEnable(ctx context.Context) ([]*SysRole, error)
 }
 
 func (m *customSysRoleModel) FindSubRole(ctx context.Context, id uint64) ([]*SysRole, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id` = ?", sysRoleRows, m.table)
+	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id`=%d", sysRoleRows, m.table, id)
 	var resp []*SysRole
-	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
 	case nil:
 		return resp, nil

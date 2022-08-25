@@ -27,7 +27,7 @@ func NewGetLogLoginPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 }
 
 func (l *GetLogLoginPageLogic) GetLogLoginPage(req *types.LogLoginPageReq) (resp *types.LogLoginPageResp, err error) {
-	loginLogList, err := l.svcCtx.SysLogModel.FindPageByType(l.ctx, config.SysLoginLogType, req.Page, req.Limit)
+	loginLogList, err := l.svcCtx.SysLogModel.FindPage(l.ctx, config.SysLoginLogType, req.Page, req.Limit)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
@@ -43,7 +43,7 @@ func (l *GetLogLoginPageLogic) GetLogLoginPage(req *types.LogLoginPageReq) (resp
 		logList = append(logList, loginLog)
 	}
 
-	total, err := l.svcCtx.SysLogModel.FindCountByType(l.ctx, config.SysLoginLogType)
+	total, err := l.svcCtx.SysLogModel.FindCount(l.ctx, config.SysLoginLogType)
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
