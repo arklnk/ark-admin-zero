@@ -1,9 +1,9 @@
 package role
 
 import (
-	"ark-admin-zero/app/core/cmd/api/internal/logic/sys/role"
 	"net/http"
 
+	"ark-admin-zero/app/core/cmd/api/internal/logic/sys/role"
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/common/response"
 
