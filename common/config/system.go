@@ -11,7 +11,7 @@ const (
 	SysPermMenuPrefix          = "/"
 	SysDefaultPermType         = 2
 	SysMaxPermMenuId           = 50
-	SysMaxDictionaryId         = 3
+	SysMaxDictionaryId         = 4
 	SysEnable                  = 1
 	SysDisable                 = 0
 	SysTopMenuId               = 0

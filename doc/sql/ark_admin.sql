@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-25 02:41:25
+-- 生成日期： 2022-08-25 03:34:21
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -76,7 +76,9 @@ CREATE TABLE `sys_dictionary` (
 
 INSERT INTO `sys_dictionary` (`id`, `parent_id`, `name`, `type`, `unique_key`, `value`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
 (1, 0, '系统配置', 0, 'sys', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 01:25:31'),
-(2, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '新建用户默认密码', '2022-08-22 10:03:58', '2022-08-24 05:28:06');
+(2, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '新建用户默认密码', '2022-08-22 10:03:58', '2022-08-24 05:28:06'),
+(3, 1, '更新密码', 1, 'sys_ch_pwd', '', 0, 0, '', '2022-08-25 03:18:47', '2022-08-25 03:29:24'),
+(4, 1, '更新个人资料', 1, 'sys_userinfo', '', 0, 0, '', '2022-08-25 03:28:36', '2022-08-25 03:33:18');
 
 -- --------------------------------------------------------
 
@@ -241,7 +243,7 @@ CREATE TABLE `sys_role` (
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
 (1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19'),
-(2, 0, '演示', 'demo', '', '[3, 8, 14, 19, 25, 30, 38, 44, 1, 2, 7, 13, 18, 24, 29, 36, 37, 42, 43]', 0, 0, '2022-08-23 13:13:05', '2022-08-25 02:29:13'),
+(2, 0, '演示', 'demo', '', '[3, 8, 14, 19, 25, 30, 38, 44, 1, 2, 7, 13, 18, 24, 29, 36, 37, 42, 43]', 1, 0, '2022-08-23 13:13:05', '2022-08-25 02:54:23'),
 (3, 0, '测试', 'testing', '', '[]', 1, 0, '2022-08-24 05:01:46', '2022-08-24 07:59:33');
 
 -- --------------------------------------------------------
@@ -276,7 +278,7 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk2', 'arklnk', 'https://avataaars.io/?clotheColor=Blue02&accessoriesType=Prescription01&avatarStyle=Circle&clotheType=BlazerSweater&eyeType=Hearts&eyebrowType=RaisedExcitedNatural&facialHairColor=Brown&facialHairType=MoustacheFancy&hairColor=PastelPink&hatColor=Pink&mouthType=Default&skinColor=Light&topType=Hijab', 0, 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-25 02:40:01'),
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'https://avataaars.io/?clotheColor=PastelBlue&accessoriesType=Sunglasses&avatarStyle=Circle&clotheType=GraphicShirt&eyeType=Dizzy&eyebrowType=UnibrowNatural&facialHairColor=Platinum&facialHairType=BeardLight&hairColor=Brown&hatColor=Heather&mouthType=Grimace&skinColor=DarkBrown&topType=ShortHairDreads01', 0, 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-25 03:09:01'),
 (2, 'demo', '596bfe4bb02db60c2a25965598529e7e', 'demo', '', 'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Sunglasses&facialHairType=Blank&clotheType=Hoodie&clotheColor=Heather&eyeType=Hearts&eyebrowType=UpDown&mouthType=Tongue&skinColor=DarkBrown', 0, '', '', 3, 4, 3, '[2]', 1, 0, '', '2022-08-23 14:04:24', '2022-08-24 08:44:59');
 
 --
@@ -351,7 +353,7 @@ ALTER TABLE `sys_dept`
 -- 使用表AUTO_INCREMENT `sys_dictionary`
 --
 ALTER TABLE `sys_dictionary`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `sys_job`
