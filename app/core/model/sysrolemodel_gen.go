@@ -29,10 +29,10 @@ var (
 type (
 	sysRoleModel interface {
 		Insert(ctx context.Context, data *SysRole) (sql.Result, error)
-		FindOne(ctx context.Context, id int64) (*SysRole, error)
+		FindOne(ctx context.Context, id uint64) (*SysRole, error)
 		FindOneByUniqueKey(ctx context.Context, uniqueKey string) (*SysRole, error)
 		Update(ctx context.Context, data *SysRole) error
-		Delete(ctx context.Context, id int64) error
+		Delete(ctx context.Context, id uint64) error
 	}
 
 	defaultSysRoleModel struct {
@@ -41,14 +41,14 @@ type (
 	}
 
 	SysRole struct {
-		Id          int64     `db:"id"`            // 编号
-		ParentId    int64     `db:"parent_id"`     // 父级id
+		Id          uint64    `db:"id"`            // 编号
+		ParentId    uint64    `db:"parent_id"`     // 父级id
 		Name        string    `db:"name"`          // 名称
 		UniqueKey   string    `db:"unique_key"`    // 唯一标识
 		Remark      string    `db:"remark"`        // 备注
 		PermMenuIds string    `db:"perm_menu_ids"` // 权限集
-		Status      int64     `db:"status"`        // 0=禁用 1=开启
-		OrderNum    int64     `db:"order_num"`     // 排序值
+		Status      uint64    `db:"status"`        // 0=禁用 1=开启
+		OrderNum    uint64    `db:"order_num"`     // 排序值
 		CreateTime  time.Time `db:"create_time"`   // 创建时间
 		UpdateTime  time.Time `db:"update_time"`   // 更新时间
 	}
@@ -61,7 +61,7 @@ func newSysRoleModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultSysRoleModel 
 	}
 }
 
-func (m *defaultSysRoleModel) Delete(ctx context.Context, id int64) error {
+func (m *defaultSysRoleModel) Delete(ctx context.Context, id uint64) error {
 	data, err := m.FindOne(ctx, id)
 	if err != nil {
 		return err
@@ -76,7 +76,7 @@ func (m *defaultSysRoleModel) Delete(ctx context.Context, id int64) error {
 	return err
 }
 
-func (m *defaultSysRoleModel) FindOne(ctx context.Context, id int64) (*SysRole, error) {
+func (m *defaultSysRoleModel) FindOne(ctx context.Context, id uint64) (*SysRole, error) {
 	arkAdminSysRoleIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysRoleIdPrefix, id)
 	var resp SysRole
 	err := m.QueryRowCtx(ctx, &resp, arkAdminSysRoleIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {

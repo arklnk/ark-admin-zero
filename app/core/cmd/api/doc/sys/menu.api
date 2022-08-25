@@ -9,16 +9,16 @@ info(
 
 type (
 	PermMenu {
-		Id           int64    `json:"id"`
-		ParentId     int64    `json:"parentId"`
+		Id           uint64   `json:"id"`
+		ParentId     uint64   `json:"parentId"`
 		Name         string   `json:"name"`
 		Router       string   `json:"router"`
 		Perms        []string `json:"perms"`
-		Type         int64    `json:"type"`
+		Type         uint64   `json:"type"`
 		Icon         string   `json:"icon"`
-		OrderNum     int64    `json:"orderNum"`
+		OrderNum     uint64   `json:"orderNum"`
 		ViewPath     string   `json:"viewPath"`
-		IsShow       int64    `json:"isShow"`
+		IsShow       uint64   `json:"isShow"`
 		ActiveRouter string   `json:"activeRouter"`
 	}
 	SysPermMenuListResp {
@@ -28,37 +28,37 @@ type (
 
 type (
 	AddSysPermMenuReq {
-		ParentId     int64    `json:"parentId"`
+		ParentId     uint64   `json:"parentId"`
 		Name         string   `json:"name"`
 		Router       string   `json:"router"`
 		Perms        []string `json:"perms"`
-		Type         int64    `json:"type"`
+		Type         uint64   `json:"type"`
 		Icon         string   `json:"icon"`
-		OrderNum     int64    `json:"orderNum"`
+		OrderNum     uint64   `json:"orderNum"`
 		ViewPath     string   `json:"viewPath"`
-		IsShow       int64    `json:"isShow"`
+		IsShow       uint64   `json:"isShow"`
 		ActiveRouter string   `json:"activeRouter"`
 	}
 )
 
 type (
 	DeleteSysPermMenuReq {
-		Id int64 `json:"id"`
+		Id uint64 `json:"id"`
 	}
 )
 
 type (
 	UpdateSysPermMenuReq {
-		Id           int64    `json:"id"`
-		ParentId     int64    `json:"parentId"`
+		Id           uint64   `json:"id"`
+		ParentId     uint64   `json:"parentId"`
 		Name         string   `json:"name"`
 		Router       string   `json:"router"`
 		Perms        []string `json:"perms"`
-		Type         int64    `json:"type"`
+		Type         uint64   `json:"type"`
 		Icon         string   `json:"icon"`
-		OrderNum     int64    `json:"orderNum"`
+		OrderNum     uint64   `json:"orderNum"`
 		ViewPath     string   `json:"viewPath"`
-		IsShow       int64    `json:"isShow"`
+		IsShow       uint64   `json:"isShow"`
 		ActiveRouter string   `json:"activeRouter"`
 	}
 )

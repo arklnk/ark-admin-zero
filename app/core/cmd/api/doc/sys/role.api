@@ -9,14 +9,14 @@ info(
 
 type (
 	Role {
-		Id          int64   `json:"id"`
-		ParentId    int64   `json:"parentId"`
-		Name        string  `json:"name"`
-		UniqueKey   string  `json:"uniqueKey"`
-		PermMenuIds []int64 `json:"permMenuIds"`
-		Remark      string  `json:"remark"`
-		Status      int64   `json:"status"`
-		OrderNum    int64   `json:"orderNum"`
+		Id          uint64   `json:"id"`
+		ParentId    uint64   `json:"parentId"`
+		Name        string   `json:"name"`
+		UniqueKey   string   `json:"uniqueKey"`
+		PermMenuIds []uint64 `json:"permMenuIds"`
+		Remark      string   `json:"remark"`
+		Status      uint64   `json:"status"`
+		OrderNum    uint64   `json:"orderNum"`
 	}
 	SysRoleListResp {
 		RoleList []Role `json:"list"`
@@ -25,32 +25,32 @@ type (
 
 type (
 	AddSysRoleReq {
-		ParentId    int64   `json:"parentId"`
-		Name        string  `json:"name"`
-		UniqueKey   string  `json:"uniqueKey"`
-		PermMenuIds []int64 `json:"permMenuIds"`
-		Remark      string  `json:"remark"`
-		Status      int64   `json:"status"`
-		OrderNum    int64   `json:"orderNum"`
+		ParentId    uint64   `json:"parentId"`
+		Name        string   `json:"name"`
+		UniqueKey   string   `json:"uniqueKey"`
+		PermMenuIds []uint64 `json:"permMenuIds"`
+		Remark      string   `json:"remark"`
+		Status      uint64   `json:"status"`
+		OrderNum    uint64   `json:"orderNum"`
 	}
 )
 
 type (
 	DeleteSysRoleReq {
-		Id int64 `json:"id"`
+		Id uint64 `json:"id"`
 	}
 )
 
 type (
 	UpdateSysRoleReq {
-		Id          int64   `json:"id"`
-		ParentId    int64   `json:"parentId"`
-		Name        string  `json:"name"`
-		UniqueKey   string  `json:"uniqueKey"`
-		PermMenuIds []int64 `json:"permMenuIds"`
-		Remark      string  `json:"remark"`
-		Status      int64   `json:"status"`
-		OrderNum    int64   `json:"orderNum"`
+		Id          uint64   `json:"id"`
+		ParentId    uint64   `json:"parentId"`
+		Name        string   `json:"name"`
+		UniqueKey   string   `json:"uniqueKey"`
+		PermMenuIds []uint64 `json:"permMenuIds"`
+		Remark      string   `json:"remark"`
+		Status      uint64   `json:"status"`
+		OrderNum    uint64   `json:"orderNum"`
 	}
 )
 

@@ -39,7 +39,7 @@ func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err
 		if err != nil {
 			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 		}
-		var permMenuIds []int64
+		var permMenuIds []uint64
 		err = json.Unmarshal([]byte(v.PermMenuIds), &permMenuIds)
 		role.PermMenuIds = permMenuIds
 		roleList = append(roleList, role)

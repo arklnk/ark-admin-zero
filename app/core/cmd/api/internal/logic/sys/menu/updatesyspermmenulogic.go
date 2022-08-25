@@ -41,7 +41,7 @@ func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuR
 		}
 	}
 
-	permMenuIds := make([]int64, 0)
+	permMenuIds := make([]uint64, 0)
 	permMenuIds = l.getSubPermMenu(permMenuIds, req.Id)
 	if utils.ArrayContainValue(permMenuIds, req.ParentId) {
 		return errorx.NewDefaultError(errorx.SetParentIdErrorCode)
@@ -71,7 +71,7 @@ func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuR
 	return nil
 }
 
-func (l *UpdateSysPermMenuLogic) getSubPermMenu(permMenuIds []int64, id int64) []int64 {
+func (l *UpdateSysPermMenuLogic) getSubPermMenu(permMenuIds []uint64, id uint64) []uint64 {
 	permMenuList, err := l.svcCtx.SysPermMenuModel.FindSubPermMenu(l.ctx, id)
 	if err != nil && err != model.ErrNotFound {
 		return permMenuIds

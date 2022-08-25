@@ -13,17 +13,17 @@ type (
 		Account    string `json:"account"`
 		Ip         string `json:"ip"`
 		Uri        string `json:"uri"`
-		Status     int64  `json:"status"`
+		Status     uint64 `json:"status"`
 		CreateTime string `json:"createTime"`
 	}
 	LogLoginPageReq {
-		Page  int64 `form:"page"`
-		Limit int64 `form:"limit"`
+		Page  uint64 `form:"page"`
+		Limit uint64 `form:"limit"`
 	}
 	LogLoginPagePagination {
-		Page  int64 `json:"page"`
-		Limit int64 `json:"limit"`
-		Total int64 `json:"total"`
+		Page  uint64 `json:"page"`
+		Limit uint64 `json:"limit"`
+		Total uint64 `json:"total"`
 	}
 	LogLoginPageResp {
 		LogLoginList []LogLogin             `json:"list"`

@@ -15,8 +15,8 @@ type (
 	SysDictionaryModel interface {
 		sysDictionaryModel
 		FindDictionarySet(ctx context.Context) ([]*SysDictionary, error)
-		FindPageByParentId(ctx context.Context, id int64, page int64, limit int64) ([]*SysDictionary, error)
-		FindCountByParentId(ctx context.Context, id int64) (int64, error)
+		FindPageByParentId(ctx context.Context, id uint64, page uint64, limit uint64) ([]*SysDictionary, error)
+		FindCountByParentId(ctx context.Context, id uint64) (uint64, error)
 	}
 
 	customSysDictionaryModel struct {
@@ -43,7 +43,7 @@ func (m *customSysDictionaryModel) FindDictionarySet(ctx context.Context) ([]*Sy
 	}
 }
 
-func (m *customSysDictionaryModel) FindPageByParentId(ctx context.Context, id int64, page int64, limit int64) ([]*SysDictionary, error) {
+func (m *customSysDictionaryModel) FindPageByParentId(ctx context.Context, id uint64, page uint64, limit uint64) ([]*SysDictionary, error) {
 	offset := (page - 1) * limit
 	query := fmt.Sprintf("SELECT %s FROM %s WHERE parent_id=? ORDER BY order_num DESC LIMIT %d,%d", sysDictionaryRows, m.table, offset, limit)
 	var resp []*SysDictionary
@@ -56,9 +56,9 @@ func (m *customSysDictionaryModel) FindPageByParentId(ctx context.Context, id in
 	}
 }
 
-func (m *customSysDictionaryModel) FindCountByParentId(ctx context.Context, id int64) (int64, error) {
+func (m *customSysDictionaryModel) FindCountByParentId(ctx context.Context, id uint64) (uint64, error) {
 	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE parent_id=?", m.table)
-	var resp int64
+	var resp uint64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query, id)
 	switch err {
 	case nil:

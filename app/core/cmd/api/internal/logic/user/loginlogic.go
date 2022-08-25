@@ -69,7 +69,7 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 	}
 	_, err = l.svcCtx.SysLogModel.Insert(l.ctx, &loginLog)
 
-	err = l.svcCtx.Redis.Setex(config.SysOnlineUserCachePrefix+strconv.FormatInt(sysUser.Id, 10), "1", int(l.svcCtx.Config.JwtAuth.AccessExpire))
+	err = l.svcCtx.Redis.Setex(config.SysOnlineUserCachePrefix+strconv.FormatUint(sysUser.Id, 10), "1", int(l.svcCtx.Config.JwtAuth.AccessExpire))
 	if err != nil {
 		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
@@ -79,7 +79,7 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 	}, nil
 }
 
-func (l *LoginLogic) getJwtToken(userId int64) (string, error) {
+func (l *LoginLogic) getJwtToken(userId uint64) (string, error) {
 	iat := time.Now().Unix()
 	claims := make(jwt.MapClaims)
 	claims["exp"] = iat + l.svcCtx.Config.JwtAuth.AccessExpire

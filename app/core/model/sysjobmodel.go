@@ -16,8 +16,8 @@ type (
 		sysJobModel
 		FindAll(ctx context.Context) ([]*SysJob, error)
 		FindEnable(ctx context.Context) ([]*SysJob, error)
-		FindByPage(ctx context.Context, page int64, limit int64) ([]*SysJob, error)
-		FindCount(ctx context.Context) (int64, error)
+		FindByPage(ctx context.Context, page uint64, limit uint64) ([]*SysJob, error)
+		FindCount(ctx context.Context) (uint64, error)
 	}
 
 	customSysJobModel struct {
@@ -56,7 +56,7 @@ func (m *customSysJobModel) FindEnable(ctx context.Context) ([]*SysJob, error) {
 	}
 }
 
-func (m *customSysJobModel) FindByPage(ctx context.Context, page int64, limit int64) ([]*SysJob, error) {
+func (m *customSysJobModel) FindByPage(ctx context.Context, page uint64, limit uint64) ([]*SysJob, error) {
 	offset := (page - 1) * limit
 	query := fmt.Sprintf("SELECT %s FROM %s ORDER BY order_num DESC LIMIT %d,%d", sysJobRows, m.table, offset, limit)
 	var resp []*SysJob
@@ -69,9 +69,9 @@ func (m *customSysJobModel) FindByPage(ctx context.Context, page int64, limit in
 	}
 }
 
-func (m *customSysJobModel) FindCount(ctx context.Context) (int64, error) {
+func (m *customSysJobModel) FindCount(ctx context.Context) (uint64, error) {
 	query := fmt.Sprintf("SELECT COUNT(id) FROM %s", m.table)
-	var resp int64
+	var resp uint64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
 	switch err {
 	case nil:

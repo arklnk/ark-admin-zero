@@ -9,14 +9,14 @@ info(
 
 type (
 	Dept {
-		Id        int64  `json:"id"`
-		ParentId  int64  `json:"parentId"`
+		Id        uint64 `json:"id"`
+		ParentId  uint64 `json:"parentId"`
 		Name      string `json:"name"`
 		FullName  string `json:"fullName"`
 		UniqueKey string `json:"uniqueKey"`
-		Type      int64  `json:"type"`
-		Status    int64  `json:"status"`
-		OrderNum  int64  `json:"orderNum"`
+		Type      uint64 `json:"type"`
+		Status    uint64 `json:"status"`
+		OrderNum  uint64 `json:"orderNum"`
 		Remark    string `json:"remark"`
 	}
 	SysDeptListResp {
@@ -26,33 +26,33 @@ type (
 
 type (
 	AddSysDeptReq {
-		ParentId  int64  `json:"parentId"`
+		ParentId  uint64 `json:"parentId"`
 		Name      string `json:"name"`
 		FullName  string `json:"fullName"`
 		UniqueKey string `json:"uniqueKey"`
-		Type      int64  `json:"type"`
-		Status    int64  `json:"status"`
-		OrderNum  int64  `json:"orderNum"`
+		Type      uint64 `json:"type"`
+		Status    uint64 `json:"status"`
+		OrderNum  uint64 `json:"orderNum"`
 		Remark    string `json:"remark"`
 	}
 )
 
 type (
 	DeleteSysDeptReq {
-		Id int64 `json:"id"`
+		Id uint64 `json:"id"`
 	}
 )
 
 type (
 	UpdateSysDeptReq {
-		Id        int64  `json:"id"`
-		ParentId  int64  `json:"parentId"`
+		Id        uint64 `json:"id"`
+		ParentId  uint64 `json:"parentId"`
 		Name      string `json:"name"`
 		FullName  string `json:"fullName"`
 		UniqueKey string `json:"uniqueKey"`
-		Type      int64  `json:"type"`
-		Status    int64  `json:"status"`
-		OrderNum  int64  `json:"orderNum"`
+		Type      uint64 `json:"type"`
+		Status    uint64 `json:"status"`
+		OrderNum  uint64 `json:"orderNum"`
 		Remark    string `json:"remark"`
 	}
 )

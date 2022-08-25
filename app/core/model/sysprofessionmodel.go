@@ -16,8 +16,8 @@ type (
 		sysProfessionModel
 		FindAll(ctx context.Context) ([]*SysProfession, error)
 		FindEnable(ctx context.Context) ([]*SysProfession, error)
-		FindCount(ctx context.Context) (int64, error)
-		FindByPage(ctx context.Context, page int64, limit int64) ([]*SysProfession, error)
+		FindCount(ctx context.Context) (uint64, error)
+		FindByPage(ctx context.Context, page uint64, limit uint64) ([]*SysProfession, error)
 	}
 
 	customSysProfessionModel struct {
@@ -56,7 +56,7 @@ func (m *customSysProfessionModel) FindEnable(ctx context.Context) ([]*SysProfes
 	}
 }
 
-func (m *customSysProfessionModel) FindByPage(ctx context.Context, page int64, limit int64) ([]*SysProfession, error) {
+func (m *customSysProfessionModel) FindByPage(ctx context.Context, page uint64, limit uint64) ([]*SysProfession, error) {
 	offset := (page - 1) * limit
 	query := fmt.Sprintf("SELECT %s FROM %s ORDER BY order_num DESC LIMIT %d,%d", sysProfessionRows, m.table, offset, limit)
 	var resp []*SysProfession
@@ -69,9 +69,9 @@ func (m *customSysProfessionModel) FindByPage(ctx context.Context, page int64, l
 	}
 }
 
-func (m *customSysProfessionModel) FindCount(ctx context.Context) (int64, error) {
+func (m *customSysProfessionModel) FindCount(ctx context.Context) (uint64, error) {
 	query := fmt.Sprintf("SELECT COUNT(id) FROM %s", m.table)
-	var resp int64
+	var resp uint64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
 	switch err {
 	case nil:

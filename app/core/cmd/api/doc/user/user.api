@@ -30,7 +30,7 @@ type (
 	UserProfileInfoResp {
 		Username string `json:"username"`
 		Nickname string `json:"nickname"`
-		Gender   int64  `json:"gender"`
+		Gender   uint64 `json:"gender"`
 		Email    string `json:"email"`
 		Mobile   string `json:"mobile"`
 		Remark   string `json:"remark"`
@@ -42,7 +42,7 @@ type (
 	UpdateProfileReq {
 		Username string `json:"username" validate:"required,min=2,max=12"`
 		Nickname string `json:"nickname"`
-		Gender   int64  `json:"gender" validate:"gte=0,lte=2"`
+		Gender   uint64 `json:"gender" validate:"gte=0,lte=2"`
 		Email    string `json:"email"`
 		Mobile   string `json:"mobile"`
 		Avatar   string `json:"avatar"`
@@ -51,15 +51,15 @@ type (
 
 type (
 	Menu {
-		Id           int64  `json:"id"`
-		ParentId     int64  `json:"parentId"`
+		Id           uint64 `json:"id"`
+		ParentId     uint64 `json:"parentId"`
 		Name         string `json:"name"`
 		Router       string `json:"router"`
-		Type         int64  `json:"type"`
+		Type         uint64 `json:"type"`
 		Icon         string `json:"icon"`
-		OrderNum     int64  `json:"orderNum"`
+		OrderNum     uint64 `json:"orderNum"`
 		ViewPath     string `json:"viewPath"`
-		IsShow       int64  `json:"isShow"`
+		IsShow       uint64 `json:"isShow"`
 		ActiveRouter string `json:"activeRouter"`
 	}
 	UserPermMenuResp {

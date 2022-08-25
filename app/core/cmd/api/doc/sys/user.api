@@ -9,46 +9,46 @@ info(
 
 type (
 	UserProfession {
-		Id   int64  `json:"id"`
+		Id   uint64 `json:"id"`
 		Name string `json:"name"`
 	}
 	UserJob {
-		Id   int64  `json:"id"`
+		Id   uint64 `json:"id"`
 		Name string `json:"name"`
 	}
 	UserDept {
-		Id   int64  `json:"id"`
+		Id   uint64 `json:"id"`
 		Name string `json:"name"`
 	}
 	UserRole {
-		Id   int64  `json:"id"`
+		Id   uint64 `json:"id"`
 		Name string `json:"name"`
 	}
 	User {
-		Id         int64          `json:"id"`
+		Id         uint64         `json:"id"`
 		Account    string         `json:"account"`
 		Username   string         `json:"username"`
 		Nickname   string         `json:"nickname"`
-		Gender     int64          `json:"gender"`
+		Gender     uint64         `json:"gender"`
 		Email      string         `json:"email"`
 		Mobile     string         `json:"mobile"`
 		Profession UserProfession `json:"profession"`
 		Job        UserJob        `json:"job"`
 		Dept       UserDept       `json:"dept"`
 		Roles      []UserRole     `json:"roles"`
-		Status     int64          `json:"status"`
-		OrderNum   int64          `json:"orderNum"`
+		Status     uint64         `json:"status"`
+		OrderNum   uint64         `json:"orderNum"`
 		Remark     string         `json:"remark"`
 	}
 	SysUserPageReq {
-		Page   int64 `form:"page"`
-		Limit  int64 `form:"limit"`
-		DeptId int64 `form:"deptId"`
+		Page   uint64 `form:"page"`
+		Limit  uint64 `form:"limit"`
+		DeptId uint64 `form:"deptId"`
 	}
 	UserPagePagination {
-		Page  int64 `json:"page"`
-		Limit int64 `json:"limit"`
-		Total int64 `json:"total"`
+		Page  uint64 `json:"page"`
+		Limit uint64 `json:"limit"`
+		Total uint64 `json:"total"`
 	}
 	SysUserPageResp {
 		UserList   []User             `json:"list"`
@@ -58,61 +58,61 @@ type (
 
 type (
 	AddSysUserReq {
-		Account      string  `json:"account"`
-		Username     string  `json:"username"`
-		Nickname     string  `json:"nickname"`
-		Gender       int64   `json:"gender"`
-		Email        string  `json:"email"`
-		Mobile       string  `json:"mobile"`
-		ProfessionId int64   `json:"professionId"`
-		JobId        int64   `json:"jobId"`
-		DeptId       int64   `json:"deptId"`
-		RoleIds      []int64 `json:"roleIds"`
-		Status       int64   `json:"status"`
-		OrderNum     int64   `json:"orderNum"`
-		Remark       string  `json:"remark"`
+		Account      string   `json:"account"`
+		Username     string   `json:"username"`
+		Nickname     string   `json:"nickname"`
+		Gender       uint64   `json:"gender"`
+		Email        string   `json:"email"`
+		Mobile       string   `json:"mobile"`
+		ProfessionId uint64   `json:"professionId"`
+		JobId        uint64   `json:"jobId"`
+		DeptId       uint64   `json:"deptId"`
+		RoleIds      []uint64 `json:"roleIds"`
+		Status       uint64   `json:"status"`
+		OrderNum     uint64   `json:"orderNum"`
+		Remark       string   `json:"remark"`
 	}
 )
 
 type (
 	DeleteSysUserReq {
-		Id int64 `json:"id"`
+		Id uint64 `json:"id"`
 	}
 )
 
 type (
 	UpdateSysUserReq {
-		Id           int64   `json:"id"`
-		Username     string  `json:"username"`
-		Nickname     string  `json:"nickname"`
-		Gender       int64   `json:"gender"`
-		Email        string  `json:"email"`
-		Mobile       string  `json:"mobile"`
-		ProfessionId int64   `json:"professionId"`
-		JobId        int64   `json:"jobId"`
-		DeptId       int64   `json:"deptId"`
-		RoleIds      []int64 `json:"roleIds"`
-		Status       int64   `json:"status"`
-		OrderNum     int64   `json:"orderNum"`
-		Remark       string  `json:"remark"`
+		Id           uint64   `json:"id"`
+		Username     string   `json:"username"`
+		Nickname     string   `json:"nickname"`
+		Gender       uint64   `json:"gender"`
+		Email        string   `json:"email"`
+		Mobile       string   `json:"mobile"`
+		ProfessionId uint64   `json:"professionId"`
+		JobId        uint64   `json:"jobId"`
+		DeptId       uint64   `json:"deptId"`
+		RoleIds      []uint64 `json:"roleIds"`
+		Status       uint64   `json:"status"`
+		OrderNum     uint64   `json:"orderNum"`
+		Remark       string   `json:"remark"`
 	}
 )
 
 type (
 	UpdateSysUserPasswordReq {
-		Id       int64  `json:"id"`
+		Id       uint64 `json:"id"`
 		Password string `json:"password"`
 	}
 )
 
 type (
 	Rdpj {
-		Id   int64  `json:"id"`
+		Id   uint64 `json:"id"`
 		Name string `json:"name"`
 	}
 	RdpjTree {
-		Id       int64  `json:"id"`
-		ParentId int64  `json:"parentId"`
+		Id       uint64 `json:"id"`
+		ParentId uint64 `json:"parentId"`
 		Name     string `json:"name"`
 	}
 	GetSysUserRdpjInfoResp {
@@ -125,8 +125,8 @@ type (
 
 type (
 	TransferSysUserReq {
-		Ids    []int64 `json:"ids"`
-		DeptId int64   `json:"deptId"`
+		Ids    []uint64 `json:"ids"`
+		DeptId uint64   `json:"deptId"`
 	}
 )
 

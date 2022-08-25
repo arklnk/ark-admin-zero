@@ -43,8 +43,8 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatInt(sysUser.Id, 10))
-	_, err = l.svcCtx.Redis.Del(config.SysOnlineUserCachePrefix + strconv.FormatInt(sysUser.Id, 10))
+	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatUint(sysUser.Id, 10))
+	_, err = l.svcCtx.Redis.Del(config.SysOnlineUserCachePrefix + strconv.FormatUint(sysUser.Id, 10))
 	sysUser.RoleIds = string(bytes)
 	err = l.svcCtx.SysUserModel.Update(l.ctx, sysUser)
 	if err != nil {

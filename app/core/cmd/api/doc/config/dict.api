@@ -9,15 +9,15 @@ info(
 
 type (
 	ConfigDict {
-		Id        int64  `json:"id"`
-		ParentId  int64  `json:"parentId"`
+		Id        uint64 `json:"id"`
+		ParentId  uint64 `json:"parentId"`
 		Name      string `json:"name"`
-		Type      int64  `json:"type"`
+		Type      uint64 `json:"type"`
 		UniqueKey string `json:"uniqueKey"`
 		Value     string `json:"value"`
-		OrderNum  int64  `json:"orderNum"`
+		OrderNum  uint64 `json:"orderNum"`
 		Remark    string `json:"remark"`
-		Status    int64  `json:"status"`
+		Status    uint64 `json:"status"`
 	}
 	ConfigDictListResp {
 		DictList []ConfigDict `json:"list"`
@@ -26,14 +26,14 @@ type (
 
 type (
 	ConfigDictPageReq {
-		Page     int64 `form:"page"`
-		Limit    int64 `form:"limit"`
-		ParentId int64 `form:"parentId"`
+		Page     uint64 `form:"page"`
+		Limit    uint64 `form:"limit"`
+		ParentId uint64 `form:"parentId"`
 	}
 	ConfigDictPagination {
-		Page  int64 `json:"page"`
-		Limit int64 `json:"limit"`
-		Total int64 `json:"total"`
+		Page  uint64 `json:"page"`
+		Limit uint64 `json:"limit"`
+		Total uint64 `json:"total"`
 	}
 	ConfigDictPageResp {
 		ConfigDictList []ConfigDict         `json:"list"`
@@ -43,34 +43,34 @@ type (
 
 type (
 	AddConfigDictReq {
-		ParentId  int64  `json:"parentId"`
+		ParentId  uint64 `json:"parentId"`
 		Name      string `json:"name"`
-		Type      int64  `json:"type"`
+		Type      uint64 `json:"type"`
 		UniqueKey string `json:"uniqueKey"`
 		Value     string `json:"value"`
-		OrderNum  int64  `json:"orderNum"`
+		OrderNum  uint64 `json:"orderNum"`
 		Remark    string `json:"remark"`
-		Status    int64  `json:"status"`
+		Status    uint64 `json:"status"`
 	}
 )
 
 type (
 	DeleteConfigDictReq {
-		Id int64 `json:"id"`
+		Id uint64 `json:"id"`
 	}
 )
 
 type (
 	UpdateConfigDictReq {
-		Id        int64  `json:"id"`
-		ParentId  int64  `json:"parentId"`
+		Id        uint64 `json:"id"`
+		ParentId  uint64 `json:"parentId"`
 		Name      string `json:"name"`
-		Type      int64  `json:"type"`
+		Type      uint64 `json:"type"`
 		UniqueKey string `json:"uniqueKey"`
 		Value     string `json:"value"`
-		OrderNum  int64  `json:"orderNum"`
+		OrderNum  uint64 `json:"orderNum"`
 		Remark    string `json:"remark"`
-		Status    int64  `json:"status"`
+		Status    uint64 `json:"status"`
 	}
 )
 

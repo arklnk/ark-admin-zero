@@ -20,7 +20,7 @@ type UserInfoResp struct {
 type UserProfileInfoResp struct {
 	Username string `json:"username"`
 	Nickname string `json:"nickname"`
-	Gender   int64  `json:"gender"`
+	Gender   uint64 `json:"gender"`
 	Email    string `json:"email"`
 	Mobile   string `json:"mobile"`
 	Remark   string `json:"remark"`
@@ -30,22 +30,22 @@ type UserProfileInfoResp struct {
 type UpdateProfileReq struct {
 	Username string `json:"username" validate:"required,min=2,max=12"`
 	Nickname string `json:"nickname"`
-	Gender   int64  `json:"gender" validate:"gte=0,lte=2"`
+	Gender   uint64 `json:"gender" validate:"gte=0,lte=2"`
 	Email    string `json:"email"`
 	Mobile   string `json:"mobile"`
 	Avatar   string `json:"avatar"`
 }
 
 type Menu struct {
-	Id           int64  `json:"id"`
-	ParentId     int64  `json:"parentId"`
+	Id           uint64 `json:"id"`
+	ParentId     uint64 `json:"parentId"`
 	Name         string `json:"name"`
 	Router       string `json:"router"`
-	Type         int64  `json:"type"`
+	Type         uint64 `json:"type"`
 	Icon         string `json:"icon"`
-	OrderNum     int64  `json:"orderNum"`
+	OrderNum     uint64 `json:"orderNum"`
 	ViewPath     string `json:"viewPath"`
-	IsShow       int64  `json:"isShow"`
+	IsShow       uint64 `json:"isShow"`
 	ActiveRouter string `json:"activeRouter"`
 }
 
@@ -69,16 +69,16 @@ type GenerateAvatarResp struct {
 }
 
 type PermMenu struct {
-	Id           int64    `json:"id"`
-	ParentId     int64    `json:"parentId"`
+	Id           uint64   `json:"id"`
+	ParentId     uint64   `json:"parentId"`
 	Name         string   `json:"name"`
 	Router       string   `json:"router"`
 	Perms        []string `json:"perms"`
-	Type         int64    `json:"type"`
+	Type         uint64   `json:"type"`
 	Icon         string   `json:"icon"`
-	OrderNum     int64    `json:"orderNum"`
+	OrderNum     uint64   `json:"orderNum"`
 	ViewPath     string   `json:"viewPath"`
-	IsShow       int64    `json:"isShow"`
+	IsShow       uint64   `json:"isShow"`
 	ActiveRouter string   `json:"activeRouter"`
 }
 
@@ -87,45 +87,45 @@ type SysPermMenuListResp struct {
 }
 
 type AddSysPermMenuReq struct {
-	ParentId     int64    `json:"parentId"`
+	ParentId     uint64   `json:"parentId"`
 	Name         string   `json:"name"`
 	Router       string   `json:"router"`
 	Perms        []string `json:"perms"`
-	Type         int64    `json:"type"`
+	Type         uint64   `json:"type"`
 	Icon         string   `json:"icon"`
-	OrderNum     int64    `json:"orderNum"`
+	OrderNum     uint64   `json:"orderNum"`
 	ViewPath     string   `json:"viewPath"`
-	IsShow       int64    `json:"isShow"`
+	IsShow       uint64   `json:"isShow"`
 	ActiveRouter string   `json:"activeRouter"`
 }
 
 type DeleteSysPermMenuReq struct {
-	Id int64 `json:"id"`
+	Id uint64 `json:"id"`
 }
 
 type UpdateSysPermMenuReq struct {
-	Id           int64    `json:"id"`
-	ParentId     int64    `json:"parentId"`
+	Id           uint64   `json:"id"`
+	ParentId     uint64   `json:"parentId"`
 	Name         string   `json:"name"`
 	Router       string   `json:"router"`
 	Perms        []string `json:"perms"`
-	Type         int64    `json:"type"`
+	Type         uint64   `json:"type"`
 	Icon         string   `json:"icon"`
-	OrderNum     int64    `json:"orderNum"`
+	OrderNum     uint64   `json:"orderNum"`
 	ViewPath     string   `json:"viewPath"`
-	IsShow       int64    `json:"isShow"`
+	IsShow       uint64   `json:"isShow"`
 	ActiveRouter string   `json:"activeRouter"`
 }
 
 type Role struct {
-	Id          int64   `json:"id"`
-	ParentId    int64   `json:"parentId"`
-	Name        string  `json:"name"`
-	UniqueKey   string  `json:"uniqueKey"`
-	PermMenuIds []int64 `json:"permMenuIds"`
-	Remark      string  `json:"remark"`
-	Status      int64   `json:"status"`
-	OrderNum    int64   `json:"orderNum"`
+	Id          uint64   `json:"id"`
+	ParentId    uint64   `json:"parentId"`
+	Name        string   `json:"name"`
+	UniqueKey   string   `json:"uniqueKey"`
+	PermMenuIds []uint64 `json:"permMenuIds"`
+	Remark      string   `json:"remark"`
+	Status      uint64   `json:"status"`
+	OrderNum    uint64   `json:"orderNum"`
 }
 
 type SysRoleListResp struct {
@@ -133,39 +133,39 @@ type SysRoleListResp struct {
 }
 
 type AddSysRoleReq struct {
-	ParentId    int64   `json:"parentId"`
-	Name        string  `json:"name"`
-	UniqueKey   string  `json:"uniqueKey"`
-	PermMenuIds []int64 `json:"permMenuIds"`
-	Remark      string  `json:"remark"`
-	Status      int64   `json:"status"`
-	OrderNum    int64   `json:"orderNum"`
+	ParentId    uint64   `json:"parentId"`
+	Name        string   `json:"name"`
+	UniqueKey   string   `json:"uniqueKey"`
+	PermMenuIds []uint64 `json:"permMenuIds"`
+	Remark      string   `json:"remark"`
+	Status      uint64   `json:"status"`
+	OrderNum    uint64   `json:"orderNum"`
 }
 
 type DeleteSysRoleReq struct {
-	Id int64 `json:"id"`
+	Id uint64 `json:"id"`
 }
 
 type UpdateSysRoleReq struct {
-	Id          int64   `json:"id"`
-	ParentId    int64   `json:"parentId"`
-	Name        string  `json:"name"`
-	UniqueKey   string  `json:"uniqueKey"`
-	PermMenuIds []int64 `json:"permMenuIds"`
-	Remark      string  `json:"remark"`
-	Status      int64   `json:"status"`
-	OrderNum    int64   `json:"orderNum"`
+	Id          uint64   `json:"id"`
+	ParentId    uint64   `json:"parentId"`
+	Name        string   `json:"name"`
+	UniqueKey   string   `json:"uniqueKey"`
+	PermMenuIds []uint64 `json:"permMenuIds"`
+	Remark      string   `json:"remark"`
+	Status      uint64   `json:"status"`
+	OrderNum    uint64   `json:"orderNum"`
 }
 
 type Dept struct {
-	Id        int64  `json:"id"`
-	ParentId  int64  `json:"parentId"`
+	Id        uint64 `json:"id"`
+	ParentId  uint64 `json:"parentId"`
 	Name      string `json:"name"`
 	FullName  string `json:"fullName"`
 	UniqueKey string `json:"uniqueKey"`
-	Type      int64  `json:"type"`
-	Status    int64  `json:"status"`
-	OrderNum  int64  `json:"orderNum"`
+	Type      uint64 `json:"type"`
+	Status    uint64 `json:"status"`
+	OrderNum  uint64 `json:"orderNum"`
 	Remark    string `json:"remark"`
 }
 
@@ -174,48 +174,48 @@ type SysDeptListResp struct {
 }
 
 type AddSysDeptReq struct {
-	ParentId  int64  `json:"parentId"`
+	ParentId  uint64 `json:"parentId"`
 	Name      string `json:"name"`
 	FullName  string `json:"fullName"`
 	UniqueKey string `json:"uniqueKey"`
-	Type      int64  `json:"type"`
-	Status    int64  `json:"status"`
-	OrderNum  int64  `json:"orderNum"`
+	Type      uint64 `json:"type"`
+	Status    uint64 `json:"status"`
+	OrderNum  uint64 `json:"orderNum"`
 	Remark    string `json:"remark"`
 }
 
 type DeleteSysDeptReq struct {
-	Id int64 `json:"id"`
+	Id uint64 `json:"id"`
 }
 
 type UpdateSysDeptReq struct {
-	Id        int64  `json:"id"`
-	ParentId  int64  `json:"parentId"`
+	Id        uint64 `json:"id"`
+	ParentId  uint64 `json:"parentId"`
 	Name      string `json:"name"`
 	FullName  string `json:"fullName"`
 	UniqueKey string `json:"uniqueKey"`
-	Type      int64  `json:"type"`
-	Status    int64  `json:"status"`
-	OrderNum  int64  `json:"orderNum"`
+	Type      uint64 `json:"type"`
+	Status    uint64 `json:"status"`
+	OrderNum  uint64 `json:"orderNum"`
 	Remark    string `json:"remark"`
 }
 
 type Job struct {
-	Id       int64  `json:"id"`
+	Id       uint64 `json:"id"`
 	Name     string `json:"name"`
-	Status   int64  `json:"status"`
-	OrderNum int64  `json:"orderNum"`
+	Status   uint64 `json:"status"`
+	OrderNum uint64 `json:"orderNum"`
 }
 
 type SysJobPageReq struct {
-	Page  int64 `form:"page"`
-	Limit int64 `form:"limit"`
+	Page  uint64 `form:"page"`
+	Limit uint64 `form:"limit"`
 }
 
 type SysJobPagePagination struct {
-	Page  int64 `json:"page"`
-	Limit int64 `json:"limit"`
-	Total int64 `json:"total"`
+	Page  uint64 `json:"page"`
+	Limit uint64 `json:"limit"`
+	Total uint64 `json:"total"`
 }
 
 type SysJobPageResp struct {
@@ -225,37 +225,37 @@ type SysJobPageResp struct {
 
 type AddSysJobReq struct {
 	Name     string `json:"name"`
-	Status   int64  `json:"status"`
-	OrderNum int64  `json:"orderNum"`
+	Status   uint64 `json:"status"`
+	OrderNum uint64 `json:"orderNum"`
 }
 
 type DeleteSysJobReq struct {
-	Id int64 `json:"id"`
+	Id uint64 `json:"id"`
 }
 
 type UpdateSysJobReq struct {
-	Id       int64  `json:"id"`
+	Id       uint64 `json:"id"`
 	Name     string `json:"name"`
-	Status   int64  `json:"status"`
-	OrderNum int64  `json:"orderNum"`
+	Status   uint64 `json:"status"`
+	OrderNum uint64 `json:"orderNum"`
 }
 
 type Profession struct {
-	Id       int64  `json:"id"`
+	Id       uint64 `json:"id"`
 	Name     string `json:"name"`
-	Status   int64  `json:"status"`
-	OrderNum int64  `json:"orderNum"`
+	Status   uint64 `json:"status"`
+	OrderNum uint64 `json:"orderNum"`
 }
 
 type SysProfessionPageReq struct {
-	Page  int64 `form:"page"`
-	Limit int64 `form:"limit"`
+	Page  uint64 `form:"page"`
+	Limit uint64 `form:"limit"`
 }
 
 type ProfessionPagePagination struct {
-	Page  int64 `json:"page"`
-	Limit int64 `json:"limit"`
-	Total int64 `json:"total"`
+	Page  uint64 `json:"page"`
+	Limit uint64 `json:"limit"`
+	Total uint64 `json:"total"`
 }
 
 type SysProfessionPageResp struct {
@@ -265,68 +265,68 @@ type SysProfessionPageResp struct {
 
 type AddSysProfessionReq struct {
 	Name     string `json:"name"`
-	Status   int64  `json:"status"`
-	OrderNum int64  `json:"orderNum"`
+	Status   uint64 `json:"status"`
+	OrderNum uint64 `json:"orderNum"`
 }
 
 type DeleteSysProfessionReq struct {
-	Id int64 `json:"id"`
+	Id uint64 `json:"id"`
 }
 
 type UpdateSysProfessionReq struct {
-	Id       int64  `json:"id"`
+	Id       uint64 `json:"id"`
 	Name     string `json:"name"`
-	Status   int64  `json:"status"`
-	OrderNum int64  `json:"orderNum"`
+	Status   uint64 `json:"status"`
+	OrderNum uint64 `json:"orderNum"`
 }
 
 type UserProfession struct {
-	Id   int64  `json:"id"`
+	Id   uint64 `json:"id"`
 	Name string `json:"name"`
 }
 
 type UserJob struct {
-	Id   int64  `json:"id"`
+	Id   uint64 `json:"id"`
 	Name string `json:"name"`
 }
 
 type UserDept struct {
-	Id   int64  `json:"id"`
+	Id   uint64 `json:"id"`
 	Name string `json:"name"`
 }
 
 type UserRole struct {
-	Id   int64  `json:"id"`
+	Id   uint64 `json:"id"`
 	Name string `json:"name"`
 }
 
 type User struct {
-	Id         int64          `json:"id"`
+	Id         uint64         `json:"id"`
 	Account    string         `json:"account"`
 	Username   string         `json:"username"`
 	Nickname   string         `json:"nickname"`
-	Gender     int64          `json:"gender"`
+	Gender     uint64         `json:"gender"`
 	Email      string         `json:"email"`
 	Mobile     string         `json:"mobile"`
 	Profession UserProfession `json:"profession"`
 	Job        UserJob        `json:"job"`
 	Dept       UserDept       `json:"dept"`
 	Roles      []UserRole     `json:"roles"`
-	Status     int64          `json:"status"`
-	OrderNum   int64          `json:"orderNum"`
+	Status     uint64         `json:"status"`
+	OrderNum   uint64         `json:"orderNum"`
 	Remark     string         `json:"remark"`
 }
 
 type SysUserPageReq struct {
-	Page   int64 `form:"page"`
-	Limit  int64 `form:"limit"`
-	DeptId int64 `form:"deptId"`
+	Page   uint64 `form:"page"`
+	Limit  uint64 `form:"limit"`
+	DeptId uint64 `form:"deptId"`
 }
 
 type UserPagePagination struct {
-	Page  int64 `json:"page"`
-	Limit int64 `json:"limit"`
-	Total int64 `json:"total"`
+	Page  uint64 `json:"page"`
+	Limit uint64 `json:"limit"`
+	Total uint64 `json:"total"`
 }
 
 type SysUserPageResp struct {
@@ -335,54 +335,54 @@ type SysUserPageResp struct {
 }
 
 type AddSysUserReq struct {
-	Account      string  `json:"account"`
-	Username     string  `json:"username"`
-	Nickname     string  `json:"nickname"`
-	Gender       int64   `json:"gender"`
-	Email        string  `json:"email"`
-	Mobile       string  `json:"mobile"`
-	ProfessionId int64   `json:"professionId"`
-	JobId        int64   `json:"jobId"`
-	DeptId       int64   `json:"deptId"`
-	RoleIds      []int64 `json:"roleIds"`
-	Status       int64   `json:"status"`
-	OrderNum     int64   `json:"orderNum"`
-	Remark       string  `json:"remark"`
+	Account      string   `json:"account"`
+	Username     string   `json:"username"`
+	Nickname     string   `json:"nickname"`
+	Gender       uint64   `json:"gender"`
+	Email        string   `json:"email"`
+	Mobile       string   `json:"mobile"`
+	ProfessionId uint64   `json:"professionId"`
+	JobId        uint64   `json:"jobId"`
+	DeptId       uint64   `json:"deptId"`
+	RoleIds      []uint64 `json:"roleIds"`
+	Status       uint64   `json:"status"`
+	OrderNum     uint64   `json:"orderNum"`
+	Remark       string   `json:"remark"`
 }
 
 type DeleteSysUserReq struct {
-	Id int64 `json:"id"`
+	Id uint64 `json:"id"`
 }
 
 type UpdateSysUserReq struct {
-	Id           int64   `json:"id"`
-	Username     string  `json:"username"`
-	Nickname     string  `json:"nickname"`
-	Gender       int64   `json:"gender"`
-	Email        string  `json:"email"`
-	Mobile       string  `json:"mobile"`
-	ProfessionId int64   `json:"professionId"`
-	JobId        int64   `json:"jobId"`
-	DeptId       int64   `json:"deptId"`
-	RoleIds      []int64 `json:"roleIds"`
-	Status       int64   `json:"status"`
-	OrderNum     int64   `json:"orderNum"`
-	Remark       string  `json:"remark"`
+	Id           uint64   `json:"id"`
+	Username     string   `json:"username"`
+	Nickname     string   `json:"nickname"`
+	Gender       uint64   `json:"gender"`
+	Email        string   `json:"email"`
+	Mobile       string   `json:"mobile"`
+	ProfessionId uint64   `json:"professionId"`
+	JobId        uint64   `json:"jobId"`
+	DeptId       uint64   `json:"deptId"`
+	RoleIds      []uint64 `json:"roleIds"`
+	Status       uint64   `json:"status"`
+	OrderNum     uint64   `json:"orderNum"`
+	Remark       string   `json:"remark"`
 }
 
 type UpdateSysUserPasswordReq struct {
-	Id       int64  `json:"id"`
+	Id       uint64 `json:"id"`
 	Password string `json:"password"`
 }
 
 type Rdpj struct {
-	Id   int64  `json:"id"`
+	Id   uint64 `json:"id"`
 	Name string `json:"name"`
 }
 
 type RdpjTree struct {
-	Id       int64  `json:"id"`
-	ParentId int64  `json:"parentId"`
+	Id       uint64 `json:"id"`
+	ParentId uint64 `json:"parentId"`
 	Name     string `json:"name"`
 }
 
@@ -394,20 +394,20 @@ type GetSysUserRdpjInfoResp struct {
 }
 
 type TransferSysUserReq struct {
-	Ids    []int64 `json:"ids"`
-	DeptId int64   `json:"deptId"`
+	Ids    []uint64 `json:"ids"`
+	DeptId uint64   `json:"deptId"`
 }
 
 type ConfigDict struct {
-	Id        int64  `json:"id"`
-	ParentId  int64  `json:"parentId"`
+	Id        uint64 `json:"id"`
+	ParentId  uint64 `json:"parentId"`
 	Name      string `json:"name"`
-	Type      int64  `json:"type"`
+	Type      uint64 `json:"type"`
 	UniqueKey string `json:"uniqueKey"`
 	Value     string `json:"value"`
-	OrderNum  int64  `json:"orderNum"`
+	OrderNum  uint64 `json:"orderNum"`
 	Remark    string `json:"remark"`
-	Status    int64  `json:"status"`
+	Status    uint64 `json:"status"`
 }
 
 type ConfigDictListResp struct {
@@ -415,15 +415,15 @@ type ConfigDictListResp struct {
 }
 
 type ConfigDictPageReq struct {
-	Page     int64 `form:"page"`
-	Limit    int64 `form:"limit"`
-	ParentId int64 `form:"parentId"`
+	Page     uint64 `form:"page"`
+	Limit    uint64 `form:"limit"`
+	ParentId uint64 `form:"parentId"`
 }
 
 type ConfigDictPagination struct {
-	Page  int64 `json:"page"`
-	Limit int64 `json:"limit"`
-	Total int64 `json:"total"`
+	Page  uint64 `json:"page"`
+	Limit uint64 `json:"limit"`
+	Total uint64 `json:"total"`
 }
 
 type ConfigDictPageResp struct {
@@ -432,30 +432,30 @@ type ConfigDictPageResp struct {
 }
 
 type AddConfigDictReq struct {
-	ParentId  int64  `json:"parentId"`
+	ParentId  uint64 `json:"parentId"`
 	Name      string `json:"name"`
-	Type      int64  `json:"type"`
+	Type      uint64 `json:"type"`
 	UniqueKey string `json:"uniqueKey"`
 	Value     string `json:"value"`
-	OrderNum  int64  `json:"orderNum"`
+	OrderNum  uint64 `json:"orderNum"`
 	Remark    string `json:"remark"`
-	Status    int64  `json:"status"`
+	Status    uint64 `json:"status"`
 }
 
 type DeleteConfigDictReq struct {
-	Id int64 `json:"id"`
+	Id uint64 `json:"id"`
 }
 
 type UpdateConfigDictReq struct {
-	Id        int64  `json:"id"`
-	ParentId  int64  `json:"parentId"`
+	Id        uint64 `json:"id"`
+	ParentId  uint64 `json:"parentId"`
 	Name      string `json:"name"`
-	Type      int64  `json:"type"`
+	Type      uint64 `json:"type"`
 	UniqueKey string `json:"uniqueKey"`
 	Value     string `json:"value"`
-	OrderNum  int64  `json:"orderNum"`
+	OrderNum  uint64 `json:"orderNum"`
 	Remark    string `json:"remark"`
-	Status    int64  `json:"status"`
+	Status    uint64 `json:"status"`
 }
 
 type LogLogin struct {
@@ -463,19 +463,19 @@ type LogLogin struct {
 	Account    string `json:"account"`
 	Ip         string `json:"ip"`
 	Uri        string `json:"uri"`
-	Status     int64  `json:"status"`
+	Status     uint64 `json:"status"`
 	CreateTime string `json:"createTime"`
 }
 
 type LogLoginPageReq struct {
-	Page  int64 `form:"page"`
-	Limit int64 `form:"limit"`
+	Page  uint64 `form:"page"`
+	Limit uint64 `form:"limit"`
 }
 
 type LogLoginPagePagination struct {
-	Page  int64 `json:"page"`
-	Limit int64 `json:"limit"`
-	Total int64 `json:"total"`
+	Page  uint64 `json:"page"`
+	Limit uint64 `json:"limit"`
+	Total uint64 `json:"total"`
 }
 
 type LogLoginPageResp struct {

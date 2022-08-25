@@ -26,7 +26,7 @@ func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LogoutLogi
 }
 
 func (l *LogoutLogic) Logout() error {
-	userId := strconv.FormatInt(utils.GetUserId(l.ctx), 10)
+	userId := strconv.FormatUint(utils.GetUserId(l.ctx), 10)
 	_, _ = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + userId)
 	_, _ = l.svcCtx.Redis.Del(config.SysOnlineUserCachePrefix + userId)
 	_, _ = l.svcCtx.Redis.Del(config.SysUserIdCachePrefix + userId)

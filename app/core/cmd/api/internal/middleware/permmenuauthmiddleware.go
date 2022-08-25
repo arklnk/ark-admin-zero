@@ -27,7 +27,7 @@ func (m *PermMenuAuthMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc 
 	return func(w http.ResponseWriter, r *http.Request) {
 		if len(r.Header.Get("Authorization")) > 0 {
 			userId := utils.GetUserId(r.Context())
-			online, err := m.Redis.Get(config.SysOnlineUserCachePrefix + strconv.FormatInt(userId, 10))
+			online, err := m.Redis.Get(config.SysOnlineUserCachePrefix + strconv.FormatUint(userId, 10))
 			if err != nil || online == "" {
 				httpx.Error(w, errorx.NewDefaultError(errorx.AuthErrorCode))
 				var erring any
@@ -36,7 +36,7 @@ func (m *PermMenuAuthMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc 
 			}
 
 			uri := strings.Split(r.RequestURI, "?")
-			is, err := m.Redis.Sismember(config.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), uri[0])
+			is, err := m.Redis.Sismember(config.SysPermMenuCachePrefix+strconv.FormatUint(userId, 10), uri[0])
 			if err != nil || is != true {
 				httpx.Error(w, errorx.NewDefaultError(errorx.NotPermMenuErrorCode))
 			} else {

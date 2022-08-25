@@ -15,7 +15,7 @@ type (
 	SysDeptModel interface {
 		sysDeptModel
 		FindAll(ctx context.Context) ([]*SysDept, error)
-		FindSubDept(ctx context.Context, id int64) ([]*SysDept, error)
+		FindSubDept(ctx context.Context, id uint64) ([]*SysDept, error)
 		FindEnable(ctx context.Context) ([]*SysDept, error)
 	}
 
@@ -55,7 +55,7 @@ func (m *customSysDeptModel) FindEnable(ctx context.Context) ([]*SysDept, error)
 	}
 }
 
-func (m *customSysDeptModel) FindSubDept(ctx context.Context, id int64) ([]*SysDept, error) {
+func (m *customSysDeptModel) FindSubDept(ctx context.Context, id uint64) ([]*SysDept, error) {
 	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id` = ?", sysDeptRows, m.table)
 	var resp []*SysDept
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query, id)

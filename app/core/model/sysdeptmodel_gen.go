@@ -29,10 +29,10 @@ var (
 type (
 	sysDeptModel interface {
 		Insert(ctx context.Context, data *SysDept) (sql.Result, error)
-		FindOne(ctx context.Context, id int64) (*SysDept, error)
+		FindOne(ctx context.Context, id uint64) (*SysDept, error)
 		FindOneByUniqueKey(ctx context.Context, uniqueKey string) (*SysDept, error)
 		Update(ctx context.Context, data *SysDept) error
-		Delete(ctx context.Context, id int64) error
+		Delete(ctx context.Context, id uint64) error
 	}
 
 	defaultSysDeptModel struct {
@@ -41,14 +41,14 @@ type (
 	}
 
 	SysDept struct {
-		Id         int64     `db:"id"`          // 编号
-		ParentId   int64     `db:"parent_id"`   // 父级id
+		Id         uint64    `db:"id"`          // 编号
+		ParentId   uint64    `db:"parent_id"`   // 父级id
 		Name       string    `db:"name"`        // 部门简称
 		FullName   string    `db:"full_name"`   // 部门全称
 		UniqueKey  string    `db:"unique_key"`  // 唯一值
-		Type       int64     `db:"type"`        // 1=公司 2=子公司 3=部门
-		Status     int64     `db:"status"`      // 0=禁用 1=开启
-		OrderNum   int64     `db:"order_num"`   // 排序值
+		Type       uint64    `db:"type"`        // 1=公司 2=子公司 3=部门
+		Status     uint64    `db:"status"`      // 0=禁用 1=开启
+		OrderNum   uint64    `db:"order_num"`   // 排序值
 		Remark     string    `db:"remark"`      // 备注
 		CreateTime time.Time `db:"create_time"` // 创建时间
 		UpdateTime time.Time `db:"update_time"` // 更新时间
@@ -62,7 +62,7 @@ func newSysDeptModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultSysDeptModel 
 	}
 }
 
-func (m *defaultSysDeptModel) Delete(ctx context.Context, id int64) error {
+func (m *defaultSysDeptModel) Delete(ctx context.Context, id uint64) error {
 	data, err := m.FindOne(ctx, id)
 	if err != nil {
 		return err
@@ -77,7 +77,7 @@ func (m *defaultSysDeptModel) Delete(ctx context.Context, id int64) error {
 	return err
 }
 
-func (m *defaultSysDeptModel) FindOne(ctx context.Context, id int64) (*SysDept, error) {
+func (m *defaultSysDeptModel) FindOne(ctx context.Context, id uint64) (*SysDept, error) {
 	arkAdminSysDeptIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysDeptIdPrefix, id)
 	var resp SysDept
 	err := m.QueryRowCtx(ctx, &resp, arkAdminSysDeptIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {

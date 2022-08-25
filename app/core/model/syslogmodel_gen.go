@@ -40,12 +40,12 @@ type (
 
 	SysLog struct {
 		Id         uint64    `db:"id"`          // 编号
-		UserId     int64     `db:"user_id"`     // 操作账号
+		UserId     uint64    `db:"user_id"`     // 操作账号
 		Ip         string    `db:"ip"`          // ip
 		Uri        string    `db:"uri"`         // 请求路径
-		Type       int64     `db:"type"`        // 1=登录日志 2=操作日志
+		Type       uint64    `db:"type"`        // 1=登录日志 2=操作日志
 		Request    string    `db:"request"`     // 请求数据
-		Status     int64     `db:"status"`      // 0=失败 1=成功
+		Status     uint64    `db:"status"`      // 0=失败 1=成功
 		CreateTime time.Time `db:"create_time"` // 创建时间
 		UpdateTime time.Time `db:"update_time"` // 更新时间
 	}

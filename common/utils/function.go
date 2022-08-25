@@ -5,7 +5,6 @@ import (
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
-	"time"
 
 	"ark-admin-zero/common/config"
 
@@ -18,11 +17,11 @@ func MD5(str string) string {
 	return fmt.Sprintf("%x", has)
 }
 
-func GetUserId(ctx context.Context) int64 {
-	var uid int64
+func GetUserId(ctx context.Context) uint64 {
+	var uid uint64
 	if jsonUid, ok := ctx.Value(config.SysJwtUserId).(json.Number); ok {
 		if int64Uid, err := jsonUid.Int64(); err == nil {
-			uid = int64Uid
+			uid = uint64(int64Uid)
 		} else {
 			logx.WithContext(ctx).Errorf("GetUidFromCtx err : %+v", err)
 		}
@@ -45,7 +44,7 @@ func ArrayUniqueValue[T any](arr []T) []T {
 	return result
 }
 
-func ArrayContainValue(arr []int64, search int64) bool {
+func ArrayContainValue(arr []uint64, search uint64) bool {
 	for _, v := range arr {
 		if v == search {
 			return true
@@ -53,12 +52,4 @@ func ArrayContainValue(arr []int64, search int64) bool {
 	}
 
 	return false
-}
-
-func StrToTime(s string) time.Time {
-	date, err := time.Parse("2006-01-02", s)
-	if err != nil {
-		return time.Time{}
-	}
-	return date
 }
