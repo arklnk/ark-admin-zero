@@ -16,6 +16,18 @@ type Captcha struct {
 	ColorA uint8
 }
 
+func NewCaptcha(h int, w int, l int, r uint8, g uint8, b uint8, a uint8) *Captcha {
+	return &Captcha{
+		Height: h,
+		Width:  w,
+		Length: l,
+		ColorR: r,
+		ColorG: g,
+		ColorB: b,
+		ColorA: a,
+	}
+}
+
 func (c *Captcha) DriverString() *base64Captcha.DriverString {
 	stringType := &base64Captcha.DriverString{
 		Height:          c.Height,
