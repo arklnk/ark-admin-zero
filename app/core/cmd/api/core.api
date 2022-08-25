@@ -9,18 +9,18 @@ info(
 )
 
 // 用户公共模块
-import "doc/user/user.api"
+import "desc/user/user.api"
 
 // 系统管理模块
-import "doc/sys/menu.api"
-import "doc/sys/role.api"
-import "doc/sys/dept.api"
-import "doc/sys/job.api"
-import "doc/sys/profession.api"
-import "doc/sys/user.api"
+import "desc/sys/menu.api"
+import "desc/sys/role.api"
+import "desc/sys/dept.api"
+import "desc/sys/job.api"
+import "desc/sys/profession.api"
+import "desc/sys/user.api"
 
 // 配置管理模块
-import "doc/config/dict.api"
+import "desc/config/dict.api"
 
 // 日志管理模块
-import "doc/log/log.api"
+import "desc/log/log.api"
