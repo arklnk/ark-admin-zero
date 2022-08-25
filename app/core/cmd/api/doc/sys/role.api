@@ -37,7 +37,7 @@ type (
 
 type (
 	DeleteSysRoleReq {
-		Id uint64 `json:"id"  validate:"number,gte=1"`
+		Id uint64 `json:"id"  validate:"number,gte=2"`
 	}
 )
 

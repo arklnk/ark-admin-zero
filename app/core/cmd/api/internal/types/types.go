@@ -143,7 +143,7 @@ type AddSysRoleReq struct {
 }
 
 type DeleteSysRoleReq struct {
-	Id uint64 `json:"id"  validate:"number,gte=1"`
+	Id uint64 `json:"id"  validate:"number,gte=2"`
 }
 
 type UpdateSysRoleReq struct {
@@ -318,9 +318,9 @@ type User struct {
 }
 
 type SysUserPageReq struct {
-	Page   uint64 `form:"page"`
-	Limit  uint64 `form:"limit"`
-	DeptId uint64 `form:"deptId"`
+	Page   uint64 `form:"page"    validate:"number,gte=1"`
+	Limit  uint64 `form:"limit"   validate:"number,gte=1"`
+	DeptId uint64 `form:"deptId"  validate:"number,gte=0"`
 }
 
 type UserPagePagination struct {
@@ -335,44 +335,44 @@ type SysUserPageResp struct {
 }
 
 type AddSysUserReq struct {
-	Account      string   `json:"account"`
-	Username     string   `json:"username"`
-	Nickname     string   `json:"nickname"`
-	Gender       uint64   `json:"gender"`
-	Email        string   `json:"email"`
-	Mobile       string   `json:"mobile"`
-	ProfessionId uint64   `json:"professionId"`
-	JobId        uint64   `json:"jobId"`
-	DeptId       uint64   `json:"deptId"`
-	RoleIds      []uint64 `json:"roleIds"`
-	Status       uint64   `json:"status"`
-	OrderNum     uint64   `json:"orderNum"`
-	Remark       string   `json:"remark"`
+	Account      string   `json:"account"       validate:"min=2,max=50"`
+	Username     string   `json:"username"      validate:"min=2,max=50"`
+	Nickname     string   `json:"nickname"      validate:"omitempty,min=2,max=50"`
+	Gender       uint64   `json:"gender"        validate:"number,gte=0,lte=2"`
+	Email        string   `json:"email"         validate:"omitempty,email"`
+	Mobile       string   `json:"mobile"        validate:"omitempty,min=11"`
+	ProfessionId uint64   `json:"professionId"  validate:"number,gte=1"`
+	JobId        uint64   `json:"jobId"         validate:"number,gte=1"`
+	DeptId       uint64   `json:"deptId"        validate:"number,gte=1"`
+	RoleIds      []uint64 `json:"roleIds"       validate:"number,gte=1,dive"`
+	Status       uint64   `json:"status"        validate:"number,gte=0,lte=1"`
+	OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
+	Remark       string   `json:"remark"        validate:"max=200"`
 }
 
 type DeleteSysUserReq struct {
-	Id uint64 `json:"id"`
+	Id uint64 `json:"id"  validate:"number,gte=2"`
 }
 
 type UpdateSysUserReq struct {
-	Id           uint64   `json:"id"`
-	Username     string   `json:"username"`
-	Nickname     string   `json:"nickname"`
-	Gender       uint64   `json:"gender"`
-	Email        string   `json:"email"`
-	Mobile       string   `json:"mobile"`
-	ProfessionId uint64   `json:"professionId"`
-	JobId        uint64   `json:"jobId"`
-	DeptId       uint64   `json:"deptId"`
-	RoleIds      []uint64 `json:"roleIds"`
-	Status       uint64   `json:"status"`
-	OrderNum     uint64   `json:"orderNum"`
-	Remark       string   `json:"remark"`
+	Id           uint64   `json:"id"            validate:"number,gte=2"`
+	Username     string   `json:"username"      validate:"min=2,max=50"`
+	Nickname     string   `json:"nickname"      validate:"omitempty,min=2,max=50"`
+	Gender       uint64   `json:"gender"        validate:"number,gte=0,lte=2"`
+	Email        string   `json:"email"         validate:"omitempty,email"`
+	Mobile       string   `json:"mobile"        validate:"omitempty,min=11"`
+	ProfessionId uint64   `json:"professionId"  validate:"number,gte=1"`
+	JobId        uint64   `json:"jobId"         validate:"number,gte=1"`
+	DeptId       uint64   `json:"deptId"        validate:"number,gte=1"`
+	RoleIds      []uint64 `json:"roleIds"       validate:"number,gte=2,dive"`
+	Status       uint64   `json:"status"        validate:"number,gte=0,lte=1"`
+	OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
+	Remark       string   `json:"remark"        validate:"max=200"`
 }
 
 type UpdateSysUserPasswordReq struct {
-	Id       uint64 `json:"id"`
-	Password string `json:"password"`
+	Id       uint64 `json:"id"        validate:"number,gte=2"`
+	Password string `json:"password"  validate:"min=6,max=12"`
 }
 
 type Rdpj struct {
