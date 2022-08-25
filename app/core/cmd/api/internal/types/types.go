@@ -447,15 +447,14 @@ type DeleteConfigDictReq struct {
 }
 
 type UpdateConfigDictReq struct {
-	Id        uint64 `json:"id"`
-	ParentId  uint64 `json:"parentId"`
-	Name      string `json:"name"`
-	Type      uint64 `json:"type"`
-	UniqueKey string `json:"uniqueKey"`
-	Value     string `json:"value"`
-	OrderNum  uint64 `json:"orderNum"`
-	Remark    string `json:"remark"`
-	Status    uint64 `json:"status"`
+	Id       uint64 `json:"id"`
+	ParentId uint64 `json:"parentId"`
+	Name     string `json:"name"`
+	Type     uint64 `json:"type"`
+	Value    string `json:"value"`
+	OrderNum uint64 `json:"orderNum"`
+	Remark   string `json:"remark"`
+	Status   uint64 `json:"status"`
 }
 
 type LogLogin struct {
