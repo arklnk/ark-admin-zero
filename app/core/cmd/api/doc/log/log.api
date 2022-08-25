@@ -17,8 +17,8 @@ type (
 		CreateTime string `json:"createTime"`
 	}
 	LogLoginPageReq {
-		Page  uint64 `form:"page"`
-		Limit uint64 `form:"limit"`
+		Page  uint64 `form:"page"   validate:"number,gte=1"`
+		Limit uint64 `form:"limit"  validate:"number,gte=1"`
 	}
 	LogLoginPagePagination {
 		Page  uint64 `json:"page"`

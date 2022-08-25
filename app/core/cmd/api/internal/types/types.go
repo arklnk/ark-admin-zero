@@ -462,8 +462,8 @@ type LogLogin struct {
 }
 
 type LogLoginPageReq struct {
-	Page  uint64 `form:"page"`
-	Limit uint64 `form:"limit"`
+	Page  uint64 `form:"page"   validate:"number,gte=1"`
+	Limit uint64 `form:"limit"  validate:"number,gte=1"`
 }
 
 type LogLoginPagePagination struct {
