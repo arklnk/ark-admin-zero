@@ -87,34 +87,34 @@ type SysPermMenuListResp struct {
 }
 
 type AddSysPermMenuReq struct {
-	ParentId     uint64   `json:"parentId"`
-	Name         string   `json:"name"`
-	Router       string   `json:"router"`
-	Perms        []string `json:"perms"`
-	Type         uint64   `json:"type"`
-	Icon         string   `json:"icon"`
-	OrderNum     uint64   `json:"orderNum"`
-	ViewPath     string   `json:"viewPath"`
-	IsShow       uint64   `json:"isShow"`
-	ActiveRouter string   `json:"activeRouter"`
+	ParentId     uint64   `json:"parentId"      validate:"number,gte=0"`
+	Name         string   `json:"name"          validate:"min=2,max=50"`
+	Router       string   `json:"router"        validate:"omitempty,max=200"`
+	Perms        []string `json:"perms"         validate:"omitempty,dive"`
+	Type         uint64   `json:"type"          validate:"number,gte=0,lte=2"`
+	Icon         string   `json:"icon"          validate:"omitempty,max=50"`
+	OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
+	ViewPath     string   `json:"viewPath"      validate:"omitempty,max=200"`
+	IsShow       uint64   `json:"isShow"        validate:"number,gte=0,lte=1"`
+	ActiveRouter string   `json:"activeRouter"  validate:"omitempty,max=200"`
 }
 
 type DeleteSysPermMenuReq struct {
-	Id uint64 `json:"id"`
+	Id uint64 `json:"id"  validate:"number,gte=1"`
 }
 
 type UpdateSysPermMenuReq struct {
-	Id           uint64   `json:"id"`
-	ParentId     uint64   `json:"parentId"`
-	Name         string   `json:"name"`
-	Router       string   `json:"router"`
-	Perms        []string `json:"perms"`
-	Type         uint64   `json:"type"`
-	Icon         string   `json:"icon"`
-	OrderNum     uint64   `json:"orderNum"`
-	ViewPath     string   `json:"viewPath"`
-	IsShow       uint64   `json:"isShow"`
-	ActiveRouter string   `json:"activeRouter"`
+	Id           uint64   `json:"id"            validate:"number,gte=1"`
+	ParentId     uint64   `json:"parentId"      validate:"number,gte=0"`
+	Name         string   `json:"name"          validate:"min=2,max=50"`
+	Router       string   `json:"router"        validate:"omitempty,max=200"`
+	Perms        []string `json:"perms"         validate:"omitempty,dive"`
+	Type         uint64   `json:"type"          validate:"number,gte=0,lte=2"`
+	Icon         string   `json:"icon"          validate:"omitempty,max=50"`
+	OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
+	ViewPath     string   `json:"viewPath"      validate:"omitempty,max=200"`
+	IsShow       uint64   `json:"isShow"        validate:"number,gte=0,lte=1"`
+	ActiveRouter string   `json:"activeRouter"  validate:"omitempty,max=200"`
 }
 
 type Role struct {
