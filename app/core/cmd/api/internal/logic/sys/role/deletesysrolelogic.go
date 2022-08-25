@@ -26,7 +26,7 @@ func NewDeleteSysRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 }
 
 func (l *DeleteSysRoleLogic) DeleteSysRole(req *types.DeleteSysRoleReq) error {
-	if req.Id == config.SysSuperAdminRoleId {
+	if req.Id == config.SysProtectRoleId {
 		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
 	}
 

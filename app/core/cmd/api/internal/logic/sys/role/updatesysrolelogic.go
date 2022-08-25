@@ -30,7 +30,7 @@ func NewUpdateSysRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
-	if req.Id == config.SysSuperAdminRoleId {
+	if req.Id == config.SysProtectRoleId {
 		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 	}
 

@@ -30,6 +30,10 @@ func NewUpdateSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuReq) error {
+	if req.Id <= config.SysProtectPermMenuMaxId {
+		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
+	}
+
 	if req.Id == req.ParentId {
 		return errorx.NewDefaultError(errorx.ParentPermMenuErrorCode)
 	}

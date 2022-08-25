@@ -50,7 +50,7 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 		return nil, errorx.NewDefaultError(errorx.AccountDisableErrorCode)
 	}
 
-	if sysUser.Id != config.SysSuperAdminUserId {
+	if sysUser.Id != config.SysProtectUserId {
 		dept, _ := l.svcCtx.SysDeptModel.FindOne(l.ctx, sysUser.DeptId)
 		if dept.Status == 0 {
 			return nil, errorx.NewDefaultError(errorx.AccountDisableErrorCode)

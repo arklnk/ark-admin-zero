@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-25 03:34:21
+-- 生成日期： 2022-08-25 07:03:50
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -47,7 +47,7 @@ CREATE TABLE `sys_dept` (
 
 INSERT INTO `sys_dept` (`id`, `parent_id`, `name`, `full_name`, `unique_key`, `type`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
 (1, 0, '方舟', '方舟互联', 'arklnk', 1, 1, 0, '', '2022-08-17 02:09:17', '2022-08-22 02:13:54'),
-(2, 0, '思忆', '思忆技术', 'siyee', 1, 1, 0, '', '2022-08-19 06:40:10', '2022-08-22 02:13:39'),
+(2, 0, '思忆', '思忆技术', 'siyee', 1, 1, 0, '', '2022-08-19 06:40:10', '2022-08-25 06:54:29'),
 (3, 0, '演示', '演示部门', 'demo', 1, 1, 0, '', '2022-08-23 14:02:27', '2022-08-25 02:27:51');
 
 -- --------------------------------------------------------
@@ -77,8 +77,8 @@ CREATE TABLE `sys_dictionary` (
 INSERT INTO `sys_dictionary` (`id`, `parent_id`, `name`, `type`, `unique_key`, `value`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
 (1, 0, '系统配置', 0, 'sys', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 01:25:31'),
 (2, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '新建用户默认密码', '2022-08-22 10:03:58', '2022-08-24 05:28:06'),
-(3, 1, '更新密码', 1, 'sys_ch_pwd', '', 0, 0, '', '2022-08-25 03:18:47', '2022-08-25 03:29:24'),
-(4, 1, '更新个人资料', 1, 'sys_userinfo', '', 0, 0, '', '2022-08-25 03:28:36', '2022-08-25 03:33:18');
+(3, 1, '更新个人密码', 1, 'sys_ch_pwd', '', 0, 0, '', '2022-08-25 03:18:47', '2022-08-25 04:47:01'),
+(4, 1, '更新个人资料', 1, 'sys_userinfo', '', 0, 0, '', '2022-08-25 03:28:36', '2022-08-25 04:41:07');
 
 -- --------------------------------------------------------
 
@@ -181,7 +181,7 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (31, 29, '新增', '', '[\"sys/user/add\",\"sys/user/rdpj/info\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-24 03:17:19'),
 (32, 29, '删除', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 09:37:20'),
 (33, 29, '更新', '', '[\"sys/user/update\",\"sys/user/rdpj/info\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-24 03:08:07'),
-(34, 29, '更改密码', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 09:34:28'),
+(34, 29, '改密', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-25 04:51:46'),
 (35, 29, '转移', '', '[\"sys/user/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 09:34:36'),
 (36, 0, '配置管理', '/config', '[]', 0, 'config', 0, '', 1, '', '2022-08-22 03:33:42', '2022-08-24 03:41:35'),
 (37, 36, '字典管理', '/config/dict', '[]', 1, '', 0, 'views/config/dict', 1, '', '2022-08-22 03:39:21', '2022-08-23 09:33:47'),
@@ -191,8 +191,7 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (41, 37, '更新', '', '[\"config/dict/update\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 09:37:34'),
 (42, 0, '日志管理', '/log', '[]', 0, 'log', 0, '', 1, '', '2022-08-23 04:47:23', '2022-08-24 03:52:57'),
 (43, 42, '登录日志', '/log/login', '[]', 1, '', 0, 'views/log/login', 1, '', '2022-08-23 04:47:51', '2022-08-23 09:42:43'),
-(44, 43, '查询', '', '[\"log/login/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 09:35:53'),
-(45, 43, '删除', '', '[\"log/login/delete\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 09:37:20');
+(44, 43, '查询', '', '[\"log/login/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 09:35:53');
 
 -- --------------------------------------------------------
 
@@ -278,8 +277,8 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'https://avataaars.io/?clotheColor=PastelBlue&accessoriesType=Sunglasses&avatarStyle=Circle&clotheType=GraphicShirt&eyeType=Dizzy&eyebrowType=UnibrowNatural&facialHairColor=Platinum&facialHairType=BeardLight&hairColor=Brown&hatColor=Heather&mouthType=Grimace&skinColor=DarkBrown&topType=ShortHairDreads01', 0, 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-25 03:09:01'),
-(2, 'demo', '596bfe4bb02db60c2a25965598529e7e', 'demo', '', 'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Sunglasses&facialHairType=Blank&clotheType=Hoodie&clotheColor=Heather&eyeType=Hearts&eyebrowType=UpDown&mouthType=Tongue&skinColor=DarkBrown', 0, '', '', 3, 4, 3, '[2]', 1, 0, '', '2022-08-23 14:04:24', '2022-08-24 08:44:59');
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'https://avataaars.io/?clotheColor=Black&accessoriesType=Wayfarers&avatarStyle=Circle&clotheType=Hoodie&eyeType=Dizzy&eyebrowType=RaisedExcitedNatural&facialHairColor=Brown&facialHairType=BeardMedium&hairColor=Auburn&hatColor=Blue03&mouthType=Grimace&skinColor=Tanned&topType=LongHairFro', 0, 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-25 04:40:45'),
+(2, 'demo', '596bfe4bb02db60c2a25965598529e7e', 'demo', '', 'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Sunglasses&facialHairType=Blank&clotheType=Hoodie&clotheColor=Heather&eyeType=Hearts&eyebrowType=UpDown&mouthType=Tongue&skinColor=DarkBrown', 0, '', '', 3, 4, 3, '[2]', 1, 0, '', '2022-08-23 14:04:24', '2022-08-25 05:00:57');
 
 --
 -- 转储表的索引
@@ -371,7 +370,7 @@ ALTER TABLE `sys_log`
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=46;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=45;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`

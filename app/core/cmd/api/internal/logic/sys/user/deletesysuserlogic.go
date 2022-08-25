@@ -26,7 +26,7 @@ func NewDeleteSysUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 }
 
 func (l *DeleteSysUserLogic) DeleteSysUser(req *types.DeleteSysUserReq) error {
-	if req.Id == config.SysSuperAdminUserId {
+	if req.Id == config.SysProtectUserId {
 		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
 	}
 

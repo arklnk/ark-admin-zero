@@ -26,7 +26,7 @@ func NewDeleteSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuReq) error {
-	if req.Id <= config.SysMaxPermMenuId {
+	if req.Id <= config.SysProtectPermMenuMaxId {
 		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
 	}
 
