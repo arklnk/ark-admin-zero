@@ -174,30 +174,30 @@ type SysDeptListResp struct {
 }
 
 type AddSysDeptReq struct {
-	ParentId  uint64 `json:"parentId"`
-	Name      string `json:"name"`
-	FullName  string `json:"fullName"`
-	UniqueKey string `json:"uniqueKey"`
-	Type      uint64 `json:"type"`
-	Status    uint64 `json:"status"`
-	OrderNum  uint64 `json:"orderNum"`
-	Remark    string `json:"remark"`
+	ParentId  uint64 `json:"parentId"   validate:"number,gte=0"`
+	Name      string `json:"name"       validate:"min=2,max=50"`
+	FullName  string `json:"fullName"   validate:"omitempty,min=2,max=50"`
+	UniqueKey string `json:"uniqueKey"  validate:"min=2,max=50"`
+	Type      uint64 `json:"type"       validate:"number,gte=1,lte=3"`
+	Status    uint64 `json:"status"     validate:"number,gte=0,lte=1"`
+	OrderNum  uint64 `json:"orderNum"   validate:"number,gte=0,lte=9999"`
+	Remark    string `json:"remark"     validate:"max=200"`
 }
 
 type DeleteSysDeptReq struct {
-	Id uint64 `json:"id"`
+	Id uint64 `json:"id"  validate:"number,gte=1"`
 }
 
 type UpdateSysDeptReq struct {
-	Id        uint64 `json:"id"`
-	ParentId  uint64 `json:"parentId"`
-	Name      string `json:"name"`
-	FullName  string `json:"fullName"`
-	UniqueKey string `json:"uniqueKey"`
-	Type      uint64 `json:"type"`
-	Status    uint64 `json:"status"`
-	OrderNum  uint64 `json:"orderNum"`
-	Remark    string `json:"remark"`
+	Id        uint64 `json:"id"         validate:"number,gte=1"`
+	ParentId  uint64 `json:"parentId"   validate:"number,gte=0"`
+	Name      string `json:"name"       validate:"min=2,max=50"`
+	FullName  string `json:"fullName"   validate:"omitempty,min=2,max=50"`
+	UniqueKey string `json:"uniqueKey"  validate:"min=2,max=50"`
+	Type      uint64 `json:"type"       validate:"number,gte=1,lte=3"`
+	Status    uint64 `json:"status"     validate:"number,gte=0,lte=1"`
+	OrderNum  uint64 `json:"orderNum"   validate:"number,gte=0,lte=9999"`
+	Remark    string `json:"remark"     validate:"max=200"`
 }
 
 type Job struct {
