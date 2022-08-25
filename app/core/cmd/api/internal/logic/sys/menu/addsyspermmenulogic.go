@@ -36,7 +36,7 @@ func (l *AddSysPermMenuLogic) AddSysPermMenu(req *types.AddSysPermMenuReq) error
 
 	bytes, err := json.Marshal(req.Perms)
 	if err != nil {
-		return err
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
 	permMenu.Perms = string(bytes)

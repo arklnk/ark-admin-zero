@@ -55,7 +55,7 @@ func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
 
 	bytes, err := json.Marshal(req.PermMenuIds)
 	if err != nil {
-		return err
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
 	sysRole.PermMenuIds = string(bytes)
