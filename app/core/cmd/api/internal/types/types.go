@@ -28,12 +28,12 @@ type UserProfileInfoResp struct {
 }
 
 type UpdateProfileReq struct {
-	Username string `json:"username"   validate:"required,min=2,max=12"`
-	Nickname string `json:"nickname"   validate:"omitempty,min=2,max=12"`
-	Gender   uint64 `json:"gender"     validate:"gte=0,lte=2"`
-	Email    string `json:"email"      validate:"omitempty,email"`
-	Mobile   string `json:"mobile"     validate:"omitempty,len=11"`
-	Avatar   string `json:"avatar"     validate:"required,url"`
+	Username string `json:"username"  validate:"required,min=2,max=12"`
+	Nickname string `json:"nickname"  validate:"omitempty,min=2,max=12"`
+	Gender   uint64 `json:"gender"    validate:"gte=0,lte=2"`
+	Email    string `json:"email"     validate:"omitempty,email"`
+	Mobile   string `json:"mobile"    validate:"omitempty,len=11"`
+	Avatar   string `json:"avatar"    validate:"required,url"`
 }
 
 type Menu struct {
@@ -55,8 +55,8 @@ type UserPermMenuResp struct {
 }
 
 type UpdatePasswordReq struct {
-	OldPassword string `json:"oldPassword" validate:"min=6,max=12"`
-	NewPassword string `json:"newPassword" validate:"min=6,max=12"`
+	OldPassword string `json:"oldPassword"  validate:"min=6,max=12"`
+	NewPassword string `json:"newPassword"  validate:"min=6,max=12"`
 }
 
 type LoginCaptchaResp struct {
@@ -410,9 +410,9 @@ type ConfigDictListResp struct {
 }
 
 type ConfigDictPageReq struct {
-	Page     uint64 `form:"page"`
-	Limit    uint64 `form:"limit"`
-	ParentId uint64 `form:"parentId"`
+	Page     uint64 `form:"page"      validate:"number,gte=1"`
+	Limit    uint64 `form:"limit"     validate:"number,gte=1"`
+	ParentId uint64 `form:"parentId"  validate:"number,gte=0"`
 }
 
 type ConfigDictPagination struct {
@@ -427,29 +427,29 @@ type ConfigDictPageResp struct {
 }
 
 type AddConfigDictReq struct {
-	ParentId  uint64 `json:"parentId"`
-	Name      string `json:"name"`
-	Type      uint64 `json:"type"`
-	UniqueKey string `json:"uniqueKey"`
-	Value     string `json:"value"`
-	OrderNum  uint64 `json:"orderNum"`
-	Remark    string `json:"remark"`
-	Status    uint64 `json:"status"`
+	ParentId  uint64 `json:"parentId"   validate:"number,gte=0"`
+	Name      string `json:"name"       validate:"min=2,max=50"`
+	Type      uint64 `json:"type"       validate:"number,gte=1,lte=12"`
+	UniqueKey string `json:"uniqueKey"  validate:"min=2,max=50"`
+	Value     string `json:"value"      validate:"max=2048"`
+	OrderNum  uint64 `json:"orderNum"   validate:"gte=0,lte=9999"`
+	Remark    string `json:"remark"     validate:"max=200"`
+	Status    uint64 `json:"status"     validate:"number,gte=0,lte=1"`
 }
 
 type DeleteConfigDictReq struct {
-	Id uint64 `json:"id"`
+	Id uint64 `json:"id"  validate:"number,gte=1"`
 }
 
 type UpdateConfigDictReq struct {
-	Id       uint64 `json:"id"`
-	ParentId uint64 `json:"parentId"`
-	Name     string `json:"name"`
-	Type     uint64 `json:"type"`
-	Value    string `json:"value"`
-	OrderNum uint64 `json:"orderNum"`
-	Remark   string `json:"remark"`
-	Status   uint64 `json:"status"`
+	Id       uint64 `json:"id"        validate:"number,gte=1"`
+	ParentId uint64 `json:"parentId"  validate:"number,gte=0"`
+	Name     string `json:"name"      validate:"min=2,max=50"`
+	Type     uint64 `json:"type"      validate:"number,gte=1,lte=12"`
+	Value    string `json:"value"     validate:"max=2048"`
+	OrderNum uint64 `json:"orderNum"  validate:"gte=0,lte=9999"`
+	Remark   string `json:"remark"    validate:"max=200"`
+	Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"`
 }
 
 type LogLogin struct {
