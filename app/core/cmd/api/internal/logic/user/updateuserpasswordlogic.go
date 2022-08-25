@@ -5,6 +5,7 @@ import (
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/utils"
 
@@ -26,6 +27,11 @@ func NewUpdateUserPasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *UpdateUserPasswordLogic) UpdateUserPassword(req *types.UpdatePasswordReq) error {
+	dictionary, err := l.svcCtx.SysDictionaryModel.FindOneByUniqueKey(l.ctx, "sys_ch_pwd")
+	if dictionary.Status == config.SysDisable {
+		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
+	}
+
 	userId := utils.GetUserId(l.ctx)
 	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
 	if err != nil {

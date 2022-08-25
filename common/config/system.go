@@ -11,8 +11,9 @@ const (
 	SysPermMenuPrefix          = "/"
 	SysDefaultPermType         = 2
 	SysMaxPermMenuId           = 50
-	SysMaxDictionaryId         = 2
+	SysMaxDictionaryId         = 3
 	SysEnable                  = 1
+	SysDisable                 = 0
 	SysTopMenuId               = 0
 	SysLoginLogType            = 1
 	SysDateFormat              = "2006.01.02 15:04:05"
