@@ -248,8 +248,8 @@ type Profession struct {
 }
 
 type SysProfessionPageReq struct {
-	Page  uint64 `form:"page"`
-	Limit uint64 `form:"limit"`
+	Page  uint64 `form:"page"   validate:"number,gte=1"`
+	Limit uint64 `form:"limit"  validate:"number,gte=1"`
 }
 
 type ProfessionPagePagination struct {
@@ -264,20 +264,20 @@ type SysProfessionPageResp struct {
 }
 
 type AddSysProfessionReq struct {
-	Name     string `json:"name"`
-	Status   uint64 `json:"status"`
-	OrderNum uint64 `json:"orderNum"`
+	Name     string `json:"name"      validate:"min=2,max=50"`
+	Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"`
+	OrderNum uint64 `json:"orderNum"  validate:"number,gte=0,lte=9999"`
 }
 
 type DeleteSysProfessionReq struct {
-	Id uint64 `json:"id"`
+	Id uint64 `json:"id"  validate:"number,gte=1"`
 }
 
 type UpdateSysProfessionReq struct {
-	Id       uint64 `json:"id"`
-	Name     string `json:"name"`
-	Status   uint64 `json:"status"`
-	OrderNum uint64 `json:"orderNum"`
+	Id       uint64 `json:"id"        validate:"number,gte=1"`
+	Name     string `json:"name"      validate:"min=2,max=50"`
+	Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"`
+	OrderNum uint64 `json:"orderNum"  validate:"number,gte=0,lte=9999"`
 }
 
 type UserProfession struct {
