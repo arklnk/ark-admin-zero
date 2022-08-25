@@ -261,11 +261,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/rdpj/info",
 					Handler: sysuser.GetSysUserRdpjInfoHandler(serverCtx),
 				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/transfer",
-					Handler: sysuser.TransferSysUserHandler(serverCtx),
-				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),

@@ -123,13 +123,6 @@ type (
 	}
 )
 
-type (
-	TransferSysUserReq {
-		Ids    []uint64 `json:"ids"`
-		DeptId uint64   `json:"deptId"`
-	}
-)
-
 @server(
 	jwt: JwtAuth
 	group : sys/user
@@ -172,10 +165,4 @@ service core-api {
 	)
 	@handler GetSysUserRdpjInfo
 	get /rdpj/info returns (GetSysUserRdpjInfoResp)
-	
-	@doc(
-		summary: "转移用户"
-	)
-	@handler TransferSysUser
-	post /transfer (TransferSysUserReq)
 }

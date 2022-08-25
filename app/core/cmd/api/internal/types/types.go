@@ -393,11 +393,6 @@ type GetSysUserRdpjInfoResp struct {
 	Job        []Rdpj     `json:"job"`
 }
 
-type TransferSysUserReq struct {
-	Ids    []uint64 `json:"ids"`
-	DeptId uint64   `json:"deptId"`
-}
-
 type ConfigDict struct {
 	Id        uint64 `json:"id"`
 	ParentId  uint64 `json:"parentId"`
