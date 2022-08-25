@@ -31,12 +31,6 @@ type (
 	}
 )
 
-type (
-	DeleteLogLoginReq {
-		Id uint64 `json:"id"`
-	}
-)
-
 @server(
 	jwt: JwtAuth
 	group : log/login
@@ -49,10 +43,4 @@ service core-api {
 	)
 	@handler GetLogLoginPage
 	get /page (LogLoginPageReq) returns (LogLoginPageResp)
-	
-	@doc(
-		summary: "删除日志"
-	)
-	@handler DeleteLogLogin
-	post /delete (DeleteLogLoginReq)
 }

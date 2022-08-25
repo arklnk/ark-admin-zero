@@ -316,11 +316,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/page",
 					Handler: loglogin.GetLogLoginPageHandler(serverCtx),
 				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/delete",
-					Handler: loglogin.DeleteLogLoginHandler(serverCtx),
-				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),

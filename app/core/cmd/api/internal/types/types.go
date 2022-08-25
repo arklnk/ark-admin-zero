@@ -481,7 +481,3 @@ type LogLoginPageResp struct {
 	LogLoginList []LogLogin             `json:"list"`
 	Pagination   LogLoginPagePagination `json:"pagination"`
 }
-
-type DeleteLogLoginReq struct {
-	Id uint64 `json:"id"`
-}
