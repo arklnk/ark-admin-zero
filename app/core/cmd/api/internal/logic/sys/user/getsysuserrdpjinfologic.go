@@ -7,6 +7,8 @@ import (
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/app/core/model"
+	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/utils"
 
 	"github.com/jinzhu/copier"
@@ -38,35 +40,46 @@ func (l *GetSysUserRdpjInfoLogic) GetSysUserRdpjInfo(req *types.GetSysUserRdpjIn
 }
 
 func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint64) []types.RoleTree {
-	currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
-	var currentUserRole []uint64
-	err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRole)
-	if err != nil {
-		return nil
-	}
-
+	var currentUserRoleIds []uint64
 	var roleIds []uint64
-	roleIds = append(roleIds, currentUserRole...)
-
-	if editUserId != 0 {
-		editUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, editUserId)
-		var editUserRole []uint64
-		err = json.Unmarshal([]byte(editUser.RoleIds), &editUserRole)
+	var sysRoleList []*model.SysRole
+	if currentUserId == config.SysProtectUserId {
+		sysRoleList, _ = l.svcCtx.SysRoleModel.FindAll(l.ctx)
+		for _, role := range sysRoleList {
+			currentUserRoleIds=append(currentUserRoleIds,role.Id)
+		}
+		
+	} else {
+		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
+		err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRoleIds)
 		if err != nil {
 			return nil
 		}
-		roleIds = append(roleIds, editUserRole...)
-	}
-
-	var ids string
-	for i, v := range roleIds {
-		if i == 0 {
-			ids = strconv.FormatUint(v, 10)
+		
+		roleIds = append(roleIds, currentUserRoleIds...)
+		if editUserId != 0 {
+			editUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, editUserId)
+			var editUserRoleIds []uint64
+			err := json.Unmarshal([]byte(editUser.RoleIds), &editUserRoleIds)
+			if err != nil {
+				return nil
+			}
+			
+			roleIds = append(roleIds, editUserRoleIds...)
 		}
-		ids = ids + "," + strconv.FormatUint(v, 10)
-	}
 
-	sysRoleList, _ := l.svcCtx.SysRoleModel.FindByIds(l.ctx, ids)
+		var ids string
+		for i, v := range roleIds {
+			if i == 0 {
+				ids = strconv.FormatUint(v, 10)
+			}
+			
+			ids = ids + "," + strconv.FormatUint(v, 10)
+		}
+
+		sysRoleList, _ = l.svcCtx.SysRoleModel.FindByIds(l.ctx, ids)
+	}
+	
 	var role types.RoleTree
 	roleList := make([]types.RoleTree, 0)
 	for _, v := range sysRoleList {
@@ -74,11 +87,13 @@ func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint
 		if err != nil {
 			return nil
 		}
-		if utils.ArrayContainValue(currentUserRole, v.Id) {
+		
+		if utils.ArrayContainValue(currentUserRoleIds, v.Id) {
 			role.Has = 1
 		} else {
 			role.Has = 0
 		}
+		
 		roleList = append(roleList, role)
 	}
 

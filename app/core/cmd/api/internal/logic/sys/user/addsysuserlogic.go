@@ -33,19 +33,44 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 	_, err := l.svcCtx.SysUserModel.FindOneByAccount(l.ctx, req.Account)
 	if err == model.ErrNotFound {
 		currentUserId := utils.GetUserId(l.ctx)
-		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
-		var currentUserRole []uint64
-		err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRole)
-		if err != nil {
-			return nil
+		var currentUserRoleIds []uint64
+		var roleIds []uint64
+		if currentUserId == config.SysProtectUserId {
+			sysRoleList, _ := l.svcCtx.SysRoleModel.FindAll(l.ctx)
+			for _, role := range sysRoleList {
+				currentUserRoleIds = append(currentUserRoleIds, role.Id)
+				roleIds = append(roleIds, role.Id)
+			}
+
+		} else {
+			currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
+			err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRoleIds)
+			if err != nil {
+				return nil
+			}
+
+			roleIds = append(roleIds, currentUserRoleIds...)
 		}
 
-		var roleIds []uint64
-		roleIds = append(roleIds, currentUserRole...)
 		for _, id := range req.RoleIds {
-			if !utils.ArrayContainValue(roleIds,id) {
+			if !utils.ArrayContainValue(roleIds, id) {
 				return errorx.NewDefaultError(errorx.AssigningRolesErrorCode)
 			}
+		}
+
+		_, err := l.svcCtx.SysDeptModel.FindOne(l.ctx, req.DeptId)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.DeptIdErrorCode)
+		}
+
+		_, err = l.svcCtx.SysProfessionModel.FindOne(l.ctx, req.ProfessionId)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ProfessionIdErrorCode)
+		}
+
+		_, err = l.svcCtx.SysJobModel.FindOne(l.ctx, req.JobId)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.JobIdErrorCode)
 		}
 
 		var sysUser = new(model.SysUser)

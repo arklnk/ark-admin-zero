@@ -7,6 +7,7 @@ import (
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/utils"
@@ -31,34 +32,59 @@ func NewUpdateSysUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 
 func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 	currentUserId := utils.GetUserId(l.ctx)
-	currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
-	var currentUserRole []uint64
-	err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRole)
-	if err != nil {
-		return nil
-	}
-
+	var currentUserRoleIds []uint64
 	var roleIds []uint64
-	roleIds = append(roleIds, currentUserRole...)
+	var sysRoleList []*model.SysRole
+	if currentUserId == config.SysProtectUserId {
+		sysRoleList, _ = l.svcCtx.SysRoleModel.FindAll(l.ctx)
+		for _, role := range sysRoleList {
+			currentUserRoleIds=append(currentUserRoleIds,role.Id)
+			roleIds=append(roleIds,role.Id)
+		}
+		
+	}else {
+		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
+		err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRoleIds)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ServerErrorCode)
+		}
+		
+		roleIds = append(roleIds, currentUserRoleIds...)
+	}
 
 	editUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, req.Id)
-	var editUserRole []uint64
-	err = json.Unmarshal([]byte(editUser.RoleIds), &editUserRole)
+	var editUserRoleIds []uint64
+	err := json.Unmarshal([]byte(editUser.RoleIds), &editUserRoleIds)
 	if err != nil {
-		return nil
+		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
-	roleIds = append(roleIds, editUserRole...)
-
+	roleIds = append(roleIds, editUserRoleIds...)
+	
 	for _, id := range req.RoleIds {
 		if !utils.ArrayContainValue(roleIds, id) {
 			return errorx.NewDefaultError(errorx.AssigningRolesErrorCode)
 		}
 	}
 
-	for _, id := range utils.Difference(editUserRole, currentUserRole) {
+	for _, id := range utils.Difference(editUserRoleIds, currentUserRoleIds) {
 		if !utils.ArrayContainValue(req.RoleIds, id) {
 			return errorx.NewDefaultError(errorx.AssigningRolesErrorCode)
 		}
+	}
+
+	_, err = l.svcCtx.SysDeptModel.FindOne(l.ctx, req.DeptId)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.DeptIdErrorCode)
+	}
+
+	_, err = l.svcCtx.SysProfessionModel.FindOne(l.ctx, req.ProfessionId)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.ProfessionIdErrorCode)
+	}
+
+	_, err = l.svcCtx.SysJobModel.FindOne(l.ctx, req.JobId)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.JobIdErrorCode)
 	}
 
 	err = copier.Copy(editUser, req)
