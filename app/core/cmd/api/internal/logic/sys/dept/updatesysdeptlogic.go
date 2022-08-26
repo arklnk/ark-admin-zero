@@ -32,6 +32,11 @@ func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
 		return errorx.NewDefaultError(errorx.ParentDeptErrorCode)
 	}
 
+	_, err := l.svcCtx.SysDeptModel.FindOneByUniqueKey(l.ctx, req.UniqueKey)
+	if err != model.ErrNotFound {
+		return errorx.NewDefaultError(errorx.UpdateDeptUniqueKeyErrorCode)
+	}
+
 	deptIds := make([]uint64, 0)
 	deptIds = l.getSubDept(deptIds, req.Id)
 	if utils.ArrayContainValue(deptIds, req.ParentId) {

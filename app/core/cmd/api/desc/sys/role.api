@@ -45,6 +45,7 @@ type (
 	UpdateSysRoleReq {
 		Id          uint64   `json:"id"           validate:"number,gte=1"`
 		ParentId    uint64   `json:"parentId"     validate:"number,gte=0"`
+		UniqueKey   string   `json:"uniqueKey"    validate:"min=2,max=50"`
 		Name        string   `json:"name"         validate:"min=2,max=50"`
 		PermMenuIds []uint64 `json:"permMenuIds"  validate:"omitempty,unique"`
 		Remark      string   `json:"remark"       validate:"max=200"`

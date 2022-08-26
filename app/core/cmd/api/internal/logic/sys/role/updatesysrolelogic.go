@@ -38,6 +38,11 @@ func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
 		return errorx.NewDefaultError(errorx.ParentRoleErrorCode)
 	}
 
+	_, err := l.svcCtx.SysRoleModel.FindOneByUniqueKey(l.ctx, req.UniqueKey)
+	if err != model.ErrNotFound {
+		return errorx.NewDefaultError(errorx.UpdateRoleUniqueKeyErrorCode)
+	}
+
 	roleIds := make([]uint64, 0)
 	roleIds = l.getSubRole(roleIds, req.Id)
 	if utils.ArrayContainValue(roleIds, req.ParentId) {
