@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-25 10:00:21
+-- 生成日期： 2022-08-26 08:21:33
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -47,8 +47,7 @@ CREATE TABLE `sys_dept` (
 
 INSERT INTO `sys_dept` (`id`, `parent_id`, `name`, `full_name`, `unique_key`, `type`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
 (1, 0, '方舟', '方舟互联', 'arklnk', 1, 1, 0, '', '2022-08-17 02:09:17', '2022-08-22 02:13:54'),
-(2, 0, '思忆', '思忆技术', 'siyee', 1, 1, 0, '', '2022-08-19 06:40:10', '2022-08-25 06:54:29'),
-(3, 0, '演示', '演示部门', 'demo', 1, 1, 0, '', '2022-08-23 14:02:27', '2022-08-25 02:27:51');
+(2, 0, '思忆', '思忆技术', 'siyee', 1, 1, 0, '', '2022-08-19 06:40:10', '2022-08-26 03:34:40');
 
 -- --------------------------------------------------------
 
@@ -102,8 +101,7 @@ CREATE TABLE `sys_job` (
 INSERT INTO `sys_job` (`id`, `name`, `status`, `order_num`, `create_time`, `update_time`) VALUES
 (1, '前端', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:27:26'),
 (2, '后端', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:32:50'),
-(3, '设计', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:32:55'),
-(4, '演示', 1, 0, '2022-08-23 14:01:23', '2022-08-23 14:01:23');
+(3, '设计', 1, 0, '2022-08-17 03:15:56', '2022-08-17 05:32:55');
 
 -- --------------------------------------------------------
 
@@ -214,8 +212,7 @@ CREATE TABLE `sys_profession` (
 
 INSERT INTO `sys_profession` (`id`, `name`, `status`, `order_num`, `create_time`, `update_time`) VALUES
 (1, 'CEO', 1, 0, '2022-08-17 05:09:26', '2022-08-17 05:09:26'),
-(2, 'CTO', 1, 0, '2022-08-17 05:09:26', '2022-08-17 05:09:26'),
-(3, '演示', 1, 0, '2022-08-23 14:01:43', '2022-08-23 14:01:43');
+(2, 'CTO', 1, 0, '2022-08-17 05:09:26', '2022-08-17 05:09:26');
 
 -- --------------------------------------------------------
 
@@ -241,9 +238,8 @@ CREATE TABLE `sys_role` (
 --
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
-(1, 0, '超级管理员', 'superadmin', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-19 02:38:19'),
-(2, 0, '演示', 'demo', '', '[3, 8, 14, 19, 25, 30, 38, 44, 1, 2, 7, 13, 18, 24, 29, 36, 37, 42, 43]', 1, 0, '2022-08-23 13:13:05', '2022-08-25 02:54:23'),
-(3, 0, '测试', 'testing', '', '[42, 43, 44]', 1, 0, '2022-08-24 05:01:46', '2022-08-25 07:39:03');
+(1, 0, '超级管理员', 'root', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-26 03:35:54'),
+(2, 0, '演示', 'demo', '', '[3, 8, 14, 19, 25, 30, 38, 44, 1, 2, 7, 13, 18, 24, 29, 36, 37, 42, 43]', 1, 0, '2022-08-23 13:13:05', '2022-08-25 02:54:23');
 
 -- --------------------------------------------------------
 
@@ -278,7 +274,7 @@ CREATE TABLE `sys_user` (
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
 (1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'https://avataaars.io/?clotheColor=Black&accessoriesType=Wayfarers&avatarStyle=Circle&clotheType=Hoodie&eyeType=Dizzy&eyebrowType=RaisedExcitedNatural&facialHairColor=Brown&facialHairType=BeardMedium&hairColor=Auburn&hatColor=Blue03&mouthType=Grimace&skinColor=Tanned&topType=LongHairFro', 0, 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-25 08:21:15'),
-(2, 'demo', '596bfe4bb02db60c2a25965598529e7e', 'demo', '', 'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Sunglasses&facialHairType=Blank&clotheType=Hoodie&clotheColor=Heather&eyeType=Hearts&eyebrowType=UpDown&mouthType=Tongue&skinColor=DarkBrown', 0, '', '', 3, 1, 3, '[2]', 1, 0, '', '2022-08-23 14:04:24', '2022-08-25 07:20:52');
+(2, 'demo', '596bfe4bb02db60c2a25965598529e7e', 'demo', '', 'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Sunglasses&facialHairType=Blank&clotheType=Hoodie&clotheColor=Heather&eyeType=Hearts&eyebrowType=UpDown&mouthType=Tongue&skinColor=DarkBrown', 0, '', '', 1, 2, 1, '[2]', 1, 0, '', '2022-08-23 14:04:24', '2022-08-26 08:19:47');
 
 --
 -- 转储表的索引
@@ -346,7 +342,7 @@ ALTER TABLE `sys_user`
 -- 使用表AUTO_INCREMENT `sys_dept`
 --
 ALTER TABLE `sys_dept`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_dictionary`
@@ -358,7 +354,7 @@ ALTER TABLE `sys_dictionary`
 -- 使用表AUTO_INCREMENT `sys_job`
 --
 ALTER TABLE `sys_job`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `sys_log`
@@ -376,13 +372,13 @@ ALTER TABLE `sys_perm_menu`
 -- 使用表AUTO_INCREMENT `sys_profession`
 --
 ALTER TABLE `sys_profession`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `sys_user`
