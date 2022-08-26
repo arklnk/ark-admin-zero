@@ -28,6 +28,13 @@ func NewUpdateSysDeptLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
+	if req.ParentId != 0 {
+		_, err := l.svcCtx.SysDeptModel.FindOne(l.ctx,req.ParentId)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ParentDeptIdErrorCode)
+		}
+	}
+
 	if req.Id == req.ParentId {
 		return errorx.NewDefaultError(errorx.ParentDeptErrorCode)
 	}

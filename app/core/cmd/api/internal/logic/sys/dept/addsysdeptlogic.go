@@ -29,6 +29,13 @@ func NewAddSysDeptLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddSys
 func (l *AddSysDeptLogic) AddSysDept(req *types.AddSysDeptReq) error {
 	_, err := l.svcCtx.SysDeptModel.FindOneByUniqueKey(l.ctx, req.UniqueKey)
 	if err == model.ErrNotFound {
+		if req.ParentId != 0 {
+			_, err := l.svcCtx.SysDeptModel.FindOne(l.ctx,req.ParentId)
+			if err != nil {
+				return errorx.NewDefaultError(errorx.ParentDeptIdErrorCode)
+			}
+		}
+
 		var sysDept = new(model.SysDept)
 		err = copier.Copy(sysDept, req)
 		if err != nil {
