@@ -106,6 +106,9 @@ type (
 )
 
 type (
+	GetSysUserRdpjInfoReq {
+		UserId uint64 `form:"userId"  validate:"number,gte=2"`
+	}
 	Rdpj {
 		Id   uint64 `json:"id"`
 		Name string `json:"name"`
@@ -164,5 +167,5 @@ service core-api {
 		summary: "角色部门职称岗位信息"
 	)
 	@handler GetSysUserRdpjInfo
-	get /rdpj/info returns (GetSysUserRdpjInfoResp)
+	get /rdpj/info (GetSysUserRdpjInfoReq) returns (GetSysUserRdpjInfoResp)
 }

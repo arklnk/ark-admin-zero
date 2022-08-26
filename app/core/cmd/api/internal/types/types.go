@@ -375,6 +375,10 @@ type UpdateSysUserPasswordReq struct {
 	Password string `json:"password"  validate:"min=6,max=12"`
 }
 
+type GetSysUserRdpjInfoReq struct {
+	UserId uint64 `form:"userId"  validate:"number,gte=2"`
+}
+
 type Rdpj struct {
 	Id   uint64 `json:"id"`
 	Name string `json:"name"`

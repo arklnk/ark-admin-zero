@@ -17,6 +17,7 @@ type (
 		sysRoleModel
 		FindAll(ctx context.Context) ([]*SysRole, error)
 		FindEnable(ctx context.Context) ([]*SysRole, error)
+		FindByIds(ctx context.Context, ids string) ([]*SysRole, error)
 		FindSubRole(ctx context.Context, id uint64) ([]*SysRole, error)
 	}
 
@@ -46,6 +47,18 @@ func (m *customSysRoleModel) FindAll(ctx context.Context) ([]*SysRole, error) {
 
 func (m *customSysRoleModel) FindEnable(ctx context.Context) ([]*SysRole, error) {
 	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 ORDER BY order_num DESC", sysRoleRows, m.table, config.SysProtectRoleId)
+	var resp []*SysRole
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return nil, err
+	}
+}
+
+func (m *customSysRoleModel) FindByIds(ctx context.Context, ids string) ([]*SysRole, error) {
+	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 AND id IN(%s) ORDER BY order_num DESC", sysRoleRows, m.table, config.SysProtectRoleId, ids)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

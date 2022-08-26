@@ -2,9 +2,12 @@ package user
 
 import (
 	"context"
+	"encoding/json"
+	"strconv"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/common/utils"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -24,17 +27,43 @@ func NewGetSysUserRdpjInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 	}
 }
 
-func (l *GetSysUserRdpjInfoLogic) GetSysUserRdpjInfo() (resp *types.GetSysUserRdpjInfoResp, err error) {
+func (l *GetSysUserRdpjInfoLogic) GetSysUserRdpjInfo(req *types.GetSysUserRdpjInfoReq) (resp *types.GetSysUserRdpjInfoResp, err error) {
+	currentUserId := utils.GetUserId(l.ctx)
 	return &types.GetSysUserRdpjInfoResp{
-		Role:       l.roleList(),
+		Role:       l.roleList(currentUserId, req.UserId),
 		Dept:       l.deptList(),
 		Profession: l.professionList(),
 		Job:        l.jobList(),
 	}, nil
 }
 
-func (l *GetSysUserRdpjInfoLogic) roleList() []types.RdpjTree {
-	sysRoleList, _ := l.svcCtx.SysRoleModel.FindEnable(l.ctx)
+func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint64) []types.RdpjTree {
+	currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
+	var currentUserRole []uint64
+	err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRole)
+	if err != nil {
+		return nil
+	}
+
+	editUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, editUserId)
+	var editUserRole []uint64
+	err = json.Unmarshal([]byte(editUser.RoleIds), &editUserRole)
+	if err != nil {
+		return nil
+	}
+
+	var roleIds []uint64
+	roleIds = append(roleIds, currentUserRole...)
+	roleIds = append(roleIds, editUserRole...)
+	var ids string
+	for i, v := range roleIds {
+		if i == 0 {
+			ids = strconv.FormatUint(v, 10)
+		}
+		ids = ids + "," + strconv.FormatUint(v, 10)
+	}
+
+	sysRoleList, _ := l.svcCtx.SysRoleModel.FindByIds(l.ctx, ids)
 	var role types.RdpjTree
 	roleList := make([]types.RdpjTree, 0)
 	for _, v := range sysRoleList {
