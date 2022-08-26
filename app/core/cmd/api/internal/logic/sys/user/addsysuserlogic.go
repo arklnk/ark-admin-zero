@@ -32,6 +32,22 @@ func NewAddSysUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddSys
 func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 	_, err := l.svcCtx.SysUserModel.FindOneByAccount(l.ctx, req.Account)
 	if err == model.ErrNotFound {
+		currentUserId := utils.GetUserId(l.ctx)
+		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
+		var currentUserRole []uint64
+		err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRole)
+		if err != nil {
+			return nil
+		}
+
+		var roleIds []uint64
+		roleIds = append(roleIds, currentUserRole...)
+		for _, id := range req.RoleIds {
+			if !utils.ArrayContainValue(roleIds,id) {
+				return errorx.NewDefaultError(errorx.AssigningRolesErrorCode)
+			}
+		}
+
 		var sysUser = new(model.SysUser)
 		err = copier.Copy(sysUser, req)
 		if err != nil {

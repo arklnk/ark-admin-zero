@@ -9,6 +9,7 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/utils"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,11 +30,38 @@ func NewUpdateSysUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
-	sysUser, err := l.svcCtx.SysUserModel.FindOne(l.ctx, req.Id)
+	currentUserId := utils.GetUserId(l.ctx)
+	currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
+	var currentUserRole []uint64
+	err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRole)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil
 	}
-	err = copier.Copy(sysUser, req)
+
+	var roleIds []uint64
+	roleIds = append(roleIds, currentUserRole...)
+
+	editUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, req.Id)
+	var editUserRole []uint64
+	err = json.Unmarshal([]byte(editUser.RoleIds), &editUserRole)
+	if err != nil {
+		return nil
+	}
+	roleIds = append(roleIds, editUserRole...)
+
+	for _, id := range req.RoleIds {
+		if !utils.ArrayContainValue(roleIds, id) {
+			return errorx.NewDefaultError(errorx.AssigningRolesErrorCode)
+		}
+	}
+
+	for _, id := range utils.Difference(editUserRole, currentUserRole) {
+		if !utils.ArrayContainValue(req.RoleIds, id) {
+			return errorx.NewDefaultError(errorx.AssigningRolesErrorCode)
+		}
+	}
+
+	err = copier.Copy(editUser, req)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
@@ -43,10 +71,10 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}
 
-	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatUint(sysUser.Id, 10))
-	_, err = l.svcCtx.Redis.Del(config.SysOnlineUserCachePrefix + strconv.FormatUint(sysUser.Id, 10))
-	sysUser.RoleIds = string(bytes)
-	err = l.svcCtx.SysUserModel.Update(l.ctx, sysUser)
+	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatUint(editUser.Id, 10))
+	_, err = l.svcCtx.Redis.Del(config.SysOnlineUserCachePrefix + strconv.FormatUint(editUser.Id, 10))
+	editUser.RoleIds = string(bytes)
+	err = l.svcCtx.SysUserModel.Update(l.ctx, editUser)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}

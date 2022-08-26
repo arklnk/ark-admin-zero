@@ -106,18 +106,27 @@ type (
 )
 
 type (
+	GetSysUserRdpjInfoReq {
+		UserId uint64 `form:"userId"  validate:"number,gte=2"`
+	}
 	Rdpj {
 		Id   uint64 `json:"id"`
 		Name string `json:"name"`
 	}
-	RdpjTree {
+	DeptTree {
 		Id       uint64 `json:"id"`
 		ParentId uint64 `json:"parentId"`
 		Name     string `json:"name"`
 	}
+	RoleTree {
+		Id       uint64 `json:"id"`
+		ParentId uint64 `json:"parentId"`
+		Name     string `json:"name"`
+	    Has      uint64 `json:"has"`
+	}
 	GetSysUserRdpjInfoResp {
-		Role       []RdpjTree `json:"role"`
-		Dept       []RdpjTree `json:"dept"`
+		Role       []RoleTree `json:"role"`
+		Dept       []DeptTree `json:"dept"`
 		Profession []Rdpj     `json:"profession"`
 		Job        []Rdpj     `json:"job"`
 	}
@@ -164,5 +173,5 @@ service core-api {
 		summary: "角色部门职称岗位信息"
 	)
 	@handler GetSysUserRdpjInfo
-	get /rdpj/info returns (GetSysUserRdpjInfoResp)
+	get /rdpj/info (GetSysUserRdpjInfoReq) returns (GetSysUserRdpjInfoResp)
 }
