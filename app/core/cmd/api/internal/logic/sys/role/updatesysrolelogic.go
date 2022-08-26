@@ -30,7 +30,7 @@ func NewUpdateSysRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
-	if req.ParentId != 0 {
+	if req.ParentId != config.SysTopParentId {
 		_, err := l.svcCtx.SysRoleModel.FindOne(l.ctx,req.ParentId)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ParentRoleIdErrorCode)
