@@ -31,6 +31,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/login/captcha",
 				Handler: user.GetLoginCaptchaHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/logout",
+				Handler: user.LogoutHandler(serverCtx),
+			},
 		},
 		rest.WithPrefix("/user"),
 	)
@@ -66,11 +71,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodGet,
 				Path:    "/avatar/generate",
 				Handler: user.GetGenerateAvatarHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/logout",
-				Handler: user.LogoutHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),

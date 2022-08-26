@@ -104,6 +104,12 @@ service core-api {
 	)
 	@handler GetLoginCaptcha
 	get /login/captcha returns (LoginCaptchaResp)
+
+	@doc(
+		summary: "退出"
+	)
+	@handler Logout
+	post /logout
 }
 
 @server(
@@ -147,10 +153,4 @@ service core-api {
 	)
 	@handler GetGenerateAvatar
 	get /avatar/generate returns (GenerateAvatarResp)
-	
-	@doc(
-		summary: "退出"
-	)
-	@handler Logout
-	post /logout
 }
