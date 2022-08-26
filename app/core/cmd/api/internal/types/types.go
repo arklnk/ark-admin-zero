@@ -90,7 +90,7 @@ type AddSysPermMenuReq struct {
 	ParentId     uint64   `json:"parentId"      validate:"number,gte=0"`
 	Name         string   `json:"name"          validate:"min=2,max=50"`
 	Router       string   `json:"router"        validate:"omitempty,max=200"`
-	Perms        []string `json:"perms"         validate:"omitempty,dive"`
+	Perms        []string `json:"perms"         validate:"omitempty,unique"`
 	Type         uint64   `json:"type"          validate:"number,gte=0,lte=2"`
 	Icon         string   `json:"icon"          validate:"omitempty,max=50"`
 	OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
@@ -108,7 +108,7 @@ type UpdateSysPermMenuReq struct {
 	ParentId     uint64   `json:"parentId"      validate:"number,gte=0"`
 	Name         string   `json:"name"          validate:"min=2,max=50"`
 	Router       string   `json:"router"        validate:"omitempty,max=200"`
-	Perms        []string `json:"perms"         validate:"omitempty,dive"`
+	Perms        []string `json:"perms"         validate:"omitempty,unique"`
 	Type         uint64   `json:"type"          validate:"number,gte=0,lte=2"`
 	Icon         string   `json:"icon"          validate:"omitempty,max=50"`
 	OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
@@ -136,7 +136,7 @@ type AddSysRoleReq struct {
 	ParentId    uint64   `json:"parentId"     validate:"number,gte=0"`
 	Name        string   `json:"name"         validate:"min=2,max=50"`
 	UniqueKey   string   `json:"uniqueKey"    validate:"min=2,max=50"`
-	PermMenuIds []uint64 `json:"permMenuIds"  validate:"omitempty,dive"`
+	PermMenuIds []uint64 `json:"permMenuIds"  validate:"omitempty,unique"`
 	Remark      string   `json:"remark"       validate:"max=200"`
 	Status      uint64   `json:"status"       validate:"number,gte=0,lte=1"`
 	OrderNum    uint64   `json:"orderNum"     validate:"number,gte=0,lte=9999"`
@@ -150,7 +150,7 @@ type UpdateSysRoleReq struct {
 	Id          uint64   `json:"id"           validate:"number,gte=1"`
 	ParentId    uint64   `json:"parentId"     validate:"number,gte=0"`
 	Name        string   `json:"name"         validate:"min=2,max=50"`
-	PermMenuIds []uint64 `json:"permMenuIds"  validate:"omitempty,dive"`
+	PermMenuIds []uint64 `json:"permMenuIds"  validate:"omitempty,unique"`
 	Remark      string   `json:"remark"       validate:"max=200"`
 	Status      uint64   `json:"status"       validate:"number,gte=0,lte=1"`
 	OrderNum    uint64   `json:"orderNum"     validate:"number,gte=0,lte=9999"`
@@ -342,7 +342,7 @@ type AddSysUserReq struct {
 	ProfessionId uint64   `json:"professionId"  validate:"number,gte=1"`
 	JobId        uint64   `json:"jobId"         validate:"number,gte=1"`
 	DeptId       uint64   `json:"deptId"        validate:"number,gte=1"`
-	RoleIds      []uint64 `json:"roleIds"       validate:"dive"`
+	RoleIds      []uint64 `json:"roleIds"       validate:"unique"`
 	Status       uint64   `json:"status"        validate:"number,gte=0,lte=1"`
 	OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
 	Remark       string   `json:"remark"        validate:"max=200"`
@@ -362,7 +362,7 @@ type UpdateSysUserReq struct {
 	ProfessionId uint64   `json:"professionId"  validate:"number,gte=1"`
 	JobId        uint64   `json:"jobId"         validate:"number,gte=1"`
 	DeptId       uint64   `json:"deptId"        validate:"number,gte=1"`
-	RoleIds      []uint64 `json:"roleIds"       validate:"dive"`
+	RoleIds      []uint64 `json:"roleIds"       validate:"unique"`
 	Status       uint64   `json:"status"        validate:"number,gte=0,lte=1"`
 	OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
 	Remark       string   `json:"remark"        validate:"max=200"`

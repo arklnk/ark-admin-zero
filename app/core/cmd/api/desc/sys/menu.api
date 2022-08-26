@@ -31,7 +31,7 @@ type (
 		ParentId     uint64   `json:"parentId"      validate:"number,gte=0"`
 		Name         string   `json:"name"          validate:"min=2,max=50"`
 		Router       string   `json:"router"        validate:"omitempty,max=200"`
-		Perms        []string `json:"perms"         validate:"omitempty,dive"`
+		Perms        []string `json:"perms"         validate:"omitempty,unique"`
 		Type         uint64   `json:"type"          validate:"number,gte=0,lte=2"`
 		Icon         string   `json:"icon"          validate:"omitempty,max=50"`
 		OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
@@ -53,7 +53,7 @@ type (
 		ParentId     uint64   `json:"parentId"      validate:"number,gte=0"`
 		Name         string   `json:"name"          validate:"min=2,max=50"`
 		Router       string   `json:"router"        validate:"omitempty,max=200"`
-		Perms        []string `json:"perms"         validate:"omitempty,dive"`
+		Perms        []string `json:"perms"         validate:"omitempty,unique"`
 		Type         uint64   `json:"type"          validate:"number,gte=0,lte=2"`
 		Icon         string   `json:"icon"          validate:"omitempty,max=50"`
 		OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
