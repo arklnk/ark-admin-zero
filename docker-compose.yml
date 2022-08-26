@@ -1,9 +1,18 @@
 version: '3'
 
 services:
-  ark-admin:
+  ark-admin-vuenext:
+    image: arklnk/ark-admin-vuenext:latest
+    container_name: ark-admin-vuenext
+    ports:
+      - "80:80"
+    restart: always
+    networks:
+      - ark_admin_net
+
+  ark-admin-zero:
     image: arklnk/ark-admin-zero:latest
-    container_name: ark-admin
+    container_name: ark-admin-zero
     ports:
       - "7001:7001"
     restart: always
