@@ -42,6 +42,7 @@ const (
 	JobIdErrorCode               = 1036
 	ParentRoleIdErrorCode        = 1037
 	ParentDeptIdErrorCode        = 1038
+	ParentPermMenuIdErrorCode    = 1039
 )
 
 func init() {
@@ -84,6 +85,7 @@ func init() {
 	errorMsg[JobIdErrorCode] = "岗位不存在"
 	errorMsg[ParentRoleIdErrorCode] = "父级角色不存在"
 	errorMsg[ParentDeptIdErrorCode] = "父级部门不存在"
+	errorMsg[ParentPermMenuIdErrorCode] = "父级菜单不存在"
 }
 
 func MapErrMsg(errCode int) string {
