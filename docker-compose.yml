@@ -15,6 +15,9 @@ services:
     container_name: ark-admin-zero
     ports:
       - "7001:7001"
+    volumes:
+      - ./dev/deploy/core/etc:/app/etc
+      - ./data/core/logs:/app/logs
     restart: always
     networks:
       - ark_admin_net

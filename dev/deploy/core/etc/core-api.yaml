@@ -1,0 +1,27 @@
+Name: core-api
+Host: 0.0.0.0
+Port: 7001
+Mode: dev
+Salt: K8i8mTfc5sTXO7OG
+
+Log:
+  Mode: file
+  Path: logs/core
+  KeepDays: 7
+
+JwtAuth:
+  AccessSecret: kRZ3kA7LuB4LqOWi
+  AccessExpire: 86400
+
+Mysql:
+  DataSource: root:root@tcp(mysql:3306)/ark_admin?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+Cache:
+  - Host: redis:6379
+    Pass: "123456"
+    Type: node
+
+Redis:
+  Host: redis:6379
+  Pass: "123456"
+  Type: node
