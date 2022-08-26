@@ -37,7 +37,7 @@ func (l *GetSysUserRdpjInfoLogic) GetSysUserRdpjInfo(req *types.GetSysUserRdpjIn
 	}, nil
 }
 
-func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint64) []types.RdpjTree {
+func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint64) []types.RoleTree {
 	currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
 	var currentUserRole []uint64
 	err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRole)
@@ -45,16 +45,19 @@ func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint
 		return nil
 	}
 
-	editUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, editUserId)
-	var editUserRole []uint64
-	err = json.Unmarshal([]byte(editUser.RoleIds), &editUserRole)
-	if err != nil {
-		return nil
-	}
-
 	var roleIds []uint64
 	roleIds = append(roleIds, currentUserRole...)
-	roleIds = append(roleIds, editUserRole...)
+
+	if editUserId != 0 {
+		editUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, editUserId)
+		var editUserRole []uint64
+		err = json.Unmarshal([]byte(editUser.RoleIds), &editUserRole)
+		if err != nil {
+			return nil
+		}
+		roleIds = append(roleIds, editUserRole...)
+	}
+
 	var ids string
 	for i, v := range roleIds {
 		if i == 0 {
@@ -64,12 +67,17 @@ func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint
 	}
 
 	sysRoleList, _ := l.svcCtx.SysRoleModel.FindByIds(l.ctx, ids)
-	var role types.RdpjTree
-	roleList := make([]types.RdpjTree, 0)
+	var role types.RoleTree
+	roleList := make([]types.RoleTree, 0)
 	for _, v := range sysRoleList {
 		err := copier.Copy(&role, &v)
 		if err != nil {
 			return nil
+		}
+		if utils.ArrayContainValue(currentUserRole, v.Id) {
+			role.Has = 1
+		} else {
+			role.Has = 0
 		}
 		roleList = append(roleList, role)
 	}
@@ -77,10 +85,10 @@ func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint
 	return roleList
 }
 
-func (l *GetSysUserRdpjInfoLogic) deptList() []types.RdpjTree {
+func (l *GetSysUserRdpjInfoLogic) deptList() []types.DeptTree {
 	sysDeptList, _ := l.svcCtx.SysDeptModel.FindEnable(l.ctx)
-	var dept types.RdpjTree
-	deptList := make([]types.RdpjTree, 0)
+	var dept types.DeptTree
+	deptList := make([]types.DeptTree, 0)
 	for _, v := range sysDeptList {
 		err := copier.Copy(&dept, &v)
 		if err != nil {

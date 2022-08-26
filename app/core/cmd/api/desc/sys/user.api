@@ -113,14 +113,20 @@ type (
 		Id   uint64 `json:"id"`
 		Name string `json:"name"`
 	}
-	RdpjTree {
+	DeptTree {
 		Id       uint64 `json:"id"`
 		ParentId uint64 `json:"parentId"`
 		Name     string `json:"name"`
 	}
+	RoleTree {
+		Id       uint64 `json:"id"`
+		ParentId uint64 `json:"parentId"`
+		Name     string `json:"name"`
+	    Has      uint64 `json:"has"`
+	}
 	GetSysUserRdpjInfoResp {
-		Role       []RdpjTree `json:"role"`
-		Dept       []RdpjTree `json:"dept"`
+		Role       []RoleTree `json:"role"`
+		Dept       []DeptTree `json:"dept"`
 		Profession []Rdpj     `json:"profession"`
 		Job        []Rdpj     `json:"job"`
 	}

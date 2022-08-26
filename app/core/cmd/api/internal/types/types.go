@@ -384,15 +384,22 @@ type Rdpj struct {
 	Name string `json:"name"`
 }
 
-type RdpjTree struct {
+type DeptTree struct {
 	Id       uint64 `json:"id"`
 	ParentId uint64 `json:"parentId"`
 	Name     string `json:"name"`
 }
 
+type RoleTree struct {
+	Id       uint64 `json:"id"`
+	ParentId uint64 `json:"parentId"`
+	Name     string `json:"name"`
+	Has      uint64 `json:"has"`
+}
+
 type GetSysUserRdpjInfoResp struct {
-	Role       []RdpjTree `json:"role"`
-	Dept       []RdpjTree `json:"dept"`
+	Role       []RoleTree `json:"role"`
+	Dept       []DeptTree `json:"dept"`
 	Profession []Rdpj     `json:"profession"`
 	Job        []Rdpj     `json:"job"`
 }

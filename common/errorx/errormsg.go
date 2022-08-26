@@ -36,6 +36,7 @@ const (
 	ForbiddenErrorCode           = 1030
 	UpdateRoleUniqueKeyErrorCode = 1031
 	UpdateDeptUniqueKeyErrorCode = 1032
+	AssigningRolesErrorCode      = 1033
 )
 
 func init() {
@@ -72,7 +73,7 @@ func init() {
 	errorMsg[ForbiddenErrorCode] = "禁止操作"
 	errorMsg[UpdateRoleUniqueKeyErrorCode] = "角色标识已存在"
 	errorMsg[UpdateDeptUniqueKeyErrorCode] = "部门标识已存在"
-
+	errorMsg[AssigningRolesErrorCode] = "角色分配权限不足"
 }
 
 func MapErrMsg(errCode int) string {
