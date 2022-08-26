@@ -30,6 +30,13 @@ func NewAddSysRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddSys
 func (l *AddSysRoleLogic) AddSysRole(req *types.AddSysRoleReq) error {
 	_, err := l.svcCtx.SysRoleModel.FindOneByUniqueKey(l.ctx, req.UniqueKey)
 	if err == model.ErrNotFound {
+		if req.ParentId != 0 {
+			_, err := l.svcCtx.SysRoleModel.FindOne(l.ctx,req.ParentId)
+			if err != nil {
+				return errorx.NewDefaultError(errorx.ParentRoleIdErrorCode)
+			}
+		}
+
 		var sysRole = new(model.SysRole)
 		err = copier.Copy(sysRole, req)
 		if err != nil {
