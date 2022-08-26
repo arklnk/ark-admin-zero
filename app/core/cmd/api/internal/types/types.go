@@ -150,7 +150,6 @@ type UpdateSysRoleReq struct {
 	Id          uint64   `json:"id"           validate:"number,gte=1"`
 	ParentId    uint64   `json:"parentId"     validate:"number,gte=0"`
 	Name        string   `json:"name"         validate:"min=2,max=50"`
-	UniqueKey   string   `json:"uniqueKey"    validate:"min=2,max=50"`
 	PermMenuIds []uint64 `json:"permMenuIds"  validate:"omitempty,dive"`
 	Remark      string   `json:"remark"       validate:"max=200"`
 	Status      uint64   `json:"status"       validate:"number,gte=0,lte=1"`
