@@ -6,6 +6,7 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
+	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/utils"
 
@@ -28,6 +29,13 @@ func NewUpdateSysDeptLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
+	if req.ParentId != config.SysTopParentId {
+		_, err := l.svcCtx.SysDeptModel.FindOne(l.ctx,req.ParentId)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ParentDeptIdErrorCode)
+		}
+	}
+
 	if req.Id == req.ParentId {
 		return errorx.NewDefaultError(errorx.ParentDeptErrorCode)
 	}
@@ -45,7 +53,7 @@ func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
 
 	sysDept, err := l.svcCtx.SysDeptModel.FindOne(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewDefaultError(errorx.DeptIdErrorCode)
 	}
 
 	err = copier.Copy(sysDept, req)

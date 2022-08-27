@@ -30,6 +30,13 @@ func NewUpdateSysRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
+	if req.ParentId != config.SysTopParentId {
+		_, err := l.svcCtx.SysRoleModel.FindOne(l.ctx,req.ParentId)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ParentRoleIdErrorCode)
+		}
+	}
+
 	if req.Id == config.SysProtectRoleId {
 		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 	}
@@ -51,8 +58,9 @@ func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
 
 	sysRole, err := l.svcCtx.SysRoleModel.FindOne(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewDefaultError(errorx.RoleIdErrorCode)
 	}
+
 	err = copier.Copy(sysRole, req)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)

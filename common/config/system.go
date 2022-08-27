@@ -16,6 +16,6 @@ const (
 	SysDefaultPermType         = 2
 	SysEnable                  = 1
 	SysDisable                 = 0
-	SysTopMenuId               = 0
 	SysLoginLogType            = 1
+	SysTopParentId             = 0
 )

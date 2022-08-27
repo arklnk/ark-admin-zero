@@ -30,19 +30,23 @@ func NewUpdateSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuReq) error {
+	if req.ParentId != config.SysTopParentId {
+		parentPermMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx,req.ParentId)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ParentPermMenuIdErrorCode)
+		}
+
+		if parentPermMenu.Type == 2 {
+			return errorx.NewDefaultError(errorx.SetParentTypeErrorCode)
+		}
+	}
+
 	if req.Id <= config.SysProtectPermMenuMaxId {
 		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
 	}
 
 	if req.Id == req.ParentId {
 		return errorx.NewDefaultError(errorx.ParentPermMenuErrorCode)
-	}
-
-	if req.ParentId != config.SysTopMenuId {
-		parentPermMenu, _ := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.ParentId)
-		if parentPermMenu.Type == 2 {
-			return errorx.NewDefaultError(errorx.SetParentTypeErrorCode)
-		}
 	}
 
 	permMenuIds := make([]uint64, 0)
@@ -53,7 +57,7 @@ func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuR
 
 	permMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewDefaultError(errorx.PermMenuIdErrorCode)
 	}
 
 	err = copier.Copy(permMenu, req)

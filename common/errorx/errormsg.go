@@ -37,6 +37,17 @@ const (
 	UpdateRoleUniqueKeyErrorCode = 1031
 	UpdateDeptUniqueKeyErrorCode = 1032
 	AssigningRolesErrorCode      = 1033
+	DeptIdErrorCode              = 1034
+	ProfessionIdErrorCode        = 1035
+	JobIdErrorCode               = 1036
+	ParentRoleIdErrorCode        = 1037
+	ParentDeptIdErrorCode        = 1038
+	ParentPermMenuIdErrorCode    = 1039
+	ParentDictionaryIdErrorCode  = 1040
+	DictionaryIdErrorCode        = 1041
+	PermMenuIdErrorCode          = 1042
+	RoleIdErrorCode              = 1043
+	UserIdErrorCode              = 1044
 )
 
 func init() {
@@ -73,7 +84,18 @@ func init() {
 	errorMsg[ForbiddenErrorCode] = "禁止操作"
 	errorMsg[UpdateRoleUniqueKeyErrorCode] = "角色标识已存在"
 	errorMsg[UpdateDeptUniqueKeyErrorCode] = "部门标识已存在"
-	errorMsg[AssigningRolesErrorCode] = "角色分配权限不足"
+	errorMsg[AssigningRolesErrorCode] = "角色不在可控范围"
+	errorMsg[DeptIdErrorCode] = "部门不存在"
+	errorMsg[ProfessionIdErrorCode] = "职称不存在"
+	errorMsg[JobIdErrorCode] = "岗位不存在"
+	errorMsg[ParentRoleIdErrorCode] = "父级角色不存在"
+	errorMsg[ParentDeptIdErrorCode] = "父级部门不存在"
+	errorMsg[ParentPermMenuIdErrorCode] = "父级菜单不存在"
+	errorMsg[ParentDictionaryIdErrorCode] = "字典集不存在"
+	errorMsg[DictionaryIdErrorCode] = "字典不存在"
+	errorMsg[PermMenuIdErrorCode] = "权限菜单不存在"
+	errorMsg[RoleIdErrorCode] = "角色不存在"
+	errorMsg[UserIdErrorCode] = "用户不存在"
 }
 
 func MapErrMsg(errCode int) string {

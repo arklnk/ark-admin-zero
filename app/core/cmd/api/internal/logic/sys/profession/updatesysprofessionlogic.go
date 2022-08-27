@@ -28,7 +28,7 @@ func NewUpdateSysProfessionLogic(ctx context.Context, svcCtx *svc.ServiceContext
 func (l *UpdateSysProfessionLogic) UpdateSysProfession(req *types.UpdateSysProfessionReq) error {
 	sysProfession, err := l.svcCtx.SysProfessionModel.FindOne(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewDefaultError(errorx.ProfessionIdErrorCode)
 	}
 
 	if req.Status == 0 {
