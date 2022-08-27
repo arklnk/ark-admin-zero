@@ -31,6 +31,8 @@ services:
     volumes:
       - ./deploy/service/core/etc:/app/etc
       - ./data/service/logs:/app/logs
+    ports:
+      - "7001:7001"
     restart: always
     networks:
       - ark_admin_net
