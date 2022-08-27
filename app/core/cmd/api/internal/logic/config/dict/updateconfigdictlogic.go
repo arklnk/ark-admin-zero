@@ -5,6 +5,7 @@ import (
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
+	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
 
 	"github.com/jinzhu/copier"
@@ -26,6 +27,13 @@ func NewUpdateConfigDictLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *UpdateConfigDictLogic) UpdateConfigDict(req *types.UpdateConfigDictReq) error {
+	if req.ParentId != config.SysTopParentId {
+		_, err := l.svcCtx.SysDictionaryModel.FindOne(l.ctx, req.ParentId)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ParentDictionaryIdErrorCode)
+		}
+	}
+
 	configDictionary, err := l.svcCtx.SysDictionaryModel.FindOne(l.ctx, req.Id)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)

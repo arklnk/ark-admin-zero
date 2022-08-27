@@ -6,6 +6,7 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
+	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
 
 	"github.com/jinzhu/copier"
@@ -27,6 +28,12 @@ func NewAddConfigDictLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Add
 }
 
 func (l *AddConfigDictLogic) AddConfigDict(req *types.AddConfigDictReq) error {
+	if req.ParentId != config.SysTopParentId {
+		_, err := l.svcCtx.SysDictionaryModel.FindOne(l.ctx, req.ParentId)
+		if err != nil {
+			return errorx.NewDefaultError(errorx.ParentDictionaryIdErrorCode)
+		}
+	}
 	_, err := l.svcCtx.SysDictionaryModel.FindOneByUniqueKey(l.ctx, req.UniqueKey)
 	if err == model.ErrNotFound {
 		var dictionary = new(model.SysDictionary)

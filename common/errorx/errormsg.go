@@ -43,6 +43,7 @@ const (
 	ParentRoleIdErrorCode        = 1037
 	ParentDeptIdErrorCode        = 1038
 	ParentPermMenuIdErrorCode    = 1039
+	ParentDictionaryIdErrorCode  = 1040
 )
 
 func init() {
@@ -86,6 +87,7 @@ func init() {
 	errorMsg[ParentRoleIdErrorCode] = "父级角色不存在"
 	errorMsg[ParentDeptIdErrorCode] = "父级部门不存在"
 	errorMsg[ParentPermMenuIdErrorCode] = "父级菜单不存在"
+	errorMsg[ParentDictionaryIdErrorCode] = "字典集不存在"
 }
 
 func MapErrMsg(errCode int) string {
