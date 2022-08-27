@@ -57,7 +57,7 @@ func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuR
 
 	permMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewDefaultError(errorx.PermMenuIdErrorCode)
 	}
 
 	err = copier.Copy(permMenu, req)

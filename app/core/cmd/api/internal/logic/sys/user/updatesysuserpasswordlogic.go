@@ -29,7 +29,7 @@ func NewUpdateSysUserPasswordLogic(ctx context.Context, svcCtx *svc.ServiceConte
 func (l *UpdateSysUserPasswordLogic) UpdateSysUserPassword(req *types.UpdateSysUserPasswordReq) error {
 	sysUser, err := l.svcCtx.SysUserModel.FindOne(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewDefaultError(errorx.UserIdErrorCode)
 	}
 
 	err = copier.Copy(sysUser, req)

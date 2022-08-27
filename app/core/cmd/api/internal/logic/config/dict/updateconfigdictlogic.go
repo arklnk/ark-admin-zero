@@ -36,7 +36,7 @@ func (l *UpdateConfigDictLogic) UpdateConfigDict(req *types.UpdateConfigDictReq)
 
 	configDictionary, err := l.svcCtx.SysDictionaryModel.FindOne(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewDefaultError(errorx.DictionaryIdErrorCode)
 	}
 
 	err = copier.Copy(configDictionary, req)

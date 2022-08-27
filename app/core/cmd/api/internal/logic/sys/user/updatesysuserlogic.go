@@ -52,9 +52,13 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 		roleIds = append(roleIds, currentUserRoleIds...)
 	}
 
-	editUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, req.Id)
+	editUser, err := l.svcCtx.SysUserModel.FindOne(l.ctx, req.Id)
+	if err != nil {
+		return errorx.NewDefaultError(errorx.UserIdErrorCode)
+	}
+
 	var editUserRoleIds []uint64
-	err := json.Unmarshal([]byte(editUser.RoleIds), &editUserRoleIds)
+	err = json.Unmarshal([]byte(editUser.RoleIds), &editUserRoleIds)
 	if err != nil {
 		return errorx.NewDefaultError(errorx.ServerErrorCode)
 	}

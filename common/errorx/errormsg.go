@@ -44,6 +44,10 @@ const (
 	ParentDeptIdErrorCode        = 1038
 	ParentPermMenuIdErrorCode    = 1039
 	ParentDictionaryIdErrorCode  = 1040
+	DictionaryIdErrorCode        = 1041
+	PermMenuIdErrorCode          = 1042
+	RoleIdErrorCode              = 1043
+	UserIdErrorCode              = 1044
 )
 
 func init() {
@@ -88,6 +92,10 @@ func init() {
 	errorMsg[ParentDeptIdErrorCode] = "父级部门不存在"
 	errorMsg[ParentPermMenuIdErrorCode] = "父级菜单不存在"
 	errorMsg[ParentDictionaryIdErrorCode] = "字典集不存在"
+	errorMsg[DictionaryIdErrorCode] = "字典不存在"
+	errorMsg[PermMenuIdErrorCode] = "权限菜单不存在"
+	errorMsg[RoleIdErrorCode] = "角色不存在"
+	errorMsg[UserIdErrorCode] = "用户不存在"
 }
 
 func MapErrMsg(errCode int) string {

@@ -28,7 +28,7 @@ func NewUpdateSysJobLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upda
 func (l *UpdateSysJobLogic) UpdateSysJob(req *types.UpdateSysJobReq) error {
 	sysJob, err := l.svcCtx.SysJobModel.FindOne(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewDefaultError(errorx.JobIdErrorCode)
 	}
 
 	if req.Status == 0 {

@@ -53,7 +53,7 @@ func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
 
 	sysDept, err := l.svcCtx.SysDeptModel.FindOne(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewDefaultError(errorx.DeptIdErrorCode)
 	}
 
 	err = copier.Copy(sysDept, req)
