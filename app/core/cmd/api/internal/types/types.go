@@ -376,7 +376,7 @@ type UpdateSysUserPasswordReq struct {
 }
 
 type GetSysUserRdpjInfoReq struct {
-	UserId uint64 `form:"userId"  validate:"number,gte=2"`
+	UserId uint64 `form:"userId"  validate:"number,gte=0"`
 }
 
 type Rdpj struct {
