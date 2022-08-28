@@ -46,7 +46,7 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 			currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
 			err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRoleIds)
 			if err != nil {
-				return nil
+				return errorx.NewDefaultError(errorx.ServerErrorCode)
 			}
 
 			roleIds = append(roleIds, currentUserRoleIds...)

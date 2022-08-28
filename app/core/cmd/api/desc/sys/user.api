@@ -58,7 +58,7 @@ type (
 
 type (
 	AddSysUserReq {
-		Account      string   `json:"account"       validate:"min=2,max=50"`
+		Account      string   `json:"account"       validate:"min=4,max=50"`
 		Username     string   `json:"username"      validate:"min=2,max=50"`
 		Nickname     string   `json:"nickname"      validate:"omitempty,min=2,max=50"`
 		Gender       uint64   `json:"gender"        validate:"number,gte=0,lte=2"`

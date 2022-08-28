@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-27 01:42:08
+-- 生成日期： 2022-08-28 08:44:30
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -75,7 +75,7 @@ CREATE TABLE `sys_dictionary` (
 
 INSERT INTO `sys_dictionary` (`id`, `parent_id`, `name`, `type`, `unique_key`, `value`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
 (1, 0, '系统配置', 0, 'sys', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 01:25:31'),
-(2, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '新建用户默认密码', '2022-08-22 10:03:58', '2022-08-25 09:03:52'),
+(2, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '新建用户默认密码', '2022-08-22 10:03:58', '2022-08-28 08:41:39'),
 (3, 1, '更新个人密码', 1, 'sys_ch_pwd', '', 0, 0, '', '2022-08-25 03:18:47', '2022-08-25 08:28:25'),
 (4, 1, '更新个人资料', 1, 'sys_userinfo', '', 0, 0, '', '2022-08-25 03:28:36', '2022-08-27 01:20:52');
 
@@ -120,13 +120,6 @@ CREATE TABLE `sys_log` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统日志';
-
---
--- 转存表中的数据 `sys_log`
---
-
-INSERT INTO `sys_log` (`id`, `user_id`, `ip`, `uri`, `type`, `request`, `status`, `create_time`, `update_time`) VALUES
-(1, 1, '172.21.0.1, 172.21.0.4', '/user/login', 1, '', 1, '2022-08-27 01:40:33', '2022-08-27 01:40:33');
 
 -- --------------------------------------------------------
 
@@ -245,7 +238,7 @@ CREATE TABLE `sys_role` (
 
 INSERT INTO `sys_role` (`id`, `parent_id`, `name`, `unique_key`, `remark`, `perm_menu_ids`, `status`, `order_num`, `create_time`, `update_time`) VALUES
 (1, 0, '超级管理员', 'root', '超级管理员', '[]', 1, 0, '2022-08-19 02:38:19', '2022-08-26 03:35:54'),
-(2, 0, '演示', 'demo', '', '[3, 8, 14, 19, 25, 30, 38, 44, 1, 2, 7, 13, 18, 24, 29, 36, 37, 42, 43]', 1, 0, '2022-08-23 13:13:05', '2022-08-25 02:54:23');
+(2, 0, '演示', 'demo', '', '[3, 8, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 30, 38, 42, 43, 44, 1, 2, 7, 29, 36, 37]', 1, 0, '2022-08-23 13:13:05', '2022-08-28 08:42:47');
 
 -- --------------------------------------------------------
 
@@ -280,7 +273,7 @@ CREATE TABLE `sys_user` (
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
 (1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Prescription02&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=Hoodie&clotheColor=Heather&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light', 0, 'arklnk@163.com', '', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-27 01:41:43'),
-(2, 'demo', '596bfe4bb02db60c2a25965598529e7e', 'demo', '', 'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Sunglasses&facialHairType=Blank&clotheType=Hoodie&clotheColor=Heather&eyeType=Hearts&eyebrowType=UpDown&mouthType=Tongue&skinColor=DarkBrown', 0, '', '', 1, 2, 1, '[2]', 1, 0, '', '2022-08-23 14:04:24', '2022-08-26 08:19:47');
+(2, 'demo', '596bfe4bb02db60c2a25965598529e7e', 'demo', '', 'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Sunglasses&facialHairType=Blank&clotheType=Hoodie&clotheColor=Heather&eyeType=Hearts&eyebrowType=UpDown&mouthType=Tongue&skinColor=DarkBrown', 0, '', '', 2, 2, 1, '[2]', 1, 0, '', '2022-08-23 14:04:24', '2022-08-28 08:44:01');
 
 --
 -- 转储表的索引
@@ -366,7 +359,7 @@ ALTER TABLE `sys_job`
 -- 使用表AUTO_INCREMENT `sys_log`
 --
 ALTER TABLE `sys_log`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号';
 
 --
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
