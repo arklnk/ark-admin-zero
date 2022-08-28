@@ -9,9 +9,9 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
-	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/utils"
+	"ark-admin-zero/config"
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/zeromicro/go-zero/core/logx"

@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"strings"
 
-	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/utils"
+	"ark-admin-zero/config"
 
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest/httpx"
