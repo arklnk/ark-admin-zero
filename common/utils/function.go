@@ -54,9 +54,9 @@ func ArrayContainValue(arr []uint64, search uint64) bool {
 	return false
 }
 
-func Intersect(slice1, slice2 []uint64) []uint64 {
+func Intersect(slice1 []uint64, slice2 []uint64) []uint64 {
 	m := make(map[uint64]uint64)
-	nn := make([]uint64, 0)
+	n := make([]uint64, 0)
 	for _, v := range slice1 {
 		m[v]++
 	}
@@ -64,25 +64,27 @@ func Intersect(slice1, slice2 []uint64) []uint64 {
 	for _, v := range slice2 {
 		times, _ := m[v]
 		if times == 1 {
-			nn = append(nn, v)
+			n = append(n, v)
 		}
 	}
-	return nn
+
+	return n
 }
 
-func Difference(slice1, slice2 []uint64) []uint64 {
+func Difference(slice1 []uint64, slice2 []uint64) []uint64 {
 	m := make(map[uint64]int)
-	nn := make([]uint64, 0)
+	n := make([]uint64, 0)
 	inter := Intersect(slice1, slice2)
 	for _, v := range inter {
 		m[v]++
 	}
 
-	for _, value := range slice1 {
-		times, _ := m[value]
+	for _, v := range slice1 {
+		times, _ := m[v]
 		if times == 0 {
-			nn = append(nn, value)
+			n = append(n, v)
 		}
 	}
-	return nn
+
+	return n
 }

@@ -7,7 +7,6 @@ import (
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
-	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/utils"
@@ -34,9 +33,8 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 	currentUserId := utils.GetUserId(l.ctx)
 	var currentUserRoleIds []uint64
 	var roleIds []uint64
-	var sysRoleList []*model.SysRole
 	if currentUserId == config.SysProtectUserId {
-		sysRoleList, _ = l.svcCtx.SysRoleModel.FindAll(l.ctx)
+		sysRoleList, _ := l.svcCtx.SysRoleModel.FindAll(l.ctx)
 		for _, role := range sysRoleList {
 			currentUserRoleIds=append(currentUserRoleIds,role.Id)
 			roleIds=append(roleIds,role.Id)
