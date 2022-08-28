@@ -8,7 +8,10 @@
 
 在线体验地址: [http://106.52.40.152:8080](http://106.52.40.152:8080)
 
-- **账号**：demo  **密码**：123456
+| 账号 | 密码   | 备注     |
+| ---- | ------ | -------- |
+| demo | 123456 | 演示账号 |
+
 - 如需体验更完整的项目功能可自行下载项目并运行体验或使用 docker-compose
 
 ## docker-compose
@@ -27,7 +30,10 @@ docker-compose up -d
 
 登录地址：[http://127.0.0.1](http://127.0.0.1)
 
-- **账号**：arklnk **密**码：123456
+| 账号   | 密码   | 备注       |
+| ------ | ------ | ---------- |
+| arklnk | 123456 | 超级管理员 |
+| demo   | 123456 | 演示账号   |
 
 ![login](dev/images/login.png)
 
@@ -102,4 +108,30 @@ modd
 >> starting...
 Starting server at 0.0.0.0:7001...
 ```
+
+# 欢迎 Star && PR
+
+如果项目有帮助到你可以点个 Star 支持下。有更好的实现欢迎 PR。
+
+## 浏览器支持
+
+Modern browsers and Internet Explorer 10+.
+
+| [![IE / Edge](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png)](https://godban.github.io/browsers-support-badges/) IE / Edge | [![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png)](https://godban.github.io/browsers-support-badges/) Firefox | [![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png)](https://godban.github.io/browsers-support-badges/) Chrome | [![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png)](https://godban.github.io/browsers-support-badges/) Safari |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| IE10, IE11, Edge                                             | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
+
+## 致谢
+
+[https://go-zero.dev/cn](https://go-zero.dev/cn)
+
+[https://github.com/Mikaelemmmm/go-zero-looklook](https://github.com/Mikaelemmmm/go-zero-looklook)
+
+[https://github.com/jinzhu/copier](https://github.com/jinzhu/copier)
+
+[https://github.com/go-playground/validator](https://github.com/go-playground/validator)
+
+[https://github.com/fangpenlin/avataaars-generator](https://github.com/fangpenlin/avataaars-generator)
+
+[https://www.jetbrains.com/go](https://www.jetbrains.com/go)
 
