@@ -52,7 +52,7 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 
 	if sysUser.Id != config.SysProtectUserId {
 		dept, _ := l.svcCtx.SysDeptModel.FindOne(l.ctx, sysUser.DeptId)
-		if dept.Status == 0 {
+		if dept.Status == config.SysDisable {
 			return nil, errorx.NewDefaultError(errorx.AccountDisableErrorCode)
 		}
 	}
