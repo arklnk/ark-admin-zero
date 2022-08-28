@@ -1,65 +1,103 @@
-# ark-admin-zero
+# Ark-admin
 
-### 快速体验
+![](dev/images/ark-admin.png)
+
+## 官方文档
+
+传送门：[https://docs.arklnk.com](https://docs.arklnk.com)
+
+## 在线体验
+
+在线体验地址: [http://106.52.40.152:8080](http://106.52.40.152:8080)
+
+- **账号**：demo  **密码**：123456
+- 如需体验更完整的项目功能可自行下载项目并运行体验或使用 docker-compose
+
+## docker-compose
+
+```sh
+git clone https://github.com/arklnk/ark-admin-zero.git
+```
+
+```sh
+cd ark-admin-zero
+```
 
 ```
 docker-compose up -d
 ```
 
-**包含以下开发环境**
+登录地址：[http://127.0.0.1](http://127.0.0.1)
 
-ark-admin
+- **账号**：arklnk **密**码：123456
 
-```
-端口：7001
-```
+![login](dev/images/login.png)
 
-redis
+![](dev/images/menu.png)
 
-```
-密码：123456
-```
+## 开发模式
 
-mysql
+### clone项目
 
-```
-账号：root
-密码：root
+```sh
+git clone https://github.com/arklnk/ark-admin-zero.git
 ```
 
-phpmyadmin
-
-```
-端口：8080
-服务器：mysql
-用户名：root
-密码：root
+```sh
+cd ark-admin-zero
 ```
 
-### 使用版本
+### 下载依赖
 
-golang（ 版本：1.18）
+```sh
+go mod tidy
+```
 
-链接：https://go.dev/dl
+### 热启动
 
-go-zero（版本：1.4.0）
+下载依赖
 
-链接：https://github.com/zeromicro/go-zero/releases/tag/v1.4.0
+```sh
+go get github.com/cortesi/modd/cmd/modd
+```
 
-goctl（ 版本：1.4.0）
+编辑热启动配置（项目根目录下得modd.conf）
 
-链接：https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0
+window环境下
 
-### 致谢
+```conf
+#core
+app/core/**/*.* {
+    prep: go build -o data/service/core-api.exe -v app/core/cmd/api/core.go
+    daemon: data/service/core-api.exe -f app/core/cmd/api/etc/core-api.yaml
+}
+```
 
-https://go-zero.dev/cn
+mac、linux环境下
 
-https://github.com/Mikaelemmmm/go-zero-looklook
+```
+#core
+app/core/**/*.* {
+    prep: go build -o data/service/core-api -v app/core/cmd/api/core.go
+    daemon: data/service/core-api -f app/core/cmd/api/etc/core-api.yaml
+}
+```
 
-https://github.com/jinzhu/copier
+> 注：modd开源地址https://github.com/cortesi/modd
 
-https://github.com/go-playground/validator
+运行（开发环境需要用到 redis 和 mysql，所以请先执行 docker-compose up -d 来启动容器）
 
-https://github.com/fangpenlin/avataaars-generator
+```
+modd
+```
 
-https://www.jetbrains.com/go
+如输出以下信息则启动成功
+
+```
+15:17:03: prep: go build -o data/service/core-api.exe -v app/core/cmd/api/core.go
+>> done (2.2430897s)
+15:17:06: daemon: data/service/core-api.exe -f app/core/cmd/api/etc/core-api.yaml
+>> starting...
+Starting server at 0.0.0.0:7001...
+```
+
