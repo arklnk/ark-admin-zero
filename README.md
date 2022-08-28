@@ -37,6 +37,12 @@ docker-compose up -d
 
 ## 开发模式
 
+### 环境要求
+
+- golang   （ 版本：1.18）链接：[https://go.dev/dl](https://go.dev/dl)
+- go-zero （版本：1.4.0） 链接：[https://github.com/zeromicro/go-zero/releases/tag/v1.4.0](https://github.com/zeromicro/go-zero/releases/tag/v1.4.0)
+- goctl      （ 版本：1.4.0）链接：[https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0](https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0)
+
 ### clone项目
 
 ```sh
@@ -55,13 +61,11 @@ go mod tidy
 
 ### 热启动
 
-下载依赖
-
 ```sh
 go get github.com/cortesi/modd/cmd/modd
 ```
 
-编辑热启动配置（项目根目录下得modd.conf）
+编辑热启动配置（项目根目录下的modd.conf）
 
 window环境下
 
