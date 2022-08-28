@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-26 08:21:33
+-- 生成日期： 2022-08-27 01:42:08
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -77,7 +77,7 @@ INSERT INTO `sys_dictionary` (`id`, `parent_id`, `name`, `type`, `unique_key`, `
 (1, 0, '系统配置', 0, 'sys', '', 1, 0, '', '2022-08-22 10:03:58', '2022-08-23 01:25:31'),
 (2, 1, '默认密码', 1, 'sys_pwd', '123456', 1, 0, '新建用户默认密码', '2022-08-22 10:03:58', '2022-08-25 09:03:52'),
 (3, 1, '更新个人密码', 1, 'sys_ch_pwd', '', 0, 0, '', '2022-08-25 03:18:47', '2022-08-25 08:28:25'),
-(4, 1, '更新个人资料', 1, 'sys_userinfo', '', 0, 0, '', '2022-08-25 03:28:36', '2022-08-25 08:28:35');
+(4, 1, '更新个人资料', 1, 'sys_userinfo', '', 0, 0, '', '2022-08-25 03:28:36', '2022-08-27 01:20:52');
 
 -- --------------------------------------------------------
 
@@ -120,6 +120,13 @@ CREATE TABLE `sys_log` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统日志';
+
+--
+-- 转存表中的数据 `sys_log`
+--
+
+INSERT INTO `sys_log` (`id`, `user_id`, `ip`, `uri`, `type`, `request`, `status`, `create_time`, `update_time`) VALUES
+(1, 1, '172.21.0.1, 172.21.0.4', '/user/login', 1, '', 1, '2022-08-27 01:40:33', '2022-08-27 01:40:33');
 
 -- --------------------------------------------------------
 
@@ -180,7 +187,6 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (32, 29, '删除', '', '[\"sys/user/delete\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 09:37:20'),
 (33, 29, '更新', '', '[\"sys/user/update\",\"sys/user/rdpj/info\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-24 03:08:07'),
 (34, 29, '改密', '', '[\"sys/user/password/update\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-25 04:51:46'),
-(35, 29, '转移', '', '[\"sys/user/transfer\"]', 2, '', 0, '', 1, '', '2022-08-12 02:14:20', '2022-08-23 09:34:36'),
 (36, 0, '配置管理', '/config', '[]', 0, 'config', 0, '', 1, '', '2022-08-22 03:33:42', '2022-08-24 03:41:35'),
 (37, 36, '字典管理', '/config/dict', '[]', 1, '', 0, 'views/config/dict', 1, '', '2022-08-22 03:39:21', '2022-08-23 09:33:47'),
 (38, 37, '查询', '', '[\"config/dict/list\",\"config/dict/data/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 09:35:53'),
@@ -273,7 +279,7 @@ CREATE TABLE `sys_user` (
 --
 
 INSERT INTO `sys_user` (`id`, `account`, `password`, `username`, `nickname`, `avatar`, `gender`, `email`, `mobile`, `profession_id`, `job_id`, `dept_id`, `role_ids`, `status`, `order_num`, `remark`, `create_time`, `update_time`) VALUES
-(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'https://avataaars.io/?clotheColor=Black&accessoriesType=Wayfarers&avatarStyle=Circle&clotheType=Hoodie&eyeType=Dizzy&eyebrowType=RaisedExcitedNatural&facialHairColor=Brown&facialHairType=BeardMedium&hairColor=Auburn&hatColor=Blue03&mouthType=Grimace&skinColor=Tanned&topType=LongHairFro', 0, 'arklnk@163.com', '12000000000', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-25 08:21:15'),
+(1, 'arklnk', '596bfe4bb02db60c2a25965598529e7e', 'arklnk', 'arklnk', 'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Prescription02&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=Hoodie&clotheColor=Heather&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light', 0, 'arklnk@163.com', '', 0, 0, 0, '[1]', 1, 0, 'arklnk', '2022-08-11 06:19:45', '2022-08-27 01:41:43'),
 (2, 'demo', '596bfe4bb02db60c2a25965598529e7e', 'demo', '', 'https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Sunglasses&facialHairType=Blank&clotheType=Hoodie&clotheColor=Heather&eyeType=Hearts&eyebrowType=UpDown&mouthType=Tongue&skinColor=DarkBrown', 0, '', '', 1, 2, 1, '[2]', 1, 0, '', '2022-08-23 14:04:24', '2022-08-26 08:19:47');
 
 --
@@ -360,7 +366,7 @@ ALTER TABLE `sys_job`
 -- 使用表AUTO_INCREMENT `sys_log`
 --
 ALTER TABLE `sys_log`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号';
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `sys_perm_menu`

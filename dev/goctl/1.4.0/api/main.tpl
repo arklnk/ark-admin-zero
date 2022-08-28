@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-    "ark-zero-admin/common/errorx"
+    "ark-admin-zero/common/errorx"
 	{{.importPackages}}
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
