@@ -1,11 +1,10 @@
 package model
 
 import (
+	"ark-admin-zero/config"
 	"context"
 	"fmt"
 	"time"
-
-	"ark-admin-zero/common/config"
 
 	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"

@@ -9,9 +9,9 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
-	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/utils"
+	"ark-admin-zero/config"
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -52,7 +52,7 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 
 	if sysUser.Id != config.SysProtectUserId {
 		dept, _ := l.svcCtx.SysDeptModel.FindOne(l.ctx, sysUser.DeptId)
-		if dept.Status == 0 {
+		if dept.Status == config.SysDisable {
 			return nil, errorx.NewDefaultError(errorx.AccountDisableErrorCode)
 		}
 	}

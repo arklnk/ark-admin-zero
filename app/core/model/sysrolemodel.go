@@ -1,7 +1,7 @@
 package model
 
 import (
-	"ark-admin-zero/common/config"
+	"ark-admin-zero/config"
 	"context"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/stores/cache"

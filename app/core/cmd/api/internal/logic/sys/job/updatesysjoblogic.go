@@ -6,6 +6,7 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/config"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -31,7 +32,7 @@ func (l *UpdateSysJobLogic) UpdateSysJob(req *types.UpdateSysJobReq) error {
 		return errorx.NewDefaultError(errorx.JobIdErrorCode)
 	}
 
-	if req.Status == 0 {
+	if req.Status == config.SysDisable {
 		count, _ := l.svcCtx.SysUserModel.FindCountByJobId(l.ctx, req.Id)
 		if count > 0 {
 			return errorx.NewDefaultError(errorx.JobIsUsingErrorCode)

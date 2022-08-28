@@ -5,8 +5,8 @@ import (
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
-	"ark-admin-zero/common/config"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/config"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
