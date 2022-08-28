@@ -1,5 +1,3 @@
-# Ark-admin
-
 ![](dev/images/ark-admin.png)
 
 ## 官方文档
