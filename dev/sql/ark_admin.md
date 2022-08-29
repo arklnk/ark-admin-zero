@@ -98,14 +98,14 @@
 |id|int(11)|编号|
 |parent_id|int(11)|父级id|
 |name|varchar(50)|名称|
-|router|varchar(200)|路由|
-|perms|varchar(200)|权限|
+|router|varchar(1024)|路由|
+|perms|varchar(1024)|权限|
 |type|tinyint(1)|0=目录 1=菜单 2=权限|
-|icon|varchar(50)|图标|
+|icon|varchar(200)|图标|
 |order_num|int(11)|排序值|
-|view_path|varchar(200)|页面路径|
+|view_path|varchar(1024)|页面路径|
 |is_show|tinyint(1)|0=隐藏 1=显示|
-|active_router|varchar(200)|当前激活的菜单|
+|active_router|varchar(1024)|当前激活的菜单|
 |create_time|timestamp|创建时间|
 |update_time|timestamp|更新时间|
 
