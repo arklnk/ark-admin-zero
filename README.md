@@ -1,4 +1,4 @@
-![](dev/images/ark-admin.png)
+![](imgs/README/ark-admin.png)
 
 ## 官方文档
 
@@ -35,9 +35,9 @@ docker-compose up -d
 | arklnk | 123456 | 超级管理员 |
 | demo   | 123456 | 演示账号   |
 
-![login](dev/images/login.png)
+![login](https://docs.arklnk.com/images/zero/login.png)
 
-![](dev/images/menu.png)
+![](https://docs.arklnk.com/images/zero/menu.png)
 
 ## 开发模式
 
@@ -123,7 +123,7 @@ Modern browsers and Internet Explorer 10+.
 
 ## 赞赏或交流
 
-![交流](dev/images/contact.jpg)
+![交流](https://docs.arklnk.com/images/zero/contact.jpg)
 
 ## 致谢
 
