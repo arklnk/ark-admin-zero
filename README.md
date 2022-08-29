@@ -1,4 +1,4 @@
-![](imgs/README/ark-admin.png)
+![](https://docs.arklnk.com/images/ark-admin.png)
 
 ## 官方文档
 
