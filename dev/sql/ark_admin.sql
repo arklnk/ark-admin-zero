@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql
--- 生成日期： 2022-08-29 03:36:50
+-- 生成日期： 2022-08-29 09:32:43
 -- 服务器版本： 5.7.36
 -- PHP 版本： 7.4.27
 
@@ -131,14 +131,14 @@ CREATE TABLE `sys_perm_menu` (
   `id` int(11) UNSIGNED NOT NULL COMMENT '编号',
   `parent_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '父级id',
   `name` varchar(50) NOT NULL COMMENT '名称',
-  `router` varchar(200) NOT NULL DEFAULT '' COMMENT '路由',
-  `perms` varchar(200) NOT NULL DEFAULT '' COMMENT '权限',
+  `router` varchar(1024) NOT NULL DEFAULT '' COMMENT '路由',
+  `perms` varchar(1024) NOT NULL DEFAULT '' COMMENT '权限',
   `type` tinyint(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '0=目录 1=菜单 2=权限',
-  `icon` varchar(50) NOT NULL DEFAULT '' COMMENT '图标',
+  `icon` varchar(200) NOT NULL DEFAULT '' COMMENT '图标',
   `order_num` int(11) UNSIGNED DEFAULT '0' COMMENT '排序值',
-  `view_path` varchar(200) NOT NULL DEFAULT '' COMMENT '页面路径',
+  `view_path` varchar(1024) NOT NULL DEFAULT '' COMMENT '页面路径',
   `is_show` tinyint(1) UNSIGNED DEFAULT '1' COMMENT '0=隐藏 1=显示',
-  `active_router` varchar(200) NOT NULL DEFAULT '' COMMENT '当前激活的菜单',
+  `active_router` varchar(1024) NOT NULL DEFAULT '' COMMENT '当前激活的菜单',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限&菜单';
@@ -188,7 +188,12 @@ INSERT INTO `sys_perm_menu` (`id`, `parent_id`, `name`, `router`, `perms`, `type
 (41, 37, '更新', '', '[\"config/dict/update\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 09:37:34'),
 (42, 0, '日志管理', '/log', '[]', 0, 'ic:baseline-history', 0, '', 1, '', '2022-08-23 04:47:23', '2022-08-29 02:37:21'),
 (43, 42, '登录日志', '/log/login', '[]', 1, '', 0, 'views/log/login', 1, '', '2022-08-23 04:47:51', '2022-08-23 09:42:43'),
-(44, 43, '查询', '', '[\"log/login/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 09:35:53');
+(44, 43, '查询', '', '[\"log/login/page\"]', 2, '', 0, '', 1, '', '2022-08-22 03:42:07', '2022-08-23 09:35:53'),
+(45, 0, '开源文档', '/document', '[]', 0, 'material-symbols:chrome-reader-mode-outline-rounded', 0, '', 1, '', '2022-08-29 09:22:32', '2022-08-29 09:30:37'),
+(46, 45, '使用文档(内链)', '/document/arkdoc', '[]', 1, '', 0, 'https://docs.arklnk.com/admin/', 1, '', '2022-08-29 09:29:49', '2022-08-29 09:31:22'),
+(47, 45, '使用文档(外链)', 'https://docs.arklnk.com/admin/', '[]', 1, '', 0, '', 1, '', '2022-08-29 09:23:52', '2022-08-29 09:32:13'),
+(48, 45, '前端仓库', 'https://github.com/arklnk/ark-admin-vuenext', '[]', 1, '', 0, '', 1, '', '2022-08-29 09:25:53', '2022-08-29 09:30:44'),
+(49, 45, '后端仓库', 'https://github.com/arklnk/ark-admin-zero', '[]', 1, '', 0, '', 1, '', '2022-08-29 09:26:24', '2022-08-29 09:30:47');
 
 -- --------------------------------------------------------
 
@@ -365,7 +370,7 @@ ALTER TABLE `sys_log`
 -- 使用表AUTO_INCREMENT `sys_perm_menu`
 --
 ALTER TABLE `sys_perm_menu`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=45;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号', AUTO_INCREMENT=51;
 
 --
 -- 使用表AUTO_INCREMENT `sys_profession`
