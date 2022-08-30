@@ -3,6 +3,7 @@ package menu
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
@@ -30,8 +31,18 @@ func NewUpdateSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuReq) error {
+	userId := utils.GetUserId(l.ctx)
+	if userId != config.SysProtectUserId {
+		for _, v := range req.Perms {
+			is, err := l.svcCtx.Redis.Sismember(config.SysPermMenuCachePrefix+strconv.FormatUint(userId, 10), config.SysPermMenuPrefix+v)
+			if err != nil || is != true {
+				return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
+			}
+		}
+	}
+
 	if req.ParentId != config.SysTopParentId {
-		parentPermMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx,req.ParentId)
+		parentPermMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.ParentId)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ParentPermMenuIdErrorCode)
 		}
