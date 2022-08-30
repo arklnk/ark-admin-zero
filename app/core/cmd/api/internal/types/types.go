@@ -80,6 +80,7 @@ type PermMenu struct {
 	ViewPath     string   `json:"viewPath"`
 	IsShow       uint64   `json:"isShow"`
 	ActiveRouter string   `json:"activeRouter"`
+	Has          uint64   `json:"has"`
 }
 
 type SysPermMenuListResp struct {
