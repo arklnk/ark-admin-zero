@@ -37,7 +37,7 @@ func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
 		}
 	}
 
-	if req.Id == config.SysProtectRoleId {
+	if req.Id == config.SysSuperRoleId {
 		return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 	}
 

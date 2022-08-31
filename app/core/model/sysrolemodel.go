@@ -34,7 +34,7 @@ func NewSysRoleModel(conn sqlx.SqlConn, c cache.CacheConf) SysRoleModel {
 }
 
 func (m *customSysRoleModel) FindAll(ctx context.Context) ([]*SysRole, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d ORDER BY order_num DESC", sysRoleRows, m.table, config.SysProtectRoleId)
+	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d ORDER BY order_num DESC", sysRoleRows, m.table, config.SysSuperRoleId)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -46,7 +46,7 @@ func (m *customSysRoleModel) FindAll(ctx context.Context) ([]*SysRole, error) {
 }
 
 func (m *customSysRoleModel) FindEnable(ctx context.Context) ([]*SysRole, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 ORDER BY order_num DESC", sysRoleRows, m.table, config.SysProtectRoleId)
+	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 ORDER BY order_num DESC", sysRoleRows, m.table, config.SysSuperRoleId)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -58,7 +58,7 @@ func (m *customSysRoleModel) FindEnable(ctx context.Context) ([]*SysRole, error)
 }
 
 func (m *customSysRoleModel) FindByIds(ctx context.Context, ids string) ([]*SysRole, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 AND id IN(%s) ORDER BY order_num DESC", sysRoleRows, m.table, config.SysProtectRoleId, ids)
+	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 AND id IN(%s) ORDER BY order_num DESC", sysRoleRows, m.table, config.SysSuperRoleId, ids)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

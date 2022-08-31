@@ -33,7 +33,7 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 	currentUserId := utils.GetUserId(l.ctx)
 	var currentUserRoleIds []uint64
 	var roleIds []uint64
-	if currentUserId == config.SysProtectUserId {
+	if currentUserId == config.SysSuperUserId {
 		sysRoleList, _ := l.svcCtx.SysRoleModel.FindAll(l.ctx)
 		for _, role := range sysRoleList {
 			currentUserRoleIds=append(currentUserRoleIds,role.Id)
