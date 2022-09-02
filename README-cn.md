@@ -1,24 +1,24 @@
 ![](https://docs.arklnk.com/images/ark-admin.png)
 
-English | [简体中文](README-cn.md)
+[English](README.md)| 简体中文
 
-## The official documentation
+## 官方文档
 
-Doc: [https://docs.arklnk.com](https://docs.arklnk.com)
+文档：[https://docs.arklnk.com](https://docs.arklnk.com)
 
-The back-end: [https://github.com/arklnk/ark-admin-vuenext](https://github.com/arklnk/ark-admin-vuenext)
+前端：[https://github.com/arklnk/ark-admin-vuenext](https://github.com/arklnk/ark-admin-vuenext)
 
-The front end：[https://github.com/arklnk/ark-admin-zero](https://github.com/arklnk/ark-admin-zero)
+后端：[https://github.com/arklnk/ark-admin-zero](https://github.com/arklnk/ark-admin-zero)
 
-## Online experience
+## 在线体验
 
-demo: [http://arkadmin.si-yee.com](http://arkadmin.si-yee.com)
+在线体验地址: [http://arkadmin.si-yee.com](http://arkadmin.si-yee.com)
 
-| Account | Password | Remark |
-| ------- | -------- | ------ |
-| demo    | 123456   | demo   |
+| 账号 | 密码   | 备注     |
+| ---- | ------ | -------- |
+| demo | 123456 | 演示账号 |
 
-- For more complete project functionality, download the project yourself and run the experience or use **docker-compose**
+- 如需体验更完整的项目功能可自行下载项目并运行体验或使用 docker-compose
 
 ## docker-compose
 
@@ -34,26 +34,26 @@ cd ark-admin-zero
 docker-compose up -d
 ```
 
-login：[http://127.0.0.1](http://127.0.0.1)
+登录地址：[http://127.0.0.1](http://127.0.0.1)
 
-| Account | Password | Remark |
-| ------- | -------- | ------ |
-| arklnk  | 123456   | root   |
-| demo    | 123456   | demo   |
+| 账号   | 密码   | 备注       |
+| ------ | ------ | ---------- |
+| arklnk | 123456 | 超级管理员 |
+| demo   | 123456 | 演示账号   |
 
 ![login](https://docs.arklnk.com/images/zero/login.png)
 
 ![](https://docs.arklnk.com/images/zero/menu.png)
 
-## Development mode
+## 开发模式
 
-### Environmental requirements
+### 环境要求
 
-- golang   （ Version:1.18）link：[https://go.dev/dl](https://go.dev/dl)
-- go-zero （Version:1.4.0） link：[https://github.com/zeromicro/go-zero/releases/tag/v1.4.0](https://github.com/zeromicro/go-zero/releases/tag/v1.4.0)
-- goctl      （ Version:1.4.0）link：[https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0](https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0)
+- golang   （ 版本：1.18）链接：[https://go.dev/dl](https://go.dev/dl)
+- go-zero （版本：1.4.0） 链接：[https://github.com/zeromicro/go-zero/releases/tag/v1.4.0](https://github.com/zeromicro/go-zero/releases/tag/v1.4.0)
+- goctl      （ 版本：1.4.0）链接：[https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0](https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0)
 
-### Clone project
+### clone项目
 
 ```sh
 git clone https://github.com/arklnk/ark-admin-zero.git
@@ -63,21 +63,21 @@ git clone https://github.com/arklnk/ark-admin-zero.git
 cd ark-admin-zero
 ```
 
-### Download the dependent
+### 下载依赖
 
 ```sh
 go mod tidy
 ```
 
-### modd
+### 热启动
 
 ```sh
 go get github.com/cortesi/modd/cmd/modd
 ```
 
-Edit the hot start configuration（modd.conf in the project root directory）
+编辑热启动配置（项目根目录下的modd.conf）
 
-Windows
+window环境下
 
 ```conf
 #core
@@ -87,7 +87,7 @@ app/core/**/*.* {
 }
 ```
 
-MAC or Linux 
+mac、linux环境下
 
 ```
 #core
@@ -97,13 +97,13 @@ app/core/**/*.* {
 }
 ```
 
-run（The development environment will use Redis and mysql, so run **docker-compose up -d** to start the container）
+运行（开发环境需要用到 redis 和 mysql，所以请先执行 docker-compose up -d 来启动容器）
 
 ```
 modd
 ```
 
-If the following information is displayed, the system is successfully started
+如输出以下信息则启动成功
 
 ```
 15:17:03: prep: go build -o data/service/core-api.exe -v app/core/cmd/api/core.go
@@ -113,11 +113,11 @@ If the following information is displayed, the system is successfully started
 Starting server at 0.0.0.0:7001...
 ```
 
-# Star && PR
+# 欢迎 Star && PR
 
-If the project is helpful you can click on the Star support. There are better implementations of welcome PR.
+如果项目有帮助到你可以点个 Star 支持下。有更好的实现欢迎 PR。
 
-## Browser Support
+## 浏览器支持
 
 Modern browsers and Internet Explorer 10+.
 
@@ -125,7 +125,11 @@ Modern browsers and Internet Explorer 10+.
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | IE10, IE11, Edge                                             | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
 
-## Thanks
+## 赞赏或交流
+
+![交流](https://docs.arklnk.com/images/zero/contact.jpg)
+
+## 致谢
 
 [https://go-zero.dev/cn](https://go-zero.dev/cn)
 
