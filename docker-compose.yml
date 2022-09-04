@@ -11,6 +11,8 @@ services:
     volumes:
       - ./deploy/gateway/conf.d:/etc/nginx/conf.d
       - ./data/gateway/log:/var/log/nginx
+    ports:
+      - "8000:8000"
     networks:
       - ark_admin_net
 
@@ -32,7 +34,7 @@ services:
       - ./deploy/service/core/etc:/app/etc
       - ./data/service/logs:/app/logs
     ports:
-      - "7001:7001"
+      - "8001:8001"
     restart: always
     networks:
       - ark_admin_net
