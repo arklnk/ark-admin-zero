@@ -125,10 +125,6 @@ Modern browsers and Internet Explorer 10+.
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | IE10, IE11, Edge                                             | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
 
-## 赞赏或交流
-
-![交流](https://docs.arklnk.com/images/zero/contact.jpg)
-
 ## 致谢
 
 [https://go-zero.dev/cn](https://go-zero.dev/cn)
