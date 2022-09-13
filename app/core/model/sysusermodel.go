@@ -63,7 +63,7 @@ func NewSysUserModel(conn sqlx.SqlConn, c cache.CacheConf) SysUserModel {
 
 func (m *customSysUserModel) FindPage(ctx context.Context, page uint64, limit uint64, deptIds string) ([]*SysUserDetail, error) {
 	offset := (page - 1) * limit
-	query := fmt.Sprintf("SELECT u.id,u.dept_id,u.job_id,u.profession_id,u.account,u.username,u.nickname,u.avatar,u.gender,IFNULL(p.name,'NULL') as profession,IFNULL(j.name,'NULL') as job,IFNULL(d.name,'NULL') as dept,IFNULL(GROUP_CONCAT(r.name),'NULL') as roles,IFNULL(GROUP_CONCAT(r.id),0) as role_ids,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM (SELECT * FROM sys_user WHERE id!=%d AND dept_id IN(%s) ORDER BY order_num DESC LIMIT %d,%d) u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id", config.SysProtectUserId, deptIds, offset, limit)
+	query := fmt.Sprintf("SELECT u.id,u.dept_id,u.job_id,u.profession_id,u.account,u.username,u.nickname,u.avatar,u.gender,IFNULL(p.name,'NULL') as profession,IFNULL(j.name,'NULL') as job,IFNULL(d.name,'NULL') as dept,IFNULL(GROUP_CONCAT(r.name),'NULL') as roles,IFNULL(GROUP_CONCAT(r.id),0) as role_ids,u.email,u.mobile,u.remark,u.order_num,u.status,u.create_time,u.update_time FROM (SELECT * FROM sys_user WHERE id!=%d AND dept_id IN(%s) ORDER BY order_num DESC LIMIT %d,%d) u LEFT JOIN sys_profession p ON u.profession_id=p.id LEFT JOIN sys_dept d ON u.dept_id=d.id LEFT JOIN sys_job j ON u.job_id=j.id LEFT JOIN sys_role r ON JSON_CONTAINS(u.role_ids,JSON_ARRAY(r.id)) GROUP BY u.id", config.SysSuperUserId, deptIds, offset, limit)
 	var resp []*SysUserDetail
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -87,7 +87,7 @@ func (m *customSysUserModel) FindCountByCondition(ctx context.Context, condition
 }
 
 func (m *customSysUserModel) FindCountByDeptIds(ctx context.Context, deptIds string) (uint64, error) {
-	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE id!=%d AND dept_id IN(%s)", m.table, config.SysProtectUserId, deptIds)
+	query := fmt.Sprintf("SELECT COUNT(id) FROM %s WHERE id!=%d AND dept_id IN(%s)", m.table, config.SysSuperUserId, deptIds)
 	var resp uint64
 	err := m.QueryRowNoCacheCtx(ctx, &resp, query)
 	switch err {

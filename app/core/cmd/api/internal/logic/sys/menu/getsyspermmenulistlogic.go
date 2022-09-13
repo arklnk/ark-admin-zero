@@ -32,12 +32,12 @@ func NewGetSysPermMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuListResp, err error) {
 	permMenus, err := l.svcCtx.SysPermMenuModel.FindAll(l.ctx)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	currentUserId := utils.GetUserId(l.ctx)
 	var currentUserPermMenuIds []uint64
-	if currentUserId != config.SysProtectUserId {
+	if currentUserId != config.SysSuperUserId {
 		currentUserPermMenuIds = l.getCurrentUserPermMenuIds(currentUserId)
 	}
 
@@ -46,12 +46,12 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 	for _, v := range permMenus {
 		err := copier.Copy(&menu, &v)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		var perms []string
 		err = json.Unmarshal([]byte(v.Perms), &perms)
 		menu.Perms = perms
-		if currentUserId == config.SysProtectUserId {
+		if currentUserId == config.SysSuperUserId {
 			menu.Has = 1
 		} else {
 			if utils.ArrayContainValue(currentUserPermMenuIds, v.Id) {
@@ -68,7 +68,7 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 
 func (l *GetSysPermMenuListLogic) getCurrentUserPermMenuIds(currentUserId uint64) (ids []uint64) {
 	var currentPermMenuIds []uint64
-	if currentUserId != config.SysProtectUserId {
+	if currentUserId != config.SysSuperUserId {
 		var currentUserRoleIds []uint64
 		var roleIds []uint64
 		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)

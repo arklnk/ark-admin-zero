@@ -41,14 +41,14 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 	// 查询用户信息
 	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	var roles []uint64
 	// 用户所属角色
 	err = json.Unmarshal([]byte(user.RoleIds), &roles)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	var permMenu []uint64
@@ -56,7 +56,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 
 	userPermMenu, permMenu, err = l.countUserPermMenu(roles, permMenu)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	var menu types.Menu
@@ -66,7 +66,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 	for _, v := range userPermMenu {
 		err := copier.Copy(&menu, &v)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		if menu.Type != config.SysDefaultPermType {
@@ -75,14 +75,14 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 		var permArray []string
 		err = json.Unmarshal([]byte(v.Perms), &permArray)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		for _, p := range permArray {
 			p = config.SysPermMenuPrefix + p
 			_, err := l.svcCtx.Redis.Sadd(config.SysPermMenuCachePrefix+strconv.FormatUint(userId, 10), p)
 			if err != nil {
-				return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+				return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 			}
 			permList = append(permList, p)
 		}
@@ -93,7 +93,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 }
 
 func (l *GetUserPermMenuLogic) countUserPermMenu(roles []uint64, permMenu []uint64) ([]*model.SysPermMenu, []uint64, error) {
-	if utils.ArrayContainValue(roles, config.SysProtectRoleId) {
+	if utils.ArrayContainValue(roles, config.SysSuperRoleId) {
 		sysPermMenus, err := l.svcCtx.SysPermMenuModel.FindAll(l.ctx)
 		if err != nil {
 			return nil, permMenu, err
@@ -105,14 +105,14 @@ func (l *GetUserPermMenuLogic) countUserPermMenu(roles []uint64, permMenu []uint
 			// 查询角色信息
 			role, err := l.svcCtx.SysRoleModel.FindOne(l.ctx, roleId)
 			if err != nil && err != model.ErrNotFound {
-				return nil, permMenu, errorx.NewDefaultError(errorx.ServerErrorCode)
+				return nil, permMenu, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 			}
 
 			var perms []uint64
 			// 角色所拥有的权限id
 			err = json.Unmarshal([]byte(role.PermMenuIds), &perms)
 			if err != nil {
-				return nil, permMenu, errorx.NewDefaultError(errorx.ServerErrorCode)
+				return nil, permMenu, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 			}
 
 			if role.Status != 0 {

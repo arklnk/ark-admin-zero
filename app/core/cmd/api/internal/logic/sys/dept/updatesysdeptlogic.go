@@ -58,12 +58,12 @@ func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
 
 	err = copier.Copy(sysDept, req)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	err = l.svcCtx.SysDeptModel.Update(l.ctx, sysDept)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

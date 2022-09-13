@@ -34,13 +34,13 @@ func (l *UpdateSysUserPasswordLogic) UpdateSysUserPassword(req *types.UpdateSysU
 
 	err = copier.Copy(sysUser, req)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	sysUser.Password = utils.MD5(req.Password + l.svcCtx.Config.Salt)
 	err = l.svcCtx.SysUserModel.Update(l.ctx, sysUser)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

@@ -39,11 +39,11 @@ func (l *AddConfigDictLogic) AddConfigDict(req *types.AddConfigDictReq) error {
 		var dictionary = new(model.SysDictionary)
 		err = copier.Copy(dictionary, req)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		_, err = l.svcCtx.SysDictionaryModel.Insert(l.ctx, dictionary)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		return nil

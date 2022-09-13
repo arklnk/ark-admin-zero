@@ -41,18 +41,18 @@ func (l *AddSysRoleLogic) AddSysRole(req *types.AddSysRoleReq) error {
 		var sysRole = new(model.SysRole)
 		err = copier.Copy(sysRole, req)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		bytes, err := json.Marshal(req.PermMenuIds)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		sysRole.PermMenuIds = string(bytes)
 		_, err = l.svcCtx.SysRoleModel.Insert(l.ctx, sysRole)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		return nil

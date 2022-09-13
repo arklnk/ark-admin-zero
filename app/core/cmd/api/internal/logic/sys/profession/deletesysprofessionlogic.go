@@ -32,7 +32,7 @@ func (l *DeleteSysProfessionLogic) DeleteSysProfession(req *types.DeleteSysProfe
 
 	err := l.svcCtx.SysProfessionModel.Delete(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

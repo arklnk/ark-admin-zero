@@ -41,12 +41,12 @@ func (l *UpdateSysProfessionLogic) UpdateSysProfession(req *types.UpdateSysProfe
 
 	err = copier.Copy(sysProfession, req)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	err = l.svcCtx.SysProfessionModel.Update(l.ctx, sysProfession)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

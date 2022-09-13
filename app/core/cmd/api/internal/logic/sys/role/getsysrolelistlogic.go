@@ -29,7 +29,7 @@ func NewGetSysRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err error) {
 	sysRoleList, err := l.svcCtx.SysRoleModel.FindAll(l.ctx)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	var role types.Role
@@ -37,7 +37,7 @@ func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err
 	for _, v := range sysRoleList {
 		err := copier.Copy(&role, &v)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		var permMenuIds []uint64
 		err = json.Unmarshal([]byte(v.PermMenuIds), &permMenuIds)

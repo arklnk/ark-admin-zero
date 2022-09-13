@@ -43,7 +43,7 @@ func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint
 	var currentUserRoleIds []uint64
 	var roleIds []uint64
 	var sysRoleList []*model.SysRole
-	if currentUserId == config.SysProtectUserId {
+	if currentUserId == config.SysSuperUserId {
 		sysRoleList, _ = l.svcCtx.SysRoleModel.FindAll(l.ctx)
 		for _, role := range sysRoleList {
 			currentUserRoleIds=append(currentUserRoleIds,role.Id)

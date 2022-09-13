@@ -28,7 +28,7 @@ func NewGetConfigDictPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *GetConfigDictPageLogic) GetConfigDictPage(req *types.ConfigDictPageReq) (resp *types.ConfigDictPageResp, err error) {
 	configDictionaryList, err := l.svcCtx.SysDictionaryModel.FindPageByParentId(l.ctx, req.ParentId, req.Page, req.Limit)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	var dictionary types.ConfigDict
@@ -36,14 +36,14 @@ func (l *GetConfigDictPageLogic) GetConfigDictPage(req *types.ConfigDictPageReq)
 	for _, sysDictionary := range configDictionaryList {
 		err := copier.Copy(&dictionary, &sysDictionary)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		dictionaryList = append(dictionaryList, dictionary)
 	}
 
 	total, err := l.svcCtx.SysDictionaryModel.FindCountByParentId(l.ctx, req.ParentId)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	pagination := types.ConfigDictPagination{

@@ -30,7 +30,7 @@ func NewDeleteSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuReq) error {
 	currentUserId := utils.GetUserId(l.ctx)
-	if currentUserId != config.SysProtectUserId {
+	if currentUserId != config.SysSuperUserId {
 		var currentUserPermMenuIds []uint64
 		currentUserPermMenuIds = l.getCurrentUserPermMenuIds(currentUserId)
 		if !utils.ArrayContainValue(currentUserPermMenuIds, req.Id) {
@@ -49,7 +49,7 @@ func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuR
 
 	err := l.svcCtx.SysPermMenuModel.Delete(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil
@@ -57,7 +57,7 @@ func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuR
 
 func (l *DeleteSysPermMenuLogic) getCurrentUserPermMenuIds(currentUserId uint64) (ids []uint64) {
 	var currentPermMenuIds []uint64
-	if currentUserId != config.SysProtectUserId {
+	if currentUserId != config.SysSuperUserId {
 		var currentUserRoleIds []uint64
 		var roleIds []uint64
 		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)

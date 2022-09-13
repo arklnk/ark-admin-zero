@@ -32,11 +32,11 @@ func (l *AddSysJobLogic) AddSysJob(req *types.AddSysJobReq) error {
 		var sysJob = new(model.SysJob)
 		err = copier.Copy(sysJob, req)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		_, err = l.svcCtx.SysJobModel.Insert(l.ctx, sysJob)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		return nil

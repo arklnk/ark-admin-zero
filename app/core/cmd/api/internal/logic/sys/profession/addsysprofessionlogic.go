@@ -32,11 +32,11 @@ func (l *AddSysProfessionLogic) AddSysProfession(req *types.AddSysProfessionReq)
 		var sysProfession = new(model.SysProfession)
 		err = copier.Copy(sysProfession, req)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		_, err = l.svcCtx.SysProfessionModel.Insert(l.ctx, sysProfession)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		return nil

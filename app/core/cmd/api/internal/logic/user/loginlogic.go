@@ -50,7 +50,7 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 		return nil, errorx.NewDefaultError(errorx.AccountDisableErrorCode)
 	}
 
-	if sysUser.Id != config.SysProtectUserId {
+	if sysUser.Id != config.SysSuperUserId {
 		dept, _ := l.svcCtx.SysDeptModel.FindOne(l.ctx, sysUser.DeptId)
 		if dept.Status == config.SysDisable {
 			return nil, errorx.NewDefaultError(errorx.AccountDisableErrorCode)
@@ -71,7 +71,7 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 
 	err = l.svcCtx.Redis.Setex(config.SysOnlineUserCachePrefix+strconv.FormatUint(sysUser.Id, 10), "1", int(l.svcCtx.Config.JwtAuth.AccessExpire))
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return &types.LoginResp{

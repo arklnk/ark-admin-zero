@@ -32,7 +32,7 @@ func NewUpdateSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuReq) error {
 	userId := utils.GetUserId(l.ctx)
-	if userId != config.SysProtectUserId {
+	if userId != config.SysSuperUserId {
 		for _, v := range req.Perms {
 			is, err := l.svcCtx.Redis.Sismember(config.SysPermMenuCachePrefix+strconv.FormatUint(userId, 10), config.SysPermMenuPrefix+v)
 			if err != nil || is != true {
@@ -73,18 +73,18 @@ func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuR
 
 	err = copier.Copy(permMenu, req)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	bytes, err := json.Marshal(req.Perms)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	permMenu.Perms = string(bytes)
 	err = l.svcCtx.SysPermMenuModel.Update(l.ctx, permMenu)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

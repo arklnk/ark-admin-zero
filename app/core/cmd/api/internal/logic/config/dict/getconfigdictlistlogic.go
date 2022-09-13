@@ -28,7 +28,7 @@ func NewGetConfigDictListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *GetConfigDictListLogic) GetConfigDictList() (resp *types.ConfigDictListResp, err error) {
 	configDictionaryList, err := l.svcCtx.SysDictionaryModel.FindDictionaryList(l.ctx)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	var dictionary types.ConfigDict
@@ -36,7 +36,7 @@ func (l *GetConfigDictListLogic) GetConfigDictList() (resp *types.ConfigDictList
 	for _, v := range configDictionaryList {
 		err := copier.Copy(&dictionary, &v)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		dictionaryList = append(dictionaryList, dictionary)
 	}

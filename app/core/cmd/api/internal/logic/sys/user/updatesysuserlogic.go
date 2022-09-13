@@ -33,7 +33,7 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 	currentUserId := utils.GetUserId(l.ctx)
 	var currentUserRoleIds []uint64
 	var roleIds []uint64
-	if currentUserId == config.SysProtectUserId {
+	if currentUserId == config.SysSuperUserId {
 		sysRoleList, _ := l.svcCtx.SysRoleModel.FindAll(l.ctx)
 		for _, role := range sysRoleList {
 			currentUserRoleIds=append(currentUserRoleIds,role.Id)
@@ -44,7 +44,7 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
 		err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRoleIds)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		
 		roleIds = append(roleIds, currentUserRoleIds...)
@@ -58,7 +58,7 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 	var editUserRoleIds []uint64
 	err = json.Unmarshal([]byte(editUser.RoleIds), &editUserRoleIds)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 	roleIds = append(roleIds, editUserRoleIds...)
 	
@@ -91,12 +91,12 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 
 	err = copier.Copy(editUser, req)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	bytes, err := json.Marshal(req.RoleIds)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatUint(editUser.Id, 10))
@@ -104,7 +104,7 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 	editUser.RoleIds = string(bytes)
 	err = l.svcCtx.SysUserModel.Update(l.ctx, editUser)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

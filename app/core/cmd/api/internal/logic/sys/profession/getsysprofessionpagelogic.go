@@ -28,7 +28,7 @@ func NewGetSysProfessionPageLogic(ctx context.Context, svcCtx *svc.ServiceContex
 func (l *GetSysProfessionPageLogic) GetSysProfessionPage(req *types.SysProfessionPageReq) (resp *types.SysProfessionPageResp, err error) {
 	sysProfessionList, err := l.svcCtx.SysProfessionModel.FindPage(l.ctx, req.Page, req.Limit)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	var profession types.Profession
@@ -36,14 +36,14 @@ func (l *GetSysProfessionPageLogic) GetSysProfessionPage(req *types.SysProfessio
 	for _, v := range sysProfessionList {
 		err := copier.Copy(&profession, &v)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		professionList = append(professionList, profession)
 	}
 
 	total, err := l.svcCtx.SysProfessionModel.FindCount(l.ctx)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	pagination := types.ProfessionPagePagination{

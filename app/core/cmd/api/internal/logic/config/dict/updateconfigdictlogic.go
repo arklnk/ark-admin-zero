@@ -41,12 +41,12 @@ func (l *UpdateConfigDictLogic) UpdateConfigDict(req *types.UpdateConfigDictReq)
 
 	err = copier.Copy(configDictionary, req)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	err = l.svcCtx.SysDictionaryModel.Update(l.ctx, configDictionary)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

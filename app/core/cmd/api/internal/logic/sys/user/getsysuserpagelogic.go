@@ -34,7 +34,7 @@ func (l *GetSysUserPageLogic) GetSysUserPage(req *types.SysUserPageReq) (resp *t
 
 	users, err := l.svcCtx.SysUserModel.FindPage(l.ctx, req.Page, req.Limit, deptIds)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	var user types.User
@@ -45,7 +45,7 @@ func (l *GetSysUserPageLogic) GetSysUserPage(req *types.SysUserPageReq) (resp *t
 	for _, v := range users {
 		err := copier.Copy(&user, &v)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		userProfession.Id = v.ProfessionId
@@ -79,7 +79,7 @@ func (l *GetSysUserPageLogic) GetSysUserPage(req *types.SysUserPageReq) (resp *t
 
 	total, err := l.svcCtx.SysUserModel.FindCountByDeptIds(l.ctx, deptIds)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	pagination := types.UserPagePagination{
