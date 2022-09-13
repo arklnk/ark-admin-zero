@@ -40,11 +40,11 @@ func (l *AddSysDeptLogic) AddSysDept(req *types.AddSysDeptReq) error {
 		var sysDept = new(model.SysDept)
 		err = copier.Copy(sysDept, req)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		_, err = l.svcCtx.SysDeptModel.Insert(l.ctx, sysDept)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		return nil
 	} else {

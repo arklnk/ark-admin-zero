@@ -71,7 +71,7 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 
 	err = l.svcCtx.Redis.Setex(config.SysOnlineUserCachePrefix+strconv.FormatUint(sysUser.Id, 10), "1", int(l.svcCtx.Config.JwtAuth.AccessExpire))
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return &types.LoginResp{

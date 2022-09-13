@@ -28,7 +28,7 @@ func NewGetSysDeptListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 func (l *GetSysDeptListLogic) GetSysDeptList() (resp *types.SysDeptListResp, err error) {
 	sysDeptList, err := l.svcCtx.SysDeptModel.FindAll(l.ctx)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	var dept types.Dept
@@ -36,7 +36,7 @@ func (l *GetSysDeptListLogic) GetSysDeptList() (resp *types.SysDeptListResp, err
 	for _, v := range sysDeptList {
 		err := copier.Copy(&dept, &v)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		deptList = append(deptList, dept)
 	}

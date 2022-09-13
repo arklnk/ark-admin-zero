@@ -32,7 +32,7 @@ func (l *DeleteConfigDictLogic) DeleteConfigDict(req *types.DeleteConfigDictReq)
 
 	total, err := l.svcCtx.SysDictionaryModel.FindCountByParentId(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	if total > 0 {
@@ -41,7 +41,7 @@ func (l *DeleteConfigDictLogic) DeleteConfigDict(req *types.DeleteConfigDictReq)
 
 	err = l.svcCtx.SysDictionaryModel.Delete(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

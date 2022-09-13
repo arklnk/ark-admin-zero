@@ -46,7 +46,7 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 			currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
 			err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRoleIds)
 			if err != nil {
-				return errorx.NewDefaultError(errorx.ServerErrorCode)
+				return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 			}
 
 			roleIds = append(roleIds, currentUserRoleIds...)
@@ -76,7 +76,7 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 		var sysUser = new(model.SysUser)
 		err = copier.Copy(sysUser, req)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		bytes, err := json.Marshal(req.RoleIds)
@@ -93,7 +93,7 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 		sysUser.Avatar = utils.AvatarUrl()
 		_, err = l.svcCtx.SysUserModel.Insert(l.ctx, sysUser)
 		if err != nil {
-			return errorx.NewDefaultError(errorx.ServerErrorCode)
+			return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
 		return nil

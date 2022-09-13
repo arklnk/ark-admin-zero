@@ -29,7 +29,7 @@ func NewGetLogLoginPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 func (l *GetLogLoginPageLogic) GetLogLoginPage(req *types.LogLoginPageReq) (resp *types.LogLoginPageResp, err error) {
 	loginLogList, err := l.svcCtx.SysLogModel.FindPage(l.ctx, config.SysLoginLogType, req.Page, req.Limit)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	var loginLog types.LogLogin
@@ -38,14 +38,14 @@ func (l *GetLogLoginPageLogic) GetLogLoginPage(req *types.LogLoginPageReq) (resp
 		err := copier.Copy(&loginLog, &v)
 		loginLog.CreateTime = v.CreateTime.Format(config.SysDateFormat)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		logList = append(logList, loginLog)
 	}
 
 	total, err := l.svcCtx.SysLogModel.FindCount(l.ctx, config.SysLoginLogType)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	pagination := types.LogLoginPagePagination{

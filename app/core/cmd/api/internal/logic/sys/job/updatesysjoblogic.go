@@ -41,12 +41,12 @@ func (l *UpdateSysJobLogic) UpdateSysJob(req *types.UpdateSysJobReq) error {
 
 	err = copier.Copy(sysJob, req)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	err = l.svcCtx.SysJobModel.Update(l.ctx, sysJob)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

@@ -35,7 +35,7 @@ func (l *UpdateUserPasswordLogic) UpdateUserPassword(req *types.UpdatePasswordRe
 	userId := utils.GetUserId(l.ctx)
 	user, err := l.svcCtx.SysUserModel.FindOne(l.ctx, userId)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	if user.Password != utils.MD5(req.OldPassword+l.svcCtx.Config.Salt) {
@@ -45,7 +45,7 @@ func (l *UpdateUserPasswordLogic) UpdateUserPassword(req *types.UpdatePasswordRe
 	user.Password = utils.MD5(req.NewPassword + l.svcCtx.Config.Salt)
 	err = l.svcCtx.SysUserModel.Update(l.ctx, user)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

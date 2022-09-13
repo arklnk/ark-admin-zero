@@ -32,7 +32,7 @@ func (l *DeleteSysUserLogic) DeleteSysUser(req *types.DeleteSysUserReq) error {
 
 	err := l.svcCtx.SysUserModel.Delete(l.ctx, req.Id)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

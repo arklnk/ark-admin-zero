@@ -32,7 +32,7 @@ func NewGetSysPermMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuListResp, err error) {
 	permMenus, err := l.svcCtx.SysPermMenuModel.FindAll(l.ctx)
 	if err != nil {
-		return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	currentUserId := utils.GetUserId(l.ctx)
@@ -46,7 +46,7 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 	for _, v := range permMenus {
 		err := copier.Copy(&menu, &v)
 		if err != nil {
-			return nil, errorx.NewDefaultError(errorx.ServerErrorCode)
+			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 		var perms []string
 		err = json.Unmarshal([]byte(v.Perms), &perms)

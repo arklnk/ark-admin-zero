@@ -55,18 +55,18 @@ func (l *AddSysPermMenuLogic) AddSysPermMenu(req *types.AddSysPermMenuReq) error
 	var permMenu = new(model.SysPermMenu)
 	err := copier.Copy(permMenu, req)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	bytes, err := json.Marshal(req.Perms)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	permMenu.Perms = string(bytes)
 	_, err = l.svcCtx.SysPermMenuModel.Insert(l.ctx, permMenu)
 	if err != nil {
-		return errorx.NewDefaultError(errorx.ServerErrorCode)
+		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
 	return nil

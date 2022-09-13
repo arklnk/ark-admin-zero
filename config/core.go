@@ -18,4 +18,5 @@ const (
 	SysDisable                 = 0
 	SysLoginLogType            = 1
 	SysTopParentId             = 0
+	SysShowSystemError         = true
 )
