@@ -50,8 +50,8 @@ login：[http://127.0.0.1](http://127.0.0.1)
 ### Environmental requirements
 
 - golang   （ Version:1.18）link：[https://go.dev/dl](https://go.dev/dl)
-- go-zero （Version:1.4.0） link：[https://github.com/zeromicro/go-zero/releases/tag/v1.4.0](https://github.com/zeromicro/go-zero/releases/tag/v1.4.0)
-- goctl      （ Version:1.4.0）link：[https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0](https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0)
+- go-zero （Version:1.4.1） link：[https://github.com/zeromicro/go-zero/releases/tag/v1.4.1](https://github.com/zeromicro/go-zero/releases/tag/v1.4.1)
+- goctl      （ Version:1.4.1）link：[https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.1](https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.1)
 
 ### Clone project
 

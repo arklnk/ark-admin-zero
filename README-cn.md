@@ -50,8 +50,8 @@ docker-compose up -d
 ### 环境要求
 
 - golang   （ 版本：1.18）链接：[https://go.dev/dl](https://go.dev/dl)
-- go-zero （版本：1.4.0） 链接：[https://github.com/zeromicro/go-zero/releases/tag/v1.4.0](https://github.com/zeromicro/go-zero/releases/tag/v1.4.0)
-- goctl      （ 版本：1.4.0）链接：[https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0](https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.0)
+- go-zero （版本：1.4.1） 链接：[https://github.com/zeromicro/go-zero/releases/tag/v1.4.1](https://github.com/zeromicro/go-zero/releases/tag/v1.4.1)
+- goctl      （ 版本：1.4.1）链接：[https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.1](https://github.com/zeromicro/go-zero/releases/tag/tools/goctl/v1.4.1)
 
 ### clone项目
 
