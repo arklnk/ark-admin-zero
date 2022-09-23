@@ -24,7 +24,7 @@ services:
     restart: always
 
   ark-admin-api:
-    image: arklnk/go:1.18-goctl1.4.1
+    image: arklnk/go:1.18-goctl1.4.0
     container_name: ark-admin-api
     working_dir: /server
     volumes:
