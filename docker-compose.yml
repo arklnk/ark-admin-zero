@@ -9,7 +9,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
     volumes:
-      - ./deploy/gateway/conf.d:/etc/nginx/conf.d
+      - ./deploy/gateway/pro:/etc/nginx/conf.d
       - ./data/gateway/log:/var/log/nginx
     ports:
       - "8000:8000"
