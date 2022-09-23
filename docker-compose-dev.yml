@@ -9,27 +9,28 @@ services:
     environment:
       - TZ=Asia/Shanghai
     volumes:
-      - ./deploy/gateway/pro:/etc/nginx/conf.d
+      - ./deploy/gateway/dev:/etc/nginx/conf.d
       - ./data/gateway/log:/var/log/nginx
     ports:
       - "8000:8000"
 
-  ark-admin-vuenext:
+  ark-admin-web:
     image: arklnk/ark-admin-vuenext:latest
-    container_name: ark-admin-vuenext
+    container_name: ark-admin-web
     volumes:
       - ./deploy/vuenext/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
     restart: always
 
-  ark-admin-zero:
-    image: arklnk/ark-admin-zero:latest
-    container_name: ark-admin-zero
+  ark-admin-api:
+    image: arklnk/go:1.18-goctl1.4.1
+    container_name: ark-admin-api
+    working_dir: /server
     volumes:
-      - ./deploy/service/core/etc:/app/etc
-      - ./data/service/logs:/app/logs
+      - ./:/server
     restart: always
+    tty: true
 
   mysql:
     image: mysql:5.7
