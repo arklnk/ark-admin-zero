@@ -29,8 +29,6 @@ services:
     volumes:
       - ./deploy/service/core/etc:/app/etc
       - ./data/service/logs:/app/logs
-    ports:
-      - "8001:8001"
     restart: always
 
   mysql:
