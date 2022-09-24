@@ -76,7 +76,7 @@ type (
 @server(
 	jwt: JwtAuth
 	group : config/dict
-	prefix : /config/dict
+	prefix : /admin/config/dict
 	middleware: PermMenuAuth
 )
 service core-api {
