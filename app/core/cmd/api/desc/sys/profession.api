@@ -55,7 +55,7 @@ type (
 @server(
 	jwt: JwtAuth
 	group : sys/profession
-	prefix : /sys/profession
+	prefix : /admin/sys/profession
 	middleware: PermMenuAuth
 )
 service core-api {

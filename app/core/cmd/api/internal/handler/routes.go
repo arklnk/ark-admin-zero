@@ -37,7 +37,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: user.LogoutHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/user"),
+		rest.WithPrefix("/admin/user"),
 	)
 
 	server.AddRoutes(
@@ -74,7 +74,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/user"),
+		rest.WithPrefix("/admin/user"),
 	)
 
 	server.AddRoutes(
@@ -104,7 +104,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/sys/perm/menu"),
+		rest.WithPrefix("/admin/sys/perm/menu"),
 	)
 
 	server.AddRoutes(
@@ -134,7 +134,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/sys/role"),
+		rest.WithPrefix("/admin/sys/role"),
 	)
 
 	server.AddRoutes(
@@ -164,7 +164,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/sys/dept"),
+		rest.WithPrefix("/admin/sys/dept"),
 	)
 
 	server.AddRoutes(
@@ -194,7 +194,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/sys/job"),
+		rest.WithPrefix("/admin/sys/job"),
 	)
 
 	server.AddRoutes(
@@ -224,7 +224,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/sys/profession"),
+		rest.WithPrefix("/admin/sys/profession"),
 	)
 
 	server.AddRoutes(
@@ -264,7 +264,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/sys/user"),
+		rest.WithPrefix("/admin/sys/user"),
 	)
 
 	server.AddRoutes(
@@ -299,7 +299,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/config/dict"),
+		rest.WithPrefix("/admin/config/dict"),
 	)
 
 	server.AddRoutes(
@@ -314,6 +314,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
-		rest.WithPrefix("/log/login"),
+		rest.WithPrefix("/admin/log/login"),
 	)
 }

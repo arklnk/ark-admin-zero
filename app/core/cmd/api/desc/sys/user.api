@@ -135,7 +135,7 @@ type (
 @server(
 	jwt: JwtAuth
 	group : sys/user
-	prefix : /sys/user
+	prefix : /admin/sys/user
 	middleware: PermMenuAuth
 )
 service core-api {

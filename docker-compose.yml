@@ -4,17 +4,15 @@ services:
   gateway:
     image: nginx:1.21.5
     container_name: gateway
-    restart: always
-    privileged: true
+    ports:
+      - "8000:8000"
     environment:
       - TZ=Asia/Shanghai
     volumes:
       - ./deploy/gateway/pro:/etc/nginx/conf.d
       - ./data/gateway/log:/var/log/nginx
-    ports:
-      - "8000:8000"
-    networks:
-      - ark_admin_net
+    restart: always
+    privileged: true
 
   ark-admin-vuenext:
     image: arklnk/ark-admin-vuenext:latest
@@ -24,8 +22,6 @@ services:
     ports:
       - "80:80"
     restart: always
-    networks:
-      - ark_admin_net
 
   ark-admin-zero:
     image: arklnk/ark-admin-zero:latest
@@ -33,11 +29,7 @@ services:
     volumes:
       - ./deploy/service/core/etc:/app/etc
       - ./data/service/logs:/app/logs
-    ports:
-      - "8001:8001"
     restart: always
-    networks:
-      - ark_admin_net
 
   mysql:
     image: mysql:5.7
@@ -53,8 +45,6 @@ services:
       - ./deploy/sql/:/docker-entrypoint-initdb.d/
     privileged: true
     restart: always
-    networks:
-      - ark_admin_net
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -64,8 +54,6 @@ services:
       - "8080:80"
     environment:
       - PMA_ARBITRARY=1
-    networks:
-      - ark_admin_net
 
   redis:
     image: redis:6.2.5
@@ -79,9 +67,3 @@ services:
     command: "redis-server --requirepass 123456  --appendonly yes"
     privileged: true
     restart: always
-    networks:
-      - ark_admin_net
-
-networks:
-  ark_admin_net:
-    driver: bridge

@@ -90,7 +90,7 @@ type (
 
 @server(
 	group : user
-	prefix : /user
+	prefix : /admin/user
 )
 service core-api {
 	@doc(
@@ -115,7 +115,7 @@ service core-api {
 @server(
 	jwt: JwtAuth
 	group : user
-	prefix : /user
+	prefix : /admin/user
 )
 service core-api {
 	@doc(

@@ -1,7 +1,7 @@
 package config
 
 const (
-	SysPermMenuPrefix          = "/"
+	SysPermMenuPrefix          = "/admin/"
 	SysJwtUserId               = "userId"
 	SysPermMenuCachePrefix     = "cache:arkAdmin:permMenu:"
 	SysOnlineUserCachePrefix   = "cache:arkAdmin:online:"

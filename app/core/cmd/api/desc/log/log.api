@@ -34,7 +34,7 @@ type (
 @server(
 	jwt: JwtAuth
 	group : log/login
-	prefix : /log/login
+	prefix : /admin/log/login
 	middleware: PermMenuAuth
 )
 service core-api {
