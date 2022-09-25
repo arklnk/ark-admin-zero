@@ -9,16 +9,16 @@ services:
     environment:
       - TZ=Asia/Shanghai
     volumes:
-      - ./deploy/gateway/dev:/etc/nginx/conf.d
+      - ./deploy/gateway:/etc/nginx/conf.d
       - ./data/gateway/log:/var/log/nginx
     ports:
       - "8000:8000"
 
   ark-admin-web:
-    image: arklnk/ark-admin-vuenext:latest
+    image: arklnk/ark-admin:web
     container_name: ark-admin-web
     volumes:
-      - ./deploy/vuenext/nginx.conf:/etc/nginx/nginx.conf
+      - ./deploy/web:/etc/nginx/conf.d
     ports:
       - "80:80"
     restart: always
