@@ -28,6 +28,6 @@ jobs:
         with:
           file: app/core/cmd/api/Dockerfile
           push: true
-          tags: arklnk/ark-admin-zero:latest
+          tags: arklnk/ark-admin:api
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

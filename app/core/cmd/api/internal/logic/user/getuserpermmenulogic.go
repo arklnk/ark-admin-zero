@@ -79,12 +79,11 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 		}
 
 		for _, p := range permArray {
-			p = config.SysPermMenuPrefix + p
-			_, err := l.svcCtx.Redis.Sadd(config.SysPermMenuCachePrefix+strconv.FormatUint(userId, 10), p)
+			_, err := l.svcCtx.Redis.Sadd(config.SysPermMenuCachePrefix+strconv.FormatUint(userId, 10), config.SysPermMenuPrefix+p)
 			if err != nil {
 				return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 			}
-			permList = append(permList, p)
+			permList = append(permList, "/" + p)
 		}
 
 	}

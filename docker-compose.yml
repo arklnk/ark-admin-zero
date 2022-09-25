@@ -9,23 +9,23 @@ services:
     environment:
       - TZ=Asia/Shanghai
     volumes:
-      - ./deploy/gateway/pro:/etc/nginx/conf.d
+      - ./deploy/gateway:/etc/nginx/conf.d
       - ./data/gateway/log:/var/log/nginx
     restart: always
     privileged: true
 
-  ark-admin-vuenext:
-    image: arklnk/ark-admin-vuenext:latest
-    container_name: ark-admin-vuenext
+  ark-admin-web:
+    image: arklnk/ark-admin:web
+    container_name: ark-admin-web
     volumes:
-      - ./deploy/vuenext/nginx.conf:/etc/nginx/nginx.conf
+      - ./deploy/web:/etc/nginx/conf.d
     ports:
-      - "80:80"
+      - "80:8080"
     restart: always
 
-  ark-admin-zero:
-    image: arklnk/ark-admin-zero:latest
-    container_name: ark-admin-zero
+  ark-admin-api:
+    image: arklnk/ark-admin:api
+    container_name: ark-admin-api
     volumes:
       - ./deploy/service/core/etc:/app/etc
       - ./data/service/logs:/app/logs
