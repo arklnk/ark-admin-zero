@@ -1,0 +1,20 @@
+syntax = "v1"
+
+info(
+    title: "common"
+    desc: "common"
+    author: "Trevor"
+    email: "trevorlan@163.com"
+)
+
+type (
+    PageReq {
+        Page     uint64 `form:"page"  validate:"number,gte=1"  label:"页数"`
+        Limit    uint64 `form:"limit" validate:"number,gte=1"  label:"条数"`
+    }
+    Pagination {
+        Page  uint64 `json:"page"`
+        Limit uint64 `json:"limit"`
+        Total uint64 `json:"total"`
+    }
+)

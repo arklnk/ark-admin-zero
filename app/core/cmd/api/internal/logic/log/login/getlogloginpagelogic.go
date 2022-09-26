@@ -48,7 +48,7 @@ func (l *GetLogLoginPageLogic) GetLogLoginPage(req *types.LogLoginPageReq) (resp
 		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
-	pagination := types.LogLoginPagePagination{
+	pagination := types.Pagination{
 		Page:  req.Page,
 		Limit: req.Limit,
 		Total: total,
