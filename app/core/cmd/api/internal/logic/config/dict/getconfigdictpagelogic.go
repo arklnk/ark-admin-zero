@@ -46,7 +46,7 @@ func (l *GetConfigDictPageLogic) GetConfigDictPage(req *types.ConfigDictPageReq)
 		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
-	pagination := types.ConfigDictPagination{
+	pagination := types.Pagination{
 		Page:  req.Page,
 		Limit: req.Limit,
 		Total: total,
