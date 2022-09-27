@@ -15,40 +15,34 @@ type (
 		OrderNum uint64 `json:"orderNum"`
 	}
 	SysProfessionPageReq {
-		Page  uint64 `form:"page"   validate:"number,gte=1"`
-		Limit uint64 `form:"limit"  validate:"number,gte=1"`
-	}
-	ProfessionPagePagination {
-		Page  uint64 `json:"page"`
-		Limit uint64 `json:"limit"`
-		Total uint64 `json:"total"`
+		PageReq
 	}
 	SysProfessionPageResp {
-		ProfessionList []Profession             `json:"list"`
-		Pagination     ProfessionPagePagination `json:"pagination"`
+		ProfessionList []Profession `json:"list"`
+		Pagination     Pagination   `json:"pagination"`
 	}
 )
 
 type (
 	AddSysProfessionReq {
-		Name     string `json:"name"      validate:"min=2,max=50"`
-		Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"`
-		OrderNum uint64 `json:"orderNum"  validate:"number,gte=0,lte=9999"`
+		Name     string `json:"name"      validate:"min=2,max=50"           label:"职称"`
+		Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
+		OrderNum uint64 `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
 	}
 )
 
 type (
 	DeleteSysProfessionReq {
-		Id uint64 `json:"id"  validate:"number,gte=1"`
+		Id uint64 `json:"id"  validate:"number,gte=1" label:"职称id"`
 	}
 )
 
 type (
 	UpdateSysProfessionReq {
-		Id       uint64 `json:"id"        validate:"number,gte=1"`
-		Name     string `json:"name"      validate:"min=2,max=50"`
-		Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"`
-		OrderNum uint64 `json:"orderNum"  validate:"number,gte=0,lte=9999"`
+		Id       uint64 `json:"id"        validate:"number,gte=1"           label:"职称id"`
+		Name     string `json:"name"      validate:"min=2,max=50"           label:"职称"`
+		Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
+		OrderNum uint64 `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
 	}
 )
 

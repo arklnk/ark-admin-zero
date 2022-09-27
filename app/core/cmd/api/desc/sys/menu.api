@@ -29,38 +29,38 @@ type (
 
 type (
 	AddSysPermMenuReq {
-		ParentId     uint64   `json:"parentId"      validate:"number,gte=0"`
-		Name         string   `json:"name"          validate:"min=2,max=50"`
-		Router       string   `json:"router"        validate:"omitempty,max=1024"`
-		Perms        []string `json:"perms"         validate:"omitempty,unique"`
-		Type         uint64   `json:"type"          validate:"number,gte=0,lte=2"`
-		Icon         string   `json:"icon"          validate:"omitempty,max=200"`
-		OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
-		ViewPath     string   `json:"viewPath"      validate:"omitempty,max=1024"`
-		IsShow       uint64   `json:"isShow"        validate:"number,gte=0,lte=1"`
-		ActiveRouter string   `json:"activeRouter"  validate:"omitempty,max=1024"`
+		ParentId     uint64   `json:"parentId"      validate:"number,gte=0"           label:"父级菜单id"`
+		Name         string   `json:"name"          validate:"min=2,max=50"           label:"菜单名称"`
+		Router       string   `json:"router"        validate:"omitempty,max=1024"     label:"路由"`
+		Perms        []string `json:"perms"         validate:"omitempty,unique"       label:"权限"`
+		Type         uint64   `json:"type"          validate:"number,gte=0,lte=2"     label:"类型"`
+		Icon         string   `json:"icon"          validate:"omitempty,max=200"      label:"图标"`
+		OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"  label:"排序"`
+		ViewPath     string   `json:"viewPath"      validate:"omitempty,max=1024"     label:"视图路径"`
+		IsShow       uint64   `json:"isShow"        validate:"number,gte=0,lte=1"     label:"显示状态"`
+		ActiveRouter string   `json:"activeRouter"  validate:"omitempty,max=1024"     label:"激活路由"`
 	}
 )
 
 type (
 	DeleteSysPermMenuReq {
-		Id uint64 `json:"id"  validate:"number,gte=1"`
+		Id uint64 `json:"id"  validate:"number,gte=1" label:"菜单id"`
 	}
 )
 
 type (
 	UpdateSysPermMenuReq {
-		Id           uint64   `json:"id"            validate:"number,gte=1"`
-		ParentId     uint64   `json:"parentId"      validate:"number,gte=0"`
-		Name         string   `json:"name"          validate:"min=2,max=50"`
-		Router       string   `json:"router"        validate:"omitempty,max=1024"`
-		Perms        []string `json:"perms"         validate:"omitempty,unique"`
-		Type         uint64   `json:"type"          validate:"number,gte=0,lte=2"`
-		Icon         string   `json:"icon"          validate:"omitempty,max=200"`
-		OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"`
-		ViewPath     string   `json:"viewPath"      validate:"omitempty,max=1024"`
-		IsShow       uint64   `json:"isShow"        validate:"number,gte=0,lte=1"`
-		ActiveRouter string   `json:"activeRouter"  validate:"omitempty,max=1024"`
+		Id           uint64   `json:"id"            validate:"number,gte=1"           label:"菜单id"`
+		ParentId     uint64   `json:"parentId"      validate:"number,gte=0"           label:"父级菜单id"`
+		Name         string   `json:"name"          validate:"min=2,max=50"           label:"菜单名称"`
+		Router       string   `json:"router"        validate:"omitempty,max=1024"     label:"路由"`
+		Perms        []string `json:"perms"         validate:"omitempty,unique"       label:"权限"`
+		Type         uint64   `json:"type"          validate:"number,gte=0,lte=2"     label:"类型"`
+		Icon         string   `json:"icon"          validate:"omitempty,max=200"      label:"图标"`
+		OrderNum     uint64   `json:"orderNum"      validate:"number,gte=0,lte=9999"  label:"排序"`
+		ViewPath     string   `json:"viewPath"      validate:"omitempty,max=1024"     label:"视图路径"`
+		IsShow       uint64   `json:"isShow"        validate:"number,gte=0,lte=1"     label:"显示状态"`
+		ActiveRouter string   `json:"activeRouter"  validate:"omitempty,max=1024"     label:"激活路由"`
 	}
 )
 

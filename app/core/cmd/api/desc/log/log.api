@@ -17,17 +17,11 @@ type (
 		CreateTime string `json:"createTime"`
 	}
 	LogLoginPageReq {
-		Page  uint64 `form:"page"   validate:"number,gte=1"`
-		Limit uint64 `form:"limit"  validate:"number,gte=1"`
-	}
-	LogLoginPagePagination {
-		Page  uint64 `json:"page"`
-		Limit uint64 `json:"limit"`
-		Total uint64 `json:"total"`
+		PageReq
 	}
 	LogLoginPageResp {
-		LogLoginList []LogLogin             `json:"list"`
-		Pagination   LogLoginPagePagination `json:"pagination"`
+		LogLoginList []LogLogin `json:"list"`
+		Pagination   Pagination `json:"pagination"`
 	}
 )
 

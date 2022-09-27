@@ -46,7 +46,7 @@ func (l *GetSysJobPageLogic) GetSysJobPage(req *types.SysJobPageReq) (resp *type
 		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
-	pagination := types.SysJobPagePagination{
+	pagination := types.Pagination{
 		Page:  req.Page,
 		Limit: req.Limit,
 		Total: total,

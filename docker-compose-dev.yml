@@ -20,7 +20,7 @@ services:
     volumes:
       - ./deploy/web:/etc/nginx/conf.d
     ports:
-      - "80:80"
+      - "80:8080"
     restart: always
 
   ark-admin-api:

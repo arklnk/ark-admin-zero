@@ -82,7 +82,7 @@ func (l *GetSysUserPageLogic) GetSysUserPage(req *types.SysUserPageReq) (resp *t
 		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
-	pagination := types.UserPagePagination{
+	pagination := types.Pagination{
 		Page:  req.Page,
 		Limit: req.Limit,
 		Total: total,
