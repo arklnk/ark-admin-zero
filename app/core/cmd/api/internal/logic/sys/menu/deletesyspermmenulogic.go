@@ -31,7 +31,7 @@ func NewDeleteSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuReq) error {
 	currentUserId := utils.GetUserId(l.ctx)
 	if currentUserId != config.SysSuperUserId {
-		var currentUserPermMenuIds []uint64
+		var currentUserPermMenuIds []int64
 		currentUserPermMenuIds = l.getCurrentUserPermMenuIds(currentUserId)
 		if !utils.ArrayContainValue(currentUserPermMenuIds, req.Id) {
 			return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
@@ -55,24 +55,24 @@ func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuR
 	return nil
 }
 
-func (l *DeleteSysPermMenuLogic) getCurrentUserPermMenuIds(currentUserId uint64) (ids []uint64) {
-	var currentPermMenuIds []uint64
+func (l *DeleteSysPermMenuLogic) getCurrentUserPermMenuIds(currentUserId int64) (ids []int64) {
+	var currentPermMenuIds []int64
 	if currentUserId != config.SysSuperUserId {
-		var currentUserRoleIds []uint64
-		var roleIds []uint64
+		var currentUserRoleIds []int64
+		var roleIds []int64
 		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
 		_ = json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRoleIds)
 		roleIds = append(roleIds, currentUserRoleIds...)
 		var ids string
 		for i, v := range roleIds {
 			if i == 0 {
-				ids = strconv.FormatUint(v, 10)
+				ids = strconv.FormatInt(v, 10)
 			}
-			ids = ids + "," + strconv.FormatUint(v, 10)
+			ids = ids + "," + strconv.FormatInt(v, 10)
 		}
 
 		sysRoles, _ := l.svcCtx.SysRoleModel.FindByIds(l.ctx, ids)
-		var rolePermMenus []uint64
+		var rolePermMenus []int64
 		for _, v := range sysRoles {
 			err := json.Unmarshal([]byte(v.PermMenuIds), &rolePermMenus)
 			if err != nil {

@@ -33,8 +33,8 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 	_, err := l.svcCtx.SysUserModel.FindOneByAccount(l.ctx, req.Account)
 	if err == model.ErrNotFound {
 		currentUserId := utils.GetUserId(l.ctx)
-		var currentUserRoleIds []uint64
-		var roleIds []uint64
+		var currentUserRoleIds []int64
+		var roleIds []int64
 		if currentUserId == config.SysSuperUserId {
 			sysRoleList, _ := l.svcCtx.SysRoleModel.FindAll(l.ctx)
 			for _, role := range sysRoleList {

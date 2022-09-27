@@ -9,11 +9,11 @@ info(
 
 type (
 	LogLogin {
-		Id         uint64 `json:"id"`
+		Id         int64  `json:"id"`
 		Account    string `json:"account"`
 		Ip         string `json:"ip"`
 		Uri        string `json:"uri"`
-		Status     uint64 `json:"status"`
+		Status     int64  `json:"status"`
 		CreateTime string `json:"createTime"`
 	}
 	LogLoginPageReq {

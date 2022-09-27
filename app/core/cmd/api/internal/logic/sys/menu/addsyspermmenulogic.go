@@ -34,7 +34,7 @@ func (l *AddSysPermMenuLogic) AddSysPermMenu(req *types.AddSysPermMenuReq) error
 	userId := utils.GetUserId(l.ctx)
 	if userId != config.SysSuperUserId {
 		for _, v := range req.Perms {
-			is, err := l.svcCtx.Redis.Sismember(config.SysPermMenuCachePrefix+strconv.FormatUint(userId, 10), config.SysPermMenuPrefix+v)
+			is, err := l.svcCtx.Redis.Sismember(config.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), config.SysPermMenuPrefix+v)
 			if err != nil || is != true {
 				return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 			}

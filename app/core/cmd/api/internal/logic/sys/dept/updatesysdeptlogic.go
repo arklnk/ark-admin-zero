@@ -45,7 +45,7 @@ func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
 		return errorx.NewDefaultError(errorx.UpdateDeptUniqueKeyErrorCode)
 	}
 
-	deptIds := make([]uint64, 0)
+	deptIds := make([]int64, 0)
 	deptIds = l.getSubDept(deptIds, req.Id)
 	if utils.ArrayContainValue(deptIds, req.ParentId) {
 		return errorx.NewDefaultError(errorx.SetParentIdErrorCode)
@@ -69,7 +69,7 @@ func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
 	return nil
 }
 
-func (l *UpdateSysDeptLogic) getSubDept(deptIds []uint64, id uint64) []uint64 {
+func (l *UpdateSysDeptLogic) getSubDept(deptIds []int64, id int64) []int64 {
 	deptList, err := l.svcCtx.SysDeptModel.FindSubDept(l.ctx, id)
 	if err != nil && err != model.ErrNotFound {
 		return deptIds

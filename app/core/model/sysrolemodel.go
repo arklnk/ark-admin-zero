@@ -18,7 +18,7 @@ type (
 		FindAll(ctx context.Context) ([]*SysRole, error)
 		FindEnable(ctx context.Context) ([]*SysRole, error)
 		FindByIds(ctx context.Context, ids string) ([]*SysRole, error)
-		FindSubRole(ctx context.Context, id uint64) ([]*SysRole, error)
+		FindSubRole(ctx context.Context, id int64) ([]*SysRole, error)
 	}
 
 	customSysRoleModel struct {
@@ -69,7 +69,7 @@ func (m *customSysRoleModel) FindByIds(ctx context.Context, ids string) ([]*SysR
 	}
 }
 
-func (m *customSysRoleModel) FindSubRole(ctx context.Context, id uint64) ([]*SysRole, error) {
+func (m *customSysRoleModel) FindSubRole(ctx context.Context, id int64) ([]*SysRole, error) {
 	query := fmt.Sprintf("SELECT %s FROM %s WHERE `parent_id`=%d", sysRoleRows, m.table, id)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
