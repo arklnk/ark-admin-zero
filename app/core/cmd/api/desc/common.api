@@ -9,12 +9,12 @@ info(
 
 type (
     PageReq {
-        Page  uint64 `form:"page"  validate:"number,gte=1"  label:"页数"`
-        Limit uint64 `form:"limit" validate:"number,gte=1"  label:"条数"`
+        Page  int64 `form:"page"  validate:"number,gte=1"  label:"页数"`
+        Limit int64 `form:"limit" validate:"number,gte=1"  label:"条数"`
     }
     Pagination {
-        Page  uint64 `json:"page"`
-        Limit uint64 `json:"limit"`
-        Total uint64 `json:"total"`
+        Page  int64 `json:"page"`
+        Limit int64 `json:"limit"`
+        Total int64 `json:"total"`
     }
 )

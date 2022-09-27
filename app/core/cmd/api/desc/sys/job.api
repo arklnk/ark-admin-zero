@@ -9,10 +9,10 @@ info(
 
 type (
 	Job {
-		Id       uint64 `json:"id"`
+		Id       int64  `json:"id"`
 		Name     string `json:"name"`
-		Status   uint64 `json:"status"`
-		OrderNum uint64 `json:"orderNum"`
+		Status   int64  `json:"status"`
+		OrderNum int64  `json:"orderNum"`
 	}
 	SysJobPageReq {
 		PageReq
@@ -26,23 +26,23 @@ type (
 type (
 	AddSysJobReq {
 		Name     string `json:"name"      validate:"min=2,max=50"           label:"岗位名称"`
-		Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
-		OrderNum uint64 `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
+		Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
+		OrderNum int64  `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
 	}
 )
 
 type (
 	DeleteSysJobReq {
-		Id uint64 `json:"id"  validate:"number,gte=1" label:"岗位id"`
+		Id int64 `json:"id"  validate:"number,gte=1" label:"岗位id"`
 	}
 )
 
 type (
 	UpdateSysJobReq {
-		Id       uint64 `json:"id"        validate:"number,gte=1"           label:"岗位id"`
+		Id       int64  `json:"id"        validate:"number,gte=1"           label:"岗位id"`
 		Name     string `json:"name"      validate:"min=2,max=50"           label:"岗位名称"`
-		Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
-		OrderNum uint64 `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
+		Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
+		OrderNum int64  `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
 	}
 )
 

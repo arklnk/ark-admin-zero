@@ -29,10 +29,10 @@ var (
 type (
 	sysUserModel interface {
 		Insert(ctx context.Context, data *SysUser) (sql.Result, error)
-		FindOne(ctx context.Context, id uint64) (*SysUser, error)
+		FindOne(ctx context.Context, id int64) (*SysUser, error)
 		FindOneByAccount(ctx context.Context, account string) (*SysUser, error)
 		Update(ctx context.Context, data *SysUser) error
-		Delete(ctx context.Context, id uint64) error
+		Delete(ctx context.Context, id int64) error
 	}
 
 	defaultSysUserModel struct {
@@ -41,21 +41,21 @@ type (
 	}
 
 	SysUser struct {
-		Id           uint64    `db:"id"`            // 编号
+		Id           int64     `db:"id"`            // 编号
 		Account      string    `db:"account"`       // 账号
 		Password     string    `db:"password"`      // 密码
 		Username     string    `db:"username"`      // 姓名
 		Nickname     string    `db:"nickname"`      // 昵称
 		Avatar       string    `db:"avatar"`        // 头像
-		Gender       uint64    `db:"gender"`        // 0=保密 1=女 2=男
+		Gender       int64     `db:"gender"`        // 0=保密 1=女 2=男
 		Email        string    `db:"email"`         // 邮件
 		Mobile       string    `db:"mobile"`        // 手机号
-		ProfessionId uint64    `db:"profession_id"` // 职称
-		JobId        uint64    `db:"job_id"`        // 岗位
-		DeptId       uint64    `db:"dept_id"`       // 部门
+		ProfessionId int64     `db:"profession_id"` // 职称
+		JobId        int64     `db:"job_id"`        // 岗位
+		DeptId       int64     `db:"dept_id"`       // 部门
 		RoleIds      string    `db:"role_ids"`      // 角色集
-		Status       uint64    `db:"status"`        // 0=禁用 1=开启
-		OrderNum     uint64    `db:"order_num"`     // 排序值
+		Status       int64     `db:"status"`        // 0=禁用 1=开启
+		OrderNum     int64     `db:"order_num"`     // 排序值
 		Remark       string    `db:"remark"`        // 备注
 		CreateTime   time.Time `db:"create_time"`   // 创建时间
 		UpdateTime   time.Time `db:"update_time"`   // 更新时间
@@ -69,7 +69,7 @@ func newSysUserModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultSysUserModel 
 	}
 }
 
-func (m *defaultSysUserModel) Delete(ctx context.Context, id uint64) error {
+func (m *defaultSysUserModel) Delete(ctx context.Context, id int64) error {
 	data, err := m.FindOne(ctx, id)
 	if err != nil {
 		return err
@@ -84,7 +84,7 @@ func (m *defaultSysUserModel) Delete(ctx context.Context, id uint64) error {
 	return err
 }
 
-func (m *defaultSysUserModel) FindOne(ctx context.Context, id uint64) (*SysUser, error) {
+func (m *defaultSysUserModel) FindOne(ctx context.Context, id int64) (*SysUser, error) {
 	arkAdminSysUserIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysUserIdPrefix, id)
 	var resp SysUser
 	err := m.QueryRowCtx(ctx, &resp, arkAdminSysUserIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {

@@ -39,9 +39,9 @@ func (l *GetSysUserRdpjInfoLogic) GetSysUserRdpjInfo(req *types.GetSysUserRdpjIn
 	}, nil
 }
 
-func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint64) []types.RoleTree {
-	var currentUserRoleIds []uint64
-	var roleIds []uint64
+func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId int64, editUserId int64) []types.RoleTree {
+	var currentUserRoleIds []int64
+	var roleIds []int64
 	var sysRoleList []*model.SysRole
 	if currentUserId == config.SysSuperUserId {
 		sysRoleList, _ = l.svcCtx.SysRoleModel.FindAll(l.ctx)
@@ -59,7 +59,7 @@ func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint
 		roleIds = append(roleIds, currentUserRoleIds...)
 		if editUserId != 0 {
 			editUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, editUserId)
-			var editUserRoleIds []uint64
+			var editUserRoleIds []int64
 			err := json.Unmarshal([]byte(editUser.RoleIds), &editUserRoleIds)
 			if err != nil {
 				return nil
@@ -71,10 +71,10 @@ func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId uint64, editUserId uint
 		var ids string
 		for i, v := range roleIds {
 			if i == 0 {
-				ids = strconv.FormatUint(v, 10)
+				ids = strconv.FormatInt(v, 10)
 			}
 			
-			ids = ids + "," + strconv.FormatUint(v, 10)
+			ids = ids + "," + strconv.FormatInt(v, 10)
 		}
 
 		sysRoleList, _ = l.svcCtx.SysRoleModel.FindByIds(l.ctx, ids)

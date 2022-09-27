@@ -9,14 +9,14 @@ info(
 
 type (
 	Dept {
-		Id        uint64 `json:"id"`
-		ParentId  uint64 `json:"parentId"`
+		Id        int64  `json:"id"`
+		ParentId  int64  `json:"parentId"`
 		Name      string `json:"name"`
 		FullName  string `json:"fullName"`
 		UniqueKey string `json:"uniqueKey"`
-		Type      uint64 `json:"type"`
-		Status    uint64 `json:"status"`
-		OrderNum  uint64 `json:"orderNum"`
+		Type      int64  `json:"type"`
+		Status    int64  `json:"status"`
+		OrderNum  int64  `json:"orderNum"`
 		Remark    string `json:"remark"`
 	}
 	SysDeptListResp {
@@ -26,33 +26,33 @@ type (
 
 type (
 	AddSysDeptReq {
-		ParentId  uint64 `json:"parentId"   validate:"number,gte=0"            label:"父级部门id"`
+		ParentId  int64  `json:"parentId"   validate:"number,gte=0"            label:"父级部门id"`
 		Name      string `json:"name"       validate:"min=2,max=50"            label:"部门名称"`
 		FullName  string `json:"fullName"   validate:"omitempty,min=2,max=50"  label:"部门全称"`
 		UniqueKey string `json:"uniqueKey"  validate:"min=2,max=50"            label:"部门标识"`
-		Type      uint64 `json:"type"       validate:"number,gte=1,lte=3"      label:"部门类型"`
-		Status    uint64 `json:"status"     validate:"number,gte=0,lte=1"      label:"状态"`
-		OrderNum  uint64 `json:"orderNum"   validate:"number,gte=0,lte=9999"   label:"排序"`
+		Type      int64  `json:"type"       validate:"number,gte=1,lte=3"      label:"部门类型"`
+		Status    int64  `json:"status"     validate:"number,gte=0,lte=1"      label:"状态"`
+		OrderNum  int64  `json:"orderNum"   validate:"number,gte=0,lte=9999"   label:"排序"`
 		Remark    string `json:"remark"     validate:"max=200"                 label:"备注"`
 	}
 )
 
 type (
 	DeleteSysDeptReq {
-		Id uint64 `json:"id"  validate:"number,gte=1" label:"部门id"`
+		Id int64 `json:"id"  validate:"number,gte=1" label:"部门id"`
 	}
 )
 
 type (
 	UpdateSysDeptReq {
-		Id        uint64 `json:"id"         validate:"number,gte=1"            label:"部门id"`
-		ParentId  uint64 `json:"parentId"   validate:"number,gte=0"            label:"父级部门id"`
+		Id        int64  `json:"id"         validate:"number,gte=1"            label:"部门id"`
+		ParentId  int64  `json:"parentId"   validate:"number,gte=0"            label:"父级部门id"`
 		Name      string `json:"name"       validate:"min=2,max=50"            label:"部门名称"`
 		FullName  string `json:"fullName"   validate:"omitempty,min=2,max=50"  label:"部门全称"`
 		UniqueKey string `json:"uniqueKey"  validate:"min=2,max=50"            label:"部门标识"`
-		Type      uint64 `json:"type"       validate:"number,gte=1,lte=3"      label:"部门类型"`
-		Status    uint64 `json:"status"     validate:"number,gte=0,lte=1"      label:"状态"`
-		OrderNum  uint64 `json:"orderNum"   validate:"number,gte=0,lte=9999"   label:"排序"`
+		Type      int64  `json:"type"       validate:"number,gte=1,lte=3"      label:"部门类型"`
+		Status    int64  `json:"status"     validate:"number,gte=0,lte=1"      label:"状态"`
+		OrderNum  int64  `json:"orderNum"   validate:"number,gte=0,lte=9999"   label:"排序"`
 		Remark    string `json:"remark"     validate:"max=200"                 label:"备注"`
 	}
 )

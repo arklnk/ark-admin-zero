@@ -29,10 +29,10 @@ var (
 type (
 	sysJobModel interface {
 		Insert(ctx context.Context, data *SysJob) (sql.Result, error)
-		FindOne(ctx context.Context, id uint64) (*SysJob, error)
+		FindOne(ctx context.Context, id int64) (*SysJob, error)
 		FindOneByName(ctx context.Context, name string) (*SysJob, error)
 		Update(ctx context.Context, data *SysJob) error
-		Delete(ctx context.Context, id uint64) error
+		Delete(ctx context.Context, id int64) error
 	}
 
 	defaultSysJobModel struct {
@@ -41,10 +41,10 @@ type (
 	}
 
 	SysJob struct {
-		Id         uint64    `db:"id"`          // 编号
+		Id         int64     `db:"id"`          // 编号
 		Name       string    `db:"name"`        // 岗位名称
-		Status     uint64    `db:"status"`      // 0=禁用 1=开启
-		OrderNum   uint64    `db:"order_num"`   // 排序值
+		Status     int64     `db:"status"`      // 0=禁用 1=开启
+		OrderNum   int64     `db:"order_num"`   // 排序值
 		CreateTime time.Time `db:"create_time"` // 创建时间
 		UpdateTime time.Time `db:"update_time"` // 开启时间
 	}
@@ -57,7 +57,7 @@ func newSysJobModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultSysJobModel {
 	}
 }
 
-func (m *defaultSysJobModel) Delete(ctx context.Context, id uint64) error {
+func (m *defaultSysJobModel) Delete(ctx context.Context, id int64) error {
 	data, err := m.FindOne(ctx, id)
 	if err != nil {
 		return err
@@ -72,7 +72,7 @@ func (m *defaultSysJobModel) Delete(ctx context.Context, id uint64) error {
 	return err
 }
 
-func (m *defaultSysJobModel) FindOne(ctx context.Context, id uint64) (*SysJob, error) {
+func (m *defaultSysJobModel) FindOne(ctx context.Context, id int64) (*SysJob, error) {
 	arkAdminSysJobIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysJobIdPrefix, id)
 	var resp SysJob
 	err := m.QueryRowCtx(ctx, &resp, arkAdminSysJobIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {

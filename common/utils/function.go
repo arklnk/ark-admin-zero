@@ -17,11 +17,11 @@ func MD5(str string) string {
 	return fmt.Sprintf("%x", has)
 }
 
-func GetUserId(ctx context.Context) uint64 {
-	var uid uint64
+func GetUserId(ctx context.Context) int64 {
+	var uid int64
 	if jsonUid, ok := ctx.Value(config.SysJwtUserId).(json.Number); ok {
 		if int64Uid, err := jsonUid.Int64(); err == nil {
-			uid = uint64(int64Uid)
+			uid = int64(int64Uid)
 		} else {
 			logx.WithContext(ctx).Errorf("GetUidFromCtx err : %+v", err)
 		}
@@ -44,7 +44,7 @@ func ArrayUniqueValue[T any](arr []T) []T {
 	return result
 }
 
-func ArrayContainValue(arr []uint64, search uint64) bool {
+func ArrayContainValue(arr []int64, search int64) bool {
 	for _, v := range arr {
 		if v == search {
 			return true
@@ -54,9 +54,9 @@ func ArrayContainValue(arr []uint64, search uint64) bool {
 	return false
 }
 
-func Intersect(slice1 []uint64, slice2 []uint64) []uint64 {
-	m := make(map[uint64]uint64)
-	n := make([]uint64, 0)
+func Intersect(slice1 []int64, slice2 []int64) []int64 {
+	m := make(map[int64]int64)
+	n := make([]int64, 0)
 	for _, v := range slice1 {
 		m[v]++
 	}
@@ -71,9 +71,9 @@ func Intersect(slice1 []uint64, slice2 []uint64) []uint64 {
 	return n
 }
 
-func Difference(slice1 []uint64, slice2 []uint64) []uint64 {
-	m := make(map[uint64]int)
-	n := make([]uint64, 0)
+func Difference(slice1 []int64, slice2 []int64) []int64 {
+	m := make(map[int64]int)
+	n := make([]int64, 0)
 	inter := Intersect(slice1, slice2)
 	for _, v := range inter {
 		m[v]++

@@ -31,8 +31,8 @@ func NewUpdateSysUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 
 func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 	currentUserId := utils.GetUserId(l.ctx)
-	var currentUserRoleIds []uint64
-	var roleIds []uint64
+	var currentUserRoleIds []int64
+	var roleIds []int64
 	if currentUserId == config.SysSuperUserId {
 		sysRoleList, _ := l.svcCtx.SysRoleModel.FindAll(l.ctx)
 		for _, role := range sysRoleList {
@@ -55,7 +55,7 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 		return errorx.NewDefaultError(errorx.UserIdErrorCode)
 	}
 
-	var editUserRoleIds []uint64
+	var editUserRoleIds []int64
 	err = json.Unmarshal([]byte(editUser.RoleIds), &editUserRoleIds)
 	if err != nil {
 		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
@@ -99,8 +99,8 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
-	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatUint(editUser.Id, 10))
-	_, err = l.svcCtx.Redis.Del(config.SysOnlineUserCachePrefix + strconv.FormatUint(editUser.Id, 10))
+	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatInt(editUser.Id, 10))
+	_, err = l.svcCtx.Redis.Del(config.SysOnlineUserCachePrefix + strconv.FormatInt(editUser.Id, 10))
 	editUser.RoleIds = string(bytes)
 	err = l.svcCtx.SysUserModel.Update(l.ctx, editUser)
 	if err != nil {
