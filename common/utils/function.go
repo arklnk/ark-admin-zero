@@ -21,7 +21,7 @@ func GetUserId(ctx context.Context) int64 {
 	var uid int64
 	if jsonUid, ok := ctx.Value(config.SysJwtUserId).(json.Number); ok {
 		if int64Uid, err := jsonUid.Int64(); err == nil {
-			uid = int64(int64Uid)
+			uid = int64Uid
 		} else {
 			logx.WithContext(ctx).Errorf("GetUidFromCtx err : %+v", err)
 		}
