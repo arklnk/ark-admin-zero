@@ -46,6 +46,6 @@ func (l *GetSysRoleListLogic) GetSysRoleList() (resp *types.SysRoleListResp, err
 	}
 
 	return &types.SysRoleListResp{
-		RoleList: roleList,
+		List: roleList,
 	}, nil
 }

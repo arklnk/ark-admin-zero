@@ -20,8 +20,8 @@ type (
 		PageReq
 	}
 	LogLoginPageResp {
-		LogLoginList []LogLogin `json:"list"`
-		Pagination   Pagination `json:"pagination"`
+		List        []LogLogin `json:"list"`
+		Pagination  Pagination `json:"pagination"`
 	}
 )
 

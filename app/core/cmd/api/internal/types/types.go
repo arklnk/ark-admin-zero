@@ -95,7 +95,7 @@ type PermMenu struct {
 }
 
 type SysPermMenuListResp struct {
-	PermMenuList []PermMenu `json:"list"`
+	List []PermMenu `json:"list"`
 }
 
 type AddSysPermMenuReq struct {
@@ -141,7 +141,7 @@ type Role struct {
 }
 
 type SysRoleListResp struct {
-	RoleList []Role `json:"list"`
+	List []Role `json:"list"`
 }
 
 type AddSysRoleReq struct {
@@ -182,7 +182,7 @@ type Dept struct {
 }
 
 type SysDeptListResp struct {
-	DeptList []Dept `json:"list"`
+	List []Dept `json:"list"`
 }
 
 type AddSysDeptReq struct {
@@ -224,7 +224,7 @@ type SysJobPageReq struct {
 }
 
 type SysJobPageResp struct {
-	JobList    []Job      `json:"list"`
+	List       []Job      `json:"list"`
 	Pagination Pagination `json:"pagination"`
 }
 
@@ -257,8 +257,8 @@ type SysProfessionPageReq struct {
 }
 
 type SysProfessionPageResp struct {
-	ProfessionList []Profession `json:"list"`
-	Pagination     Pagination   `json:"pagination"`
+	List       []Profession `json:"list"`
+	Pagination Pagination   `json:"pagination"`
 }
 
 type AddSysProfessionReq struct {
@@ -321,7 +321,7 @@ type SysUserPageReq struct {
 }
 
 type SysUserPageResp struct {
-	UserList   []User     `json:"list"`
+	List       []User     `json:"list"`
 	Pagination Pagination `json:"pagination"`
 }
 
@@ -408,7 +408,7 @@ type ConfigDict struct {
 }
 
 type ConfigDictListResp struct {
-	DictList []ConfigDict `json:"list"`
+	List []ConfigDict `json:"list"`
 }
 
 type ConfigDictPageReq struct {
@@ -417,8 +417,8 @@ type ConfigDictPageReq struct {
 }
 
 type ConfigDictPageResp struct {
-	ConfigDictList []ConfigDict `json:"list"`
-	Pagination     Pagination   `json:"pagination"`
+	List       []ConfigDict `json:"list"`
+	Pagination Pagination   `json:"pagination"`
 }
 
 type AddConfigDictReq struct {
@@ -461,6 +461,6 @@ type LogLoginPageReq struct {
 }
 
 type LogLoginPageResp struct {
-	LogLoginList []LogLogin `json:"list"`
-	Pagination   Pagination `json:"pagination"`
+	List       []LogLogin `json:"list"`
+	Pagination Pagination `json:"pagination"`
 }

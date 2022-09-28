@@ -19,7 +19,7 @@ type (
 		OrderNum    int64    `json:"orderNum"`
 	}
 	SysRoleListResp {
-		RoleList []Role `json:"list"`
+		List []Role `json:"list"`
 	}
 )
 

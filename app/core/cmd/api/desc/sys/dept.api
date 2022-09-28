@@ -20,7 +20,7 @@ type (
 		Remark    string `json:"remark"`
 	}
 	SysDeptListResp {
-		DeptList []Dept `json:"list"`
+		List []Dept `json:"list"`
 	}
 )
 

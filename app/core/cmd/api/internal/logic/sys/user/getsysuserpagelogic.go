@@ -89,7 +89,7 @@ func (l *GetSysUserPageLogic) GetSysUserPage(req *types.SysUserPageReq) (resp *t
 	}
 
 	return &types.SysUserPageResp{
-		UserList:   userList,
+		List:       userList,
 		Pagination: pagination,
 	}, nil
 }
