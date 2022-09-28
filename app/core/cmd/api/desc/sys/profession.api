@@ -18,8 +18,8 @@ type (
 		PageReq
 	}
 	SysProfessionPageResp {
-		ProfessionList []Profession `json:"list"`
-		Pagination     Pagination   `json:"pagination"`
+		            List []Profession `json:"list"`
+		Pagination  Pagination   `json:"pagination"`
 	}
 )
 

@@ -55,7 +55,7 @@ func (l *GetLogLoginPageLogic) GetLogLoginPage(req *types.LogLoginPageReq) (resp
 	}
 
 	return &types.LogLoginPageResp{
-		LogLoginList: logList,
-		Pagination:   pagination,
+		List:       logList,
+		Pagination: pagination,
 	}, nil
 }

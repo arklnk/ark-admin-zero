@@ -20,7 +20,7 @@ type (
 		Status    int64  `json:"status"`
 	}
 	ConfigDictListResp {
-		DictList []ConfigDict `json:"list"`
+		List []ConfigDict `json:"list"`
 	}
 )
 
@@ -30,8 +30,8 @@ type (
 		ParentId int64 `form:"parentId"  validate:"number,gte=0" label:"字典集id"`
 	}
 	ConfigDictPageResp {
-		ConfigDictList []ConfigDict `json:"list"`
-		Pagination     Pagination   `json:"pagination"`
+		List        []ConfigDict `json:"list"`
+		Pagination  Pagination   `json:"pagination"`
 	}
 )
 

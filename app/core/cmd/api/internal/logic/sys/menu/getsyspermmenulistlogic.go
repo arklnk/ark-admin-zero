@@ -63,7 +63,7 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 		PermMenuList = append(PermMenuList, menu)
 	}
 
-	return &types.SysPermMenuListResp{PermMenuList: PermMenuList}, nil
+	return &types.SysPermMenuListResp{List: PermMenuList}, nil
 }
 
 func (l *GetSysPermMenuListLogic) getCurrentUserPermMenuIds(currentUserId int64) (ids []int64) {

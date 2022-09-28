@@ -45,7 +45,7 @@ type (
 		DeptId int64 `form:"deptId"  validate:"number,gte=0" label:"部门id"`
 	}
 	SysUserPageResp {
-		UserList   []User     `json:"list"`
+		           List   []User     `json:"list"`
 		Pagination Pagination `json:"pagination"`
 	}
 )

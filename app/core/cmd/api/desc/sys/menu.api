@@ -23,7 +23,7 @@ type (
 	    Has          int64    `json:"has"`
 	}
 	SysPermMenuListResp {
-		PermMenuList []PermMenu `json:"list"`
+		List []PermMenu `json:"list"`
 	}
 )
 
