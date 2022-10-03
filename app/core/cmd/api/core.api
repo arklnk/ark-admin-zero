@@ -8,7 +8,7 @@ info(
 	version: "v1.0.0"
 )
 
-// 全局共用结构图
+// 全局共用结构体
 import "desc/common.api"
 
 // 用户公共模块

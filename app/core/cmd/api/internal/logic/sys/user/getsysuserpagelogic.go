@@ -29,7 +29,7 @@ func NewGetSysUserPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 }
 
 func (l *GetSysUserPageLogic) GetSysUserPage(req *types.SysUserPageReq) (resp *types.SysUserPageResp, err error) {
-	s := strconv.FormatUint(req.DeptId, 10)
+	s := strconv.FormatInt(req.DeptId, 10)
 	deptIds := l.getDeptIds(s, req.DeptId)
 
 	users, err := l.svcCtx.SysUserModel.FindPage(l.ctx, req.Page, req.Limit, deptIds)
@@ -65,7 +65,7 @@ func (l *GetSysUserPageLogic) GetSysUserPage(req *types.SysUserPageReq) (resp *t
 		roleIdArr = strings.Split(v.RoleIds, ",")
 		for i, n := range roleNameArr {
 			userRole.Name = n
-			userRole.Id, _ = strconv.ParseUint(roleIdArr[i], 10, 64)
+			userRole.Id, _ = strconv.ParseInt(roleIdArr[i], 10, 64)
 			roles = append(roles, userRole)
 		}
 
@@ -89,19 +89,19 @@ func (l *GetSysUserPageLogic) GetSysUserPage(req *types.SysUserPageReq) (resp *t
 	}
 
 	return &types.SysUserPageResp{
-		UserList:   userList,
+		List:       userList,
 		Pagination: pagination,
 	}, nil
 }
 
-func (l *GetSysUserPageLogic) getDeptIds(deptId string, id uint64) string {
+func (l *GetSysUserPageLogic) getDeptIds(deptId string, id int64) string {
 	deptList, err := l.svcCtx.SysDeptModel.FindSubDept(l.ctx, id)
 	if err != nil && err != model.ErrNotFound {
 		return deptId
 	}
 
 	for _, v := range deptList {
-		deptId = deptId + "," + strconv.FormatUint(v.Id, 10)
+		deptId = deptId + "," + strconv.FormatInt(v.Id, 10)
 		deptId = l.getDeptIds(deptId, v.Id)
 	}
 

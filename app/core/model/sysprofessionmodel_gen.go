@@ -29,10 +29,10 @@ var (
 type (
 	sysProfessionModel interface {
 		Insert(ctx context.Context, data *SysProfession) (sql.Result, error)
-		FindOne(ctx context.Context, id uint64) (*SysProfession, error)
+		FindOne(ctx context.Context, id int64) (*SysProfession, error)
 		FindOneByName(ctx context.Context, name string) (*SysProfession, error)
 		Update(ctx context.Context, data *SysProfession) error
-		Delete(ctx context.Context, id uint64) error
+		Delete(ctx context.Context, id int64) error
 	}
 
 	defaultSysProfessionModel struct {
@@ -41,10 +41,10 @@ type (
 	}
 
 	SysProfession struct {
-		Id         uint64    `db:"id"`          // 编号
+		Id         int64     `db:"id"`          // 编号
 		Name       string    `db:"name"`        // 职称
-		Status     uint64    `db:"status"`      // 0=禁用 1=开启
-		OrderNum   uint64    `db:"order_num"`   // 排序值
+		Status     int64     `db:"status"`      // 0=禁用 1=开启
+		OrderNum   int64     `db:"order_num"`   // 排序值
 		CreateTime time.Time `db:"create_time"` // 创建时间
 		UpdateTime time.Time `db:"update_time"` // 更新时间
 	}
@@ -57,7 +57,7 @@ func newSysProfessionModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultSysProf
 	}
 }
 
-func (m *defaultSysProfessionModel) Delete(ctx context.Context, id uint64) error {
+func (m *defaultSysProfessionModel) Delete(ctx context.Context, id int64) error {
 	data, err := m.FindOne(ctx, id)
 	if err != nil {
 		return err
@@ -72,7 +72,7 @@ func (m *defaultSysProfessionModel) Delete(ctx context.Context, id uint64) error
 	return err
 }
 
-func (m *defaultSysProfessionModel) FindOne(ctx context.Context, id uint64) (*SysProfession, error) {
+func (m *defaultSysProfessionModel) FindOne(ctx context.Context, id int64) (*SysProfession, error) {
 	arkAdminSysProfessionIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysProfessionIdPrefix, id)
 	var resp SysProfession
 	err := m.QueryRowCtx(ctx, &resp, arkAdminSysProfessionIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {

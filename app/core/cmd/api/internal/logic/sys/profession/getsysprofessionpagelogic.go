@@ -53,7 +53,7 @@ func (l *GetSysProfessionPageLogic) GetSysProfessionPage(req *types.SysProfessio
 	}
 
 	return &types.SysProfessionPageResp{
-		ProfessionList: professionList,
-		Pagination:     pagination,
+		List:       professionList,
+		Pagination: pagination,
 	}, nil
 }

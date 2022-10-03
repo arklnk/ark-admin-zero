@@ -9,61 +9,61 @@ info(
 
 type (
 	ConfigDict {
-		Id        uint64 `json:"id"`
-		ParentId  uint64 `json:"parentId"`
+		Id        int64  `json:"id"`
+		ParentId  int64  `json:"parentId"`
 		Name      string `json:"name"`
-		Type      uint64 `json:"type"`
+		Type      int64  `json:"type"`
 		UniqueKey string `json:"uniqueKey"`
 		Value     string `json:"value"`
-		OrderNum  uint64 `json:"orderNum"`
+		OrderNum  int64  `json:"orderNum"`
 		Remark    string `json:"remark"`
-		Status    uint64 `json:"status"`
+		Status    int64  `json:"status"`
 	}
 	ConfigDictListResp {
-		DictList []ConfigDict `json:"list"`
+		List []ConfigDict `json:"list"`
 	}
 )
 
 type (
 	ConfigDictPageReq {
 		PageReq
-		ParentId uint64 `form:"parentId"  validate:"number,gte=0" label:"字典集id"`
+		ParentId int64 `form:"parentId"  validate:"number,gte=0" label:"字典集id"`
 	}
 	ConfigDictPageResp {
-		ConfigDictList []ConfigDict `json:"list"`
-		Pagination     Pagination   `json:"pagination"`
+		List        []ConfigDict `json:"list"`
+		Pagination  Pagination   `json:"pagination"`
 	}
 )
 
 type (
 	AddConfigDictReq {
-		ParentId  uint64 `json:"parentId"   validate:"number,gte=0"         label:"字典集id"`
+		ParentId  int64 `json:"parentId"   validate:"number,gte=0"         label:"字典集id"`
 		Name      string `json:"name"       validate:"min=2,max=50"         label:"名称"`
-		Type      uint64 `json:"type"       validate:"number,gte=1,lte=12"  label:"类型"`
+		Type      int64 `json:"type"       validate:"number,gte=1,lte=12"  label:"类型"`
 		UniqueKey string `json:"uniqueKey"  validate:"min=2,max=50"         label:"标识"`
 		Value     string `json:"value"      validate:"max=2048"             label:"字典项值"`
-		OrderNum  uint64 `json:"orderNum"   validate:"gte=0,lte=9999"       label:"排序"`
+		OrderNum  int64 `json:"orderNum"   validate:"gte=0,lte=9999"       label:"排序"`
 		Remark    string `json:"remark"     validate:"max=200"              label:"备注"`
-		Status    uint64 `json:"status"     validate:"number,gte=0,lte=1"   label:"状态"`
+		Status    int64 `json:"status"     validate:"number,gte=0,lte=1"   label:"状态"`
 	}
 )
 
 type (
 	DeleteConfigDictReq {
-		Id uint64 `json:"id"  validate:"number,gte=1" label:"字典id"`
+		Id int64 `json:"id"  validate:"number,gte=1" label:"字典id"`
 	}
 )
 
 type (
 	UpdateConfigDictReq {
-		Id        uint64 `json:"id"         validate:"number,gte=1"         label:"字典id"`
-		ParentId  uint64 `json:"parentId"   validate:"number,gte=0"         label:"字典集id"`
+		Id        int64 `json:"id"         validate:"number,gte=1"         label:"字典id"`
+		ParentId  int64 `json:"parentId"   validate:"number,gte=0"         label:"字典集id"`
 		Name      string `json:"name"       validate:"min=2,max=50"         label:"名称"`
-		Type      uint64 `json:"type"       validate:"number,gte=1,lte=12"  label:"类型"`
+		Type      int64 `json:"type"       validate:"number,gte=1,lte=12"  label:"类型"`
 		Value     string `json:"value"      validate:"max=2048"             label:"字典项值"`
-		OrderNum  uint64 `json:"orderNum"   validate:"gte=0,lte=9999"       label:"排序"`
+		OrderNum  int64 `json:"orderNum"   validate:"gte=0,lte=9999"       label:"排序"`
 		Remark    string `json:"remark"     validate:"max=200"              label:"备注"`
-		Status    uint64 `json:"status"     validate:"number,gte=0,lte=1"   label:"状态"`
+		Status    int64 `json:"status"     validate:"number,gte=0,lte=1"   label:"状态"`
 	}
 )
 

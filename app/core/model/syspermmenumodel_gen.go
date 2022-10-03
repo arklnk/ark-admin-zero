@@ -28,9 +28,9 @@ var (
 type (
 	sysPermMenuModel interface {
 		Insert(ctx context.Context, data *SysPermMenu) (sql.Result, error)
-		FindOne(ctx context.Context, id uint64) (*SysPermMenu, error)
+		FindOne(ctx context.Context, id int64) (*SysPermMenu, error)
 		Update(ctx context.Context, data *SysPermMenu) error
-		Delete(ctx context.Context, id uint64) error
+		Delete(ctx context.Context, id int64) error
 	}
 
 	defaultSysPermMenuModel struct {
@@ -39,16 +39,16 @@ type (
 	}
 
 	SysPermMenu struct {
-		Id           uint64    `db:"id"`            // 编号
-		ParentId     uint64    `db:"parent_id"`     // 父级id
+		Id           int64     `db:"id"`            // 编号
+		ParentId     int64     `db:"parent_id"`     // 父级id
 		Name         string    `db:"name"`          // 名称
 		Router       string    `db:"router"`        // 路由
 		Perms        string    `db:"perms"`         // 权限
-		Type         uint64    `db:"type"`          // 0=目录 1=菜单 2=权限
+		Type         int64     `db:"type"`          // 0=目录 1=菜单 2=权限
 		Icon         string    `db:"icon"`          // 图标
-		OrderNum     uint64    `db:"order_num"`     // 排序值
+		OrderNum     int64     `db:"order_num"`     // 排序值
 		ViewPath     string    `db:"view_path"`     // 页面路径
-		IsShow       uint64    `db:"is_show"`       // 0=隐藏 1=显示
+		IsShow       int64     `db:"is_show"`       // 0=隐藏 1=显示
 		ActiveRouter string    `db:"active_router"` // 当前激活的菜单
 		CreateTime   time.Time `db:"create_time"`   // 创建时间
 		UpdateTime   time.Time `db:"update_time"`   // 更新时间
@@ -62,7 +62,7 @@ func newSysPermMenuModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultSysPermMe
 	}
 }
 
-func (m *defaultSysPermMenuModel) Delete(ctx context.Context, id uint64) error {
+func (m *defaultSysPermMenuModel) Delete(ctx context.Context, id int64) error {
 	arkAdminSysPermMenuIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysPermMenuIdPrefix, id)
 	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
@@ -71,7 +71,7 @@ func (m *defaultSysPermMenuModel) Delete(ctx context.Context, id uint64) error {
 	return err
 }
 
-func (m *defaultSysPermMenuModel) FindOne(ctx context.Context, id uint64) (*SysPermMenu, error) {
+func (m *defaultSysPermMenuModel) FindOne(ctx context.Context, id int64) (*SysPermMenu, error) {
 	arkAdminSysPermMenuIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysPermMenuIdPrefix, id)
 	var resp SysPermMenu
 	err := m.QueryRowCtx(ctx, &resp, arkAdminSysPermMenuIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {

@@ -53,7 +53,7 @@ func (l *GetSysJobPageLogic) GetSysJobPage(req *types.SysJobPageReq) (resp *type
 	}
 
 	return &types.SysJobPageResp{
-		JobList:    jobList,
+		List:       jobList,
 		Pagination: pagination,
 	}, nil
 }

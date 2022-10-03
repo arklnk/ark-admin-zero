@@ -9,40 +9,40 @@ info(
 
 type (
 	Profession {
-		Id       uint64 `json:"id"`
+		Id       int64  `json:"id"`
 		Name     string `json:"name"`
-		Status   uint64 `json:"status"`
-		OrderNum uint64 `json:"orderNum"`
+		Status   int64  `json:"status"`
+		OrderNum int64  `json:"orderNum"`
 	}
 	SysProfessionPageReq {
 		PageReq
 	}
 	SysProfessionPageResp {
-		ProfessionList []Profession `json:"list"`
-		Pagination     Pagination   `json:"pagination"`
+		List        []Profession `json:"list"`
+		Pagination  Pagination   `json:"pagination"`
 	}
 )
 
 type (
 	AddSysProfessionReq {
 		Name     string `json:"name"      validate:"min=2,max=50"           label:"职称"`
-		Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
-		OrderNum uint64 `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
+		Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
+		OrderNum int64  `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
 	}
 )
 
 type (
 	DeleteSysProfessionReq {
-		Id uint64 `json:"id"  validate:"number,gte=1" label:"职称id"`
+		Id int64 `json:"id"  validate:"number,gte=1" label:"职称id"`
 	}
 )
 
 type (
 	UpdateSysProfessionReq {
-		Id       uint64 `json:"id"        validate:"number,gte=1"           label:"职称id"`
+		Id       int64  `json:"id"        validate:"number,gte=1"           label:"职称id"`
 		Name     string `json:"name"      validate:"min=2,max=50"           label:"职称"`
-		Status   uint64 `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
-		OrderNum uint64 `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
+		Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
+		OrderNum int64  `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
 	}
 )
 

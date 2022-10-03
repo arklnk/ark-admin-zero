@@ -33,7 +33,7 @@ func NewGetUserPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, err error) {
 	userId := utils.GetUserId(l.ctx)
 
-	online, err := l.svcCtx.Redis.Get(config.SysOnlineUserCachePrefix + strconv.FormatUint(userId, 10))
+	online, err := l.svcCtx.Redis.Get(config.SysOnlineUserCachePrefix + strconv.FormatInt(userId, 10))
 	if err != nil || online == "" {
 		return nil, errorx.NewDefaultError(errorx.AuthErrorCode)
 	}
@@ -44,14 +44,14 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
-	var roles []uint64
+	var roles []int64
 	// 用户所属角色
 	err = json.Unmarshal([]byte(user.RoleIds), &roles)
 	if err != nil {
 		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
-	var permMenu []uint64
+	var permMenu []int64
 	var userPermMenu []*model.SysPermMenu
 
 	userPermMenu, permMenu, err = l.countUserPermMenu(roles, permMenu)
@@ -62,7 +62,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 	var menu types.Menu
 	menuList := make([]types.Menu, 0)
 	permList := make([]string, 0)
-	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatUint(userId, 10))
+	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatInt(userId, 10))
 	for _, v := range userPermMenu {
 		err := copier.Copy(&menu, &v)
 		if err != nil {
@@ -79,7 +79,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 		}
 
 		for _, p := range permArray {
-			_, err := l.svcCtx.Redis.Sadd(config.SysPermMenuCachePrefix+strconv.FormatUint(userId, 10), config.SysPermMenuPrefix+p)
+			_, err := l.svcCtx.Redis.Sadd(config.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), config.SysPermMenuPrefix+p)
 			if err != nil {
 				return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 			}
@@ -91,7 +91,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 	return &types.UserPermMenuResp{Menus: menuList, Perms: utils.ArrayUniqueValue[string](permList)}, nil
 }
 
-func (l *GetUserPermMenuLogic) countUserPermMenu(roles []uint64, permMenu []uint64) ([]*model.SysPermMenu, []uint64, error) {
+func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64) ([]*model.SysPermMenu, []int64, error) {
 	if utils.ArrayContainValue(roles, config.SysSuperRoleId) {
 		sysPermMenus, err := l.svcCtx.SysPermMenuModel.FindAll(l.ctx)
 		if err != nil {
@@ -107,7 +107,7 @@ func (l *GetUserPermMenuLogic) countUserPermMenu(roles []uint64, permMenu []uint
 				return nil, permMenu, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 			}
 
-			var perms []uint64
+			var perms []int64
 			// 角色所拥有的权限id
 			err = json.Unmarshal([]byte(role.PermMenuIds), &perms)
 			if err != nil {
@@ -122,14 +122,14 @@ func (l *GetUserPermMenuLogic) countUserPermMenu(roles []uint64, permMenu []uint
 		}
 
 		// 过滤重复的权限id
-		permMenu = utils.ArrayUniqueValue[uint64](permMenu)
+		permMenu = utils.ArrayUniqueValue[int64](permMenu)
 		var roleIds string
 		for i, id := range permMenu {
 			if i == 0 {
-				roleIds = strconv.FormatUint(id, 10)
+				roleIds = strconv.FormatInt(id, 10)
 				continue
 			}
-			roleIds = roleIds + "," + strconv.FormatUint(id, 10)
+			roleIds = roleIds + "," + strconv.FormatInt(id, 10)
 		}
 
 		if len(roleIds) == 0 {
@@ -146,14 +146,14 @@ func (l *GetUserPermMenuLogic) countUserPermMenu(roles []uint64, permMenu []uint
 	}
 }
 
-func (l *GetUserPermMenuLogic) getRolePermMenu(perms []uint64, roleId uint64) []uint64 {
+func (l *GetUserPermMenuLogic) getRolePermMenu(perms []int64, roleId int64) []int64 {
 	roles, err := l.svcCtx.SysRoleModel.FindSubRole(l.ctx, roleId)
 	if err != nil && err != model.ErrNotFound {
 		return perms
 	}
 
 	for _, role := range roles {
-		var subPerms []uint64
+		var subPerms []int64
 		err = json.Unmarshal([]byte(role.PermMenuIds), &subPerms)
 		perms = append(perms, subPerms...)
 		perms = l.getRolePermMenu(perms, role.Id)

@@ -42,6 +42,6 @@ func (l *GetSysDeptListLogic) GetSysDeptList() (resp *types.SysDeptListResp, err
 	}
 
 	return &types.SysDeptListResp{
-		DeptList: deptList,
+		List: deptList,
 	}, nil
 }

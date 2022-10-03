@@ -53,7 +53,7 @@ func (l *GetConfigDictPageLogic) GetConfigDictPage(req *types.ConfigDictPageReq)
 	}
 
 	return &types.ConfigDictPageResp{
-		ConfigDictList: dictionaryList,
-		Pagination:     pagination,
+		List:       dictionaryList,
+		Pagination: pagination,
 	}, nil
 }

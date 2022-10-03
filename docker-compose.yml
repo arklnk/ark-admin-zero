@@ -9,25 +9,25 @@ services:
     environment:
       - TZ=Asia/Shanghai
     volumes:
-      - ./deploy/gateway:/etc/nginx/conf.d
+      - ./build/deploy/gateway:/etc/nginx/conf.d
       - ./data/gateway/log:/var/log/nginx
     restart: always
     privileged: true
 
-  ark-admin-web:
+  web:
     image: arklnk/ark-admin:web
-    container_name: ark-admin-web
+    container_name: web
     volumes:
-      - ./deploy/web:/etc/nginx/conf.d
+      - ./build/deploy/web:/etc/nginx/conf.d
     ports:
       - "80:8080"
     restart: always
 
-  ark-admin-api:
+  api:
     image: arklnk/ark-admin:api
-    container_name: ark-admin-api
+    container_name: api
     volumes:
-      - ./deploy/service/core/etc:/app/etc
+      - ./build/deploy/service/core/etc:/app/etc
       - ./data/service/logs:/app/logs
     restart: always
 
@@ -42,7 +42,7 @@ services:
       - "3306:3306"
     volumes:
       - ./data/mysql/data:/var/lib/mysql
-      - ./deploy/sql/:/docker-entrypoint-initdb.d/
+      - ./build/deploy/sql/:/docker-entrypoint-initdb.d/
     privileged: true
     restart: always
 

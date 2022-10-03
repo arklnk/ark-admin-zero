@@ -50,7 +50,7 @@ func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
 		return errorx.NewDefaultError(errorx.UpdateRoleUniqueKeyErrorCode)
 	}
 
-	roleIds := make([]uint64, 0)
+	roleIds := make([]int64, 0)
 	roleIds = l.getSubRole(roleIds, req.Id)
 	if utils.ArrayContainValue(roleIds, req.ParentId) {
 		return errorx.NewDefaultError(errorx.SetParentIdErrorCode)
@@ -80,7 +80,7 @@ func (l *UpdateSysRoleLogic) UpdateSysRole(req *types.UpdateSysRoleReq) error {
 	return nil
 }
 
-func (l *UpdateSysRoleLogic) getSubRole(roleIds []uint64, id uint64) []uint64 {
+func (l *UpdateSysRoleLogic) getSubRole(roleIds []int64, id int64) []int64 {
 	roleList, err := l.svcCtx.SysRoleModel.FindSubRole(l.ctx, id)
 	if err != nil && err != model.ErrNotFound {
 		return roleIds

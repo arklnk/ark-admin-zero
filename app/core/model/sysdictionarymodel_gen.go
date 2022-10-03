@@ -29,10 +29,10 @@ var (
 type (
 	sysDictionaryModel interface {
 		Insert(ctx context.Context, data *SysDictionary) (sql.Result, error)
-		FindOne(ctx context.Context, id uint64) (*SysDictionary, error)
+		FindOne(ctx context.Context, id int64) (*SysDictionary, error)
 		FindOneByUniqueKey(ctx context.Context, uniqueKey string) (*SysDictionary, error)
 		Update(ctx context.Context, data *SysDictionary) error
-		Delete(ctx context.Context, id uint64) error
+		Delete(ctx context.Context, id int64) error
 	}
 
 	defaultSysDictionaryModel struct {
@@ -41,14 +41,14 @@ type (
 	}
 
 	SysDictionary struct {
-		Id         uint64    `db:"id"`          // 编号
-		ParentId   uint64    `db:"parent_id"`   // 0=配置集 !0=父级id
+		Id         int64     `db:"id"`          // 编号
+		ParentId   int64     `db:"parent_id"`   // 0=配置集 !0=父级id
 		Name       string    `db:"name"`        // 名称
-		Type       uint64    `db:"type"`        // 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图 11单文件 12多文件
+		Type       int64     `db:"type"`        // 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图 11单文件 12多文件
 		UniqueKey  string    `db:"unique_key"`  // 唯一值
 		Value      string    `db:"value"`       // 配置值
-		Status     uint64    `db:"status"`      // 0=禁用 1=开启
-		OrderNum   uint64    `db:"order_num"`   // 排序值
+		Status     int64     `db:"status"`      // 0=禁用 1=开启
+		OrderNum   int64     `db:"order_num"`   // 排序值
 		Remark     string    `db:"remark"`      // 备注
 		CreateTime time.Time `db:"create_time"` // 创建时间
 		UpdateTime time.Time `db:"update_time"` // 更新时间
@@ -62,7 +62,7 @@ func newSysDictionaryModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultSysDict
 	}
 }
 
-func (m *defaultSysDictionaryModel) Delete(ctx context.Context, id uint64) error {
+func (m *defaultSysDictionaryModel) Delete(ctx context.Context, id int64) error {
 	data, err := m.FindOne(ctx, id)
 	if err != nil {
 		return err
@@ -77,7 +77,7 @@ func (m *defaultSysDictionaryModel) Delete(ctx context.Context, id uint64) error
 	return err
 }
 
-func (m *defaultSysDictionaryModel) FindOne(ctx context.Context, id uint64) (*SysDictionary, error) {
+func (m *defaultSysDictionaryModel) FindOne(ctx context.Context, id int64) (*SysDictionary, error) {
 	arkAdminSysDictionaryIdKey := fmt.Sprintf("%s%v", cacheArkAdminSysDictionaryIdPrefix, id)
 	var resp SysDictionary
 	err := m.QueryRowCtx(ctx, &resp, arkAdminSysDictionaryIdKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {

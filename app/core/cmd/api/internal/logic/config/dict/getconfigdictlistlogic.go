@@ -42,6 +42,6 @@ func (l *GetConfigDictListLogic) GetConfigDictList() (resp *types.ConfigDictList
 	}
 
 	return &types.ConfigDictListResp{
-		DictList: dictionaryList,
+		List: dictionaryList,
 	}, nil
 }
