@@ -17,14 +17,14 @@ docker-compose -f docker-compose-dev.yml up -d
 进入容器
 
 ```
-docker exec -it ark-admin-api /bin/sh
+docker exec -it api /bin/sh
 ```
 
 映射工具
 
 ```
-alias api="/server/dev/tools/api.sh"
-alias model="/server/dev/tools/model.sh"
+alias api="/server/build/dev/tools/api.sh"
+alias model="/server/build/dev/tools/model.sh"
 ```
 
 ## api工具
