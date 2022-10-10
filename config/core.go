@@ -7,7 +7,7 @@ const (
 	SysOnlineUserCachePrefix   = "cache:arkAdmin:online:"
 	SysLoginCaptchaCachePrefix = "cache:arkAdmin:captcha:"
 	SysUserIdCachePrefix       = "cache:arkAdmin:sysUser:id:"
-	SysDateFormat              = "2006.01.02 15:04:05"
+	SysDateFormat              = "2006-01-02 15:04:05"
 	SysNewUserDefaultPassword  = "123456"
 	SysProtectPermMenuMaxId    = 44
 	SysProtectDictionaryMaxId  = 4
