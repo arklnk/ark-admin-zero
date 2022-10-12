@@ -6,7 +6,7 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
-	"ark-admin-zero/config"
+	"ark-admin-zero/common/globalkey"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -32,7 +32,7 @@ func (l *UpdateSysProfessionLogic) UpdateSysProfession(req *types.UpdateSysProfe
 		return errorx.NewDefaultError(errorx.ProfessionIdErrorCode)
 	}
 
-	if req.Status == config.SysDisable {
+	if req.Status == globalkey.SysDisable {
 		count, _ := l.svcCtx.SysUserModel.FindCountByProfessionId(l.ctx, req.Id)
 		if count > 0 {
 			return errorx.NewDefaultError(errorx.JobIsUsingErrorCode)

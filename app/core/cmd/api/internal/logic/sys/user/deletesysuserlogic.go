@@ -6,7 +6,7 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
-	"ark-admin-zero/config"
+	"ark-admin-zero/common/globalkey"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -26,7 +26,7 @@ func NewDeleteSysUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 }
 
 func (l *DeleteSysUserLogic) DeleteSysUser(req *types.DeleteSysUserReq) error {
-	if req.Id == config.SysSuperUserId {
+	if req.Id == globalkey.SysSuperUserId {
 		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
 	}
 

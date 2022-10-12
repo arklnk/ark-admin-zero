@@ -8,8 +8,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
-	"ark-admin-zero/config"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -33,7 +33,7 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 	currentUserId := utils.GetUserId(l.ctx)
 	var currentUserRoleIds []int64
 	var roleIds []int64
-	if currentUserId == config.SysSuperUserId {
+	if currentUserId == globalkey.SysSuperUserId {
 		sysRoleList, _ := l.svcCtx.SysRoleModel.FindAll(l.ctx)
 		for _, role := range sysRoleList {
 			currentUserRoleIds=append(currentUserRoleIds,role.Id)
@@ -99,8 +99,8 @@ func (l *UpdateSysUserLogic) UpdateSysUser(req *types.UpdateSysUserReq) error {
 		return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
-	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatInt(editUser.Id, 10))
-	_, err = l.svcCtx.Redis.Del(config.SysOnlineUserCachePrefix + strconv.FormatInt(editUser.Id, 10))
+	_, err = l.svcCtx.Redis.Del(globalkey.SysPermMenuCachePrefix + strconv.FormatInt(editUser.Id, 10))
+	_, err = l.svcCtx.Redis.Del(globalkey.SysOnlineUserCachePrefix + strconv.FormatInt(editUser.Id, 10))
 	editUser.RoleIds = string(bytes)
 	err = l.svcCtx.SysUserModel.Update(l.ctx, editUser)
 	if err != nil {

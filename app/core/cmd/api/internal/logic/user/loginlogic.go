@@ -10,8 +10,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
-	"ark-admin-zero/config"
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -32,7 +32,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.LoginResp, err error) {
-	verifyCode, _ := l.svcCtx.Redis.Get(config.SysLoginCaptchaCachePrefix + req.CaptchaId)
+	verifyCode, _ := l.svcCtx.Redis.Get(globalkey.SysLoginCaptchaCachePrefix + req.CaptchaId)
 	if verifyCode != req.VerifyCode {
 		return nil, errorx.NewDefaultError(errorx.CaptchaErrorCode)
 	}
@@ -46,13 +46,13 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 		return nil, errorx.NewDefaultError(errorx.PasswordErrorCode)
 	}
 
-	if sysUser.Status != config.SysEnable {
+	if sysUser.Status != globalkey.SysEnable {
 		return nil, errorx.NewDefaultError(errorx.AccountDisableErrorCode)
 	}
 
-	if sysUser.Id != config.SysSuperUserId {
+	if sysUser.Id != globalkey.SysSuperUserId {
 		dept, _ := l.svcCtx.SysDeptModel.FindOne(l.ctx, sysUser.DeptId)
-		if dept.Status == config.SysDisable {
+		if dept.Status == globalkey.SysDisable {
 			return nil, errorx.NewDefaultError(errorx.AccountDisableErrorCode)
 		}
 	}
@@ -69,7 +69,7 @@ func (l *LoginLogic) Login(req *types.LoginReq, r *http.Request) (resp *types.Lo
 	}
 	_, err = l.svcCtx.SysLogModel.Insert(l.ctx, &loginLog)
 
-	err = l.svcCtx.Redis.Setex(config.SysOnlineUserCachePrefix+strconv.FormatInt(sysUser.Id, 10), "1", int(l.svcCtx.Config.JwtAuth.AccessExpire))
+	err = l.svcCtx.Redis.Setex(globalkey.SysOnlineUserCachePrefix+strconv.FormatInt(sysUser.Id, 10), "1", int(l.svcCtx.Config.JwtAuth.AccessExpire))
 	if err != nil {
 		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
@@ -84,7 +84,7 @@ func (l *LoginLogic) getJwtToken(userId int64) (string, error) {
 	claims := make(jwt.MapClaims)
 	claims["exp"] = iat + l.svcCtx.Config.JwtAuth.AccessExpire
 	claims["iat"] = iat
-	claims[config.SysJwtUserId] = userId
+	claims[globalkey.SysJwtUserId] = userId
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
 	return token.SignedString([]byte(l.svcCtx.Config.JwtAuth.AccessSecret))

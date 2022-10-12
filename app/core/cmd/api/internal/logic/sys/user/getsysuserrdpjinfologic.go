@@ -8,8 +8,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
-	"ark-admin-zero/config"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -43,7 +43,7 @@ func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId int64, editUserId int64
 	var currentUserRoleIds []int64
 	var roleIds []int64
 	var sysRoleList []*model.SysRole
-	if currentUserId == config.SysSuperUserId {
+	if currentUserId == globalkey.SysSuperUserId {
 		sysRoleList, _ = l.svcCtx.SysRoleModel.FindAll(l.ctx)
 		for _, role := range sysRoleList {
 			currentUserRoleIds=append(currentUserRoleIds,role.Id)

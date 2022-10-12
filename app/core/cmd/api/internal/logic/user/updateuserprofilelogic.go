@@ -6,8 +6,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
-	"ark-admin-zero/config"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,7 +29,7 @@ func NewUpdateUserProfileLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.UpdateProfileReq) error {
 	dictionary, err := l.svcCtx.SysDictionaryModel.FindOneByUniqueKey(l.ctx, "sys_userinfo")
-	if dictionary.Status == config.SysDisable {
+	if dictionary.Status == globalkey.SysDisable {
 		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
 	}
 

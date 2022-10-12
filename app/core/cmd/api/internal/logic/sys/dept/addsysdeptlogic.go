@@ -7,7 +7,7 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
-	"ark-admin-zero/config"
+	"ark-admin-zero/common/globalkey"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -30,7 +30,7 @@ func NewAddSysDeptLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddSys
 func (l *AddSysDeptLogic) AddSysDept(req *types.AddSysDeptReq) error {
 	_, err := l.svcCtx.SysDeptModel.FindOneByUniqueKey(l.ctx, req.UniqueKey)
 	if err == model.ErrNotFound {
-		if req.ParentId != config.SysTopParentId {
+		if req.ParentId != globalkey.SysTopParentId {
 			_, err := l.svcCtx.SysDeptModel.FindOne(l.ctx,req.ParentId)
 			if err != nil {
 				return errorx.NewDefaultError(errorx.ParentDeptIdErrorCode)
