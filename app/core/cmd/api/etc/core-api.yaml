@@ -25,3 +25,14 @@ Redis:
   Host: redis:6379
   Pass: "123456"
   Type: node
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4001
+  Path: /metrics
+
+Telemetry:
+  Name: core-api
+  Endpoint: http://jaeger:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
