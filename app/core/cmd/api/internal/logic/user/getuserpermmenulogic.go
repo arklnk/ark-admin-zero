@@ -123,21 +123,21 @@ func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64
 
 		// 过滤重复的权限id
 		permMenu = utils.ArrayUniqueValue[int64](permMenu)
-		var roleIds string
+		var ids string
 		for i, id := range permMenu {
 			if i == 0 {
-				roleIds = strconv.FormatInt(id, 10)
+				ids = strconv.FormatInt(id, 10)
 				continue
 			}
-			roleIds = roleIds + "," + strconv.FormatInt(id, 10)
+			ids = ids + "," + strconv.FormatInt(id, 10)
 		}
 
-		if len(roleIds) == 0 {
+		if len(ids) == 0 {
 			return nil, permMenu, nil
 		}
 
 		// 根据权限id获取具体权限
-		sysPermMenus, err := l.svcCtx.SysPermMenuModel.FindByIds(l.ctx, roleIds)
+		sysPermMenus, err := l.svcCtx.SysPermMenuModel.FindByIds(l.ctx, ids)
 		if err != nil {
 			return nil, permMenu, err
 		}
