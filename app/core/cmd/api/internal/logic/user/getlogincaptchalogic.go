@@ -9,8 +9,8 @@ import (
 	"ark-admin-zero/common/utils"
 
 	"github.com/mojocn/base64Captcha"
-	"github.com/satori/go.uuid"
 	"github.com/zeromicro/go-zero/core/logx"
+	utils2 "github.com/zeromicro/go-zero/core/utils"
 )
 
 type GetLoginCaptchaLogic struct {
@@ -34,7 +34,7 @@ func (l *GetLoginCaptchaLogic) GetLoginCaptcha() (resp *types.LoginCaptchaResp, 
 	c := base64Captcha.NewCaptcha(driver, store)
 	id, b64s, err := c.Generate()
 	val := store.Get(id, true)
-	captchaId := uuid.NewV4().String()
+	captchaId := utils2.NewUuid()
 	err = l.svcCtx.Redis.Setex(globalkey.SysLoginCaptchaCachePrefix+captchaId, val, 300)
 
 	return &types.LoginCaptchaResp{
