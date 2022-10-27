@@ -7,8 +7,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
-	"ark-admin-zero/config"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,7 +29,7 @@ func NewUpdateSysDeptLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateSysDeptLogic) UpdateSysDept(req *types.UpdateSysDeptReq) error {
-	if req.ParentId != config.SysTopParentId {
+	if req.ParentId != globalkey.SysTopParentId {
 		_, err := l.svcCtx.SysDeptModel.FindOne(l.ctx,req.ParentId)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ParentDeptIdErrorCode)

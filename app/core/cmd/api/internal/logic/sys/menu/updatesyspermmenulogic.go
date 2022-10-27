@@ -9,8 +9,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
-	"ark-admin-zero/config"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -32,16 +32,16 @@ func NewUpdateSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuReq) error {
 	userId := utils.GetUserId(l.ctx)
-	if userId != config.SysSuperUserId {
+	if userId != globalkey.SysSuperUserId {
 		for _, v := range req.Perms {
-			is, err := l.svcCtx.Redis.Sismember(config.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), config.SysPermMenuPrefix+v)
+			is, err := l.svcCtx.Redis.Sismember(globalkey.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), globalkey.SysPermMenuPrefix+v)
 			if err != nil || is != true {
 				return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
 			}
 		}
 	}
 
-	if req.ParentId != config.SysTopParentId {
+	if req.ParentId != globalkey.SysTopParentId {
 		parentPermMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.ParentId)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ParentPermMenuIdErrorCode)
@@ -52,7 +52,7 @@ func (l *UpdateSysPermMenuLogic) UpdateSysPermMenu(req *types.UpdateSysPermMenuR
 		}
 	}
 
-	if req.Id <= config.SysProtectPermMenuMaxId {
+	if req.Id <= globalkey.SysProtectPermMenuMaxId {
 		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
 	}
 

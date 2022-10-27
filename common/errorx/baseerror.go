@@ -1,6 +1,8 @@
 package errorx
 
-import "ark-admin-zero/config"
+import (
+	"ark-admin-zero/common/globalkey"
+)
 
 type CodeError struct {
 	Code int    `json:"code"`
@@ -25,7 +27,7 @@ func NewHandlerError(code int, msg string) error {
 }
 
 func NewSystemError(code int, msg string) error {
-	if config.SysShowSystemError {
+	if globalkey.SysShowSystemError {
 		return NewCodeError(code, msg)
 	} else {
 		return NewCodeError(code, MapErrMsg(code))

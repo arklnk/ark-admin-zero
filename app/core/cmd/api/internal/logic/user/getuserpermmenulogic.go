@@ -9,8 +9,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
-	"ark-admin-zero/config"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -33,7 +33,7 @@ func NewGetUserPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, err error) {
 	userId := utils.GetUserId(l.ctx)
 
-	online, err := l.svcCtx.Redis.Get(config.SysOnlineUserCachePrefix + strconv.FormatInt(userId, 10))
+	online, err := l.svcCtx.Redis.Get(globalkey.SysOnlineUserCachePrefix + strconv.FormatInt(userId, 10))
 	if err != nil || online == "" {
 		return nil, errorx.NewDefaultError(errorx.AuthErrorCode)
 	}
@@ -62,14 +62,14 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 	var menu types.Menu
 	menuList := make([]types.Menu, 0)
 	permList := make([]string, 0)
-	_, err = l.svcCtx.Redis.Del(config.SysPermMenuCachePrefix + strconv.FormatInt(userId, 10))
+	_, err = l.svcCtx.Redis.Del(globalkey.SysPermMenuCachePrefix + strconv.FormatInt(userId, 10))
 	for _, v := range userPermMenu {
 		err := copier.Copy(&menu, &v)
 		if err != nil {
 			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
 
-		if menu.Type != config.SysDefaultPermType {
+		if menu.Type != globalkey.SysDefaultPermType {
 			menuList = append(menuList, menu)
 		}
 		var permArray []string
@@ -79,7 +79,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 		}
 
 		for _, p := range permArray {
-			_, err := l.svcCtx.Redis.Sadd(config.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), config.SysPermMenuPrefix+p)
+			_, err := l.svcCtx.Redis.Sadd(globalkey.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), globalkey.SysPermMenuPrefix+p)
 			if err != nil {
 				return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 			}
@@ -92,7 +92,7 @@ func (l *GetUserPermMenuLogic) GetUserPermMenu() (resp *types.UserPermMenuResp, 
 }
 
 func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64) ([]*model.SysPermMenu, []int64, error) {
-	if utils.ArrayContainValue(roles, config.SysSuperRoleId) {
+	if utils.ArrayContainValue(roles, globalkey.SysSuperRoleId) {
 		sysPermMenus, err := l.svcCtx.SysPermMenuModel.FindAll(l.ctx)
 		if err != nil {
 			return nil, permMenu, err
@@ -123,21 +123,21 @@ func (l *GetUserPermMenuLogic) countUserPermMenu(roles []int64, permMenu []int64
 
 		// 过滤重复的权限id
 		permMenu = utils.ArrayUniqueValue[int64](permMenu)
-		var roleIds string
+		var ids string
 		for i, id := range permMenu {
 			if i == 0 {
-				roleIds = strconv.FormatInt(id, 10)
+				ids = strconv.FormatInt(id, 10)
 				continue
 			}
-			roleIds = roleIds + "," + strconv.FormatInt(id, 10)
+			ids = ids + "," + strconv.FormatInt(id, 10)
 		}
 
-		if len(roleIds) == 0 {
+		if len(ids) == 0 {
 			return nil, permMenu, nil
 		}
 
 		// 根据权限id获取具体权限
-		sysPermMenus, err := l.svcCtx.SysPermMenuModel.FindByIds(l.ctx, roleIds)
+		sysPermMenus, err := l.svcCtx.SysPermMenuModel.FindByIds(l.ctx, ids)
 		if err != nil {
 			return nil, permMenu, err
 		}

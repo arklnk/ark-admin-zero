@@ -8,8 +8,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
-	"ark-admin-zero/config"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -35,7 +35,7 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 		currentUserId := utils.GetUserId(l.ctx)
 		var currentUserRoleIds []int64
 		var roleIds []int64
-		if currentUserId == config.SysSuperUserId {
+		if currentUserId == globalkey.SysSuperUserId {
 			sysRoleList, _ := l.svcCtx.SysRoleModel.FindAll(l.ctx)
 			for _, role := range sysRoleList {
 				currentUserRoleIds = append(currentUserRoleIds, role.Id)
@@ -83,10 +83,10 @@ func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 		sysUser.RoleIds = string(bytes)
 		dictionary, err := l.svcCtx.SysDictionaryModel.FindOneByUniqueKey(l.ctx, "sys_pwd")
 		var password string
-		if dictionary.Status == config.SysEnable {
+		if dictionary.Status == globalkey.SysEnable {
 			password = dictionary.Value
 		} else {
-			password = config.SysNewUserDefaultPassword
+			password = globalkey.SysNewUserDefaultPassword
 		}
 
 		sysUser.Password = utils.MD5(password + l.svcCtx.Config.Salt)

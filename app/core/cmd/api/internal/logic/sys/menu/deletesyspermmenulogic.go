@@ -8,8 +8,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
-	"ark-admin-zero/config"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -30,7 +30,7 @@ func NewDeleteSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuReq) error {
 	currentUserId := utils.GetUserId(l.ctx)
-	if currentUserId != config.SysSuperUserId {
+	if currentUserId != globalkey.SysSuperUserId {
 		var currentUserPermMenuIds []int64
 		currentUserPermMenuIds = l.getCurrentUserPermMenuIds(currentUserId)
 		if !utils.ArrayContainValue(currentUserPermMenuIds, req.Id) {
@@ -38,7 +38,7 @@ func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuR
 		}
 	}
 
-	if req.Id <= config.SysProtectPermMenuMaxId {
+	if req.Id <= globalkey.SysProtectPermMenuMaxId {
 		return errorx.NewDefaultError(errorx.ForbiddenErrorCode)
 	}
 
@@ -57,7 +57,7 @@ func (l *DeleteSysPermMenuLogic) DeleteSysPermMenu(req *types.DeleteSysPermMenuR
 
 func (l *DeleteSysPermMenuLogic) getCurrentUserPermMenuIds(currentUserId int64) (ids []int64) {
 	var currentPermMenuIds []int64
-	if currentUserId != config.SysSuperUserId {
+	if currentUserId != globalkey.SysSuperUserId {
 		var currentUserRoleIds []int64
 		var roleIds []int64
 		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)

@@ -1,9 +1,11 @@
 package model
 
 import (
-	"ark-admin-zero/config"
 	"context"
 	"fmt"
+
+	"ark-admin-zero/common/globalkey"
+
 	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 )
@@ -34,7 +36,7 @@ func NewSysRoleModel(conn sqlx.SqlConn, c cache.CacheConf) SysRoleModel {
 }
 
 func (m *customSysRoleModel) FindAll(ctx context.Context) ([]*SysRole, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d ORDER BY order_num DESC", sysRoleRows, m.table, config.SysSuperRoleId)
+	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d ORDER BY order_num DESC", sysRoleRows, m.table, globalkey.SysSuperRoleId)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -46,7 +48,7 @@ func (m *customSysRoleModel) FindAll(ctx context.Context) ([]*SysRole, error) {
 }
 
 func (m *customSysRoleModel) FindEnable(ctx context.Context) ([]*SysRole, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 ORDER BY order_num DESC", sysRoleRows, m.table, config.SysSuperRoleId)
+	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 ORDER BY order_num DESC", sysRoleRows, m.table, globalkey.SysSuperRoleId)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {
@@ -58,7 +60,7 @@ func (m *customSysRoleModel) FindEnable(ctx context.Context) ([]*SysRole, error)
 }
 
 func (m *customSysRoleModel) FindByIds(ctx context.Context, ids string) ([]*SysRole, error) {
-	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 AND id IN(%s) ORDER BY order_num DESC", sysRoleRows, m.table, config.SysSuperRoleId, ids)
+	query := fmt.Sprintf("SELECT %s FROM %s  WHERE id!=%d AND status=1 AND id IN(%s) ORDER BY order_num DESC", sysRoleRows, m.table, globalkey.SysSuperRoleId, ids)
 	var resp []*SysRole
 	err := m.QueryRowsNoCacheCtx(ctx, &resp, query)
 	switch err {

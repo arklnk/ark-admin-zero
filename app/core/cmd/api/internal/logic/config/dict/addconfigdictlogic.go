@@ -7,7 +7,7 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
-	"ark-admin-zero/config"
+	"ark-admin-zero/common/globalkey"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -28,7 +28,7 @@ func NewAddConfigDictLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Add
 }
 
 func (l *AddConfigDictLogic) AddConfigDict(req *types.AddConfigDictReq) error {
-	if req.ParentId != config.SysTopParentId {
+	if req.ParentId != globalkey.SysTopParentId {
 		_, err := l.svcCtx.SysDictionaryModel.FindOne(l.ctx, req.ParentId)
 		if err != nil {
 			return errorx.NewDefaultError(errorx.ParentDictionaryIdErrorCode)

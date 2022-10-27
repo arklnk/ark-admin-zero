@@ -8,8 +8,8 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
+	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
-	"ark-admin-zero/config"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -37,7 +37,7 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 
 	currentUserId := utils.GetUserId(l.ctx)
 	var currentUserPermMenuIds []int64
-	if currentUserId != config.SysSuperUserId {
+	if currentUserId != globalkey.SysSuperUserId {
 		currentUserPermMenuIds = l.getCurrentUserPermMenuIds(currentUserId)
 	}
 
@@ -51,7 +51,7 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 		var perms []string
 		err = json.Unmarshal([]byte(v.Perms), &perms)
 		menu.Perms = perms
-		if currentUserId == config.SysSuperUserId {
+		if currentUserId == globalkey.SysSuperUserId {
 			menu.Has = 1
 		} else {
 			if utils.ArrayContainValue(currentUserPermMenuIds, v.Id) {
@@ -68,7 +68,7 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 
 func (l *GetSysPermMenuListLogic) getCurrentUserPermMenuIds(currentUserId int64) (ids []int64) {
 	var currentPermMenuIds []int64
-	if currentUserId != config.SysSuperUserId {
+	if currentUserId != globalkey.SysSuperUserId {
 		var currentUserRoleIds []int64
 		var roleIds []int64
 		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
