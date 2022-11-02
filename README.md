@@ -6,9 +6,9 @@ English | [简体中文](README-cn.md)
 
 Doc: [https://docs.arklnk.com](https://docs.arklnk.com)
 
-The back-end: [https://github.com/arklnk/ark-admin-vuenext](https://github.com/arklnk/ark-admin-vuenext)
+The back-end: [https://github.com/arklnk/ark-admin-zero](https://github.com/arklnk/ark-admin-zero)
 
-The front end：[https://github.com/arklnk/ark-admin-zero](https://github.com/arklnk/ark-admin-zero)
+The front end: [https://github.com/arklnk/ark-admin-vuenext](https://github.com/arklnk/ark-admin-vuenext)
 
 ## Online experience
 
