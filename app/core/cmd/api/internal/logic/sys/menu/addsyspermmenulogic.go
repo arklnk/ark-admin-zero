@@ -3,13 +3,11 @@ package menu
 import (
 	"context"
 	"encoding/json"
-	"strconv"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
 	"ark-admin-zero/common/errorx"
-	"ark-admin-zero/common/utils"
 	"ark-admin-zero/common/globalkey"
 
 	"github.com/jinzhu/copier"
@@ -31,16 +29,6 @@ func NewAddSysPermMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ad
 }
 
 func (l *AddSysPermMenuLogic) AddSysPermMenu(req *types.AddSysPermMenuReq) error {
-	userId := utils.GetUserId(l.ctx)
-	if userId != globalkey.SysSuperUserId {
-		for _, v := range req.Perms {
-			is, err := l.svcCtx.Redis.Sismember(globalkey.SysPermMenuCachePrefix+strconv.FormatInt(userId, 10), globalkey.SysPermMenuPrefix+v)
-			if err != nil || is != true {
-				return errorx.NewDefaultError(errorx.NotPermMenuErrorCode)
-			}
-		}
-	}
-
 	if req.ParentId != globalkey.SysTopParentId {
 		parentPermMenu, err := l.svcCtx.SysPermMenuModel.FindOne(l.ctx, req.ParentId)
 		if err != nil {
