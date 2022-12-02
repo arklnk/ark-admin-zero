@@ -9,7 +9,6 @@ import (
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/common/errorx"
 	"ark-admin-zero/common/globalkey"
-	"ark-admin-zero/common/utils"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -35,12 +34,6 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 		return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 	}
 
-	currentUserId := utils.GetUserId(l.ctx)
-	var currentUserPermMenuIds []int64
-	if currentUserId != globalkey.SysSuperUserId {
-		currentUserPermMenuIds = l.getCurrentUserPermMenuIds(currentUserId)
-	}
-
 	var menu types.PermMenu
 	PermMenuList := make([]types.PermMenu, 0)
 	for _, v := range permMenus {
@@ -48,18 +41,10 @@ func (l *GetSysPermMenuListLogic) GetSysPermMenuList() (resp *types.SysPermMenuL
 		if err != nil {
 			return nil, errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
 		}
+
 		var perms []string
 		err = json.Unmarshal([]byte(v.Perms), &perms)
 		menu.Perms = perms
-		if currentUserId == globalkey.SysSuperUserId {
-			menu.Has = 1
-		} else {
-			if utils.ArrayContainValue(currentUserPermMenuIds, v.Id) {
-				menu.Has = 1
-			} else {
-				menu.Has = 0
-			}
-		}
 		PermMenuList = append(PermMenuList, menu)
 	}
 

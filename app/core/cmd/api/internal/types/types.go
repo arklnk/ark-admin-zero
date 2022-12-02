@@ -91,7 +91,6 @@ type PermMenu struct {
 	ViewPath     string   `json:"viewPath"`
 	IsShow       int64    `json:"isShow"`
 	ActiveRouter string   `json:"activeRouter"`
-	Has          int64    `json:"has"`
 }
 
 type SysPermMenuListResp struct {
