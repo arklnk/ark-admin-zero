@@ -32,31 +32,6 @@ func NewAddSysUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddSys
 func (l *AddSysUserLogic) AddSysUser(req *types.AddSysUserReq) error {
 	_, err := l.svcCtx.SysUserModel.FindOneByAccount(l.ctx, req.Account)
 	if err == model.ErrNotFound {
-		currentUserId := utils.GetUserId(l.ctx)
-		var currentUserRoleIds []int64
-		var roleIds []int64
-		if currentUserId == globalkey.SysSuperUserId {
-			sysRoleList, _ := l.svcCtx.SysRoleModel.FindAll(l.ctx)
-			for _, role := range sysRoleList {
-				currentUserRoleIds = append(currentUserRoleIds, role.Id)
-				roleIds = append(roleIds, role.Id)
-			}
-
-		} else {
-			currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
-			err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRoleIds)
-			if err != nil {
-				return errorx.NewSystemError(errorx.ServerErrorCode, err.Error())
-			}
-
-			roleIds = append(roleIds, currentUserRoleIds...)
-		}
-
-		for _, id := range req.RoleIds {
-			if !utils.ArrayContainValue(roleIds, id) {
-				return errorx.NewDefaultError(errorx.AssigningRolesErrorCode)
-			}
-		}
 
 		_, err := l.svcCtx.SysDeptModel.FindOne(l.ctx, req.DeptId)
 		if err != nil {

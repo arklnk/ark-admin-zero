@@ -2,13 +2,10 @@ package user
 
 import (
 	"context"
-	"encoding/json"
-	"strconv"
 
 	"ark-admin-zero/app/core/cmd/api/internal/svc"
 	"ark-admin-zero/app/core/cmd/api/internal/types"
 	"ark-admin-zero/app/core/model"
-	"ark-admin-zero/common/globalkey"
 	"ark-admin-zero/common/utils"
 
 	"github.com/jinzhu/copier"
@@ -41,59 +38,16 @@ func (l *GetSysUserRdpjInfoLogic) GetSysUserRdpjInfo(req *types.GetSysUserRdpjIn
 
 func (l *GetSysUserRdpjInfoLogic) roleList(currentUserId int64, editUserId int64) []types.RoleTree {
 	var currentUserRoleIds []int64
-	var roleIds []int64
 	var sysRoleList []*model.SysRole
-	if currentUserId == globalkey.SysSuperUserId {
-		sysRoleList, _ = l.svcCtx.SysRoleModel.FindAll(l.ctx)
-		for _, role := range sysRoleList {
-			currentUserRoleIds=append(currentUserRoleIds,role.Id)
-		}
-		
-	} else {
-		currentUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, currentUserId)
-		err := json.Unmarshal([]byte(currentUser.RoleIds), &currentUserRoleIds)
-		if err != nil {
-			return nil
-		}
-		
-		roleIds = append(roleIds, currentUserRoleIds...)
-		if editUserId != 0 {
-			editUser, _ := l.svcCtx.SysUserModel.FindOne(l.ctx, editUserId)
-			var editUserRoleIds []int64
-			err := json.Unmarshal([]byte(editUser.RoleIds), &editUserRoleIds)
-			if err != nil {
-				return nil
-			}
-			
-			roleIds = append(roleIds, editUserRoleIds...)
-		}
-
-		var ids string
-		for i, v := range roleIds {
-			if i == 0 {
-				ids = strconv.FormatInt(v, 10)
-			}
-			
-			ids = ids + "," + strconv.FormatInt(v, 10)
-		}
-
-		sysRoleList, _ = l.svcCtx.SysRoleModel.FindByIds(l.ctx, ids)
+	sysRoleList, _ = l.svcCtx.SysRoleModel.FindAll(l.ctx)
+	for _, role := range sysRoleList {
+		currentUserRoleIds=append(currentUserRoleIds,role.Id)
 	}
 	
 	var role types.RoleTree
 	roleList := make([]types.RoleTree, 0)
 	for _, v := range sysRoleList {
-		err := copier.Copy(&role, &v)
-		if err != nil {
-			return nil
-		}
-		
-		if utils.ArrayContainValue(currentUserRoleIds, v.Id) {
-			role.Has = 1
-		} else {
-			role.Has = 0
-		}
-		
+		_ = copier.Copy(&role, &v)
 		roleList = append(roleList, role)
 	}
 

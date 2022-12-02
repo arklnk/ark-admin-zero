@@ -384,7 +384,6 @@ type RoleTree struct {
 	Id       int64  `json:"id"`
 	ParentId int64  `json:"parentId"`
 	Name     string `json:"name"`
-	Has      int64  `json:"has"`
 }
 
 type GetSysUserRdpjInfoResp struct {
