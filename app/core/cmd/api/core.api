@@ -8,22 +8,24 @@ info(
 	version: "v1.0.0"
 )
 
-// 全局共用结构体
-import "desc/common.api"
-
-// 用户公共模块
-import "desc/user/user.api"
-
-// 系统管理模块
-import "desc/sys/menu.api"
-import "desc/sys/role.api"
-import "desc/sys/dept.api"
-import "desc/sys/job.api"
-import "desc/sys/profession.api"
-import "desc/sys/user.api"
-
-// 配置管理模块
-import "desc/config/dict.api"
-
-// 日志管理模块
-import "desc/log/log.api"
+import (
+	// 全局共用结构体
+	"desc/common.api"
+	
+	// 用户公共模块
+	"desc/user/user.api"
+	
+	// 系统管理模块
+	"desc/sys/menu.api"
+	"desc/sys/role.api"
+	"desc/sys/dept.api"
+	"desc/sys/job.api"
+	"desc/sys/profession.api"
+	"desc/sys/user.api"
+	
+	// 配置管理模块
+	"desc/config/dict.api"
+	
+	// 日志管理模块
+	"desc/log/log.api"
+)
