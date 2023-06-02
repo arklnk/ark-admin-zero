@@ -13,8 +13,8 @@ type Pagination struct {
 }
 
 type LoginReq struct {
-	CaptchaId  string `json:"captchaId"   label:"验证码id"`
-	VerifyCode string `json:"verifyCode"  label:"验证码"`
+	CaptchaId  string `json:"captcha_id"   label:"验证码id"`
+	VerifyCode string `json:"verify_code"  label:"验证码"`
 	Account    string `json:"account"     label:"账号"`
 	Password   string `json:"password"    label:"密码"`
 }
@@ -49,15 +49,15 @@ type UpdateProfileReq struct {
 
 type Menu struct {
 	Id           int64  `json:"id"`
-	ParentId     int64  `json:"parentId"`
+	ParentId     int64  `json:"parent_id"`
 	Name         string `json:"name"`
 	Router       string `json:"router"`
 	Type         int64  `json:"type"`
 	Icon         string `json:"icon"`
-	OrderNum     int64  `json:"orderNum"`
-	ViewPath     string `json:"viewPath"`
-	IsShow       int64  `json:"isShow"`
-	ActiveRouter string `json:"activeRouter"`
+	OrderNum     int64  `json:"order_num"`
+	ViewPath     string `json:"view_path"`
+	IsShow       int64  `json:"is_show"`
+	ActiveRouter string `json:"active_router"`
 }
 
 type UserPermMenuResp struct {
@@ -66,13 +66,13 @@ type UserPermMenuResp struct {
 }
 
 type UpdatePasswordReq struct {
-	OldPassword string `json:"oldPassword"  validate:"min=6,max=12"  label:"旧密码"`
-	NewPassword string `json:"newPassword"  validate:"min=6,max=12"  label:"新密码"`
+	OldPassword string `json:"old_password"  validate:"min=6,max=12"  label:"旧密码"`
+	NewPassword string `json:"new_password"  validate:"min=6,max=12"  label:"新密码"`
 }
 
 type LoginCaptchaResp struct {
-	CaptchaId  string `json:"captchaId"`
-	VerifyCode string `json:"verifyCode"`
+	CaptchaId  string `json:"captcha_id"`
+	VerifyCode string `json:"verify_code"`
 }
 
 type GenerateAvatarResp struct {
@@ -81,16 +81,16 @@ type GenerateAvatarResp struct {
 
 type PermMenu struct {
 	Id           int64    `json:"id"`
-	ParentId     int64    `json:"parentId"`
+	ParentId     int64    `json:"parent_id"`
 	Name         string   `json:"name"`
 	Router       string   `json:"router"`
 	Perms        []string `json:"perms"`
 	Type         int64    `json:"type"`
 	Icon         string   `json:"icon"`
-	OrderNum     int64    `json:"orderNum"`
-	ViewPath     string   `json:"viewPath"`
-	IsShow       int64    `json:"isShow"`
-	ActiveRouter string   `json:"activeRouter"`
+	OrderNum     int64    `json:"order_num"`
+	ViewPath     string   `json:"view_path"`
+	IsShow       int64    `json:"is_show"`
+	ActiveRouter string   `json:"active_router"`
 }
 
 type SysPermMenuListResp struct {
@@ -98,16 +98,16 @@ type SysPermMenuListResp struct {
 }
 
 type AddSysPermMenuReq struct {
-	ParentId     int64    `json:"parentId"      validate:"number,gte=0"           label:"父级菜单id"`
+	ParentId     int64    `json:"parent_id"      validate:"number,gte=0"           label:"父级菜单id"`
 	Name         string   `json:"name"          validate:"min=2,max=50"           label:"菜单名称"`
 	Router       string   `json:"router"        validate:"omitempty,max=1024"     label:"路由"`
 	Perms        []string `json:"perms"         validate:"omitempty,unique"       label:"权限"`
 	Type         int64    `json:"type"          validate:"number,gte=0,lte=2"     label:"类型"`
 	Icon         string   `json:"icon"          validate:"omitempty,max=200"      label:"图标"`
-	OrderNum     int64    `json:"orderNum"      validate:"number,gte=0,lte=9999"  label:"排序"`
-	ViewPath     string   `json:"viewPath"      validate:"omitempty,max=1024"     label:"视图路径"`
-	IsShow       int64    `json:"isShow"        validate:"number,gte=0,lte=1"     label:"显示状态"`
-	ActiveRouter string   `json:"activeRouter"  validate:"omitempty,max=1024"     label:"激活路由"`
+	OrderNum     int64    `json:"order_num"      validate:"number,gte=0,lte=9999"  label:"排序"`
+	ViewPath     string   `json:"view_path"      validate:"omitempty,max=1024"     label:"视图路径"`
+	IsShow       int64    `json:"is_show"        validate:"number,gte=0,lte=1"     label:"显示状态"`
+	ActiveRouter string   `json:"active_router"  validate:"omitempty,max=1024"     label:"激活路由"`
 }
 
 type DeleteSysPermMenuReq struct {
@@ -116,27 +116,27 @@ type DeleteSysPermMenuReq struct {
 
 type UpdateSysPermMenuReq struct {
 	Id           int64    `json:"id"            validate:"number,gte=1"           label:"菜单id"`
-	ParentId     int64    `json:"parentId"      validate:"number,gte=0"           label:"父级菜单id"`
+	ParentId     int64    `json:"parent_id"      validate:"number,gte=0"           label:"父级菜单id"`
 	Name         string   `json:"name"          validate:"min=2,max=50"           label:"菜单名称"`
 	Router       string   `json:"router"        validate:"omitempty,max=1024"     label:"路由"`
 	Perms        []string `json:"perms"         validate:"omitempty,unique"       label:"权限"`
 	Type         int64    `json:"type"          validate:"number,gte=0,lte=2"     label:"类型"`
 	Icon         string   `json:"icon"          validate:"omitempty,max=200"      label:"图标"`
-	OrderNum     int64    `json:"orderNum"      validate:"number,gte=0,lte=9999"  label:"排序"`
-	ViewPath     string   `json:"viewPath"      validate:"omitempty,max=1024"     label:"视图路径"`
-	IsShow       int64    `json:"isShow"        validate:"number,gte=0,lte=1"     label:"显示状态"`
-	ActiveRouter string   `json:"activeRouter"  validate:"omitempty,max=1024"     label:"激活路由"`
+	OrderNum     int64    `json:"order_num"      validate:"number,gte=0,lte=9999"  label:"排序"`
+	ViewPath     string   `json:"view_path"      validate:"omitempty,max=1024"     label:"视图路径"`
+	IsShow       int64    `json:"is_show"        validate:"number,gte=0,lte=1"     label:"显示状态"`
+	ActiveRouter string   `json:"active_router"  validate:"omitempty,max=1024"     label:"激活路由"`
 }
 
 type Role struct {
 	Id          int64   `json:"id"`
-	ParentId    int64   `json:"parentId"`
+	ParentId    int64   `json:"parent_id"`
 	Name        string  `json:"name"`
-	UniqueKey   string  `json:"uniqueKey"`
-	PermMenuIds []int64 `json:"permMenuIds"`
+	UniqueKey   string  `json:"unique_key"`
+	PermMenuIds []int64 `json:"perm_menu_ids"`
 	Remark      string  `json:"remark"`
 	Status      int64   `json:"status"`
-	OrderNum    int64   `json:"orderNum"`
+	OrderNum    int64   `json:"order_num"`
 }
 
 type SysRoleListResp struct {
@@ -144,13 +144,13 @@ type SysRoleListResp struct {
 }
 
 type AddSysRoleReq struct {
-	ParentId    int64   `json:"parentId"     validate:"number,gte=0"          label:"父级角色id"`
+	ParentId    int64   `json:"parent_id"     validate:"number,gte=0"          label:"父级角色id"`
 	Name        string  `json:"name"         validate:"min=2,max=50"          label:"角色名称"`
-	UniqueKey   string  `json:"uniqueKey"    validate:"min=2,max=50"          label:"角色标识"`
-	PermMenuIds []int64 `json:"permMenuIds"  validate:"omitempty,unique"      label:"权限ids"`
+	UniqueKey   string  `json:"unique_key"    validate:"min=2,max=50"          label:"角色标识"`
+	PermMenuIds []int64 `json:"perm_menu_ids"  validate:"omitempty,unique"      label:"权限ids"`
 	Remark      string  `json:"remark"       validate:"max=200"               label:"备注"`
 	Status      int64   `json:"status"       validate:"number,gte=0,lte=1"    label:"状态"`
-	OrderNum    int64   `json:"orderNum"     validate:"number,gte=0,lte=9999" label:"排序"`
+	OrderNum    int64   `json:"order_num"     validate:"number,gte=0,lte=9999" label:"排序"`
 }
 
 type DeleteSysRoleReq struct {
@@ -159,24 +159,24 @@ type DeleteSysRoleReq struct {
 
 type UpdateSysRoleReq struct {
 	Id          int64   `json:"id"           validate:"number,gte=1"           label:"角色id"`
-	ParentId    int64   `json:"parentId"     validate:"number,gte=0"           label:"父级角色id"`
+	ParentId    int64   `json:"parent_id"     validate:"number,gte=0"           label:"父级角色id"`
 	Name        string  `json:"name"         validate:"min=2,max=50"           label:"角色名称"`
-	UniqueKey   string  `json:"uniqueKey"    validate:"min=2,max=50"           label:"角色标识"`
-	PermMenuIds []int64 `json:"permMenuIds"  validate:"omitempty,unique"       label:"权限ids"`
+	UniqueKey   string  `json:"unique_key"    validate:"min=2,max=50"           label:"角色标识"`
+	PermMenuIds []int64 `json:"perm_menu_ids"  validate:"omitempty,unique"       label:"权限ids"`
 	Remark      string  `json:"remark"       validate:"max=200"                label:"备注"`
 	Status      int64   `json:"status"       validate:"number,gte=0,lte=1"     label:"状态"`
-	OrderNum    int64   `json:"orderNum"     validate:"number,gte=0,lte=9999"  label:"排序"`
+	OrderNum    int64   `json:"order_num"     validate:"number,gte=0,lte=9999"  label:"排序"`
 }
 
 type Dept struct {
 	Id        int64  `json:"id"`
-	ParentId  int64  `json:"parentId"`
+	ParentId  int64  `json:"parent_id"`
 	Name      string `json:"name"`
-	FullName  string `json:"fullName"`
-	UniqueKey string `json:"uniqueKey"`
+	FullName  string `json:"full_name"`
+	UniqueKey string `json:"unique_key"`
 	Type      int64  `json:"type"`
 	Status    int64  `json:"status"`
-	OrderNum  int64  `json:"orderNum"`
+	OrderNum  int64  `json:"order_num"`
 	Remark    string `json:"remark"`
 }
 
@@ -185,13 +185,13 @@ type SysDeptListResp struct {
 }
 
 type AddSysDeptReq struct {
-	ParentId  int64  `json:"parentId"   validate:"number,gte=0"            label:"父级部门id"`
+	ParentId  int64  `json:"parent_id"   validate:"number,gte=0"            label:"父级部门id"`
 	Name      string `json:"name"       validate:"min=2,max=50"            label:"部门名称"`
-	FullName  string `json:"fullName"   validate:"omitempty,min=2,max=50"  label:"部门全称"`
-	UniqueKey string `json:"uniqueKey"  validate:"min=2,max=50"            label:"部门标识"`
+	FullName  string `json:"full_name"   validate:"omitempty,min=2,max=50"  label:"部门全称"`
+	UniqueKey string `json:"unique_key"  validate:"min=2,max=50"            label:"部门标识"`
 	Type      int64  `json:"type"       validate:"number,gte=1,lte=3"      label:"部门类型"`
 	Status    int64  `json:"status"     validate:"number,gte=0,lte=1"      label:"状态"`
-	OrderNum  int64  `json:"orderNum"   validate:"number,gte=0,lte=9999"   label:"排序"`
+	OrderNum  int64  `json:"order_num"   validate:"number,gte=0,lte=9999"   label:"排序"`
 	Remark    string `json:"remark"     validate:"max=200"                 label:"备注"`
 }
 
@@ -201,13 +201,13 @@ type DeleteSysDeptReq struct {
 
 type UpdateSysDeptReq struct {
 	Id        int64  `json:"id"         validate:"number,gte=1"            label:"部门id"`
-	ParentId  int64  `json:"parentId"   validate:"number,gte=0"            label:"父级部门id"`
+	ParentId  int64  `json:"parent_id"   validate:"number,gte=0"            label:"父级部门id"`
 	Name      string `json:"name"       validate:"min=2,max=50"            label:"部门名称"`
-	FullName  string `json:"fullName"   validate:"omitempty,min=2,max=50"  label:"部门全称"`
-	UniqueKey string `json:"uniqueKey"  validate:"min=2,max=50"            label:"部门标识"`
+	FullName  string `json:"full_name"   validate:"omitempty,min=2,max=50"  label:"部门全称"`
+	UniqueKey string `json:"unique_key"  validate:"min=2,max=50"            label:"部门标识"`
 	Type      int64  `json:"type"       validate:"number,gte=1,lte=3"      label:"部门类型"`
 	Status    int64  `json:"status"     validate:"number,gte=0,lte=1"      label:"状态"`
-	OrderNum  int64  `json:"orderNum"   validate:"number,gte=0,lte=9999"   label:"排序"`
+	OrderNum  int64  `json:"order_num"   validate:"number,gte=0,lte=9999"   label:"排序"`
 	Remark    string `json:"remark"     validate:"max=200"                 label:"备注"`
 }
 
@@ -215,7 +215,7 @@ type Job struct {
 	Id       int64  `json:"id"`
 	Name     string `json:"name"`
 	Status   int64  `json:"status"`
-	OrderNum int64  `json:"orderNum"`
+	OrderNum int64  `json:"order_num"`
 }
 
 type SysJobPageReq struct {
@@ -230,7 +230,7 @@ type SysJobPageResp struct {
 type AddSysJobReq struct {
 	Name     string `json:"name"      validate:"min=2,max=50"           label:"岗位名称"`
 	Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
-	OrderNum int64  `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
+	OrderNum int64  `json:"order_num"  validate:"number,gte=0,lte=9999"  label:"排序"`
 }
 
 type DeleteSysJobReq struct {
@@ -241,14 +241,14 @@ type UpdateSysJobReq struct {
 	Id       int64  `json:"id"        validate:"number,gte=1"           label:"岗位id"`
 	Name     string `json:"name"      validate:"min=2,max=50"           label:"岗位名称"`
 	Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
-	OrderNum int64  `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
+	OrderNum int64  `json:"order_num"  validate:"number,gte=0,lte=9999"  label:"排序"`
 }
 
 type Profession struct {
 	Id       int64  `json:"id"`
 	Name     string `json:"name"`
 	Status   int64  `json:"status"`
-	OrderNum int64  `json:"orderNum"`
+	OrderNum int64  `json:"order_num"`
 }
 
 type SysProfessionPageReq struct {
@@ -263,7 +263,7 @@ type SysProfessionPageResp struct {
 type AddSysProfessionReq struct {
 	Name     string `json:"name"      validate:"min=2,max=50"           label:"职称"`
 	Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
-	OrderNum int64  `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
+	OrderNum int64  `json:"order_num"  validate:"number,gte=0,lte=9999"  label:"排序"`
 }
 
 type DeleteSysProfessionReq struct {
@@ -274,7 +274,7 @@ type UpdateSysProfessionReq struct {
 	Id       int64  `json:"id"        validate:"number,gte=1"           label:"职称id"`
 	Name     string `json:"name"      validate:"min=2,max=50"           label:"职称"`
 	Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
-	OrderNum int64  `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
+	OrderNum int64  `json:"order_num"  validate:"number,gte=0,lte=9999"  label:"排序"`
 }
 
 type UserProfession struct {
@@ -310,13 +310,13 @@ type User struct {
 	Dept       UserDept       `json:"dept"`
 	Roles      []UserRole     `json:"roles"`
 	Status     int64          `json:"status"`
-	OrderNum   int64          `json:"orderNum"`
+	OrderNum   int64          `json:"order_num"`
 	Remark     string         `json:"remark"`
 }
 
 type SysUserPageReq struct {
 	PageReq
-	DeptId int64 `form:"deptId"  validate:"number,gte=0" label:"部门id"`
+	DeptId int64 `form:"dept_id"  validate:"number,gte=0" label:"部门id"`
 }
 
 type SysUserPageResp struct {
@@ -331,12 +331,12 @@ type AddSysUserReq struct {
 	Gender       int64   `json:"gender"        validate:"number,gte=0,lte=2"      label:"性别"`
 	Email        string  `json:"email"         validate:"omitempty,email"         label:"邮箱"`
 	Mobile       string  `json:"mobile"        validate:"omitempty,min=11"        label:"手机号"`
-	ProfessionId int64   `json:"professionId"  validate:"number,gte=1"            label:"职称id"`
-	JobId        int64   `json:"jobId"         validate:"number,gte=1"            label:"岗位id"`
-	DeptId       int64   `json:"deptId"        validate:"number,gte=1"            label:"部门id"`
-	RoleIds      []int64 `json:"roleIds"       validate:"unique"                  label:"角色ids"`
+	ProfessionId int64   `json:"profession_id"  validate:"number,gte=1"            label:"职称id"`
+	JobId        int64   `json:"job_id"         validate:"number,gte=1"            label:"岗位id"`
+	DeptId       int64   `json:"dept_id"        validate:"number,gte=1"            label:"部门id"`
+	RoleIds      []int64 `json:"role_ids"       validate:"unique"                  label:"角色ids"`
 	Status       int64   `json:"status"        validate:"number,gte=0,lte=1"      label:"状态"`
-	OrderNum     int64   `json:"orderNum"      validate:"number,gte=0,lte=9999"   label:"排序"`
+	OrderNum     int64   `json:"order_num"      validate:"number,gte=0,lte=9999"   label:"排序"`
 	Remark       string  `json:"remark"        validate:"max=200"                 label:"备注"`
 }
 
@@ -351,12 +351,12 @@ type UpdateSysUserReq struct {
 	Gender       int64   `json:"gender"        validate:"number,gte=0,lte=2"      label:"性别"`
 	Email        string  `json:"email"         validate:"omitempty,email"         label:"邮箱"`
 	Mobile       string  `json:"mobile"        validate:"omitempty,min=11"        label:"手机号"`
-	ProfessionId int64   `json:"professionId"  validate:"number,gte=1"            label:"职称id"`
-	JobId        int64   `json:"jobId"         validate:"number,gte=1"            label:"岗位id"`
-	DeptId       int64   `json:"deptId"        validate:"number,gte=1"            label:"部门id"`
-	RoleIds      []int64 `json:"roleIds"       validate:"unique"                  label:"角色ids"`
+	ProfessionId int64   `json:"profession_id"  validate:"number,gte=1"            label:"职称id"`
+	JobId        int64   `json:"job_id"         validate:"number,gte=1"            label:"岗位id"`
+	DeptId       int64   `json:"dept_id"        validate:"number,gte=1"            label:"部门id"`
+	RoleIds      []int64 `json:"role_ids"       validate:"unique"                  label:"角色ids"`
 	Status       int64   `json:"status"        validate:"number,gte=0,lte=1"      label:"状态"`
-	OrderNum     int64   `json:"orderNum"      validate:"number,gte=0,lte=9999"   label:"排序"`
+	OrderNum     int64   `json:"order_num"      validate:"number,gte=0,lte=9999"   label:"排序"`
 	Remark       string  `json:"remark"        validate:"max=200"                 label:"备注"`
 }
 
@@ -366,7 +366,7 @@ type UpdateSysUserPasswordReq struct {
 }
 
 type GetSysUserRdpjInfoReq struct {
-	UserId int64 `form:"userId"  validate:"number,gte=0"  label:"用户id"`
+	UserId int64 `form:"user_id"  validate:"number,gte=0"  label:"用户id"`
 }
 
 type Rdpj struct {
@@ -376,13 +376,13 @@ type Rdpj struct {
 
 type DeptTree struct {
 	Id       int64  `json:"id"`
-	ParentId int64  `json:"parentId"`
+	ParentId int64  `json:"parent_id"`
 	Name     string `json:"name"`
 }
 
 type RoleTree struct {
 	Id       int64  `json:"id"`
-	ParentId int64  `json:"parentId"`
+	ParentId int64  `json:"parent_id"`
 	Name     string `json:"name"`
 }
 
@@ -395,12 +395,12 @@ type GetSysUserRdpjInfoResp struct {
 
 type ConfigDict struct {
 	Id        int64  `json:"id"`
-	ParentId  int64  `json:"parentId"`
+	ParentId  int64  `json:"parent_id"`
 	Name      string `json:"name"`
 	Type      int64  `json:"type"`
-	UniqueKey string `json:"uniqueKey"`
+	UniqueKey string `json:"unique_key"`
 	Value     string `json:"value"`
-	OrderNum  int64  `json:"orderNum"`
+	OrderNum  int64  `json:"order_num"`
 	Remark    string `json:"remark"`
 	Status    int64  `json:"status"`
 }
@@ -411,7 +411,7 @@ type ConfigDictListResp struct {
 
 type ConfigDictPageReq struct {
 	PageReq
-	ParentId int64 `form:"parentId"  validate:"number,gte=0" label:"字典集id"`
+	ParentId int64 `form:"parent_id"  validate:"number,gte=0" label:"字典集id"`
 }
 
 type ConfigDictPageResp struct {
@@ -420,12 +420,12 @@ type ConfigDictPageResp struct {
 }
 
 type AddConfigDictReq struct {
-	ParentId  int64  `json:"parentId"   validate:"number,gte=0"         label:"字典集id"`
+	ParentId  int64  `json:"parent_id"   validate:"number,gte=0"         label:"字典集id"`
 	Name      string `json:"name"       validate:"min=2,max=50"         label:"名称"`
 	Type      int64  `json:"type"       validate:"number,gte=1,lte=12"  label:"类型"`
-	UniqueKey string `json:"uniqueKey"  validate:"min=2,max=50"         label:"标识"`
+	UniqueKey string `json:"unique_key"  validate:"min=2,max=50"         label:"标识"`
 	Value     string `json:"value"      validate:"max=2048"             label:"字典项值"`
-	OrderNum  int64  `json:"orderNum"   validate:"gte=0,lte=9999"       label:"排序"`
+	OrderNum  int64  `json:"order_num"   validate:"gte=0,lte=9999"       label:"排序"`
 	Remark    string `json:"remark"     validate:"max=200"              label:"备注"`
 	Status    int64  `json:"status"     validate:"number,gte=0,lte=1"   label:"状态"`
 }
@@ -436,11 +436,11 @@ type DeleteConfigDictReq struct {
 
 type UpdateConfigDictReq struct {
 	Id       int64  `json:"id"         validate:"number,gte=1"         label:"字典id"`
-	ParentId int64  `json:"parentId"   validate:"number,gte=0"         label:"字典集id"`
+	ParentId int64  `json:"parent_id"   validate:"number,gte=0"         label:"字典集id"`
 	Name     string `json:"name"       validate:"min=2,max=50"         label:"名称"`
 	Type     int64  `json:"type"       validate:"number,gte=1,lte=12"  label:"类型"`
 	Value    string `json:"value"      validate:"max=2048"             label:"字典项值"`
-	OrderNum int64  `json:"orderNum"   validate:"gte=0,lte=9999"       label:"排序"`
+	OrderNum int64  `json:"order_num"   validate:"gte=0,lte=9999"       label:"排序"`
 	Remark   string `json:"remark"     validate:"max=200"              label:"备注"`
 	Status   int64  `json:"status"     validate:"number,gte=0,lte=1"   label:"状态"`
 }
@@ -451,7 +451,7 @@ type LogLogin struct {
 	Ip         string `json:"ip"`
 	Uri        string `json:"uri"`
 	Status     int64  `json:"status"`
-	CreateTime string `json:"createTime"`
+	CreateTime string `json:"create_time"`
 }
 
 type LogLoginPageReq struct {

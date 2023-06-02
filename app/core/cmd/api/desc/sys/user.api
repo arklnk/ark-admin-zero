@@ -37,12 +37,12 @@ type (
 		Dept       UserDept       `json:"dept"`
 		Roles      []UserRole     `json:"roles"`
 		Status     int64          `json:"status"`
-		OrderNum   int64          `json:"orderNum"`
+		OrderNum   int64          `json:"order_num"`
 		Remark     string         `json:"remark"`
 	}
 	SysUserPageReq {
 		PageReq
-		DeptId int64 `form:"deptId"  validate:"number,gte=0" label:"部门id"`
+		DeptId int64 `form:"dept_id"  validate:"number,gte=0" label:"部门id"`
 	}
 	SysUserPageResp {
 		List   []User     `json:"list"`
@@ -58,12 +58,12 @@ type (
 		Gender       int64    `json:"gender"        validate:"number,gte=0,lte=2"      label:"性别"`
 		Email        string   `json:"email"         validate:"omitempty,email"         label:"邮箱"`
 		Mobile       string   `json:"mobile"        validate:"omitempty,min=11"        label:"手机号"`
-		ProfessionId int64    `json:"professionId"  validate:"number,gte=1"            label:"职称id"`
-		JobId        int64    `json:"jobId"         validate:"number,gte=1"            label:"岗位id"`
-		DeptId       int64    `json:"deptId"        validate:"number,gte=1"            label:"部门id"`
-		RoleIds      []int64  `json:"roleIds"       validate:"unique"                  label:"角色ids"`
+		ProfessionId int64    `json:"profession_id"  validate:"number,gte=1"            label:"职称id"`
+		JobId        int64    `json:"job_id"         validate:"number,gte=1"            label:"岗位id"`
+		DeptId       int64    `json:"dept_id"        validate:"number,gte=1"            label:"部门id"`
+		RoleIds      []int64  `json:"role_ids"       validate:"unique"                  label:"角色ids"`
 		Status       int64    `json:"status"        validate:"number,gte=0,lte=1"      label:"状态"`
-		OrderNum     int64    `json:"orderNum"      validate:"number,gte=0,lte=9999"   label:"排序"`
+		OrderNum     int64    `json:"order_num"      validate:"number,gte=0,lte=9999"   label:"排序"`
 		Remark       string   `json:"remark"        validate:"max=200"                 label:"备注"`
 	}
 )
@@ -82,12 +82,12 @@ type (
 		Gender       int64    `json:"gender"        validate:"number,gte=0,lte=2"      label:"性别"`
 		Email        string   `json:"email"         validate:"omitempty,email"         label:"邮箱"`
 		Mobile       string   `json:"mobile"        validate:"omitempty,min=11"        label:"手机号"`
-		ProfessionId int64    `json:"professionId"  validate:"number,gte=1"            label:"职称id"`
-		JobId        int64    `json:"jobId"         validate:"number,gte=1"            label:"岗位id"`
-		DeptId       int64    `json:"deptId"        validate:"number,gte=1"            label:"部门id"`
-		RoleIds      []int64  `json:"roleIds"       validate:"unique"                  label:"角色ids"`
+		ProfessionId int64    `json:"profession_id"  validate:"number,gte=1"            label:"职称id"`
+		JobId        int64    `json:"job_id"         validate:"number,gte=1"            label:"岗位id"`
+		DeptId       int64    `json:"dept_id"        validate:"number,gte=1"            label:"部门id"`
+		RoleIds      []int64  `json:"role_ids"       validate:"unique"                  label:"角色ids"`
 		Status       int64    `json:"status"        validate:"number,gte=0,lte=1"      label:"状态"`
-		OrderNum     int64    `json:"orderNum"      validate:"number,gte=0,lte=9999"   label:"排序"`
+		OrderNum     int64    `json:"order_num"      validate:"number,gte=0,lte=9999"   label:"排序"`
 		Remark       string   `json:"remark"        validate:"max=200"                 label:"备注"`
 	}
 )
@@ -101,7 +101,7 @@ type (
 
 type (
 	GetSysUserRdpjInfoReq {
-		UserId int64 `form:"userId"  validate:"number,gte=0"  label:"用户id"`
+		UserId int64 `form:"user_id"  validate:"number,gte=0"  label:"用户id"`
 	}
 	Rdpj {
 		Id   int64  `json:"id"`
@@ -109,12 +109,12 @@ type (
 	}
 	DeptTree {
 		Id       int64  `json:"id"`
-		ParentId int64  `json:"parentId"`
+		ParentId int64  `json:"parent_id"`
 		Name     string `json:"name"`
 	}
 	RoleTree {
 		Id       int64  `json:"id"`
-		ParentId int64  `json:"parentId"`
+		ParentId int64  `json:"parent_id"`
 		Name     string `json:"name"`
 	}
 	GetSysUserRdpjInfoResp {

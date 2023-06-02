@@ -14,7 +14,7 @@ type (
 		Ip         string `json:"ip"`
 		Uri        string `json:"uri"`
 		Status     int64  `json:"status"`
-		CreateTime string `json:"createTime"`
+		CreateTime string `json:"create_time"`
 	}
 	LogLoginPageReq {
 		PageReq

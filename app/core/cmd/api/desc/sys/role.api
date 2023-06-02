@@ -10,13 +10,13 @@ info(
 type (
 	Role {
 		Id          int64    `json:"id"`
-		ParentId    int64    `json:"parentId"`
+		ParentId    int64    `json:"parent_id"`
 		Name        string   `json:"name"`
-		UniqueKey   string   `json:"uniqueKey"`
-		PermMenuIds []int64  `json:"permMenuIds"`
+		UniqueKey   string   `json:"unique_key"`
+		PermMenuIds []int64  `json:"perm_menu_ids"`
 		Remark      string   `json:"remark"`
 		Status      int64    `json:"status"`
-		OrderNum    int64    `json:"orderNum"`
+		OrderNum    int64    `json:"order_num"`
 	}
 	SysRoleListResp {
 		List []Role `json:"list"`
@@ -25,13 +25,13 @@ type (
 
 type (
 	AddSysRoleReq {
-		ParentId    int64    `json:"parentId"     validate:"number,gte=0"          label:"父级角色id"`
+		ParentId    int64    `json:"parent_id"     validate:"number,gte=0"          label:"父级角色id"`
 		Name        string   `json:"name"         validate:"min=2,max=50"          label:"角色名称"`
-		UniqueKey   string   `json:"uniqueKey"    validate:"min=2,max=50"          label:"角色标识"`
-		PermMenuIds []int64  `json:"permMenuIds"  validate:"omitempty,unique"      label:"权限ids"`
+		UniqueKey   string   `json:"unique_key"    validate:"min=2,max=50"          label:"角色标识"`
+		PermMenuIds []int64  `json:"perm_menu_ids"  validate:"omitempty,unique"      label:"权限ids"`
 		Remark      string   `json:"remark"       validate:"max=200"               label:"备注"`
 		Status      int64    `json:"status"       validate:"number,gte=0,lte=1"    label:"状态"`
-		OrderNum    int64    `json:"orderNum"     validate:"number,gte=0,lte=9999" label:"排序"`
+		OrderNum    int64    `json:"order_num"     validate:"number,gte=0,lte=9999" label:"排序"`
 	}
 )
 
@@ -44,13 +44,13 @@ type (
 type (
 	UpdateSysRoleReq {
 		Id          int64    `json:"id"           validate:"number,gte=1"           label:"角色id"`
-		ParentId    int64    `json:"parentId"     validate:"number,gte=0"           label:"父级角色id"`
+		ParentId    int64    `json:"parent_id"     validate:"number,gte=0"           label:"父级角色id"`
 		Name        string   `json:"name"         validate:"min=2,max=50"           label:"角色名称"`
-		UniqueKey   string   `json:"uniqueKey"    validate:"min=2,max=50"           label:"角色标识"`
-		PermMenuIds []int64  `json:"permMenuIds"  validate:"omitempty,unique"       label:"权限ids"`
+		UniqueKey   string   `json:"unique_key"    validate:"min=2,max=50"           label:"角色标识"`
+		PermMenuIds []int64  `json:"perm_menu_ids"  validate:"omitempty,unique"       label:"权限ids"`
 		Remark      string   `json:"remark"       validate:"max=200"                label:"备注"`
 		Status      int64    `json:"status"       validate:"number,gte=0,lte=1"     label:"状态"`
-		OrderNum    int64    `json:"orderNum"     validate:"number,gte=0,lte=9999"  label:"排序"`
+		OrderNum    int64    `json:"order_num"     validate:"number,gte=0,lte=9999"  label:"排序"`
 	}
 )
 

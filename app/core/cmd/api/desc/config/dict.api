@@ -10,12 +10,12 @@ info(
 type (
 	ConfigDict {
 		Id        int64  `json:"id"`
-		ParentId  int64  `json:"parentId"`
+		ParentId  int64  `json:"parent_id"`
 		Name      string `json:"name"`
 		Type      int64  `json:"type"`
-		UniqueKey string `json:"uniqueKey"`
+		UniqueKey string `json:"unique_key"`
 		Value     string `json:"value"`
-		OrderNum  int64  `json:"orderNum"`
+		OrderNum  int64  `json:"order_num"`
 		Remark    string `json:"remark"`
 		Status    int64  `json:"status"`
 	}
@@ -27,7 +27,7 @@ type (
 type (
 	ConfigDictPageReq {
 		PageReq
-		ParentId int64 `form:"parentId"  validate:"number,gte=0" label:"字典集id"`
+		ParentId int64 `form:"parent_id"  validate:"number,gte=0" label:"字典集id"`
 	}
 	ConfigDictPageResp {
 		List        []ConfigDict `json:"list"`
@@ -37,12 +37,12 @@ type (
 
 type (
 	AddConfigDictReq {
-		ParentId  int64 `json:"parentId"   validate:"number,gte=0"         label:"字典集id"`
+		ParentId  int64 `json:"parent_id"   validate:"number,gte=0"         label:"字典集id"`
 		Name      string `json:"name"       validate:"min=2,max=50"         label:"名称"`
 		Type      int64 `json:"type"       validate:"number,gte=1,lte=12"  label:"类型"`
-		UniqueKey string `json:"uniqueKey"  validate:"min=2,max=50"         label:"标识"`
+		UniqueKey string `json:"unique_key"  validate:"min=2,max=50"         label:"标识"`
 		Value     string `json:"value"      validate:"max=2048"             label:"字典项值"`
-		OrderNum  int64 `json:"orderNum"   validate:"gte=0,lte=9999"       label:"排序"`
+		OrderNum  int64 `json:"order_num"   validate:"gte=0,lte=9999"       label:"排序"`
 		Remark    string `json:"remark"     validate:"max=200"              label:"备注"`
 		Status    int64 `json:"status"     validate:"number,gte=0,lte=1"   label:"状态"`
 	}
@@ -57,11 +57,11 @@ type (
 type (
 	UpdateConfigDictReq {
 		Id        int64 `json:"id"         validate:"number,gte=1"         label:"字典id"`
-		ParentId  int64 `json:"parentId"   validate:"number,gte=0"         label:"字典集id"`
+		ParentId  int64 `json:"parent_id"   validate:"number,gte=0"         label:"字典集id"`
 		Name      string `json:"name"       validate:"min=2,max=50"         label:"名称"`
 		Type      int64 `json:"type"       validate:"number,gte=1,lte=12"  label:"类型"`
 		Value     string `json:"value"      validate:"max=2048"             label:"字典项值"`
-		OrderNum  int64 `json:"orderNum"   validate:"gte=0,lte=9999"       label:"排序"`
+		OrderNum  int64 `json:"order_num"   validate:"gte=0,lte=9999"       label:"排序"`
 		Remark    string `json:"remark"     validate:"max=200"              label:"备注"`
 		Status    int64 `json:"status"     validate:"number,gte=0,lte=1"   label:"状态"`
 	}

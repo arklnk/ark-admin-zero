@@ -12,7 +12,7 @@ type (
 		Id       int64  `json:"id"`
 		Name     string `json:"name"`
 		Status   int64  `json:"status"`
-		OrderNum int64  `json:"orderNum"`
+		OrderNum int64  `json:"order_num"`
 	}
 	SysProfessionPageReq {
 		PageReq
@@ -27,7 +27,7 @@ type (
 	AddSysProfessionReq {
 		Name     string `json:"name"      validate:"min=2,max=50"           label:"职称"`
 		Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
-		OrderNum int64  `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
+		OrderNum int64  `json:"order_num"  validate:"number,gte=0,lte=9999"  label:"排序"`
 	}
 )
 
@@ -42,7 +42,7 @@ type (
 		Id       int64  `json:"id"        validate:"number,gte=1"           label:"职称id"`
 		Name     string `json:"name"      validate:"min=2,max=50"           label:"职称"`
 		Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
-		OrderNum int64  `json:"orderNum"  validate:"number,gte=0,lte=9999"  label:"排序"`
+		OrderNum int64  `json:"order_num"  validate:"number,gte=0,lte=9999"  label:"排序"`
 	}
 )
 
