@@ -9,8 +9,8 @@ info(
 
 type (
 	LoginReq {
-		CaptchaId  string `json:"captchaId"   label:"验证码id"`
-		VerifyCode string `json:"verifyCode"  label:"验证码"`
+		CaptchaId  string `json:"captcha_id"   label:"验证码id"`
+		VerifyCode string `json:"verify_code"  label:"验证码"`
 		Account    string `json:"account"     label:"账号"`
 		Password   string `json:"password"    label:"密码"`
 	}
@@ -52,15 +52,15 @@ type (
 type (
 	Menu {
 		Id           int64  `json:"id"`
-		ParentId     int64  `json:"parentId"`
+		ParentId     int64  `json:"parent_id"`
 		Name         string `json:"name"`
 		Router       string `json:"router"`
 		Type         int64  `json:"type"`
 		Icon         string `json:"icon"`
-		OrderNum     int64  `json:"orderNum"`
-		ViewPath     string `json:"viewPath"`
-		IsShow       int64  `json:"isShow"`
-		ActiveRouter string `json:"activeRouter"`
+		OrderNum     int64  `json:"order_num"`
+		ViewPath     string `json:"view_path"`
+		IsShow       int64  `json:"is_show"`
+		ActiveRouter string `json:"active_router"`
 	}
 	UserPermMenuResp {
 		Menus []Menu   `json:"menus"`
@@ -70,15 +70,15 @@ type (
 
 type (
 	UpdatePasswordReq {
-		OldPassword string `json:"oldPassword"  validate:"min=6,max=12"  label:"旧密码"`
-		NewPassword string `json:"newPassword"  validate:"min=6,max=12"  label:"新密码"`
+		OldPassword string `json:"old_password"  validate:"min=6,max=12"  label:"旧密码"`
+		NewPassword string `json:"new_password"  validate:"min=6,max=12"  label:"新密码"`
 	}
 )
 
 type (
 	LoginCaptchaResp {
-		CaptchaId  string `json:"captchaId"`
-		VerifyCode string `json:"verifyCode"`
+		CaptchaId  string `json:"captcha_id"`
+		VerifyCode string `json:"verify_code"`
 	}
 )
 
