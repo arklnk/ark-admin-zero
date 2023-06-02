@@ -106,7 +106,7 @@ type AddSysPermMenuReq struct {
 	Icon         string   `json:"icon"          validate:"omitempty,max=200"      label:"图标"`
 	OrderNum     int64    `json:"order_num"      validate:"number,gte=0,lte=9999"  label:"排序"`
 	ViewPath     string   `json:"view_path"      validate:"omitempty,max=1024"     label:"视图路径"`
-	IsShow       int64    `json:"is_show"        validate:"number,gte=0,lte=1"     label:"显示状态"`
+	IsShow       int64    `json:"is_show"        validate:"number,gte=1,lte=2"     label:"显示状态"`
 	ActiveRouter string   `json:"active_router"  validate:"omitempty,max=1024"     label:"激活路由"`
 }
 
@@ -124,7 +124,7 @@ type UpdateSysPermMenuReq struct {
 	Icon         string   `json:"icon"          validate:"omitempty,max=200"      label:"图标"`
 	OrderNum     int64    `json:"order_num"      validate:"number,gte=0,lte=9999"  label:"排序"`
 	ViewPath     string   `json:"view_path"      validate:"omitempty,max=1024"     label:"视图路径"`
-	IsShow       int64    `json:"is_show"        validate:"number,gte=0,lte=1"     label:"显示状态"`
+	IsShow       int64    `json:"is_show"        validate:"number,gte=1,lte=2"     label:"显示状态"`
 	ActiveRouter string   `json:"active_router"  validate:"omitempty,max=1024"     label:"激活路由"`
 }
 
@@ -149,7 +149,7 @@ type AddSysRoleReq struct {
 	UniqueKey   string  `json:"unique_key"    validate:"min=2,max=50"          label:"角色标识"`
 	PermMenuIds []int64 `json:"perm_menu_ids"  validate:"omitempty,unique"      label:"权限ids"`
 	Remark      string  `json:"remark"       validate:"max=200"               label:"备注"`
-	Status      int64   `json:"status"       validate:"number,gte=0,lte=1"    label:"状态"`
+	Status      int64   `json:"status"       validate:"number,gte=1,lte=2"    label:"状态"`
 	OrderNum    int64   `json:"order_num"     validate:"number,gte=0,lte=9999" label:"排序"`
 }
 
@@ -164,7 +164,7 @@ type UpdateSysRoleReq struct {
 	UniqueKey   string  `json:"unique_key"    validate:"min=2,max=50"           label:"角色标识"`
 	PermMenuIds []int64 `json:"perm_menu_ids"  validate:"omitempty,unique"       label:"权限ids"`
 	Remark      string  `json:"remark"       validate:"max=200"                label:"备注"`
-	Status      int64   `json:"status"       validate:"number,gte=0,lte=1"     label:"状态"`
+	Status      int64   `json:"status"       validate:"number,gte=1,lte=2"     label:"状态"`
 	OrderNum    int64   `json:"order_num"     validate:"number,gte=0,lte=9999"  label:"排序"`
 }
 
@@ -190,7 +190,7 @@ type AddSysDeptReq struct {
 	FullName  string `json:"full_name"   validate:"omitempty,min=2,max=50"  label:"部门全称"`
 	UniqueKey string `json:"unique_key"  validate:"min=2,max=50"            label:"部门标识"`
 	Type      int64  `json:"type"       validate:"number,gte=1,lte=3"      label:"部门类型"`
-	Status    int64  `json:"status"     validate:"number,gte=0,lte=1"      label:"状态"`
+	Status    int64  `json:"status"     validate:"number,gte=1,lte=2"      label:"状态"`
 	OrderNum  int64  `json:"order_num"   validate:"number,gte=0,lte=9999"   label:"排序"`
 	Remark    string `json:"remark"     validate:"max=200"                 label:"备注"`
 }
@@ -206,7 +206,7 @@ type UpdateSysDeptReq struct {
 	FullName  string `json:"full_name"   validate:"omitempty,min=2,max=50"  label:"部门全称"`
 	UniqueKey string `json:"unique_key"  validate:"min=2,max=50"            label:"部门标识"`
 	Type      int64  `json:"type"       validate:"number,gte=1,lte=3"      label:"部门类型"`
-	Status    int64  `json:"status"     validate:"number,gte=0,lte=1"      label:"状态"`
+	Status    int64  `json:"status"     validate:"number,gte=1,lte=2"      label:"状态"`
 	OrderNum  int64  `json:"order_num"   validate:"number,gte=0,lte=9999"   label:"排序"`
 	Remark    string `json:"remark"     validate:"max=200"                 label:"备注"`
 }
@@ -229,7 +229,7 @@ type SysJobPageResp struct {
 
 type AddSysJobReq struct {
 	Name     string `json:"name"      validate:"min=2,max=50"           label:"岗位名称"`
-	Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
+	Status   int64  `json:"status"    validate:"number,gte=1,lte=2"     label:"状态"`
 	OrderNum int64  `json:"order_num"  validate:"number,gte=0,lte=9999"  label:"排序"`
 }
 
@@ -240,7 +240,7 @@ type DeleteSysJobReq struct {
 type UpdateSysJobReq struct {
 	Id       int64  `json:"id"        validate:"number,gte=1"           label:"岗位id"`
 	Name     string `json:"name"      validate:"min=2,max=50"           label:"岗位名称"`
-	Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
+	Status   int64  `json:"status"    validate:"number,gte=1,lte=2"     label:"状态"`
 	OrderNum int64  `json:"order_num"  validate:"number,gte=0,lte=9999"  label:"排序"`
 }
 
@@ -262,7 +262,7 @@ type SysProfessionPageResp struct {
 
 type AddSysProfessionReq struct {
 	Name     string `json:"name"      validate:"min=2,max=50"           label:"职称"`
-	Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
+	Status   int64  `json:"status"    validate:"number,gte=1,lte=2"     label:"状态"`
 	OrderNum int64  `json:"order_num"  validate:"number,gte=0,lte=9999"  label:"排序"`
 }
 
@@ -273,7 +273,7 @@ type DeleteSysProfessionReq struct {
 type UpdateSysProfessionReq struct {
 	Id       int64  `json:"id"        validate:"number,gte=1"           label:"职称id"`
 	Name     string `json:"name"      validate:"min=2,max=50"           label:"职称"`
-	Status   int64  `json:"status"    validate:"number,gte=0,lte=1"     label:"状态"`
+	Status   int64  `json:"status"    validate:"number,gte=1,lte=2"     label:"状态"`
 	OrderNum int64  `json:"order_num"  validate:"number,gte=0,lte=9999"  label:"排序"`
 }
 
@@ -335,7 +335,7 @@ type AddSysUserReq struct {
 	JobId        int64   `json:"job_id"         validate:"number,gte=1"            label:"岗位id"`
 	DeptId       int64   `json:"dept_id"        validate:"number,gte=1"            label:"部门id"`
 	RoleIds      []int64 `json:"role_ids"       validate:"unique"                  label:"角色ids"`
-	Status       int64   `json:"status"        validate:"number,gte=0,lte=1"      label:"状态"`
+	Status       int64   `json:"status"        validate:"number,gte=1,lte=2"      label:"状态"`
 	OrderNum     int64   `json:"order_num"      validate:"number,gte=0,lte=9999"   label:"排序"`
 	Remark       string  `json:"remark"        validate:"max=200"                 label:"备注"`
 }
@@ -355,7 +355,7 @@ type UpdateSysUserReq struct {
 	JobId        int64   `json:"job_id"         validate:"number,gte=1"            label:"岗位id"`
 	DeptId       int64   `json:"dept_id"        validate:"number,gte=1"            label:"部门id"`
 	RoleIds      []int64 `json:"role_ids"       validate:"unique"                  label:"角色ids"`
-	Status       int64   `json:"status"        validate:"number,gte=0,lte=1"      label:"状态"`
+	Status       int64   `json:"status"        validate:"number,gte=1,lte=2"      label:"状态"`
 	OrderNum     int64   `json:"order_num"      validate:"number,gte=0,lte=9999"   label:"排序"`
 	Remark       string  `json:"remark"        validate:"max=200"                 label:"备注"`
 }
@@ -427,7 +427,7 @@ type AddConfigDictReq struct {
 	Value     string `json:"value"      validate:"max=2048"             label:"字典项值"`
 	OrderNum  int64  `json:"order_num"   validate:"gte=0,lte=9999"       label:"排序"`
 	Remark    string `json:"remark"     validate:"max=200"              label:"备注"`
-	Status    int64  `json:"status"     validate:"number,gte=0,lte=1"   label:"状态"`
+	Status    int64  `json:"status"     validate:"number,gte=1,lte=2"   label:"状态"`
 }
 
 type DeleteConfigDictReq struct {
@@ -442,7 +442,7 @@ type UpdateConfigDictReq struct {
 	Value    string `json:"value"      validate:"max=2048"             label:"字典项值"`
 	OrderNum int64  `json:"order_num"   validate:"gte=0,lte=9999"       label:"排序"`
 	Remark   string `json:"remark"     validate:"max=200"              label:"备注"`
-	Status   int64  `json:"status"     validate:"number,gte=0,lte=1"   label:"状态"`
+	Status   int64  `json:"status"     validate:"number,gte=1,lte=2"   label:"状态"`
 }
 
 type LogLogin struct {

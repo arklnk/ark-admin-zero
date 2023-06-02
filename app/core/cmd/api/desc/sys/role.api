@@ -30,7 +30,7 @@ type (
 		UniqueKey   string   `json:"unique_key"    validate:"min=2,max=50"          label:"角色标识"`
 		PermMenuIds []int64  `json:"perm_menu_ids"  validate:"omitempty,unique"      label:"权限ids"`
 		Remark      string   `json:"remark"       validate:"max=200"               label:"备注"`
-		Status      int64    `json:"status"       validate:"number,gte=0,lte=1"    label:"状态"`
+		Status      int64    `json:"status"       validate:"number,gte=1,lte=2"    label:"状态"`
 		OrderNum    int64    `json:"order_num"     validate:"number,gte=0,lte=9999" label:"排序"`
 	}
 )
@@ -49,7 +49,7 @@ type (
 		UniqueKey   string   `json:"unique_key"    validate:"min=2,max=50"           label:"角色标识"`
 		PermMenuIds []int64  `json:"perm_menu_ids"  validate:"omitempty,unique"       label:"权限ids"`
 		Remark      string   `json:"remark"       validate:"max=200"                label:"备注"`
-		Status      int64    `json:"status"       validate:"number,gte=0,lte=1"     label:"状态"`
+		Status      int64    `json:"status"       validate:"number,gte=1,lte=2"     label:"状态"`
 		OrderNum    int64    `json:"order_num"     validate:"number,gte=0,lte=9999"  label:"排序"`
 	}
 )

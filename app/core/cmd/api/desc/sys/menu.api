@@ -36,7 +36,7 @@ type (
 		Icon         string   `json:"icon"          validate:"omitempty,max=200"      label:"图标"`
 		OrderNum     int64    `json:"order_num"      validate:"number,gte=0,lte=9999"  label:"排序"`
 		ViewPath     string   `json:"view_path"      validate:"omitempty,max=1024"     label:"视图路径"`
-		IsShow       int64    `json:"is_show"        validate:"number,gte=0,lte=1"     label:"显示状态"`
+		IsShow       int64    `json:"is_show"        validate:"number,gte=1,lte=2"     label:"显示状态"`
 		ActiveRouter string   `json:"active_router"  validate:"omitempty,max=1024"     label:"激活路由"`
 	}
 )
@@ -58,7 +58,7 @@ type (
 		Icon         string   `json:"icon"          validate:"omitempty,max=200"      label:"图标"`
 		OrderNum     int64    `json:"order_num"      validate:"number,gte=0,lte=9999"  label:"排序"`
 		ViewPath     string   `json:"view_path"      validate:"omitempty,max=1024"     label:"视图路径"`
-		IsShow       int64    `json:"is_show"        validate:"number,gte=0,lte=1"     label:"显示状态"`
+		IsShow       int64    `json:"is_show"        validate:"number,gte=1,lte=2"     label:"显示状态"`
 		ActiveRouter string   `json:"active_router"  validate:"omitempty,max=1024"     label:"激活路由"`
 	}
 )
