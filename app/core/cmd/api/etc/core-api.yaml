@@ -1,10 +1,8 @@
 Name: core-api
 Host: 0.0.0.0
-Port: 7001
+Port: 8001
 Mode: dev
 Salt: K8i8mTfc5sTXO7OG
-Timeout: 30000
-
 
 Log:
   ServiceName: admin-api #服务名称
@@ -21,24 +19,19 @@ Log:
   Rotation: daily #`json:",default=daily,options=[daily,size]"`
   Stat: true   #是否开启stat服务，1.4.4版本新增参数`json:",default=true"`
 
-
-
 JwtAuth:
   AccessSecret: kRZ3kA7LuB4LqOWi
   AccessExpire: 86400
 
 Mysql:
-  DataSource: root:fdsladyafaf@tcp(127.0.0.1:3306)/ark_admin?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:root@tcp(mysql:3306)/ark_admin?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 
-# Redis配置
-Redis:
-  Host: 127.0.0.1:6379
-  Pass:
-  Type: node
-
-
-# Redis缓存配置
 Cache:
-  - Host: 127.0.0.1:6379
-    Pass:
+  - Host: redis:6379
+    Pass: "123456"
     Type: node
+
+Redis:
+  Host: redis:6379
+  Pass: "123456"
+  Type: node
