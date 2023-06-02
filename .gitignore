@@ -1,2 +1,13 @@
-.idea
+.idea/*
+.DS_Store
+
 /data/
+
+
+logs/*
+storage/*
+vendor/*
+.vscode
+download
+app/core/cmd/api/etc/core-api-localhost.yaml
+

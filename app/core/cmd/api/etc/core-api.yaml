@@ -5,9 +5,19 @@ Mode: dev
 Salt: K8i8mTfc5sTXO7OG
 
 Log:
-  Mode: console
-  Path: logs/core
-  KeepDays: 7
+  ServiceName: admin-api #服务名称
+  Mode: console  #日志模式,console-输出到console,file-输出到当前服务器(容器)文件,volume-输出docker挂在文件内
+  Encoding: plain  #日志展示方式，开发选择plain，生产json default=json,options=[json,plain]
+  TimeFormat: 2006-01-02T15:04:05.000Z07     #时间格式
+  Path: logs/rpc/admin-api   #日志存储路径，默认logs
+  Level: error     #日志写入级别 info|error|severe
+  Compress: true  #是否开启gzip压缩
+  KeepDays: 15     #日志保留天数
+  StackCooldownMillis: 100 #日志write间隔，默认100  #多少毫秒后再次写入堆栈跟踪。用来避免堆栈跟踪日志过多
+  MaxBackups: 0 #default=0
+  MaxSize: 0 #default=0
+  Rotation: daily #`json:",default=daily,options=[daily,size]"`
+  Stat: true   #是否开启stat服务，1.4.4版本新增参数`json:",default=true"`
 
 JwtAuth:
   AccessSecret: kRZ3kA7LuB4LqOWi
